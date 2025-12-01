@@ -1,11 +1,10 @@
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
-import { Welcome } from '../components/Welcome/Welcome';
+import { BasicAppShell } from '@/AppShell';
+import { Dashboard } from '@/components/Dashboard/Dashboard';
 
 export function HomePage() {
   return (
-    <>
-      <Welcome />
-      <ColorSchemeToggle />
-    </>
+    <BasicAppShell>
+      <Dashboard />
+    </BasicAppShell>
   );
 }
