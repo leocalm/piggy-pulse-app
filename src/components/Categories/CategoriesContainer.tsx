@@ -105,7 +105,6 @@ export function CategoriesContainer() {
                       budgetLimit={stats.budgetLimit}
                       onEdit={() => {}} // Connect to edit modal
                       onDelete={onDeleteCategory} // Connect to delete mutation
-                      onClick={(cat) => navigate(`/categories/${cat.id}`)}
                     />
                   );
                 })}
