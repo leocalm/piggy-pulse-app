@@ -1,10 +1,13 @@
+;
+// components/transactions/QuickAddTransaction/QuickAddTransaction.test.tsx
 // components/transactions/QuickAddTransaction/QuickAddTransaction.test.tsx
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MantineProvider } from '@mantine/core';
-import { QuickAddTransaction } from './QuickAddTransaction';
+import { QuickAddTransaction } from './QuickAddTransaction'; // Mock hooks
+
 
 // Mock hooks
 vi.mock('@/hooks/useAccounts', () => ({
@@ -152,7 +155,7 @@ describe('QuickAddTransaction', () => {
     const user = userEvent.setup();
 
     // Mock successful submission
-    mockCreateTransaction.mockImplementation((data, { onSuccess }) => {
+    mockCreateTransaction.mockImplementation(({ onSuccess }) => {
       onSuccess();
     });
 
@@ -261,8 +264,6 @@ describe('QuickAddTransaction', () => {
   });
 
   it('shows loading state while submitting', async () => {
-    const user = userEvent.setup();
-
     // Mock pending state
     vi.mock('@/hooks/useTransactions', () => ({
       useCreateTransaction: () => ({
@@ -272,10 +273,5 @@ describe('QuickAddTransaction', () => {
     }));
 
     renderComponent();
-
-    const submitButton = screen.getByRole('button', { name: /plus/i });
-
-    // In loading state, button should show loading indicator
-    // This depends on Mantine Button's loading prop implementation
   });
 });

@@ -10,7 +10,7 @@ type CategoryTypeFilter = 'all' | 'Incoming' | 'Outgoing' | 'Transfer';
 
 export function CategoriesContainer() {
   const navigate = useNavigate();
-  const { data: categories, isLoading } = useCategories();
+  const { data: categories } = useCategories();
   const [typeFilter, setTypeFilter] = useState<CategoryTypeFilter>('all');
   const deleteMutation = useDeleteCategory();
 

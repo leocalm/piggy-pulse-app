@@ -22,8 +22,7 @@ export function RegisterPage() {
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
-    console.log(values);
+  const handleSubmit = () => {
     // TODO: Implement registration logic
     navigate('/dashboard');
   };
