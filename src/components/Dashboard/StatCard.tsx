@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Group, Paper, rem, Skeleton, Text, useMantineColorScheme } from '@mantine/core';
+import { Card, Group, Paper, rem, Skeleton, Text } from '@mantine/core';
 
 interface StatCardProps {
   icon: React.ElementType;
@@ -26,9 +26,6 @@ export function StatCard({
   loading,
   onClick,
 }: StatCardProps) {
-  const { colorScheme } = useMantineColorScheme();
-  const isDark = colorScheme === 'dark';
-
   if (loading) {
     return (
       <Paper p="lg" radius="md" withBorder>

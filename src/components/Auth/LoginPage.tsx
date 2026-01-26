@@ -28,8 +28,7 @@ export function LoginPage() {
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
-    console.log(values);
+  const handleSubmit = () => {
     // TODO: Implement login logic
     navigate('/dashboard');
   };

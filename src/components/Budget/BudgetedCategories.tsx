@@ -43,7 +43,6 @@ export function BudgetedCategories({
   });
 
   React.useEffect(() => {
-    console.log(editingId);
     if (editingId) {
       const category = categories?.find((c) => c.id === editingId);
       if (category) {

@@ -15,8 +15,7 @@ export function ForgotPasswordPage() {
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
-    console.log(values);
+  const handleSubmit = () => {
     // TODO: Implement reset logic
   };
 

@@ -3,13 +3,11 @@ import { Grid, Stack, Text, Title } from '@mantine/core';
 import { BasicAppShell } from '@/AppShell';
 import { TransactionsTable } from '@/components/Transactions';
 import { useBudgetPeriodSelection } from '@/context/BudgetContext';
-import { useBudgetPeriods } from '@/hooks/useBudget';
 import { useTransactions } from '@/hooks/useTransactions';
 
 export function TransactionsPage() {
   const { t } = useTranslation();
-  const { data: periods = [] } = useBudgetPeriods();
-  const { selectedPeriodId, setSelectedPeriodId } = useBudgetPeriodSelection();
+  const { selectedPeriodId } = useBudgetPeriodSelection();
 
   const { data: transactions, isLoading, isError } = useTransactions(selectedPeriodId);
 
