@@ -48,25 +48,19 @@ export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check if accounts are rendered - use getAllByText since "Checking" appears multiple times
+    // Check if accounts are rendered
     const checkingElements = canvas.getAllByText('Checking');
     await expect(checkingElements.length).toBeGreaterThan(0);
 
     const savingsElements = canvas.getAllByText('Savings');
     await expect(savingsElements.length).toBeGreaterThan(0);
 
-    // Get menu buttons - there should be one per account
-    const menuButtons = canvas.getAllByRole('button');
+    // Find the delete action buttons by title attribute
+    const deleteButtons = canvas.getAllByTitle('Delete');
+    await expect(deleteButtons.length).toBeGreaterThan(0);
 
-    // Open menu for the first account (Checking account)
-    await userEvent.click(menuButtons[0]);
-
-    // Wait for menu to appear (it's in a portal, so look in body)
-    const body = within(document.body);
-    const deleteButton = await body.findByText('Delete Account');
-
-    // Click delete
-    await userEvent.click(deleteButton);
+    // Click delete for the first account (Checking account)
+    await userEvent.click(deleteButtons[0]);
 
     // Wait for account to be removed - all "Checking" texts should be gone
     await waitFor(() => {
