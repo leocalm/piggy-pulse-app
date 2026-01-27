@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Table, Text } from '@mantine/core';
+import { Table, Text } from '@mantine/core';
 import { TransactionResponse } from '@/types/transaction';
 import { TransactionRow } from './TransactionRow';
 
@@ -39,58 +39,42 @@ export const TransactionGroup = ({
   baseAnimationDelay = 0,
 }: TransactionGroupProps) => {
   return (
-    <Box
-      style={{
-        borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-      }}
-    >
+    <>
       {/* Date Header */}
-      <Box
+      <Table.Tr
         style={{
-          padding: '16px 32px',
           background: 'rgba(255, 255, 255, 0.02)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '16px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
         }}
       >
-        <Text
-          style={{
-            fontSize: '12px',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
-            color: '#5a6272',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {formatDateHeader(date)}
-        </Text>
-        <Box
-          style={{
-            flex: 1,
-            height: '1px',
-            background: 'rgba(255, 255, 255, 0.06)',
-          }}
-        />
-      </Box>
+        <Table.Td colSpan={6} style={{ padding: '16px 16px' }}>
+          <Text
+            style={{
+              fontSize: '12px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: '#5a6272',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {formatDateHeader(date)}
+          </Text>
+        </Table.Td>
+      </Table.Tr>
 
       {/* Transaction Rows */}
-      <Table>
-        <Table.Tbody>
-          {transactions.map((transaction, index) => (
-            <TransactionRow
-              key={transaction.id}
-              transaction={transaction}
-              onEdit={onEdit}
-              onDelete={onDelete}
-              onClick={onClick}
-              animationDelay={baseAnimationDelay + index * 0.05}
-            />
-          ))}
-        </Table.Tbody>
-      </Table>
-    </Box>
+      {transactions.map((transaction, index) => (
+        <TransactionRow
+          key={transaction.id}
+          transaction={transaction}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onClick={onClick}
+          animationDelay={baseAnimationDelay + index * 0.05}
+        />
+      ))}
+    </>
   );
 };
 

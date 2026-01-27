@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
 import { IconPlus, IconX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Collapse, Divider, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { Box, Button, Collapse, Divider, Paper, Stack, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useAccounts, useDeleteAccount } from '@/hooks/useAccounts';
+import { PageHeader } from '../Transactions/PageHeader';
 import { AccountsSummary } from './AccountsSummary';
 import { AccountsTableView, AccountStats } from './AccountsTableView';
 import { CreateAccountForm } from './CreateAccountForm';
@@ -64,72 +65,76 @@ export function AccountsContainer() {
   const accountCount = accounts?.length ?? 0;
 
   return (
-    <Stack gap="xl">
-      {/* Header */}
-      <Group justify="space-between" align="flex-start">
-        <div>
-          <Title order={2} fw={700} mb="xs">
-            Accounts
-          </Title>
-          <Text size="sm" c="dimmed">
-            Manage your banks, wallets, and credit cards.
-          </Text>
-        </div>
-        <Button
-          onClick={toggleCreate}
-          variant={createOpened ? 'light' : 'filled'}
-          color={createOpened ? 'gray' : undefined}
-          leftSection={createOpened ? <IconX size={18} /> : <IconPlus size={18} />}
-          className={createOpened ? undefined : styles.addButton}
-        >
-          {createOpened ? 'Cancel' : 'Add Account'}
-        </Button>
-      </Group>
+    <Box
+      style={{
+        maxWidth: '1400px',
+        margin: '0 auto',
+        padding: '32px',
+      }}
+    >
+      <Stack gap="xl">
+        {/* Header */}
+        <PageHeader
+          title="Accounts"
+          subtitle="Manage your banks, wallets, and credit cards."
+          actions={
+            <Button
+              onClick={toggleCreate}
+              variant={createOpened ? 'light' : 'filled'}
+              color={createOpened ? 'gray' : undefined}
+              leftSection={createOpened ? <IconX size={18} /> : <IconPlus size={18} />}
+              className={createOpened ? undefined : styles.addButton}
+            >
+              {createOpened ? 'Cancel' : 'Add Account'}
+            </Button>
+          }
+        />
 
-      {/* Create Account Form (collapsible) */}
-      <Collapse in={createOpened}>
-        <Paper
-          withBorder
-          p="xl"
-          radius="md"
-          mb="xl"
-          style={{
-            background: 'var(--bg-card)',
-            borderColor: 'var(--border-subtle)',
-          }}
-        >
-          <Stack gap="md">
-            <div>
-              <Text fw={700} size="lg">
-                New Account Details
-              </Text>
-              <Text size="xs" c="dimmed">
-                Fill in the information below to add a new account to your budget.
-              </Text>
-            </div>
-            <Divider variant="dashed" />
-            <CreateAccountForm onAccountCreated={closeCreate} />
-          </Stack>
-        </Paper>
-      </Collapse>
+        {/* Create Account Form (collapsible) */}
+        <Collapse in={createOpened}>
+          <Paper
+            withBorder
+            p="xl"
+            radius="md"
+            mb="xl"
+            style={{
+              background: 'var(--bg-card)',
+              borderColor: 'var(--border-subtle)',
+            }}
+          >
+            <Stack gap="md">
+              <div>
+                <Text fw={700} size="lg">
+                  New Account Details
+                </Text>
+                <Text size="xs" c="dimmed">
+                  Fill in the information below to add a new account to your budget.
+                </Text>
+              </div>
+              <Divider variant="dashed" />
+              <CreateAccountForm onAccountCreated={closeCreate} />
+            </Stack>
+          </Paper>
+        </Collapse>
 
-      {/* Summary Cards */}
-      <AccountsSummary
-        totalAssets={summary.totalAssets}
-        totalLiabilities={summary.totalLiabilities}
-        netWorth={summary.netWorth}
-        accountCount={accountCount}
-      />
+        {/* Summary Cards */}
+        <AccountsSummary
+          totalAssets={summary.totalAssets}
+          totalLiabilities={summary.totalLiabilities}
+          netWorth={summary.netWorth}
+          accountCount={accountCount}
+        />
 
-      {/* Accounts Grid */}
-      <AccountsTableView
-        accounts={accounts}
-        isLoading={isLoading}
-        onDelete={(id) => deleteMutation.mutate(id)}
-        onAccountUpdated={() => {}}
-        accountStats={accountStats}
-        onViewDetails={(account) => navigate(`/accounts/${account.id}`)}
-      />
-    </Stack>
+        {/* Accounts Grid */}
+        <AccountsTableView
+          accounts={accounts}
+          isLoading={isLoading}
+          onDelete={(id) => deleteMutation.mutate(id)}
+          onAccountUpdated={() => {}}
+          accountStats={accountStats}
+          onViewDetails={(account) => navigate(`/accounts/${account.id}`)}
+        />
+      </Stack>
+    </Box>
   );
 }

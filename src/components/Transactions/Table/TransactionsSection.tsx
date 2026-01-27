@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Text, TextInput } from '@mantine/core';
+import { Box, Table, Text, TextInput } from '@mantine/core';
 import { TransactionResponse } from '@/types/transaction';
 import { groupTransactionsByDate, TransactionGroup } from './TransactionGroup';
 
@@ -100,49 +100,76 @@ export const TransactionsSection = ({
       </Box>
 
       {/* Transaction Groups */}
-      <Box>
-        {Array.from(groupedTransactions.entries()).map(([date, groupTransactions]) => {
-          const currentDelay = cumulativeDelay;
-          cumulativeDelay += groupTransactions.length * 0.05;
-
-          return (
-            <TransactionGroup
-              key={date}
-              date={date}
-              transactions={groupTransactions}
-              onEdit={onEdit}
-              onDelete={onDelete}
-              onClick={onClick}
-              baseAnimationDelay={currentDelay}
-            />
-          );
-        })}
-
-        {/* Empty State */}
-        {transactions.length === 0 && (
-          <Box
+      {transactions.length > 0 ? (
+        <Table verticalSpacing="sm">
+          <Table.Thead
             style={{
-              padding: '64px 32px',
-              textAlign: 'center',
+              background: 'rgba(255, 255, 255, 0.02)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
             }}
           >
-            <Text style={{ fontSize: '48px', opacity: 0.5, marginBottom: '16px' }}>💳</Text>
-            <Text
-              style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#8892a6',
-                marginBottom: '8px',
-              }}
-            >
-              {t('transactions.section.noTransactionsFound')}
-            </Text>
-            <Text style={{ fontSize: '14px', color: '#5a6272' }}>
-              {t('transactions.section.adjustFilters')}
-            </Text>
-          </Box>
-        )}
-      </Box>
+            <Table.Tr>
+              <Table.Th w={110} style={{ paddingLeft: '16px' }}>
+                {t('transactions.list.date')}
+              </Table.Th>
+              <Table.Th style={{ paddingLeft: '16px' }}>
+                {t('transactions.list.descriptionVendor')}
+              </Table.Th>
+              <Table.Th w={180} style={{ paddingLeft: '16px' }}>
+                {t('transactions.list.category')}
+              </Table.Th>
+              <Table.Th w={250} style={{ paddingLeft: '16px' }}>
+                {t('transactions.list.accounts')}
+              </Table.Th>
+              <Table.Th w={120} align="right" style={{ paddingLeft: '16px' }}>
+                {t('transactions.list.amount')}
+              </Table.Th>
+              <Table.Th w={50} style={{ paddingLeft: '16px' }} />
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>
+            {Array.from(groupedTransactions.entries()).map(([date, groupTransactions]) => {
+              const currentDelay = cumulativeDelay;
+              cumulativeDelay += groupTransactions.length * 0.05;
+
+              return (
+                <TransactionGroup
+                  key={date}
+                  date={date}
+                  transactions={groupTransactions}
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                  onClick={onClick}
+                  baseAnimationDelay={currentDelay}
+                />
+              );
+            })}
+          </Table.Tbody>
+        </Table>
+      ) : (
+        /* Empty State */
+        <Box
+          style={{
+            padding: '64px 32px',
+            textAlign: 'center',
+          }}
+        >
+          <Text style={{ fontSize: '48px', opacity: 0.5, marginBottom: '16px' }}>💳</Text>
+          <Text
+            style={{
+              fontSize: '16px',
+              fontWeight: 600,
+              color: '#8892a6',
+              marginBottom: '8px',
+            }}
+          >
+            {t('transactions.section.noTransactionsFound')}
+          </Text>
+          <Text style={{ fontSize: '14px', color: '#5a6272' }}>
+            {t('transactions.section.adjustFilters')}
+          </Text>
+        </Box>
+      )}
     </Box>
   );
 };

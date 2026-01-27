@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import { Button, Group, SimpleGrid, Stack, Tabs, Text, Title } from '@mantine/core';
+import { Box, Button, SimpleGrid, Stack, Tabs } from '@mantine/core';
 import { useCategories, useDeleteCategory } from '@/hooks/useCategories';
+import { PageHeader } from '../Transactions/PageHeader';
 import { CategoryCard } from './CategoryCard';
 import styles from './Categories.module.css';
 
@@ -64,65 +65,69 @@ export function CategoriesContainer() {
   }, [categories]);
 
   return (
-    <Stack gap="xl">
-      {/* Header */}
-      <Group justify="space-between" align="flex-start">
-        <div>
-          <Title order={1} fw={700} mb="xs">
-            Categories
-          </Title>
-          <Text size="md" c="dimmed">
-            Organize your transactions into meaningful groups.
-          </Text>
-        </div>
-        <Button className={styles.addButton} size="md">
-          <span style={{ fontSize: '16px', marginRight: '4px' }}>+</span>
-          Add Category
-        </Button>
-      </Group>
+    <Box
+      style={{
+        maxWidth: '1400px',
+        margin: '0 auto',
+        padding: '32px',
+      }}
+    >
+      <Stack gap="xl">
+        {/* Header */}
+        <PageHeader
+          title="Categories"
+          subtitle="Organize your transactions into meaningful groups."
+          actions={
+            <Button className={styles.addButton} size="md">
+              <span style={{ fontSize: '16px', marginRight: '4px' }}>+</span>
+              Add Category
+            </Button>
+          }
+        />
 
-      {/* Filter Tabs */}
-      <Tabs
-        value={typeFilter}
-        onChange={(value) => setTypeFilter(value as CategoryTypeFilter)}
-        classNames={{
-          root: styles.filterTabs,
-          tab: styles.filterTab,
-        }}
-      >
-        <Tabs.List style={{ display: 'flex', gap: '8px' }}>
-          <Tabs.Tab value="all">
-            All <span className={styles.filterCount}>{categoryCounts.all}</span>
-          </Tabs.Tab>
-          <Tabs.Tab value="Outgoing">
-            Spending <span className={styles.filterCount}>{categoryCounts.Outgoing}</span>
-          </Tabs.Tab>
-          <Tabs.Tab value="Incoming">
-            Income <span className={styles.filterCount}>{categoryCounts.Incoming}</span>
-          </Tabs.Tab>
-          <Tabs.Tab value="Transfer">
-            Transfer <span className={styles.filterCount}>{categoryCounts.Transfer}</span>
-          </Tabs.Tab>
-        </Tabs.List>
-      </Tabs>
+        {/* Filter Tabs */}
+        <Tabs
+          value={typeFilter}
+          onChange={(value) => setTypeFilter(value as CategoryTypeFilter)}
+          classNames={{
+            root: styles.filterTabs,
+            tab: styles.filterTab,
+          }}
+        >
+          <Tabs.List style={{ display: 'flex', gap: '8px' }}>
+            <Tabs.Tab value="all">
+              All <span className={styles.filterCount}>{categoryCounts.all}</span>
+            </Tabs.Tab>
+            <Tabs.Tab value="Outgoing">
+              Spending <span className={styles.filterCount}>{categoryCounts.Outgoing}</span>
+            </Tabs.Tab>
+            <Tabs.Tab value="Incoming">
+              Income <span className={styles.filterCount}>{categoryCounts.Incoming}</span>
+            </Tabs.Tab>
+            <Tabs.Tab value="Transfer">
+              Transfer <span className={styles.filterCount}>{categoryCounts.Transfer}</span>
+            </Tabs.Tab>
+          </Tabs.List>
+        </Tabs>
 
-      {/* Categories Grid */}
-      <SimpleGrid cols={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing="lg">
-        {filteredCategories.map((category) => {
-          const stats = getCategoryStats(category.id);
-          return (
-            <CategoryCard
-              key={category.id}
-              category={category}
-              monthlySpent={stats.monthlySpent}
-              transactionCount={stats.transactionCount}
-              trend={stats.trend}
-              onEdit={() => {}} // Connect to edit modal
-              onDelete={onDeleteCategory}
-            />
-          );
-        })}
-      </SimpleGrid>
-    </Stack>
+        {/* Categories Grid */}
+        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing="lg">
+          {filteredCategories.map((category) => {
+            const stats = getCategoryStats(category.id);
+            return (
+              <CategoryCard
+                key={category.id}
+                category={category}
+                monthlySpent={stats.monthlySpent}
+                transactionCount={stats.transactionCount}
+                trend={stats.trend}
+                onEdit={() => {}} // Connect to edit modal
+                onDelete={onDeleteCategory}
+              />
+            );
+          })}
+        </SimpleGrid>
+      </Stack>
+    </Box>
   );
 }
