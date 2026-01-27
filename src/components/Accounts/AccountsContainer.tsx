@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Collapse, Divider, Paper, Stack, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useAccounts, useDeleteAccount } from '@/hooks/useAccounts';
-import styles from './Accounts.module.css';
 import { AccountsSummary } from './AccountsSummary';
 import { AccountsTableView, AccountStats } from './AccountsTableView';
 import { CreateAccountForm } from './CreateAccountForm';
+import styles from './Accounts.module.css';
 
 export function AccountsContainer() {
   const navigate = useNavigate();
@@ -69,9 +69,7 @@ export function AccountsContainer() {
         <div className={styles.headerTop}>
           <div className={styles.headerTitle}>
             <h2>Accounts</h2>
-            <p className={styles.headerSubtitle}>
-              Manage your banks, wallets, and credit cards.
-            </p>
+            <p className={styles.headerSubtitle}>Manage your banks, wallets, and credit cards.</p>
           </div>
           <button type="button" className={styles.addButton} onClick={toggleCreate}>
             <span>+</span>

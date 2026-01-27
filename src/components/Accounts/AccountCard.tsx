@@ -70,37 +70,38 @@ export function AccountCard({
     return 'var(--accent-success)';
   };
 
-  const balanceChangeClass = balanceChange === 0
-    ? styles.balanceChangeNeutral
-    : isPositive
-      ? styles.balanceChangePositive
-      : styles.balanceChangeNegative;
+  const balanceChangeClass =
+    balanceChange === 0
+      ? styles.balanceChangeNeutral
+      : isPositive
+        ? styles.balanceChangePositive
+        : styles.balanceChangeNegative;
 
-  const balanceChangeText = balanceChange === 0
-    ? 'No change'
-    : `${isPositive ? '\u2191' : '\u2193'} ${account.currency.symbol}${formatCurrency(Math.abs(balanceChange))} this month`;
+  const balanceChangeText =
+    balanceChange === 0
+      ? 'No change'
+      : `${isPositive ? '\u2191' : '\u2193'} ${account.currency.symbol}${formatCurrency(Math.abs(balanceChange))} this month`;
 
   // Determine stats based on account type
   const isCreditCard = account.accountType === 'CreditCard';
   const hasSpendLimit = !!account.spendLimit;
 
-  const stat1Label = isCreditCard && hasSpendLimit
-    ? 'Credit Limit'
-    : hasSpendLimit
-      ? 'Spend Limit'
-      : 'This Month';
-  const stat1Value = isCreditCard && hasSpendLimit
-    ? `${account.currency.symbol} ${formatCurrency(account.spendLimit! / 100)}`
-    : hasSpendLimit
-      ? `${account.currency.symbol} ${formatCurrency(account.spendLimit! / 100)}/mo`
-      : monthlySpent !== 0
-        ? `-${account.currency.symbol} ${formatCurrency(Math.abs(monthlySpent / 100))}`
-        : `${account.currency.symbol} 0`;
+  const stat1Label =
+    isCreditCard && hasSpendLimit ? 'Credit Limit' : hasSpendLimit ? 'Spend Limit' : 'This Month';
+  const stat1Value =
+    isCreditCard && hasSpendLimit
+      ? `${account.currency.symbol} ${formatCurrency(account.spendLimit! / 100)}`
+      : hasSpendLimit
+        ? `${account.currency.symbol} ${formatCurrency(account.spendLimit! / 100)}/mo`
+        : monthlySpent !== 0
+          ? `-${account.currency.symbol} ${formatCurrency(Math.abs(monthlySpent / 100))}`
+          : `${account.currency.symbol} 0`;
 
   const stat2Label = isCreditCard && hasSpendLimit ? 'Available' : 'Transactions';
-  const stat2Value = isCreditCard && hasSpendLimit
-    ? `${account.currency.symbol} ${formatCurrency((account.spendLimit! - Math.abs(account.balance)) / 100)}`
-    : String(transactionCount);
+  const stat2Value =
+    isCreditCard && hasSpendLimit
+      ? `${account.currency.symbol} ${formatCurrency((account.spendLimit! - Math.abs(account.balance)) / 100)}`
+      : String(transactionCount);
 
   return (
     <div
@@ -141,11 +142,10 @@ export function AccountCard({
       <div className={styles.balanceSection}>
         <div className={styles.balanceLabel}>Current Balance</div>
         <div className={styles.balanceAmount} style={{ color: getBalanceColor() }}>
-          {isNegativeBalance ? '-' : ''}{account.currency.symbol} {formatCurrency(Math.abs(currentBalance))}
+          {isNegativeBalance ? '-' : ''}
+          {account.currency.symbol} {formatCurrency(Math.abs(currentBalance))}
         </div>
-        <span className={`${styles.balanceChange} ${balanceChangeClass}`}>
-          {balanceChangeText}
-        </span>
+        <span className={`${styles.balanceChange} ${balanceChangeClass}`}>{balanceChangeText}</span>
       </div>
 
       {/* Sparkline Chart */}
@@ -195,10 +195,18 @@ export function AccountCard({
 
       {/* Quick Actions */}
       <div className={styles.quickActions}>
-        <button type="button" className={styles.quickActionBtn} onClick={() => onViewDetails(account)}>
+        <button
+          type="button"
+          className={styles.quickActionBtn}
+          onClick={() => onViewDetails(account)}
+        >
           \uD83D\uDCCA View Details
         </button>
-        <button type="button" className={styles.quickActionBtn} onClick={() => onViewDetails(account)}>
+        <button
+          type="button"
+          className={styles.quickActionBtn}
+          onClick={() => onViewDetails(account)}
+        >
           {isCreditCard ? '\uD83D\uDCB3 Pay Bill' : '\uD83D\uDCB8 Transfer'}
         </button>
       </div>

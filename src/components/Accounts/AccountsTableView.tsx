@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Drawer, Modal, Text, useMantineTheme } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import type { AccountResponse } from '@/types/account';
-import styles from './Accounts.module.css';
 import { AccountCard } from './AccountCard';
 import { EditAccountForm } from './EditAccountForm';
+import styles from './Accounts.module.css';
 
 export interface AccountStats {
   balanceHistory: { date: string; balance: number }[];

@@ -133,13 +133,33 @@
 }
 
 /* Stagger animations */
-.accountCard:nth-child(1) { animation-delay: 0.1s; }
-.accountCard:nth-child(2) { animation-delay: 0.15s; }
-.accountCard:nth-child(3) { animation-delay: 0.2s; }
-.accountCard:nth-child(4) { animation-delay: 0.25s; }
-.accountCard:nth-child(5) { animation-delay: 0.3s; }
-.accountCard:nth-child(6) { animation-delay: 0.35s; }
-.accountCard:nth-child(7) { animation-delay: 0.4s; }
+.accountCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.accountCard:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.accountCard:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.accountCard:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.accountCard:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.accountCard:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+.accountCard:nth-child(7) {
+  animation-delay: 0.4s;
+}
 
 @keyframes fade-in-up {
   from {
@@ -320,8 +340,14 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .statusText {
@@ -351,7 +377,11 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-family: Sora, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    Sora,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
 .quickActionBtn:hover {
