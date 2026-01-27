@@ -117,7 +117,7 @@ export const TransactionRow = ({
       }}
     >
       {/* Date */}
-      <Table.Td>
+      <Table.Td style={{ paddingLeft: '16px' }}>
         <Text size="sm" c="dimmed">
           {new Date(t.occurredAt).toLocaleDateString('en-US', {
             month: 'short',
@@ -127,7 +127,7 @@ export const TransactionRow = ({
       </Table.Td>
 
       {/* Description & Vendor */}
-      <Table.Td>
+      <Table.Td style={{ paddingLeft: '16px' }}>
         <Box style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <Text
             size="md"
@@ -148,12 +148,12 @@ export const TransactionRow = ({
       </Table.Td>
 
       {/* Category Badge */}
-      <Table.Td>
+      <Table.Td style={{ paddingLeft: '16px' }}>
         <CategoryBadge category={t.category} />
       </Table.Td>
 
       {/* Account Badges */}
-      <Table.Td>
+      <Table.Td style={{ paddingLeft: '16px' }}>
         <Group gap="xs">
           <AccountBadge account={t.fromAccount} />
           {t.toAccount && (
@@ -168,7 +168,7 @@ export const TransactionRow = ({
       </Table.Td>
 
       {/* Amount */}
-      <Table.Td>
+      <Table.Td style={{ paddingLeft: '16px' }}>
         <Text
           style={{
             fontFamily: "'JetBrains Mono', monospace",
@@ -184,7 +184,7 @@ export const TransactionRow = ({
       </Table.Td>
 
       {/* Actions */}
-      <Table.Td>
+      <Table.Td style={{ paddingLeft: '16px' }}>
         <ActionButtons onEdit={() => onEdit(t)} onDelete={() => onDelete(t.id)} />
       </Table.Td>
     </Table.Tr>

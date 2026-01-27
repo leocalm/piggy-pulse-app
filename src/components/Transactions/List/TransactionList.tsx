@@ -32,14 +32,22 @@ export const TransactionList = ({
           }}
         >
           <Table.Tr>
-            <Table.Th w={110}>{t('transactions.list.date')}</Table.Th>
-            <Table.Th>{t('transactions.list.descriptionVendor')}</Table.Th>
-            <Table.Th w={180}>{t('transactions.list.category')}</Table.Th>
-            <Table.Th w={250}>{t('transactions.list.accounts')}</Table.Th>
-            <Table.Th w={120} align="right">
+            <Table.Th w={110} style={{ paddingLeft: '16px' }}>
+              {t('transactions.list.date')}
+            </Table.Th>
+            <Table.Th style={{ paddingLeft: '16px' }}>
+              {t('transactions.list.descriptionVendor')}
+            </Table.Th>
+            <Table.Th w={180} style={{ paddingLeft: '16px' }}>
+              {t('transactions.list.category')}
+            </Table.Th>
+            <Table.Th w={250} style={{ paddingLeft: '16px' }}>
+              {t('transactions.list.accounts')}
+            </Table.Th>
+            <Table.Th w={120} align="right" style={{ paddingLeft: '16px' }}>
               {t('transactions.list.amount')}
             </Table.Th>
-            <Table.Th w={50} />
+            <Table.Th w={50} style={{ paddingLeft: '16px' }} />
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
