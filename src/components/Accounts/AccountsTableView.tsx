@@ -38,29 +38,31 @@ export function AccountsTableView({
   }
 
   return (
-    <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
-      {accounts?.map((account) => {
-        const stats = accountStats[account.id] || {
-          balanceHistory: [],
-          monthlySpent: 0,
-          transactionCount: 0,
-        };
-        return (
-          <AccountCard
-            key={account.id}
-            account={account}
-            balanceHistory={stats.balanceHistory}
-            monthlySpent={stats.monthlySpent}
-            transactionCount={stats.transactionCount}
-            onEdit={(account) => {
-              setSelected(account);
-              openEdit();
-            }}
-            onDelete={() => onDelete(account.id)}
-            onViewDetails={() => onViewDetails?.(account)}
-          />
-        );
-      })}
+    <>
+      <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
+        {accounts?.map((account) => {
+          const stats = accountStats[account.id] || {
+            balanceHistory: [],
+            monthlySpent: 0,
+            transactionCount: 0,
+          };
+          return (
+            <AccountCard
+              key={account.id}
+              account={account}
+              balanceHistory={stats.balanceHistory}
+              monthlySpent={stats.monthlySpent}
+              transactionCount={stats.transactionCount}
+              onEdit={(acc) => {
+                setSelected(acc);
+                openEdit();
+              }}
+              onDelete={() => onDelete(account.id)}
+              onViewDetails={() => onViewDetails?.(account)}
+            />
+          );
+        })}
+      </SimpleGrid>
       {isMobile ? (
         <Drawer opened={editOpened} onClose={closeEdit} title="Edit Account" position="bottom">
           <div>
@@ -90,6 +92,6 @@ export function AccountsTableView({
           )}
         </Modal>
       )}
-    </SimpleGrid>
+    </>
   );
 }

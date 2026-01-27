@@ -1,0 +1,114 @@
+/* ── Add Button gradient ── */
+.addButton {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-purple) 100%);
+  border: none;
+  box-shadow: 0 4px 16px rgb(0 212 255 / 30%);
+}
+
+.addButton:hover {
+  box-shadow: 0 6px 20px rgb(0 212 255 / 40%);
+}
+
+/* ── Summary gradient text ── */
+.summaryValueGradient {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Account Card: accent bar + hover effects + animations ── */
+.accountCard {
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  animation: fade-in-up 0.5s ease backwards;
+}
+
+.accountCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--card-accent-color, var(--accent-primary));
+  opacity: 0.8;
+}
+
+.accountCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md, 0 4px 16px rgb(0 0 0 / 16%));
+  border-color: var(--border-medium);
+}
+
+.accountCard:hover .accountActions {
+  opacity: 1;
+}
+
+/* Stagger animations */
+.accountCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.accountCard:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.accountCard:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.accountCard:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.accountCard:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.accountCard:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+.accountCard:nth-child(7) {
+  animation-delay: 0.4s;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Hover-reveal actions ── */
+.accountActions {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* ── Pulsing status indicator ── */
+.statusIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-success);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}

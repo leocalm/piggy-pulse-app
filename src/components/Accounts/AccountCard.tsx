@@ -1,18 +1,20 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Sparkline } from '@mantine/charts';
 import {
   ActionIcon,
   Badge,
-  Card,
+  Box,
+  Button,
+  Divider,
   Group,
-  Menu,
+  Paper,
+  SimpleGrid,
   Stack,
   Text,
-  ThemeIcon,
-  useMantineColorScheme,
+  Title,
 } from '@mantine/core';
 import type { AccountResponse } from '@/types/account';
+import styles from './Accounts.module.css';
 
 interface BudgetPerDay {
   date: string;
@@ -29,6 +31,22 @@ interface AccountCardProps {
   onViewDetails: (account: AccountResponse) => void;
 }
 
+const ACCOUNT_TYPE_META: Record<string, { icon: string; label: string }> = {
+  CreditCard: { icon: '\uD83D\uDCB3', label: 'Credit Card' },
+  Checking: { icon: '\uD83C\uDFE6', label: 'Checking' },
+  Savings: { icon: '\uD83D\uDCB0', label: 'Savings' },
+  Wallet: { icon: '\uD83D\uDCB3', label: 'Debit Card' },
+  Allowance: { icon: '\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67', label: 'Allowance' },
+};
+
+const ACCOUNT_TYPE_COLORS: Record<string, string> = {
+  CreditCard: '#00d4ff',
+  Checking: '#00ffa3',
+  Savings: '#ffa940',
+  Wallet: '#ff6b9d',
+  Allowance: '#b47aff',
+};
+
 export function AccountCard({
   account,
   balanceHistory,
@@ -38,117 +56,175 @@ export function AccountCard({
   onDelete,
   onViewDetails,
 }: AccountCardProps) {
-  const { t } = useTranslation();
-  const { colorScheme } = useMantineColorScheme();
-  const isDark = colorScheme === 'dark';
-
-  // Calculate stats
   const currentBalance = account.balance / 100;
   const startBalance = balanceHistory.length > 0 ? balanceHistory[0].balance / 100 : currentBalance;
   const balanceChange = currentBalance - startBalance;
   const isPositive = balanceChange >= 0;
+  const isNegativeBalance = currentBalance < 0;
+
+  const accentColor = account.color || ACCOUNT_TYPE_COLORS[account.accountType] || '#00d4ff';
+  const typeMeta = ACCOUNT_TYPE_META[account.accountType] || {
+    icon: '\uD83D\uDCB3',
+    label: account.accountType,
+  };
+
+  const formatCurrency = (value: number) => {
+    const abs = Math.abs(value);
+    return abs.toLocaleString('en-US', { minimumFractionDigits: 2 });
+  };
+
+  const getBalanceColor = () => {
+    if (isNegativeBalance) {
+      return 'var(--accent-danger)';
+    }
+    if (currentBalance < 50) {
+      return 'var(--text-secondary)';
+    }
+    return 'var(--accent-success)';
+  };
+
+  const balanceChangeColor = balanceChange === 0 ? 'gray' : isPositive ? 'green' : 'red';
+
+  const balanceChangeText =
+    balanceChange === 0
+      ? 'No change'
+      : `${isPositive ? '\u2191' : '\u2193'} ${account.currency.symbol}${formatCurrency(Math.abs(balanceChange))} this month`;
+
+  // Determine stats based on account type
+  const isCreditCard = account.accountType === 'CreditCard';
+  const hasSpendLimit = !!account.spendLimit;
+
+  const stat1Label =
+    isCreditCard && hasSpendLimit ? 'Credit Limit' : hasSpendLimit ? 'Spend Limit' : 'This Month';
+  const stat1Value =
+    isCreditCard && hasSpendLimit
+      ? `${account.currency.symbol} ${formatCurrency(account.spendLimit! / 100)}`
+      : hasSpendLimit
+        ? `${account.currency.symbol} ${formatCurrency(account.spendLimit! / 100)}/mo`
+        : monthlySpent !== 0
+          ? `-${account.currency.symbol} ${formatCurrency(Math.abs(monthlySpent / 100))}`
+          : `${account.currency.symbol} 0`;
+
+  const stat2Label = isCreditCard && hasSpendLimit ? 'Available' : 'Transactions';
+  const stat2Value =
+    isCreditCard && hasSpendLimit
+      ? `${account.currency.symbol} ${formatCurrency((account.spendLimit! - Math.abs(account.balance)) / 100)}`
+      : String(transactionCount);
 
   return (
-    <Card
-      padding="lg"
-      radius="md"
-      style={{
-        backgroundColor: isDark ? 'var(--mantine-color-dark-7)' : 'var(--mantine-color-white)',
-        border: '1px solid var(--mantine-color-default-border)',
-      }}
+    <Paper
+      className={styles.accountCard}
+      style={{ '--card-accent-color': accentColor } as React.CSSProperties}
+      radius="lg"
+      withBorder
     >
-      <Group justify="space-between" mb="md">
-        <Group gap="xs">
-          <ThemeIcon color={account.color} variant="light" size="lg" radius="md">
-            <Text size="lg" fw={700}>
-              {account.name.charAt(0)}
-            </Text>
-          </ThemeIcon>
-          <div>
-            <Text fw={600} size="sm" lh={1.2}>
+      {/* Header */}
+      <Group justify="space-between" align="flex-start" p="xl" pb="lg">
+        <Box style={{ flex: 1 }}>
+          <Group gap="sm" mb="xs">
+            <Title order={3} size="h4" fw={700}>
               {account.name}
-            </Text>
-            <Text size="xs" c="dimmed" tt="uppercase" fw={700}>
-              {account.accountType}
-            </Text>
-          </div>
+            </Title>
+            <Badge variant="light" color="gray" size="sm" tt="uppercase">
+              {typeMeta.icon} {typeMeta.label}
+            </Badge>
+          </Group>
+        </Box>
+        <Group gap="xs" className={styles.accountActions}>
+          <ActionIcon variant="subtle" color="gray" title="Edit" onClick={() => onEdit(account)}>
+            <span>\u2699\uFE0F</span>
+          </ActionIcon>
+          <ActionIcon
+            variant="subtle"
+            color="gray"
+            title="Delete"
+            onClick={() => onDelete(account.id)}
+          >
+            <span>\u22EF</span>
+          </ActionIcon>
         </Group>
-
-        <Menu position="bottom-end" withinPortal>
-          <Menu.Target>
-            <ActionIcon variant="subtle" color="gray">
-              <span>⋮</span>
-            </ActionIcon>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Item leftSection={<span>👁️</span>} onClick={() => onViewDetails(account)}>
-              {t('accounts.card.viewDetails')}
-            </Menu.Item>
-            <Menu.Item leftSection={<span>✏️</span>} onClick={() => onEdit(account)}>
-              {t('accounts.card.editAccount')}
-            </Menu.Item>
-            <Menu.Item
-              color="red"
-              leftSection={<span>🗑️</span>}
-              onClick={() => onDelete(account.id)}
-            >
-              {t('accounts.card.deleteAccount')}
-            </Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
       </Group>
 
-      <Stack gap="xs" mb="xl">
-        <Text size="xs" c="dimmed" fw={700} tt="uppercase">
-          {t('accounts.card.currentBalance')}
+      {/* Balance */}
+      <Box px="xl" pb="xl">
+        <Text size="sm" c="dimmed" mb="xs">
+          Current Balance
         </Text>
-        <Text size="2xl" fw={700} style={{ fontFamily: 'var(--mantine-font-family-monospace)' }}>
-          {account.currency.symbol}{' '}
-          {currentBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+        <Text size="2xl" fw={700} ff="monospace" c={getBalanceColor()} mb="md">
+          {isNegativeBalance ? '-' : ''}
+          {account.currency.symbol} {formatCurrency(Math.abs(currentBalance))}
         </Text>
-        <Group gap="xs">
-          <Badge size="sm" variant="light" color={isPositive ? 'green' : 'red'}>
-            {isPositive ? '+' : ''}
-            {balanceChange.toLocaleString('en-US', {
-              style: 'currency',
-              currency: account.currency.currency,
-            })}
-          </Badge>
-          <Text size="xs" c="dimmed">
-            {t('accounts.card.thisPeriod')}
-          </Text>
-        </Group>
-      </Stack>
+        <Badge variant="light" color={balanceChangeColor} size="lg" ff="monospace">
+          {balanceChangeText}
+        </Badge>
+      </Box>
 
-      <div style={{ height: 60, marginBottom: 16 }}>
+      {/* Sparkline Chart */}
+      <Divider />
+      <Box p="lg" px="xl">
         <Sparkline
-          data={balanceHistory.map((h) => h.balance / 100)}
-          h={60}
+          data={
+            balanceHistory.length > 0
+              ? balanceHistory.map((h) => h.balance / 100)
+              : [currentBalance, currentBalance]
+          }
+          h={80}
           curveType="monotone"
-          color={account.color}
+          color={accentColor}
           fillOpacity={0.2}
           strokeWidth={2}
         />
-      </div>
+      </Box>
 
-      <Group grow>
-        <div>
-          <Text size="xs" c="dimmed">
-            {t('accounts.card.monthlySpent')}
+      {/* Stats */}
+      <Divider />
+      <SimpleGrid cols={2} spacing="lg" p="lg" px="xl">
+        <Stack gap={4}>
+          <Text size="xs" fw={600} c="dimmed">
+            {stat1Label}
           </Text>
-          <Text size="sm" fw={600}>
-            {account.currency.symbol} {(monthlySpent / 100).toLocaleString()}
+          <Text
+            size="sm"
+            fw={700}
+            ff="monospace"
+            c={
+              !isCreditCard && !hasSpendLimit && monthlySpent !== 0
+                ? 'var(--accent-danger)'
+                : 'var(--text-secondary)'
+            }
+          >
+            {stat1Value}
           </Text>
-        </div>
-        <div>
-          <Text size="xs" c="dimmed">
-            {t('accounts.card.transactions')}
+        </Stack>
+        <Stack gap={4}>
+          <Text size="xs" fw={600} c="dimmed">
+            {stat2Label}
           </Text>
-          <Text size="sm" fw={600}>
-            {transactionCount}
+          <Text size="sm" fw={700} ff="monospace" c="var(--text-secondary)">
+            {stat2Value}
           </Text>
-        </div>
+        </Stack>
+      </SimpleGrid>
+
+      {/* Status */}
+      <Divider />
+      <Group gap="sm" px="xl" py="sm">
+        <Box className={styles.statusIndicator} />
+        <Text size="sm" c="dimmed">
+          Active
+        </Text>
       </Group>
-    </Card>
+
+      {/* Quick Actions */}
+      <Divider />
+      <Group grow gap="sm" p="lg" px="xl">
+        <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
+          \uD83D\uDCCA View Details
+        </Button>
+        <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
+          {isCreditCard ? '\uD83D\uDCB3 Pay Bill' : '\uD83D\uDCB8 Transfer'}
+        </Button>
+      </Group>
+    </Paper>
   );
 }
