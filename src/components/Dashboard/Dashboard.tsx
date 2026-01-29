@@ -26,7 +26,9 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     if (!dashboardData?.monthlyBurnIn) {
       return 0;
     }
-    return dashboardData.monthlyBurnIn.totalBudget - dashboardData.monthlyBurnIn.spentBudget;
+    return (
+      (dashboardData.monthlyBurnIn.totalBudget - dashboardData.monthlyBurnIn.spentBudget) / 100
+    );
   }, [dashboardData?.monthlyBurnIn]);
 
   const avgDailySpend = useMemo(() => {
@@ -36,10 +38,10 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     return dashboardData.monthlyBurnIn.spentBudget / dashboardData.monthlyBurnIn.currentDay;
   }, [dashboardData?.monthlyBurnIn]);
 
-  const totalAssets = dashboardData?.totalAsset || 0;
+  const totalAssets = (dashboardData?.totalAsset || 0) / 100;
   const monthProgress = dashboardData?.monthProgress?.daysPassedPercentage || 0;
   const daysUntilReset = dashboardData?.monthProgress?.remainingDays || 0;
-  const budgetLimit = dashboardData?.monthlyBurnIn?.totalBudget || 0;
+  const budgetLimit = (dashboardData?.monthlyBurnIn?.totalBudget || 0) / 100;
 
   // Format currency - € on left side
   const formatCurrency = (value: number): string =>
