@@ -46,6 +46,13 @@ body {
     }
 }
 
+/* Transaction Actions - Show on hover for desktop */
+@media (min-width: 768px) {
+    tr:hover .transaction-actions {
+        opacity: 1 !important;
+    }
+}
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     /* Transaction Row - hide vendor column */

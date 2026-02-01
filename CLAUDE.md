@@ -43,11 +43,28 @@ yarn storybook:build     # Build static Storybook
 
 ## Architecture
 
+### Authentication
+
+The app implements cookie-based authentication with client-side state management:
+- **Backend API**:
+  - Login: `POST /api/users/login` with `{email, password}`
+  - Logout: `POST /api/users/logout`
+  - Backend returns HttpOnly cookies automatically handled by the browser
+- **Client State**: `AuthContext` (`src/context/AuthContext.tsx`) manages authentication state
+  - Stores user info in localStorage (remember me) or sessionStorage
+  - Provides `useAuth()` hook for accessing auth state: `{ user, isAuthenticated, isLoading, login, logout }`
+- **Route Protection**: `ProtectedRoute` component guards all authenticated pages
+  - Redirects unauthenticated users to `/auth/login`
+  - Preserves original URL for post-login redirect
+  - Shows loading spinner while checking auth status
+- **Auth API**: Functions in `src/api/auth.ts` handle login/logout with graceful error handling
+
 ### API Communication Layer
 
 The app uses a centralized HTTP client (`src/api/client.ts`) that automatically transforms case conventions:
 - **Frontend → Backend**: Converts camelCase to snake_case for all outgoing payloads
 - **Backend → Frontend**: Converts snake_case to camelCase for all incoming responses
+- **Credentials**: All requests include `credentials: 'include'` for cookie-based authentication
 
 All API calls should use the provided helper functions (`apiGet`, `apiPost`, `apiPut`, `apiDelete`) instead of raw `fetch`.
 
@@ -59,14 +76,17 @@ All API calls should use the provided helper functions (`apiGet`, `apiPost`, `ap
   - Query keys follow a convention: `['categories']`, `['budgetedCategories']`, `['unbudgetedCategories']`
 
 - **Context API** for global client state:
+  - `AuthContext` manages authentication state and user info
+    - Use `useAuth()` to access: `{ user, isAuthenticated, isLoading, login, logout }`
   - `BudgetContext` manages selected budget period ID (stored in localStorage)
-  - Use `useBudgetPeriodSelection()` to access/update selected period
+    - Use `useBudgetPeriodSelection()` to access/update selected period
 
 ### Routing Structure
 
 Routes are defined in `src/Router.tsx`:
-- Main app routes wrapped in `Layout` component (provides AppShell + BudgetProvider)
-- Auth routes (`/auth/*`) use separate `AuthLayout`
+- Entire app wrapped in `AuthProvider` for authentication state
+- Main app routes wrapped in `ProtectedRoute` → `Layout` (provides auth guard + AppShell + BudgetProvider)
+- Auth routes (`/auth/*`) use separate `AuthLayout` (public, no authentication required)
 - Primary routes: `/dashboard`, `/transactions`, `/accounts`, `/categories`, `/budget`, `/reports`, `/settings`
 - Detail routes: `/accounts/:id`, `/categories/:id`
 
@@ -136,3 +156,29 @@ The `redesign/vendors/` directory contains comprehensive documentation and desig
 - **Quick reference**: `QUICK_REFERENCE.md` for rapid implementation guidance
 
 When implementing vendors-related features, refer to this directory for design patterns, component specifications, and implementation details.
+
+## Code Quality Guidelines
+
+### Debugging and Logging
+
+**IMPORTANT**: Never commit code with `console.log`, `console.warn`, `console.debug`, or similar debugging statements.
+
+- ✅ **Allowed**: `console.error()` for actual error handling in catch blocks
+- ❌ **Not Allowed**: `console.log()` for debugging or development purposes
+- ❌ **Not Allowed**: Commented-out `console.log()` statements
+
+**Exception**: The only acceptable use of console logging is `console.error()` in error handling scenarios where errors should be logged for debugging production issues (e.g., silent failures in logout, corrupted data handling).
+
+**Before pushing**:
+1. Search your changes for `console.log`
+2. Remove all debugging statements
+3. Ensure only intentional `console.error()` calls remain with clear comments explaining why
+
+### General Best Practices
+
+- Always run `yarn prettier:write` before committing
+- Run `yarn typecheck` to ensure type safety
+- Use TypeScript types instead of `any` whenever possible
+- Follow existing patterns and conventions in the codebase
+- Write descriptive commit messages
+- Keep components focused and single-responsibility
