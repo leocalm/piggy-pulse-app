@@ -16,8 +16,6 @@ export function UserMenu() {
     try {
       // Call backend logout endpoint
       await apiLogout();
-    } catch (error) {
-      console.error('Logout error:', error);
     } finally {
       // Clear auth state regardless of API response
       logout();

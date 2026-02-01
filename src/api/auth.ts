@@ -61,6 +61,5 @@ export async function logout(): Promise<void> {
   } catch (error) {
     // Logout should be silent - even if it fails on the server,
     // we still want to clear client-side auth state
-    console.error('Logout error:', error);
   }
 }

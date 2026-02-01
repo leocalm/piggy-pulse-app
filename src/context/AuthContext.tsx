@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 interface User {
   id: string;
@@ -36,7 +35,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
           setUser(JSON.parse(storedUser));
         }
       } catch (error) {
-        console.error('Error reading stored user:', error);
+        // If stored data is corrupted, clear it silently
+        // User will be treated as logged out (expected behavior)
+        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
       } finally {
         setIsLoading(false);
       }
