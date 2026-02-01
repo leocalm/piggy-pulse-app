@@ -90,6 +90,9 @@ export async function apiGet<T>(url: string): Promise<T> {
     throw new Error(`GET ${url} failed: ${res.status}`);
   }
   const data = await res.json();
+  if ('data' in data) {
+    return toCamelCase<T>(data.data);
+  }
   return toCamelCase<T>(data);
 }
 
