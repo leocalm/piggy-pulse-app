@@ -1,6 +1,8 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import react from '@vitejs/plugin-react';
+import { playwright } from '@vitest/browser-playwright';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
@@ -31,25 +33,24 @@ export default defineConfig({
           setupFiles: ['./vitest.setup.mjs'],
         },
       },
-      // Storybook tests disabled due to Playwright browser unavailability
-      // {
-      //   extends: true,
-      //   plugins: [
-      //     storybookTest({
-      //       configDir: path.join(dirname, '.storybook'),
-      //     }),
-      //   ],
-      //   test: {
-      //     name: 'storybook',
-      //     browser: {
-      //       enabled: true,
-      //       headless: true,
-      //       provider: playwright({}),
-      //       instances: [{ browser: 'chromium' }],
-      //     },
-      //     setupFiles: ['.storybook/vitest.setup.ts'],
-      //   },
-      // },
+      {
+        extends: true,
+        plugins: [
+          storybookTest({
+            configDir: path.join(dirname, '.storybook'),
+          }),
+        ],
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [{ browser: 'chromium' }],
+          },
+          setupFiles: ['.storybook/vitest.setup.ts'],
+        },
+      },
     ],
   },
 });

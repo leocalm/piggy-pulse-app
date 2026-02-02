@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import React from 'react';
 import type { Preview } from '@storybook/react';
+import { MemoryRouter } from 'react-router-dom';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { theme } from '../src/theme';
 
@@ -45,10 +46,12 @@ export const decorators = [
   (Story: any, context: any) => {
     const scheme = (context.globals?.theme || 'light') as 'light' | 'dark';
     return (
-      <MantineProvider theme={theme} forceColorScheme={scheme}>
-        <ColorSchemeScript />
-        <Story />
-      </MantineProvider>
+      <MemoryRouter>
+        <MantineProvider theme={theme} forceColorScheme={scheme}>
+          <ColorSchemeScript />
+          <Story />
+        </MantineProvider>
+      </MemoryRouter>
     );
   },
 ];

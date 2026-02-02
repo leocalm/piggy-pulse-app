@@ -65,7 +65,7 @@ type Story = StoryObj<typeof QuickAddTransaction>;
 // Default story
 export const Default: Story = {
   args: {
-    onSuccess: () => console.log('Transaction created successfully'),
+    onSuccess: () => {},
   },
   parameters: {
     msw: {
@@ -80,14 +80,14 @@ export const Default: Story = {
 export const WithDefaultDate: Story = {
   args: {
     defaultDate: new Date('2026-01-20'),
-    onSuccess: () => console.log('Transaction created'),
+    onSuccess: () => {},
   },
 };
 
 // Loading state (you'd need to modify component to support this)
 export const Loading: Story = {
   args: {
-    onSuccess: () => console.log('Transaction created'),
+    onSuccess: () => {},
   },
   parameters: {
     msw: {
@@ -101,7 +101,7 @@ export const Loading: Story = {
 // Mobile view
 export const Mobile: Story = {
   args: {
-    onSuccess: () => console.log('Transaction created'),
+    onSuccess: () => {},
   },
   parameters: {
     viewport: {

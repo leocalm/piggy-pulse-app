@@ -6,9 +6,7 @@ const config: StorybookConfig = {
     disableTelemetry: true,
     enableCrashReports: false,
   },
-  // Temporarily disabled all storybook tests
-  stories: [],
-  // stories: ['../src/**/*.story.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/*.story.@(js|jsx|ts|tsx)'],
   addons: ['@storybook/addon-themes', '@storybook/addon-vitest'],
   framework: {
     name: '@storybook/react-vite',

@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MemoryRouter } from 'react-router-dom';
 import { queryKeys } from '@/hooks/queryKeys';
 import { AccountResponse } from '@/types/account';
 import { CategoryResponse } from '@/types/category';
@@ -85,9 +84,7 @@ const meta: Meta<typeof DashboardView> = {
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <Story />
-        </MemoryRouter>
+        <Story />
       </QueryClientProvider>
     ),
   ],
