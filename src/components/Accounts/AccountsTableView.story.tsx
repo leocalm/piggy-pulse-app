@@ -38,7 +38,7 @@ const InteractiveWrapper = () => {
       accounts={accounts}
       isLoading={false}
       onDelete={handleDelete}
-      onAccountUpdated={() => console.log('Account updated')}
+      onAccountUpdated={() => {}}
     />
   );
 };

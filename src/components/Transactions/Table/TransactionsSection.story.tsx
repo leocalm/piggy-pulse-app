@@ -160,8 +160,8 @@ const TransactionsSectionWrapper = () => {
       period="January 2026"
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
-      onEdit={(t) => console.log('Edit:', t)}
-      onDelete={(id) => console.log('Delete:', id)}
+      onEdit={() => {}}
+      onDelete={() => {}}
     />
   );
 };

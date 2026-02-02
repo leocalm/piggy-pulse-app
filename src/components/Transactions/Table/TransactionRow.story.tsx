@@ -113,32 +113,32 @@ const transferTransaction: TransactionResponse = {
 export const Outgoing: Story = {
   args: {
     transaction: regularTransaction,
-    onEdit: () => console.log('Edit clicked'),
-    onDelete: () => console.log('Delete clicked'),
+    onEdit: () => {},
+    onDelete: () => {},
   },
 };
 
 export const Incoming: Story = {
   args: {
     transaction: incomeTransaction,
-    onEdit: () => console.log('Edit clicked'),
-    onDelete: () => console.log('Delete clicked'),
+    onEdit: () => {},
+    onDelete: () => {},
   },
 };
 
 export const Transfer: Story = {
   args: {
     transaction: transferTransaction,
-    onEdit: () => console.log('Edit clicked'),
-    onDelete: () => console.log('Delete clicked'),
+    onEdit: () => {},
+    onDelete: () => {},
   },
 };
 
 export const WithAnimationDelay: Story = {
   args: {
     transaction: regularTransaction,
-    onEdit: () => console.log('Edit clicked'),
-    onDelete: () => console.log('Delete clicked'),
+    onEdit: () => {},
+    onDelete: () => {},
     animationDelay: 0.2,
   },
 };

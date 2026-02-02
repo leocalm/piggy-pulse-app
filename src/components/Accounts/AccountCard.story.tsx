@@ -26,9 +26,6 @@ export const Default: Story = {
     ],
     monthlySpent: 12500,
     transactionCount: 23,
-    onEdit: () => console.log('Edit clicked'),
-    onDelete: () => console.log('Delete clicked'),
-    onViewDetails: () => console.log('View details clicked'),
   },
 };
 
@@ -48,8 +45,5 @@ export const WithSpendLimit: Story = {
     ],
     monthlySpent: 12500,
     transactionCount: 23,
-    onEdit: () => console.log('Edit clicked'),
-    onDelete: () => console.log('Delete clicked'),
-    onViewDetails: () => console.log('View details clicked'),
   },
 };
