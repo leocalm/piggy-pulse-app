@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ActionIcon, Button, Group, Loader, Paper, Stack, Text, Title } from '@mantine/core';
 import { fetchAccount } from '@/api/account';
 import { TransactionList } from '@/components/Transactions';
-import { useDeleteTransaction, useTransactions } from '@/hooks/useTransactions';
 import { queryKeys } from '@/hooks/queryKeys';
+import { useDeleteTransaction, useTransactions } from '@/hooks/useTransactions';
 import { AccountCard } from './AccountCard';
 
 export function AccountDetailPage() {
