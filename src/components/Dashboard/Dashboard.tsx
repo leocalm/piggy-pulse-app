@@ -36,7 +36,10 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     if (!dashboardData?.monthlyBurnIn || dashboardData.monthlyBurnIn.currentDay === 0) {
       return 0;
     }
-    return dashboardData.monthlyBurnIn.spentBudget / dashboardData.monthlyBurnIn.currentDay / 100;
+    return (
+      convertCentsToDisplay(dashboardData.monthlyBurnIn.spentBudget) /
+      dashboardData.monthlyBurnIn.currentDay
+    );
   }, [dashboardData?.monthlyBurnIn]);
 
   const totalAssets = convertCentsToDisplay(dashboardData?.totalAsset || 0);

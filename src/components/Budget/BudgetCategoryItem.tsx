@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActionIcon, Group, NumberInput, Paper, Stack, Text } from '@mantine/core';
 import { BudgetCategoryResponse } from '@/types/budget';
-import { convertCentsToDisplay } from '@/utils/currency';
+import { formatCurrencyValue } from '@/utils/currency';
 import styles from './Budget.module.css';
 
 interface BudgetCategoryItemProps {
@@ -32,8 +32,6 @@ export function BudgetCategoryItem({
 }: BudgetCategoryItemProps) {
   const { t } = useTranslation();
 
-  const budgeted = convertCentsToDisplay(category.budgetedValue);
-  const spentFormatted = convertCentsToDisplay(spent);
   const percentage = category.budgetedValue > 0 ? (spent / category.budgetedValue) * 100 : 0;
 
   const getProgressStatus = (pct: number) => {
@@ -60,19 +58,10 @@ export function BudgetCategoryItem({
                 {category.category.name}
               </Text>
               <div className={styles.amountsSection}>
-                <span className={styles.spentAmount}>
-                  €
-                  {spentFormatted.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </span>
+                <span className={styles.spentAmount}>€{formatCurrencyValue(spent)}</span>
                 <span className={styles.budgetAmount}>
                   {t('budget.budgetedCategories.of', {
-                    budget: budgeted.toLocaleString('en-US', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    }),
+                    budget: formatCurrencyValue(category.budgetedValue),
                   })}
                 </span>
               </div>
@@ -136,10 +125,7 @@ export function BudgetCategoryItem({
                   : t('budget.budgetedCategories.overBudget')}
             </Text>
             <Text size="xs" c="dimmed">
-              €
-              {Math.max(0, budgeted - spentFormatted).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-              })}{' '}
+              €{formatCurrencyValue(Math.max(0, category.budgetedValue - spent))}{' '}
               {percentage > 100
                 ? t('budget.budgetedCategories.over')
                 : t('budget.budgetedCategories.remaining')}
