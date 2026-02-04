@@ -68,6 +68,18 @@ function redirectToLogin(): void {
   }
 }
 
+function isAuthRoute(): boolean {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return window.location.pathname.startsWith('/auth');
+}
+
+function isLoginRequest(url: string): boolean {
+  return url.includes('/api/users/login');
+}
+
 async function parseErrorBody(res: Response): Promise<unknown> {
   const raw = await res.text();
   if (!raw) {
@@ -87,7 +99,9 @@ async function throwForStatus(res: Response, url: string): Promise<never> {
 
   if (res.status === 401) {
     clearStoredUser();
-    redirectToLogin();
+    if (!isLoginRequest(url) && !isAuthRoute()) {
+      redirectToLogin();
+    }
   }
 
   throw new ApiError(message, res.status, url, data);
