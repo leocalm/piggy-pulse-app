@@ -1,3 +1,5 @@
+import { ApiError } from './errors';
+
 /**
  * Centralized HTTP client with automatic case transformation.
  * - Converts snake_case API responses to camelCase for frontend use
@@ -20,6 +22,95 @@ function snakeToCamel(str: string): string {
  */
 function camelToSnake(str: string): string {
   return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+}
+
+function getErrorMessage(data: unknown, status: number): string {
+  if (typeof data === 'string') {
+    const trimmed = data.trim();
+    if (trimmed.length > 0) {
+      return trimmed;
+    }
+  }
+
+  if (data && typeof data === 'object' && 'message' in data) {
+    const message = (data as { message?: unknown }).message;
+    if (typeof message === 'string' && message.trim().length > 0) {
+      return message;
+    }
+  }
+
+  return `Request failed: ${status}`;
+}
+
+function clearStoredUser(): void {
+  try {
+    localStorage.removeItem('user');
+  } catch {
+    // Ignore storage access errors (e.g., during SSR or locked storage).
+  }
+
+  try {
+    sessionStorage.removeItem('user');
+  } catch {
+    // Ignore storage access errors (e.g., during SSR or locked storage).
+  }
+}
+
+export const navigation = {
+  assign: (url: string): void => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.location.assign(url);
+  },
+};
+
+function redirectToLogin(): void {
+  try {
+    navigation.assign('/auth/login');
+  } catch {
+    // Ignore navigation errors (e.g., during tests).
+  }
+}
+
+function isAuthRoute(): boolean {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return window.location.pathname.startsWith('/auth');
+}
+
+function isLoginRequest(url: string): boolean {
+  return url.includes('/api/users/login');
+}
+
+async function parseErrorBody(res: Response): Promise<unknown> {
+  const raw = await res.text();
+  if (!raw) {
+    return undefined;
+  }
+
+  try {
+    return toCamelCase(JSON.parse(raw));
+  } catch {
+    return raw;
+  }
+}
+
+async function throwForStatus(res: Response, url: string): Promise<never> {
+  const data = await parseErrorBody(res);
+  const message = getErrorMessage(data, res.status);
+
+  if (res.status === 401) {
+    clearStoredUser();
+    if (!isLoginRequest(url) && !isAuthRoute()) {
+      redirectToLogin();
+    }
+  }
+
+  throw new ApiError(message, res.status, url, data);
 }
 
 /**
@@ -87,7 +178,7 @@ async function baseFetch(url: string, options?: RequestInit): Promise<Response> 
 export async function apiGet<T>(url: string): Promise<T> {
   const res = await baseFetch(url);
   if (!res.ok) {
-    throw new Error(`GET ${url} failed: ${res.status}`);
+    await throwForStatus(res, url);
   }
   const data = await res.json();
   if ('data' in data) {
@@ -108,7 +199,7 @@ export async function apiPost<T, B = unknown>(url: string, body?: B): Promise<T>
     body: body !== undefined ? JSON.stringify(toSnakeCase(body)) : undefined,
   });
   if (!res.ok) {
-    throw new Error(`POST ${url} failed: ${res.status}`);
+    await throwForStatus(res, url);
   }
   const contentType = res.headers.get('content-type');
   if (contentType && contentType.includes('application/json')) {
@@ -132,7 +223,7 @@ export async function apiPut<T, B = unknown>(url: string, body?: B): Promise<T> 
     body: body !== undefined ? JSON.stringify(toSnakeCase(body)) : undefined,
   });
   if (!res.ok) {
-    throw new Error(`PUT ${url} failed: ${res.status}`);
+    await throwForStatus(res, url);
   }
   const contentType = res.headers.get('content-type');
   if (contentType && contentType.includes('application/json')) {
@@ -150,7 +241,7 @@ export async function apiDelete<T = void>(url: string): Promise<T> {
     method: 'DELETE',
   });
   if (!res.ok) {
-    throw new Error(`DELETE ${url} failed: ${res.status}`);
+    await throwForStatus(res, url);
   }
   const contentType = res.headers.get('content-type');
   if (contentType && contentType.includes('application/json')) {
