@@ -1,4 +1,5 @@
 import { apiPost } from './client';
+import { ApiError } from './errors';
 
 export interface LoginRequest {
   email: string;
@@ -23,6 +24,24 @@ export async function login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await apiPost<LoginResponse, LoginRequest>('/api/users/login', credentials);
     return response;
   } catch (error) {
+    if (error instanceof ApiError) {
+      if (error.isUnauthorized) {
+        throw new Error('Invalid email or password. Please try again.');
+      }
+
+      if (error.status === 429) {
+        throw new Error('Too many login attempts. Please try again later.');
+      }
+
+      if (error.status >= 500) {
+        throw new Error('Server error. Please try again later.');
+      }
+
+      if (error.message) {
+        throw new Error(error.message);
+      }
+    }
+
     // Extract meaningful error messages from API response
     if (error instanceof Error) {
       // Check if it's a network error
@@ -30,19 +49,8 @@ export async function login(credentials: LoginRequest): Promise<LoginResponse> {
         throw new Error('Unable to connect to the server. Please check your internet connection.');
       }
 
-      // Check for 401 (invalid credentials)
-      if (error.message.includes('401')) {
-        throw new Error('Invalid email or password. Please try again.');
-      }
-
-      // Check for 429 (rate limiting)
-      if (error.message.includes('429')) {
-        throw new Error('Too many login attempts. Please try again later.');
-      }
-
-      // Check for 500 (server error)
-      if (error.message.includes('500')) {
-        throw new Error('Server error. Please try again later.');
+      if (error.message.trim().length > 0) {
+        throw new Error(error.message);
       }
     }
 
