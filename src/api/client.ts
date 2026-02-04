@@ -56,13 +56,19 @@ function clearStoredUser(): void {
   }
 }
 
-function redirectToLogin(): void {
-  if (typeof window === 'undefined') {
-    return;
-  }
+export const navigation = {
+  assign: (url: string): void => {
+    if (typeof window === 'undefined') {
+      return;
+    }
 
+    window.location.assign(url);
+  },
+};
+
+function redirectToLogin(): void {
   try {
-    window.location.assign('/auth/login');
+    navigation.assign('/auth/login');
   } catch {
     // Ignore navigation errors (e.g., during tests).
   }

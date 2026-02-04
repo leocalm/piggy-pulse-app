@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { apiGet } from './client';
+import { apiGet, navigation } from './client';
 import { ApiError } from './errors';
 
 const fetchMock = vi.fn();
@@ -66,7 +66,7 @@ describe('api client error handling', () => {
     sessionStorage.setItem('user', 'test-user');
 
     window.history.pushState({}, '', '/dashboard');
-    const assignSpy = vi.spyOn(window.location, 'assign').mockImplementation(() => {});
+    const assignSpy = vi.spyOn(navigation, 'assign').mockImplementation(() => {});
     fetchMock.mockResolvedValue(
       createErrorResponse(401, JSON.stringify({ message: 'Unauthorized' })) as unknown as Response
     );
@@ -81,7 +81,7 @@ describe('api client error handling', () => {
   it('does not redirect when already on auth routes', async () => {
     window.history.pushState({}, '', '/auth/login');
 
-    const assignSpy = vi.spyOn(window.location, 'assign').mockImplementation(() => {});
+    const assignSpy = vi.spyOn(navigation, 'assign').mockImplementation(() => {});
     fetchMock.mockResolvedValue(
       createErrorResponse(401, JSON.stringify({ message: 'Unauthorized' })) as unknown as Response
     );
@@ -94,7 +94,7 @@ describe('api client error handling', () => {
   it('does not redirect for failed login requests', async () => {
     window.history.pushState({}, '', '/dashboard');
 
-    const assignSpy = vi.spyOn(window.location, 'assign').mockImplementation(() => {});
+    const assignSpy = vi.spyOn(navigation, 'assign').mockImplementation(() => {});
     fetchMock.mockResolvedValue(
       createErrorResponse(401, JSON.stringify({ message: 'Unauthorized' })) as unknown as Response
     );

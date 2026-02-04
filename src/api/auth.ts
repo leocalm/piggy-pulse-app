@@ -1,5 +1,5 @@
-import { ApiError } from './errors';
 import { apiGet, apiPost } from './client';
+import { ApiError } from './errors';
 
 export interface LoginRequest {
   email: string;
