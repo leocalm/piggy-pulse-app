@@ -1,17 +1,15 @@
-import { apiPost } from './client';
 import { ApiError } from './errors';
+import { apiGet, apiPost } from './client';
 
 export interface LoginRequest {
   email: string;
   password: string;
 }
 
-export interface LoginResponse {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-  };
+export interface User {
+  id: string;
+  email: string;
+  name: string;
 }
 
 /**
@@ -19,10 +17,9 @@ export interface LoginResponse {
  * Backend returns a cookie that is automatically stored and sent with subsequent requests.
  * @throws Error with user-friendly message on failure
  */
-export async function login(credentials: LoginRequest): Promise<LoginResponse> {
+export async function login(credentials: LoginRequest): Promise<void> {
   try {
-    const response = await apiPost<LoginResponse, LoginRequest>('/api/users/login', credentials);
-    return response;
+    await apiPost<void, LoginRequest>('/api/users/login', credentials);
   } catch (error) {
     if (error instanceof ApiError) {
       if (error.isUnauthorized) {
@@ -57,6 +54,21 @@ export async function login(credentials: LoginRequest): Promise<LoginResponse> {
     // Generic error fallback
     throw new Error('Login failed. Please try again.');
   }
+}
+
+/**
+ * Fetches the current authenticated user from the backend using the auth cookie.
+ * Expected response shapes:
+ * - { user: { ... } }
+ * - { data: { user: { ... } } }
+ * - { ...user fields... }
+ */
+export async function fetchCurrentUser(): Promise<User> {
+  const response = await apiGet<User | { user: User }>('/api/users/me');
+  if (response && typeof response === 'object' && 'user' in response) {
+    return response.user;
+  }
+  return response as User;
 }
 
 /**
