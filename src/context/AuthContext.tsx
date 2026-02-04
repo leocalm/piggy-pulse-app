@@ -1,8 +1,7 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
-import { fetchCurrentUser } from '@/api/auth';
-import type { User } from '@/api/auth';
+import { fetchCurrentUser, type User } from '@/api/auth';
 
 interface AuthContextType {
   user: User | null;
