@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { apiGet, navigation } from './client';
+import { apiGet, navigation, toCamelCase, toSnakeCase } from './client';
 import { ApiError } from './errors';
 
 const fetchMock = vi.fn();
@@ -102,5 +102,59 @@ describe('api client error handling', () => {
     await expect(apiGet('/api/users/login')).rejects.toBeInstanceOf(ApiError);
 
     expect(assignSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('api client case transformations', () => {
+  it('converts nested snake_case data to camelCase', () => {
+    const input = {
+      user_id: 'user-1',
+      account_balance: 500,
+      nested_value: {
+        account_id: 'account-1',
+        tags: [{ tag_id: 'tag-1' }, { tag_id: 'tag-2' }],
+      },
+      alreadyCamel: 'kept',
+      nullable_value: null,
+    };
+
+    const result = toCamelCase<typeof input>(input);
+
+    expect(result).toEqual({
+      userId: 'user-1',
+      accountBalance: 500,
+      nestedValue: {
+        accountId: 'account-1',
+        tags: [{ tagId: 'tag-1' }, { tagId: 'tag-2' }],
+      },
+      alreadyCamel: 'kept',
+      nullableValue: null,
+    });
+  });
+
+  it('converts nested camelCase data to snake_case', () => {
+    const input = {
+      userId: 'user-1',
+      accountBalance: 500,
+      nestedValue: {
+        accountId: 'account-1',
+        tags: [{ tagId: 'tag-1' }, { tagId: 'tag-2' }],
+      },
+      already_snake: 'kept',
+      nullableValue: null,
+    };
+
+    const result = toSnakeCase<typeof input>(input);
+
+    expect(result).toEqual({
+      user_id: 'user-1',
+      account_balance: 500,
+      nested_value: {
+        account_id: 'account-1',
+        tags: [{ tag_id: 'tag-1' }, { tag_id: 'tag-2' }],
+      },
+      already_snake: 'kept',
+      nullable_value: null,
+    });
   });
 });
