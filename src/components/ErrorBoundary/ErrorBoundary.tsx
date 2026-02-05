@@ -19,6 +19,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error): void {
     // Allowed for production debugging of unexpected crashes.
+    // eslint-disable-next-line no-console -- intentional error reporting in boundary
     console.error('ErrorBoundary caught an error', error);
   }
 
