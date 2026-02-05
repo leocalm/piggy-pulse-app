@@ -1,5 +1,5 @@
 import { act, useEffect } from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AuthProvider, useAuth } from './AuthContext';
 import type { User } from '@/api/auth';
@@ -131,5 +131,40 @@ describe('AuthContext', () => {
     expect(sessionStorage.getItem('user')).toBeNull();
     expect(localStorage.getItem('user')).toBeNull();
     expect(screen.getByTestId('email')).toHaveTextContent('none');
+  });
+
+  it('stores login in local storage when remember me is true', async () => {
+    let authRef: ReturnType<typeof useAuth> | null = null;
+
+    mockFetchCurrentUser.mockRejectedValue(new Error('No session'));
+
+    render(
+      <AuthProvider>
+        <TestConsumer onReady={(auth) => (authRef = auth)} />
+      </AuthProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('isLoading')).toHaveTextContent('false');
+    });
+
+    const rememberedUser: User = {
+      id: 'user-4',
+      email: 'remembered@example.com',
+      name: 'Remembered User',
+    };
+
+    act(() => {
+      authRef?.login(rememberedUser, true);
+    });
+
+    expect(localStorage.getItem('user')).toBe(JSON.stringify(rememberedUser));
+    expect(sessionStorage.getItem('user')).toBeNull();
+  });
+
+  it('throws when useAuth is called outside the provider', () => {
+    expect(() => renderHook(() => useAuth())).toThrow(
+      'useAuth must be used within an AuthProvider'
+    );
   });
 });

@@ -157,4 +157,23 @@ describe('api client case transformations', () => {
       nullable_value: null,
     });
   });
+
+  it('handles top-level arrays', () => {
+    const input = [{ user_id: '1' }, { user_id: '2' }];
+    const result = toCamelCase<typeof input>(input);
+
+    expect(result).toEqual([{ userId: '1' }, { userId: '2' }]);
+  });
+
+  it('returns primitives and nullish values unchanged', () => {
+    expect(toCamelCase<string>('plain')).toBe('plain');
+    expect(toCamelCase<number>(42)).toBe(42);
+    expect(toCamelCase<null>(null)).toBeNull();
+    expect(toCamelCase<undefined>(undefined)).toBeUndefined();
+
+    expect(toSnakeCase<string>('plain')).toBe('plain');
+    expect(toSnakeCase<number>(42)).toBe(42);
+    expect(toSnakeCase<null>(null)).toBeNull();
+    expect(toSnakeCase<undefined>(undefined)).toBeUndefined();
+  });
 });

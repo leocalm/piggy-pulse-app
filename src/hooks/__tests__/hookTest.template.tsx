@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 /**
  * Hook Test Template
- * 1. Copy this file next to the hook under test.
+ * 1. Copy this file into `src/hooks/` (or next to the hook under test).
  * 2. Rename to `<hookName>.test.tsx`.
  * 3. Replace `useExampleHook` and assertions with real logic.
  */

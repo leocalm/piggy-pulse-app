@@ -30,4 +30,11 @@ describe('CurrencyValue', () => {
     expect(container.textContent).toMatch(/1\.2/);
     expect(container.textContent).toContain('M');
   });
+
+  it('falls back to euro symbol when currency is undefined', () => {
+    const { container } = render(<CurrencyValue currency={undefined} cents={1000} locale="en" />);
+
+    expect(container.textContent).toContain('€');
+    expect(container.textContent).toContain('10.00');
+  });
 });
