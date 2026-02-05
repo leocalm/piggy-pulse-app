@@ -3,18 +3,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  useCategories,
-  useCreateBudgetCategory,
-  useCreateCategory,
-  useBudgetedCategories,
-  useDeleteBudgetCategory,
-  useDeleteCategory,
-  useUnbudgetedCategories,
-  useUpdateBudgetCategory,
-  useUpdateCategory,
-} from './useCategories';
-import { queryKeys } from './queryKeys';
-import {
   createBudgetCategory,
   deleteBudgetCategory,
   fetchBudgetCategories,
@@ -29,6 +17,18 @@ import {
 } from '@/api/category';
 import type { BudgetCategoryRequest } from '@/types/budget';
 import type { CategoryRequest } from '@/types/category';
+import { queryKeys } from './queryKeys';
+import {
+  useBudgetedCategories,
+  useCategories,
+  useCreateBudgetCategory,
+  useCreateCategory,
+  useDeleteBudgetCategory,
+  useDeleteCategory,
+  useUnbudgetedCategories,
+  useUpdateBudgetCategory,
+  useUpdateCategory,
+} from './useCategories';
 
 vi.mock('@/api/budget', () => ({
   createBudgetCategory: vi.fn(),
@@ -241,19 +241,7 @@ describe('useCategories', () => {
   it('refetches budgeted categories after budget update', async () => {
     const { wrapper, queryClient } = createWrapper();
     const refetchSpy = vi.spyOn(queryClient, 'refetchQueries');
-    mockUpdateBudgetCategory.mockResolvedValue({
-      id: 'budget-category-1',
-      categoryId: 'category-1',
-      budgetedValue: 7500,
-      category: {
-        id: 'category-1',
-        name: 'Food',
-        color: '#000000',
-        icon: '🍔',
-        parentId: null,
-        categoryType: 'Outgoing',
-      },
-    });
+    mockUpdateBudgetCategory.mockResolvedValue(undefined);
 
     const { result } = renderHook(() => useUpdateBudgetCategory(), { wrapper });
 

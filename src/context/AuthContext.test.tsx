@@ -1,8 +1,8 @@
 import { act, useEffect } from 'react';
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { AuthProvider, useAuth } from './AuthContext';
 import type { User } from '@/api/auth';
+import { AuthProvider, useAuth } from './AuthContext';
 
 const mockShow = vi.hoisted(() => vi.fn());
 const mockFetchCurrentUser = vi.hoisted(() => vi.fn());

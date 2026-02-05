@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MantineProvider } from '@mantine/core';
-import { ProtectedRoute } from './ProtectedRoute';
 import { useAuth } from '@/context/AuthContext';
+import { ProtectedRoute } from './ProtectedRoute';
 
 vi.mock('@/context/AuthContext', () => ({
   useAuth: vi.fn(),
@@ -16,7 +16,7 @@ const renderWithRoutes = (initialEntry = '/private') => {
     const location = useLocation();
     const fromPath =
       typeof location.state === 'object' && location.state && 'from' in location.state
-        ? (location.state as { from?: { pathname?: string } }).from?.pathname ?? 'missing'
+        ? ((location.state as { from?: { pathname?: string } }).from?.pathname ?? 'missing')
         : 'missing';
     return <div>Login Screen from {fromPath}</div>;
   };
