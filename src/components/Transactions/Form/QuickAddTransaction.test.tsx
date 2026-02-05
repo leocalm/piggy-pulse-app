@@ -330,9 +330,7 @@ describe('QuickAddTransaction', () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Destination account is required for transfers')
-      ).toBeInTheDocument();
+      expect(screen.getByText('Destination account is required for transfers')).toBeInTheDocument();
     });
 
     expect(mockCreateTransaction).not.toHaveBeenCalled();
