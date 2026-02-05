@@ -57,7 +57,31 @@
       "vendor": {
         "placeholder": "Fornecedor"
       },
-      "recent": "Recentes"
+      "recent": "Recentes",
+      "success": "Transação adicionada com sucesso",
+      "error": {
+        "create": "Falha ao criar transação",
+        "description": {
+          "required": "Descrição é obrigatória",
+          "maxLength": "Descrição deve ter menos de 255 caracteres"
+        },
+        "amount": {
+          "required": "Valor é obrigatório",
+          "greaterThanZero": "Valor deve ser maior que 0"
+        },
+        "occurredAt": {
+          "required": "Data é obrigatória"
+        },
+        "fromAccount": {
+          "required": "Conta é obrigatória"
+        },
+        "category": {
+          "required": "Categoria é obrigatória"
+        },
+        "toAccount": {
+          "required": "Conta destino é obrigatória para transferências"
+        }
+      }
     }
   },
   "layout": {

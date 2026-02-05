@@ -95,6 +95,13 @@ export const QuickAddTransaction = ({
         !value ? t('transactions.quickAddTransaction.error.fromAccount.required') : null,
       categoryId: (value) =>
         !value ? t('transactions.quickAddTransaction.error.category.required') : null,
+      toAccountId: (value, values) => {
+        const category = categories.find((c) => c.id === values.categoryId);
+        if (category?.categoryType === 'Transfer' && !value) {
+          return t('transactions.quickAddTransaction.error.toAccount.required');
+        }
+        return null;
+      },
     },
   });
 

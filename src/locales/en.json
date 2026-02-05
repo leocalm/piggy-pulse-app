@@ -108,6 +108,9 @@
         },
         "category": {
           "required": "Category is required"
+        },
+        "toAccount": {
+          "required": "Destination account is required for transfers"
         }
       }
     },

@@ -26,6 +26,21 @@ vi.mock('@/hooks/useAccounts', () => ({
           decimal_places: 2,
         },
       },
+      {
+        id: '2',
+        name: 'Savings',
+        icon: '💰',
+        color: '#ffa500',
+        account_type: 'Savings',
+        balance: 1000,
+        currency: {
+          id: '1',
+          name: 'Euro',
+          symbol: '€',
+          currency: 'EUR',
+          decimal_places: 2,
+        },
+      },
     ],
     isLoading: false,
   }),
@@ -41,6 +56,14 @@ vi.mock('@/hooks/useCategories', () => ({
         color: '#b47aff',
         parent_id: null,
         category_type: 'Outgoing',
+      },
+      {
+        id: '2',
+        name: 'Transfer',
+        icon: '🔄',
+        color: '#00a8ff',
+        parent_id: null,
+        category_type: 'Transfer',
       },
     ],
     isLoading: false,
@@ -282,5 +305,104 @@ describe('QuickAddTransaction', () => {
     // since vi.mock needs to be at the top level. For now, we'll skip the actual assertion.
     renderComponent();
     // TODO: Implement proper loading state test with separate test file or test setup
+  });
+
+  it('validates toAccountId is required when category type is Transfer', async () => {
+    const user = userEvent.setup();
+
+    renderComponent();
+
+    // Fill in the form with Transfer category
+    await user.type(screen.getByPlaceholderText(/description/i), 'Transfer to Savings');
+    await user.type(screen.getByPlaceholderText('0.00'), '100.00');
+    await user.click(screen.getByPlaceholderText('Account...'));
+    await user.click(screen.getByText('💳 ING'));
+    await user.click(screen.getByPlaceholderText('Category...'));
+    await user.click(screen.getByText('🔄 Transfer'));
+
+    // Submit without selecting toAccountId
+    const submitButton = screen.getByRole('button', { name: /plus/i });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Destination account is required for transfers')
+      ).toBeInTheDocument();
+    });
+
+    expect(mockCreateTransaction).not.toHaveBeenCalled();
+  });
+
+  it('allows submission when toAccountId is provided for Transfer category', async () => {
+    const user = userEvent.setup();
+
+    renderComponent();
+
+    // Fill in the form with Transfer category including toAccountId
+    await user.type(screen.getByPlaceholderText(/description/i), 'Transfer to Savings');
+    await user.type(screen.getByPlaceholderText('0.00'), '100.00');
+    await user.click(screen.getByPlaceholderText('Account...'));
+    await user.click(screen.getByText('💳 ING'));
+    await user.click(screen.getByPlaceholderText('Category...'));
+    await user.click(screen.getByText('🔄 Transfer'));
+
+    // Wait for toAccount field to appear and select it
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('To Account...')).toBeInTheDocument();
+    });
+    await user.click(screen.getByPlaceholderText('To Account...'));
+    await user.click(screen.getByText('💰 Savings'));
+
+    // Submit
+    const submitButton = screen.getByRole('button', { name: /plus/i });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(mockCreateTransaction).toHaveBeenCalledWith(
+        expect.objectContaining({
+          description: 'Transfer to Savings',
+          amount: 10000,
+          categoryId: '2',
+          fromAccountId: '1',
+          toAccountId: '2',
+          occurredAt: expect.any(String),
+          vendorId: undefined,
+        }),
+        expect.any(Object)
+      );
+    });
+  });
+
+  it('does not require toAccountId for non-Transfer categories', async () => {
+    const user = userEvent.setup();
+
+    renderComponent();
+
+    // Fill in the form with non-Transfer category
+    await user.type(screen.getByPlaceholderText(/description/i), 'Lunch');
+    await user.type(screen.getByPlaceholderText('0.00'), '15.50');
+    await user.click(screen.getByPlaceholderText('Account...'));
+    await user.click(screen.getByText('💳 ING'));
+    await user.click(screen.getByPlaceholderText('Category...'));
+    await user.click(screen.getByText('🍔 Comida'));
+
+    // Submit without toAccountId (should be valid for non-Transfer)
+    const submitButton = screen.getByRole('button', { name: /plus/i });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(mockCreateTransaction).toHaveBeenCalledWith(
+        expect.objectContaining({
+          description: 'Lunch',
+          amount: 1550,
+          categoryId: '1',
+          fromAccountId: '1',
+          toAccountId: '',
+          occurredAt: expect.any(String),
+          vendorId: undefined,
+        }),
+        expect.any(Object)
+      );
+    });
   });
 });
