@@ -94,7 +94,9 @@ export function EmptyState({
   };
 
   const renderMessage = () => {
-    if (!message && !searchQuery) {return null;}
+    if (!message && !searchQuery) {
+      return null;
+    }
 
     if (variant === 'search' && searchQuery) {
       return (
@@ -109,7 +111,9 @@ export function EmptyState({
   };
 
   const renderActions = () => {
-    if (!primaryAction && !secondaryAction) {return null;}
+    if (!primaryAction && !secondaryAction) {
+      return null;
+    }
 
     return (
       <Group className={classes.actions} mt={onboardingSteps ? 'xl' : undefined}>
@@ -137,7 +141,9 @@ export function EmptyState({
   };
 
   const renderTips = () => {
-    if (!tips || tips.length === 0) {return null;}
+    if (!tips || tips.length === 0) {
+      return null;
+    }
 
     return (
       <div className={classes.tips}>
@@ -155,7 +161,9 @@ export function EmptyState({
   };
 
   const renderExamples = () => {
-    if (!examples || examples.length === 0) {return null;}
+    if (!examples || examples.length === 0) {
+      return null;
+    }
 
     return (
       <div className={classes.examples}>
@@ -183,7 +191,9 @@ export function EmptyState({
   };
 
   const renderOnboardingSteps = () => {
-    if (!onboardingSteps || onboardingSteps.length === 0) {return null;}
+    if (!onboardingSteps || onboardingSteps.length === 0) {
+      return null;
+    }
 
     return (
       <div className={classes.onboardingSteps}>
@@ -201,7 +211,9 @@ export function EmptyState({
   };
 
   const renderFilterTags = () => {
-    if (!filterTags || filterTags.length === 0) {return null;}
+    if (!filterTags || filterTags.length === 0) {
+      return null;
+    }
 
     return (
       <div className={classes.filterTags}>

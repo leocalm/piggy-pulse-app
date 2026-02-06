@@ -84,21 +84,35 @@ export function ErrorState({
   const { t } = useTranslation();
 
   const getIcon = (): string | ReactNode => {
-    if (icon) {return icon;}
-    if (code && DEFAULT_ICONS[code]) {return DEFAULT_ICONS[code];}
-    if (variant === 'network') {return '📡';}
+    if (icon) {
+      return icon;
+    }
+    if (code && DEFAULT_ICONS[code]) {
+      return DEFAULT_ICONS[code];
+    }
+    if (variant === 'network') {
+      return '📡';
+    }
     return '💥';
   };
 
   const getTitle = (): string => {
-    if (title) {return title;}
-    if (code && DEFAULT_TITLES[code]) {return t(DEFAULT_TITLES[code]);}
+    if (title) {
+      return title;
+    }
+    if (code && DEFAULT_TITLES[code]) {
+      return t(DEFAULT_TITLES[code]);
+    }
     return t('states.error.generic.title');
   };
 
   const getMessage = (): string => {
-    if (message) {return message;}
-    if (code && DEFAULT_MESSAGES[code]) {return t(DEFAULT_MESSAGES[code]);}
+    if (message) {
+      return message;
+    }
+    if (code && DEFAULT_MESSAGES[code]) {
+      return t(DEFAULT_MESSAGES[code]);
+    }
     return t('states.error.generic.message');
   };
 
@@ -135,10 +149,16 @@ export function ErrorState({
       });
     }
 
-    if (primaryAction) {actions.push(primaryAction);}
-    if (secondaryAction) {actions.push(secondaryAction);}
+    if (primaryAction) {
+      actions.push(primaryAction);
+    }
+    if (secondaryAction) {
+      actions.push(secondaryAction);
+    }
 
-    if (actions.length === 0) {return null;}
+    if (actions.length === 0) {
+      return null;
+    }
 
     return (
       <Group className={classes.errorActions}>
