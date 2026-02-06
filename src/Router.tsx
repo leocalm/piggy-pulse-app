@@ -77,6 +77,21 @@ const ForgotPasswordPage = lazy(() =>
     default: module.ForgotPasswordPage,
   }))
 );
+const NotFoundPage = lazy(() =>
+  import('./pages/NotFound.page').then((module) => ({
+    default: module.NotFoundPage,
+  }))
+);
+const ServerErrorPage = lazy(() =>
+  import('./pages/ServerError.page').then((module) => ({
+    default: module.ServerErrorPage,
+  }))
+);
+const AccessDeniedPage = lazy(() =>
+  import('./pages/AccessDenied.page').then((module) => ({
+    default: module.AccessDeniedPage,
+  }))
+);
 
 const Layout = () => (
   <ProtectedRoute>
@@ -115,6 +130,8 @@ export function Router() {
         { path: 'settings', element: withPageLoader(<SettingsPage />) },
         { path: 'help', element: <div>{t('router.help')}</div> },
         { path: 'more', element: <div>{t('router.more')}</div> },
+        // Catch-all for 404 within authenticated routes
+        { path: '*', element: withPageLoader(<NotFoundPage />) },
       ],
     },
     {
@@ -126,6 +143,11 @@ export function Router() {
         { path: 'forgot-password', element: withPageLoader(<ForgotPasswordPage />) },
       ],
     },
+    // Error pages (accessible without authentication)
+    { path: '/error/500', element: withPageLoader(<ServerErrorPage />) },
+    { path: '/error/403', element: withPageLoader(<AccessDeniedPage />) },
+    // Global 404 catch-all
+    { path: '*', element: withPageLoader(<NotFoundPage />) },
   ]);
   return (
     <AuthProvider>

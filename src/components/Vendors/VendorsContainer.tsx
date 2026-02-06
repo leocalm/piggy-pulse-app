@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Group, SimpleGrid, Stack, Text, TextInput } from '@mantine/core';
+import { Box, Button, Group, SimpleGrid, Stack, TextInput } from '@mantine/core';
+import { EmptyState, LoadingState } from '@/components/Utils';
 import { useDeleteVendor, useVendors } from '@/hooks/useVendors';
 import { VendorWithStats } from '@/types/vendor';
 import { PageHeader } from '../Transactions/PageHeader';
@@ -122,8 +123,16 @@ export function VendorsContainer() {
   };
 
   if (isLoading) {
-    return <Box p="xl">Loading...</Box>;
+    return (
+      <Box p="xl">
+        <LoadingState variant="spinner" text={t('states.loading.default')} />
+      </Box>
+    );
   }
+
+  // Check if we have search results or no vendors at all
+  const hasNoVendors = !vendors || vendors.length === 0;
+  const hasNoSearchResults = searchTerm && processedVendors.length === 0;
 
   return (
     <Box
@@ -180,14 +189,30 @@ export function VendorsContainer() {
           </Group>
         </Group>
 
-        {/* Vendors Grid */}
-        {processedVendors.length === 0 ? (
-          <Box ta="center" py="xl">
-            <Text size="lg" fw={600} mb="xs">
-              {t('vendors.empty.title')}
-            </Text>
-            <Text c="dimmed">{t('vendors.empty.subtitle')}</Text>
-          </Box>
+        {/* Vendors Grid or Empty State */}
+        {hasNoVendors ? (
+          <EmptyState
+            icon="🏪"
+            title={t('states.empty.vendors.title')}
+            message={t('states.empty.vendors.message')}
+            primaryAction={{
+              label: t('states.empty.vendors.addVendor'),
+              icon: <span>+</span>,
+              onClick: handleAdd,
+            }}
+          />
+        ) : hasNoSearchResults ? (
+          <EmptyState
+            variant="search"
+            icon="🔍"
+            title={t('states.empty.search.title')}
+            searchQuery={searchTerm}
+            primaryAction={{
+              label: t('states.empty.filter.clearAll'),
+              icon: <span>🔄</span>,
+              onClick: () => setSearchTerm(''),
+            }}
+          />
         ) : (
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing="lg">
             {processedVendors.map((vendor) => (

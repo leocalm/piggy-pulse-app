@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
-import { Group, Skeleton, Stack, Text } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
+import { Stack } from '@mantine/core';
+import { CategoryListSkeleton, EmptyState } from '@/components/Utils';
 import { SpentPerCategory } from '@/types/dashboard';
 import styles from './Dashboard.module.css';
 
@@ -18,6 +20,8 @@ const CATEGORY_COLORS = [
 ];
 
 export function TopCategoriesChart({ data, isLoading }: TopCategoriesChartProps) {
+  const { t } = useTranslation();
+
   const maxSpent = useMemo(() => {
     // amountSpent comes in cents — convert to display value for calculations
     return Math.max(...data.map((item) => item.amountSpent / 100), 1);
@@ -36,20 +40,19 @@ export function TopCategoriesChart({ data, isLoading }: TopCategoriesChartProps)
   if (isLoading) {
     return (
       <Stack gap="md">
-        {[...Array(5)].map((_, i) => (
-          <Skeleton key={i} height={50} radius="md" />
-        ))}
+        <CategoryListSkeleton count={5} />
       </Stack>
     );
   }
 
   if (!data || data.length === 0) {
     return (
-      <Group justify="center" py="xl">
-        <Text c="dimmed" size="sm">
-          No category data available
-        </Text>
-      </Group>
+      <EmptyState
+        variant="compact"
+        icon="📊"
+        title={t('states.empty.charts.noData')}
+        message={t('states.empty.charts.message')}
+      />
     );
   }
 

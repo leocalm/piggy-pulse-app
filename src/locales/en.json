@@ -3,7 +3,8 @@
     "save": "Save",
     "cancel": "Cancel",
     "success": "Success",
-    "error": "Error"
+    "error": "Error",
+    "close": "Close"
   },
   "auth": {
     "login": {
@@ -409,5 +410,171 @@
       "noTransactions": "No recent transactions",
       "addFirst": "Add your first transaction to get started"
     }
+  },
+  "states": {
+    "empty": {
+      "tips": {
+        "title": "Quick Tips"
+      },
+      "search": {
+        "noResults": "We couldn't find any results matching",
+        "title": "No Results Found",
+        "suggestions": {
+          "checkSpelling": "Check your spelling",
+          "fewerKeywords": "Use fewer or different keywords",
+          "tryCategory": "Try searching by category instead"
+        }
+      },
+      "filter": {
+        "title": "No Results Match Filters",
+        "message": "Try adjusting your filters to see more results",
+        "clearAll": "Clear All Filters",
+        "removeTag": "Remove {{tag}} filter"
+      },
+      "transactions": {
+        "title": "No Transactions Yet",
+        "message": "Start tracking your spending by adding your first transaction. Manual entry helps you stay aware of where your money goes.",
+        "addTransaction": "Add Transaction",
+        "tips": {
+          "addSoon": "Add transactions as soon as you spend to build the habit",
+          "includeDetails": "Include the date, amount, category, and vendor",
+          "useQuickAdd": "Use the Quick Add feature for faster entry"
+        }
+      },
+      "accounts": {
+        "title": "No Accounts",
+        "message": "Add your bank accounts and credit cards to start tracking",
+        "addAccount": "Add Account"
+      },
+      "categories": {
+        "title": "No Categories Yet",
+        "message": "Create categories to organize your transactions",
+        "addCategory": "Add Category"
+      },
+      "vendors": {
+        "title": "No Vendors Yet",
+        "message": "Add your first vendor to track where your money goes",
+        "addVendor": "Add Vendor"
+      },
+      "periods": {
+        "title": "No Budget Periods",
+        "message": "Budget periods define your budgeting time windows. Create your first period to start tracking your spending.",
+        "createPeriod": "Create Period",
+        "examples": {
+          "monthly": {
+            "title": "Monthly",
+            "description": "Budget by calendar month (e.g., Feb 1-28)"
+          },
+          "biweekly": {
+            "title": "Bi-Weekly",
+            "description": "Match your paycheck schedule"
+          },
+          "custom": {
+            "title": "Custom",
+            "description": "Choose any date range that works for you"
+          }
+        }
+      },
+      "budget": {
+        "title": "No Budget Set",
+        "message": "Set up your budget to start tracking your spending limits",
+        "setBudget": "Set Budget"
+      },
+      "charts": {
+        "noData": "No Data Available",
+        "message": "Add transactions to see your spending trends"
+      },
+      "goals": {
+        "title": "No Goals Set",
+        "message": "Create financial goals to track your progress",
+        "addGoal": "Add Goal"
+      },
+      "notifications": {
+        "title": "No Notifications",
+        "message": "You're all caught up!"
+      },
+      "onboarding": {
+        "title": "Welcome to Your Budget Journey!",
+        "message": "Let's get you started with tracking your finances. Follow these simple steps to set up your first budget period.",
+        "getStarted": "Get Started",
+        "learnMore": "Learn More",
+        "steps": {
+          "createPeriod": {
+            "title": "Create Your First Period",
+            "description": "Set up a budget period to start tracking your spending"
+          },
+          "addAccounts": {
+            "title": "Add Your Accounts",
+            "description": "Connect your bank accounts or credit cards"
+          },
+          "trackTransactions": {
+            "title": "Start Tracking Transactions",
+            "description": "Manually add transactions to build awareness of your spending"
+          }
+        }
+      }
+    },
+    "error": {
+      "generic": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred. Please try again."
+      },
+      "404": {
+        "title": "Page Not Found",
+        "message": "The page you're looking for doesn't exist or has been moved. Let's get you back on track."
+      },
+      "403": {
+        "title": "Access Denied",
+        "message": "You don't have permission to access this resource. If you believe this is a mistake, please contact your administrator."
+      },
+      "500": {
+        "title": "Something Went Wrong",
+        "message": "We're experiencing technical difficulties. Our team has been notified and is working on a fix. Please try again later."
+      },
+      "503": {
+        "title": "Service Unavailable",
+        "message": "The service is temporarily unavailable. Please try again in a few minutes."
+      },
+      "network": {
+        "title": "No Internet Connection",
+        "message": "Please check your internet connection and try again. Some features may not work without an active connection."
+      },
+      "loadFailed": {
+        "title": "Failed to Load Data",
+        "message": "We couldn't load your data. This might be a temporary issue with our servers."
+      },
+      "saveFailed": {
+        "title": "Unable to Save Changes",
+        "message": "There was a problem saving your changes. Please check your internet connection and try again."
+      },
+      "actions": {
+        "goHome": "Go to Dashboard",
+        "goBack": "Go Back",
+        "refresh": "Refresh Page",
+        "retry": "Try Again",
+        "requestAccess": "Request Access",
+        "reportIssue": "Report Issue",
+        "retryConnection": "Retry Connection"
+      },
+      "retry": "Try Again",
+      "details": {
+        "title": "Error Details",
+        "code": "Error Code",
+        "requestId": "Request ID",
+        "timestamp": "Timestamp"
+      }
+    },
+    "loading": {
+      "default": "Loading...",
+      "saving": "Saving changes...",
+      "syncing": "Syncing transactions...",
+      "calculating": "Calculating budget...",
+      "processing": "Processing...",
+      "app": "Loading BudgetApp...",
+      "justAMoment": "Just a moment"
+    }
+  },
+  "common": {
+    "close": "Close"
   }
 }
