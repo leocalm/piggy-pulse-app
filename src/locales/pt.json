@@ -3,7 +3,8 @@
     "save": "Salvar",
     "cancel": "Cancelar",
     "success": "Sucesso",
-    "error": "Erro"
+    "error": "Erro",
+    "close": "Fechar"
   },
   "auth": {
     "login": {
@@ -145,5 +146,171 @@
       "title": "Ainda não há fornecedores",
       "subtitle": "Adicione seu primeiro fornecedor para rastrear onde seu dinheiro vai"
     }
+  },
+  "states": {
+    "empty": {
+      "tips": {
+        "title": "Dicas Rápidas"
+      },
+      "search": {
+        "noResults": "Não encontramos resultados para",
+        "title": "Nenhum Resultado Encontrado",
+        "suggestions": {
+          "checkSpelling": "Verifique a ortografia",
+          "fewerKeywords": "Use menos palavras ou palavras diferentes",
+          "tryCategory": "Tente pesquisar por categoria"
+        }
+      },
+      "filter": {
+        "title": "Nenhum Resultado com os Filtros",
+        "message": "Tente ajustar seus filtros para ver mais resultados",
+        "clearAll": "Limpar Todos os Filtros",
+        "removeTag": "Remover filtro {{tag}}"
+      },
+      "transactions": {
+        "title": "Nenhuma Transação Ainda",
+        "message": "Comece a rastrear seus gastos adicionando sua primeira transação. O registro manual ajuda você a ficar atento para onde seu dinheiro vai.",
+        "addTransaction": "Adicionar Transação",
+        "tips": {
+          "addSoon": "Adicione transações assim que gastar para criar o hábito",
+          "includeDetails": "Inclua a data, valor, categoria e fornecedor",
+          "useQuickAdd": "Use o recurso de Adição Rápida para entrada mais rápida"
+        }
+      },
+      "accounts": {
+        "title": "Nenhuma Conta",
+        "message": "Adicione suas contas bancárias e cartões de crédito para começar a rastrear",
+        "addAccount": "Adicionar Conta"
+      },
+      "categories": {
+        "title": "Nenhuma Categoria Ainda",
+        "message": "Crie categorias para organizar suas transações",
+        "addCategory": "Adicionar Categoria"
+      },
+      "vendors": {
+        "title": "Nenhum Fornecedor Ainda",
+        "message": "Adicione seu primeiro fornecedor para rastrear onde seu dinheiro vai",
+        "addVendor": "Adicionar Fornecedor"
+      },
+      "periods": {
+        "title": "Nenhum Período de Orçamento",
+        "message": "Períodos de orçamento definem suas janelas de tempo para orçamento. Crie seu primeiro período para começar a rastrear seus gastos.",
+        "createPeriod": "Criar Período",
+        "examples": {
+          "monthly": {
+            "title": "Mensal",
+            "description": "Orçamento por mês (ex.: 1-28 de Fev)"
+          },
+          "biweekly": {
+            "title": "Quinzenal",
+            "description": "Combine com seu calendário de pagamento"
+          },
+          "custom": {
+            "title": "Personalizado",
+            "description": "Escolha qualquer período que funcione para você"
+          }
+        }
+      },
+      "budget": {
+        "title": "Nenhum Orçamento Definido",
+        "message": "Configure seu orçamento para começar a rastrear seus limites de gastos",
+        "setBudget": "Definir Orçamento"
+      },
+      "charts": {
+        "noData": "Nenhum Dado Disponível",
+        "message": "Adicione transações para ver suas tendências de gastos"
+      },
+      "goals": {
+        "title": "Nenhuma Meta Definida",
+        "message": "Crie metas financeiras para acompanhar seu progresso",
+        "addGoal": "Adicionar Meta"
+      },
+      "notifications": {
+        "title": "Nenhuma Notificação",
+        "message": "Você está em dia!"
+      },
+      "onboarding": {
+        "title": "Bem-vindo à Sua Jornada Financeira!",
+        "message": "Vamos começar a rastrear suas finanças. Siga estes passos simples para configurar seu primeiro período de orçamento.",
+        "getStarted": "Começar",
+        "learnMore": "Saiba Mais",
+        "steps": {
+          "createPeriod": {
+            "title": "Crie Seu Primeiro Período",
+            "description": "Configure um período de orçamento para começar a rastrear seus gastos"
+          },
+          "addAccounts": {
+            "title": "Adicione Suas Contas",
+            "description": "Conecte suas contas bancárias ou cartões de crédito"
+          },
+          "trackTransactions": {
+            "title": "Comece a Rastrear Transações",
+            "description": "Adicione transações manualmente para criar consciência sobre seus gastos"
+          }
+        }
+      }
+    },
+    "error": {
+      "generic": {
+        "title": "Algo Deu Errado",
+        "message": "Ocorreu um erro inesperado. Por favor, tente novamente."
+      },
+      "404": {
+        "title": "Página Não Encontrada",
+        "message": "A página que você está procurando não existe ou foi movida. Vamos colocá-lo de volta no caminho."
+      },
+      "403": {
+        "title": "Acesso Negado",
+        "message": "Você não tem permissão para acessar este recurso. Se você acredita que isso é um erro, entre em contato com o administrador."
+      },
+      "500": {
+        "title": "Algo Deu Errado",
+        "message": "Estamos enfrentando dificuldades técnicas. Nossa equipe foi notificada e está trabalhando em uma correção. Por favor, tente novamente mais tarde."
+      },
+      "503": {
+        "title": "Serviço Indisponível",
+        "message": "O serviço está temporariamente indisponível. Por favor, tente novamente em alguns minutos."
+      },
+      "network": {
+        "title": "Sem Conexão com a Internet",
+        "message": "Por favor, verifique sua conexão com a internet e tente novamente. Alguns recursos podem não funcionar sem uma conexão ativa."
+      },
+      "loadFailed": {
+        "title": "Falha ao Carregar Dados",
+        "message": "Não foi possível carregar seus dados. Isso pode ser um problema temporário com nossos servidores."
+      },
+      "saveFailed": {
+        "title": "Não Foi Possível Salvar Alterações",
+        "message": "Houve um problema ao salvar suas alterações. Por favor, verifique sua conexão com a internet e tente novamente."
+      },
+      "actions": {
+        "goHome": "Ir para o Dashboard",
+        "goBack": "Voltar",
+        "refresh": "Atualizar Página",
+        "retry": "Tentar Novamente",
+        "requestAccess": "Solicitar Acesso",
+        "reportIssue": "Relatar Problema",
+        "retryConnection": "Tentar Reconectar"
+      },
+      "retry": "Tentar Novamente",
+      "details": {
+        "title": "Detalhes do Erro",
+        "code": "Código do Erro",
+        "requestId": "ID da Requisição",
+        "timestamp": "Data e Hora"
+      }
+    },
+    "loading": {
+      "default": "Carregando...",
+      "saving": "Salvando alterações...",
+      "syncing": "Sincronizando transações...",
+      "calculating": "Calculando orçamento...",
+      "processing": "Processando...",
+      "app": "Carregando BudgetApp...",
+      "justAMoment": "Só um momento"
+    }
+  },
+  "common": {
+    "close": "Fechar"
   }
 }

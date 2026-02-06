@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { AreaChart, AreaChartSeries } from '@mantine/charts';
-import { Group, Paper, Skeleton, Stack, Text } from '@mantine/core';
+import { Group, Paper, Stack, Text } from '@mantine/core';
+import { ChartSkeleton, EmptyState } from '@/components/Utils';
 import { AccountResponse } from '@/types/account';
 import { BudgetPerDay } from '@/types/dashboard';
 import { convertCentsToDisplay } from '@/utils/currency';
@@ -30,8 +31,7 @@ export function BalanceLineChartCard({ data, accounts, isLoading }: BalanceLineC
         }}
       >
         <Stack gap="md">
-          <Skeleton height={24} width={200} />
-          <Skeleton height={300} />
+          <ChartSkeleton size="lg" />
         </Stack>
       </Paper>
     );
@@ -52,9 +52,12 @@ export function BalanceLineChartCard({ data, accounts, isLoading }: BalanceLineC
         }}
       >
         <Group justify="center" h="100%">
-          <Text c="dimmed">
-            {t('dashboard.charts.balanceOverTime.noData') || 'No data available'}
-          </Text>
+          <EmptyState
+            variant="compact"
+            icon="📈"
+            title={t('dashboard.charts.balanceOverTime.noData')}
+            message={t('states.empty.charts.message')}
+          />
         </Group>
       </Paper>
     );

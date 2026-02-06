@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IconArrowDownLeft, IconArrowUpRight, IconPencil, IconTrash } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 import {
   ActionIcon,
   Card,
@@ -12,12 +13,14 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { EmptyState, LoadingState } from '@/components/Utils';
 import { useCategories, useDeleteCategory } from '@/hooks/useCategories';
 import type { CategoryResponse } from '@/types/category';
 import { CategoryNameIcon } from './CategoryNameIcon';
 import { EditCategoryForm } from './EditCategoryForm';
 
 export function CategoriesTable() {
+  const { t } = useTranslation();
   const { data: categories, isLoading } = useCategories();
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -26,7 +29,17 @@ export function CategoriesTable() {
   const [selected, setSelected] = useState<CategoryResponse | null>(null);
 
   if (isLoading) {
-    return <Text>Loading categories...</Text>;
+    return <LoadingState variant="spinner" text={t('states.loading.default')} />;
+  }
+
+  if (!categories || categories.length === 0) {
+    return (
+      <EmptyState
+        icon="📁"
+        title={t('states.empty.categories.title')}
+        message={t('states.empty.categories.message')}
+      />
+    );
   }
 
   const CategoryCard = ({ category }: { category: CategoryResponse }) => {
@@ -102,29 +115,63 @@ export function CategoriesTable() {
       </Tabs.List>
 
       <Tabs.Panel value="all">
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
-          {categories
-            ?.filter((c) => c.categoryType !== 'Transfer')
-            .map((c) => (
-              <CategoryCard key={c.id} category={c} />
-            ))}
-        </SimpleGrid>
+        {(() => {
+          const visible = categories?.filter((c) => c.categoryType !== 'Transfer') || [];
+          if (visible.length === 0) {
+            return (
+              <EmptyState
+                icon="📁"
+                title={t('states.empty.categories.title')}
+                message={t('states.empty.categories.message')}
+              />
+            );
+          }
+          return (
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
+              {visible.map((c) => (
+                <CategoryCard key={c.id} category={c} />
+              ))}
+            </SimpleGrid>
+          );
+        })()}
       </Tabs.Panel>
 
       <Tabs.Panel value="outgoing">
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
-          {outgoing.map((c) => (
-            <CategoryCard key={c.id} category={c} />
-          ))}
-        </SimpleGrid>
+        {outgoing.length === 0 ? (
+          <EmptyState
+            icon="📁"
+            title={t('states.empty.categories.spendingTitle', t('states.empty.categories.title'))}
+            message={t(
+              'states.empty.categories.spendingMessage',
+              t('states.empty.categories.message')
+            )}
+          />
+        ) : (
+          <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
+            {outgoing.map((c) => (
+              <CategoryCard key={c.id} category={c} />
+            ))}
+          </SimpleGrid>
+        )}
       </Tabs.Panel>
 
       <Tabs.Panel value="incoming">
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
-          {incoming.map((c) => (
-            <CategoryCard key={c.id} category={c} />
-          ))}
-        </SimpleGrid>
+        {incoming.length === 0 ? (
+          <EmptyState
+            icon="📁"
+            title={t('states.empty.categories.incomeTitle', t('states.empty.categories.title'))}
+            message={t(
+              'states.empty.categories.incomeMessage',
+              t('states.empty.categories.message')
+            )}
+          />
+        ) : (
+          <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
+            {incoming.map((c) => (
+              <CategoryCard key={c.id} category={c} />
+            ))}
+          </SimpleGrid>
+        )}
       </Tabs.Panel>
 
       {isMobile ? (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Badge, Center, Stack, Text, UnstyledButton } from '@mantine/core';
+import { Badge, Stack, UnstyledButton } from '@mantine/core';
+import { EmptyState, LoadingState } from '@/components/Utils';
 import { useCreateBudgetCategory } from '@/hooks/useCategories';
 import { CategoryResponse } from '@/types/category';
 
@@ -30,26 +31,17 @@ export function UnbudgetedCategories({
   };
 
   if (isLoading) {
-    return <Text size="sm">{t('budget.unbudgetedCategories.loading')}</Text>;
+    return <LoadingState variant="inline" text={t('budget.unbudgetedCategories.loading')} />;
   }
 
   if (!categories || categories.length === 0) {
     return (
-      <Center>
-        <Stack gap="md" align="center">
-          <Text size="lg" fw={600}>
-            ✅
-          </Text>
-          <div style={{ textAlign: 'center' }}>
-            <Text size="sm" fw={600}>
-              {t('budget.unbudgetedCategories.allBudgeted')}
-            </Text>
-            <Text size="xs" c="dimmed" mt={4}>
-              All categories have been assigned a budget.
-            </Text>
-          </div>
-        </Stack>
-      </Center>
+      <EmptyState
+        variant="compact"
+        icon="✅"
+        title={t('budget.unbudgetedCategories.allBudgeted')}
+        message="All categories have been assigned a budget."
+      />
     );
   }
 
