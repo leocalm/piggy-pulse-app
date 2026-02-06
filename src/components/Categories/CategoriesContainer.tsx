@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, SimpleGrid, Stack, Tabs } from '@mantine/core';
+import { EmptyState } from '@/components/Utils';
 import { useCategories, useDeleteCategory } from '@/hooks/useCategories';
 import { PageHeader } from '../Transactions/PageHeader';
 import { CategoryCard } from './CategoryCard';
@@ -8,6 +10,7 @@ import styles from './Categories.module.css';
 type CategoryTypeFilter = 'all' | 'Incoming' | 'Outgoing' | 'Transfer';
 
 export function CategoriesContainer() {
+  const { t } = useTranslation();
   const { data: categories } = useCategories();
   const [typeFilter, setTypeFilter] = useState<CategoryTypeFilter>('all');
   const deleteMutation = useDeleteCategory();
@@ -111,22 +114,34 @@ export function CategoriesContainer() {
         </Tabs>
 
         {/* Categories Grid */}
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing="lg">
-          {filteredCategories.map((category) => {
-            const stats = getCategoryStats(category.id);
-            return (
-              <CategoryCard
-                key={category.id}
-                category={category}
-                monthlySpent={stats.monthlySpent}
-                transactionCount={stats.transactionCount}
-                trend={stats.trend}
-                onEdit={() => {}} // Connect to edit modal
-                onDelete={onDeleteCategory}
-              />
-            );
-          })}
-        </SimpleGrid>
+        {filteredCategories.length === 0 ? (
+          <EmptyState
+            icon="📁"
+            title={t('states.empty.categories.title')}
+            message={t('states.empty.categories.message')}
+            primaryAction={{
+              label: t('states.empty.categories.addButton', 'Add Category'),
+              onClick: () => {},
+            }}
+          />
+        ) : (
+          <SimpleGrid cols={{ base: 1, sm: 2, lg: 3, xl: 4 }} spacing="lg">
+            {filteredCategories.map((category) => {
+              const stats = getCategoryStats(category.id);
+              return (
+                <CategoryCard
+                  key={category.id}
+                  category={category}
+                  monthlySpent={stats.monthlySpent}
+                  transactionCount={stats.transactionCount}
+                  trend={stats.trend}
+                  onEdit={() => {}} // Connect to edit modal
+                  onDelete={onDeleteCategory}
+                />
+              );
+            })}
+          </SimpleGrid>
+        )}
       </Stack>
     </Box>
   );
