@@ -9,13 +9,15 @@ import { PageHeader } from '../Transactions/PageHeader';
 import { VendorCard } from './VendorCard';
 import { VendorDeleteModal } from './VendorDeleteModal';
 import { VendorFormModal } from './VendorFormModal';
+import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import styles from './Vendors.module.css';
 
 type SortOrder = 'name' | 'usage' | 'recent';
 
 export function VendorsContainer() {
   const { t } = useTranslation();
-  const { data: vendors, isLoading } = useVendors();
+  const { selectedPeriodId } = useBudgetPeriodSelection();
+  const { data: vendors, isLoading } = useVendors(selectedPeriodId);
   const deleteMutation = useDeleteVendor();
   const navigate = useNavigate();
 

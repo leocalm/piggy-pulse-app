@@ -5,7 +5,7 @@
 
 export const queryKeys = {
   // Vendors
-  vendors: () => ['vendors'] as const,
+  vendors: (periodId?: string | null) => ['vendors', periodId] as const,
   vendor: (id: string) => ['vendor', id] as const,
 
   // Transactions

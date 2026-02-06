@@ -38,7 +38,7 @@ export function TransactionsContainer() {
   const { data: periods } = useBudgetPeriods();
   const { data: accounts = [] } = useAccounts();
   const { data: categories = [] } = useCategories();
-  const { data: vendors = [] } = useVendors();
+  const { data: vendors = [] } = useVendors(selectedPeriodId);
 
   // Find the selected period from periods list
   const selectedPeriod = useMemo(() => {
