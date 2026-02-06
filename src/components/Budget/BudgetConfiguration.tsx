@@ -1,22 +1,13 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Alert,
-  Button,
-  Group,
-  Loader,
-  NumberInput,
-  Paper,
-  Stack,
-  TextInput,
-  Title,
-} from '@mantine/core';
+import { Button, Group, NumberInput, Paper, Stack, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { ErrorState, LoadingState } from '@/components/Utils';
 import { useBudget, useUpdateBudget } from '@/hooks/useBudget';
 
 export function BudgetConfiguration() {
   const { t } = useTranslation();
-  const { data: budgets, isLoading, isError } = useBudget();
+  const { data: budgets, isLoading, isError, refetch } = useBudget();
   const updateMutation = useUpdateBudget();
 
   const budget = budgets?.[0];
@@ -54,10 +45,18 @@ export function BudgetConfiguration() {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <LoadingState variant="spinner" text={t('states.loading.default')} />;
   }
   if (isError) {
-    return <Alert color="red">{t('budget.configuration.error.load')}</Alert>;
+    return (
+      <ErrorState
+        variant="inline"
+        icon="⚠️"
+        title={t('states.error.loadFailed.title')}
+        message={t('budget.configuration.error.load')}
+        onRetry={() => refetch()}
+      />
+    );
   }
 
   return (

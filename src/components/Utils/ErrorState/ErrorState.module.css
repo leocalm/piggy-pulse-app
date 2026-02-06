@@ -1,0 +1,247 @@
+/* ErrorState Component Styles */
+
+/* Full Page Error Container */
+.errorContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mantine-spacing-xl);
+}
+
+.errorPage {
+  text-align: center;
+  max-width: 600px;
+}
+
+.errorIllustration {
+  font-size: 120px;
+  margin-bottom: var(--mantine-spacing-xl);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.errorCode {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 72px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--mantine-color-red-5) 0%, var(--mantine-color-orange-5) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.errorTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--mantine-color-text);
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.errorMessage {
+  font-size: var(--mantine-font-size-md);
+  color: var(--mantine-color-dimmed);
+  margin-bottom: var(--mantine-spacing-xl);
+  line-height: 1.6;
+}
+
+.errorActions {
+  display: flex;
+  gap: var(--mantine-spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Inline Error */
+.errorInline {
+  background: linear-gradient(135deg, 
+    light-dark(rgb(255, 107, 157, 0.08), rgb(255, 107, 157, 0.12)) 0%, 
+    light-dark(rgb(255, 169, 64, 0.08), rgb(255, 169, 64, 0.12)) 100%
+  );
+  border: 1px solid var(--mantine-color-red-5);
+  border-radius: var(--mantine-radius-lg);
+  padding: var(--mantine-spacing-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mantine-spacing-md);
+  animation: slide-in 0.3s ease;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.errorContent {
+  flex: 1;
+}
+
+.errorInlineTitle {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 600;
+  color: var(--mantine-color-red-5);
+  margin-bottom: var(--mantine-spacing-xs);
+}
+
+.errorInlineMessage {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.errorClose {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: light-dark(rgb(0, 0, 0, 0.05), rgb(255, 255, 255, 0.05));
+  border: none;
+  color: var(--mantine-color-dimmed);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.errorClose:hover {
+  background: light-dark(rgb(0, 0, 0, 0.1), rgb(255, 255, 255, 0.1));
+  color: var(--mantine-color-text);
+}
+
+/* Error Card */
+.errorCard {
+  background: var(--mantine-color-body);
+  border: 2px solid var(--mantine-color-red-5);
+  border-radius: var(--mantine-radius-lg);
+  padding: var(--mantine-spacing-xl);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.errorCardIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: light-dark(rgb(255, 107, 157, 0.1), rgb(255, 107, 157, 0.15));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin: 0 auto var(--mantine-spacing-lg);
+}
+
+.errorCardTitle {
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 600;
+  color: var(--mantine-color-text);
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.errorCardMessage {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-dimmed);
+  margin-bottom: var(--mantine-spacing-xl);
+  line-height: 1.6;
+}
+
+.errorDetails {
+  background: light-dark(rgb(0, 0, 0, 0.05), rgb(0, 0, 0, 0.3));
+  border: 1px solid var(--mantine-color-default-border);
+  border-radius: var(--mantine-radius-md);
+  padding: var(--mantine-spacing-md);
+  margin-top: var(--mantine-spacing-lg);
+  text-align: left;
+}
+
+.errorDetailsTitle {
+  font-size: var(--mantine-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mantine-color-dimmed);
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.errorDetailsContent {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 11px;
+  color: var(--mantine-color-dimmed);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+/* Network Error */
+.networkError {
+  background: var(--mantine-color-body);
+  border: 1px solid var(--mantine-color-default-border);
+  border-radius: var(--mantine-radius-lg);
+  padding: var(--mantine-spacing-xl);
+  text-align: center;
+}
+
+.networkIcon {
+  font-size: 64px;
+  margin-bottom: var(--mantine-spacing-lg);
+  opacity: 0.5;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+.networkTitle {
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 600;
+  color: var(--mantine-color-text);
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.networkMessage {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-dimmed);
+  margin-bottom: var(--mantine-spacing-lg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .errorCode {
+    font-size: 48px;
+  }
+
+  .errorTitle {
+    font-size: 24px;
+  }
+
+  .errorIllustration {
+    font-size: 80px;
+  }
+
+  .errorActions {
+    flex-direction: column;
+  }
+
+  .errorActions button {
+    width: 100%;
+  }
+}

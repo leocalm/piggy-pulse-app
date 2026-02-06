@@ -3,17 +3,16 @@ import { useTranslation } from 'react-i18next';
 import {
   ActionIcon,
   Affix,
-  Alert,
   Box,
   Button,
   Drawer,
   Group,
-  Loader,
   Stack,
   Transition,
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { ErrorState, TransactionListSkeleton } from '@/components/Utils';
 import { AccountResponse } from '@/types/account';
 import { CategoryResponse } from '@/types/category';
 import { Transaction, TransactionResponse } from '@/types/transaction';
@@ -126,15 +125,18 @@ export const TransactionsTableView = ({
   if (isLoading) {
     return (
       <Group justify="center" py="xl">
-        <Loader />
+        <TransactionListSkeleton count={8} />
       </Group>
     );
   }
   if (isError) {
     return (
-      <Alert color="red" variant="light">
-        {t('transactions.tableView.error.load')}
-      </Alert>
+      <ErrorState
+        variant="inline"
+        icon="⚠️"
+        title={t('states.error.loadFailed.title')}
+        message={t('transactions.tableView.error.load')}
+      />
     );
   }
 
