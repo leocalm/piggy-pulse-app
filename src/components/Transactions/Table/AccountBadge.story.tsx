@@ -36,9 +36,9 @@ export const Checking: Story = {
       accountType: 'Checking',
       currency: mockCurrency,
       balance: 150000,
-    balancePerDay: [],
-    balanceChangeThisPeriod: 0,
-    transactionCount: 0,
+      balancePerDay: [],
+      balanceChangeThisPeriod: 0,
+      transactionCount: 0,
     },
   },
 };
@@ -53,9 +53,9 @@ export const Savings: Story = {
       accountType: 'Savings',
       currency: mockCurrency,
       balance: 500000,
-    balancePerDay: [],
-    balanceChangeThisPeriod: 0,
-    transactionCount: 0,
+      balancePerDay: [],
+      balanceChangeThisPeriod: 0,
+      transactionCount: 0,
     },
   },
 };
@@ -89,9 +89,9 @@ export const AllVariants: Story = {
           accountType: 'Checking',
           currency: mockCurrency,
           balance: 150000,
-    balancePerDay: [],
-    balanceChangeThisPeriod: 0,
-    transactionCount: 0,
+          balancePerDay: [],
+          balanceChangeThisPeriod: 0,
+          transactionCount: 0,
         }}
       />
       <AccountBadge
@@ -103,9 +103,9 @@ export const AllVariants: Story = {
           accountType: 'Savings',
           currency: mockCurrency,
           balance: 500000,
-    balancePerDay: [],
-    balanceChangeThisPeriod: 0,
-    transactionCount: 0,
+          balancePerDay: [],
+          balanceChangeThisPeriod: 0,
+          transactionCount: 0,
         }}
       />
       <AccountBadge
@@ -131,9 +131,9 @@ export const AllVariants: Story = {
           accountType: 'Checking',
           currency: mockCurrency,
           balance: 75000,
-    balancePerDay: [],
-    balanceChangeThisPeriod: 0,
-    transactionCount: 0,
+          balancePerDay: [],
+          balanceChangeThisPeriod: 0,
+          transactionCount: 0,
         }}
       />
     </Group>

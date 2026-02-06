@@ -16,7 +16,7 @@ import { BudgetCategoryRequest } from '@/types/budget';
 import { CategoryRequest } from '@/types/category';
 import { queryKeys } from './queryKeys';
 
-export const useCategories = (selectedPeriodId?: string | null) => {
+export const useCategories = (selectedPeriodId: string | null) => {
   return useQuery({
     queryKey: queryKeys.categories(selectedPeriodId),
     queryFn: () => fetchCategories(selectedPeriodId),

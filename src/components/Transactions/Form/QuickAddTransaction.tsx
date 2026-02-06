@@ -49,10 +49,12 @@ export const QuickAddTransaction = ({
 
   const descriptionRef = useRef<HTMLInputElement>(null);
 
+  const { selectedPeriodId } = useBudgetPeriodSelection();
+
   // Data fetching
-  const { data: accounts = [] } = useAccounts();
-  const { data: categories = [] } = useCategories();
-  const { data: vendors = [] } = useVendors();
+  const { data: accounts = [] } = useAccounts(selectedPeriodId);
+  const { data: categories = [] } = useCategories(selectedPeriodId);
+  const { data: vendors = [] } = useVendors(selectedPeriodId);
 
   // Mutations
   const { mutate: createTransaction, isPending } = useCreateTransactionFromRequest();

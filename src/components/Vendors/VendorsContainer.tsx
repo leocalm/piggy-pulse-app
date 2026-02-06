@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Group, SimpleGrid, Stack, TextInput } from '@mantine/core';
 import { EmptyState, LoadingState } from '@/components/Utils';
+import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import { useDeleteVendor, useVendors } from '@/hooks/useVendors';
 import { VendorWithStats } from '@/types/vendor';
 import { PageHeader } from '../Transactions/PageHeader';
 import { VendorCard } from './VendorCard';
 import { VendorDeleteModal } from './VendorDeleteModal';
 import { VendorFormModal } from './VendorFormModal';
-import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import styles from './Vendors.module.css';
 
 type SortOrder = 'name' | 'usage' | 'recent';

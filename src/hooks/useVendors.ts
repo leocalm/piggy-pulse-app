@@ -3,7 +3,7 @@ import { createVendor, deleteVendor, fetchVendors, updateVendor } from '@/api/ve
 import { VendorInput } from '@/types/vendor';
 import { queryKeys } from './queryKeys';
 
-export const useVendors = (selectedPeriodId?: string | null) => {
+export const useVendors = (selectedPeriodId: string | null) => {
   return useQuery({
     queryKey: queryKeys.vendors(selectedPeriodId),
     queryFn: () => fetchVendors(selectedPeriodId),
