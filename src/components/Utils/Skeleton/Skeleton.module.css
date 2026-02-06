@@ -4,9 +4,9 @@
 .skeleton {
   background: linear-gradient(
     90deg,
-    light-dark(rgb(0, 0, 0, 0.03), rgb(255, 255, 255, 0.03)) 0%,
-    light-dark(rgb(0, 0, 0, 0.08), rgb(255, 255, 255, 0.08)) 50%,
-    light-dark(rgb(0, 0, 0, 0.03), rgb(255, 255, 255, 0.03)) 100%
+    light-dark(rgb(0 0 0 / 0.03), rgb(255 255 255 / 0.03)) 0%,
+    light-dark(rgb(0 0 0 / 0.08), rgb(255 255 255 / 0.08)) 50%,
+    light-dark(rgb(0 0 0 / 0.03), rgb(255 255 255 / 0.03)) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
@@ -128,7 +128,7 @@
   align-items: center;
   gap: var(--mantine-spacing-md);
   padding: var(--mantine-spacing-md);
-  background: light-dark(rgb(0, 0, 0, 0.02), rgb(255, 255, 255, 0.02));
+  background: light-dark(rgb(0 0 0 / 0.02), rgb(255 255 255 / 0.02));
   border-radius: var(--mantine-radius-md);
 }
 

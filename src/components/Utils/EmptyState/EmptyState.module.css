@@ -110,8 +110,8 @@
 
 /* Tips Section */
 .tips {
-  background: light-dark(rgb(0, 212, 255, 0.08), rgb(0, 212, 255, 0.08));
-  border: 1px solid light-dark(rgb(0, 212, 255, 0.2), rgb(0, 212, 255, 0.2));
+  background: light-dark(rgb(0 212 255 / 0.08), rgb(0 212 255 / 0.08));
+  border: 1px solid light-dark(rgb(0 212 255 / 0.2), rgb(0 212 255 / 0.2));
   border-radius: var(--mantine-radius-md);
   padding: var(--mantine-spacing-lg);
   margin-top: var(--mantine-spacing-xl);
@@ -152,8 +152,8 @@
 }
 
 .exampleCard {
-  background: light-dark(rgb(180, 122, 255, 0.08), rgb(180, 122, 255, 0.08));
-  border: 1px solid light-dark(rgb(180, 122, 255, 0.2), rgb(180, 122, 255, 0.2));
+  background: light-dark(rgb(180 122 255 / 0.08), rgb(180 122 255 / 0.08));
+  border: 1px solid light-dark(rgb(180 122 255 / 0.2), rgb(180 122 255 / 0.2));
   border-radius: var(--mantine-radius-md);
   padding: var(--mantine-spacing-lg);
   text-align: left;
@@ -162,8 +162,8 @@
 }
 
 .exampleCard:hover {
-  background: light-dark(rgb(180, 122, 255, 0.12), rgb(180, 122, 255, 0.12));
-  border-color: light-dark(rgb(180, 122, 255, 0.3), rgb(180, 122, 255, 0.3));
+  background: light-dark(rgb(180 122 255 / 0.12), rgb(180 122 255 / 0.12));
+  border-color: light-dark(rgb(180 122 255 / 0.3), rgb(180 122 255 / 0.3));
   transform: translateY(-2px);
 }
 
@@ -199,8 +199,8 @@
   align-items: center;
   gap: var(--mantine-spacing-xs);
   padding: 6px 12px;
-  background: light-dark(rgb(180, 122, 255, 0.15), rgb(180, 122, 255, 0.15));
-  border: 1px solid light-dark(rgb(180, 122, 255, 0.3), rgb(180, 122, 255, 0.3));
+  background: light-dark(rgb(180 122 255 / 0.15), rgb(180 122 255 / 0.15));
+  border: 1px solid light-dark(rgb(180 122 255 / 0.3), rgb(180 122 255 / 0.3));
   border-radius: 16px;
   font-size: var(--mantine-font-size-xs);
   color: var(--mantine-color-violet-5);
@@ -227,8 +227,8 @@
 }
 
 .onboardingStep {
-  background: light-dark(rgb(0, 212, 255, 0.05), rgb(0, 212, 255, 0.05));
-  border: 1px solid light-dark(rgb(0, 212, 255, 0.15), rgb(0, 212, 255, 0.15));
+  background: light-dark(rgb(0 212 255 / 0.05), rgb(0 212 255 / 0.05));
+  border: 1px solid light-dark(rgb(0 212 255 / 0.15), rgb(0 212 255 / 0.15));
   border-radius: var(--mantine-radius-md);
   padding: var(--mantine-spacing-md);
   display: flex;

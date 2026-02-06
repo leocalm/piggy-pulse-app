@@ -11,7 +11,7 @@
 
 /* Classic Spinner */
 .spinner {
-  border: 4px solid light-dark(rgb(0, 0, 0, 0.1), rgb(255, 255, 255, 0.1));
+  border: 4px solid light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
   border-top-color: var(--mantine-color-cyan-5);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -156,7 +156,7 @@
 .progressBar {
   width: 100%;
   height: 8px;
-  background: light-dark(rgb(0, 0, 0, 0.05), rgb(255, 255, 255, 0.05));
+  background: light-dark(rgb(0 0 0 / 0.05), rgb(255 255 255 / 0.05));
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -185,15 +185,15 @@
   align-items: center;
   gap: var(--mantine-spacing-sm);
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
-  background: light-dark(rgb(0, 212, 255, 0.08), rgb(0, 212, 255, 0.08));
-  border: 1px solid light-dark(rgb(0, 212, 255, 0.2), rgb(0, 212, 255, 0.2));
+  background: light-dark(rgb(0 212 255 / 0.08), rgb(0 212 255 / 0.08));
+  border: 1px solid light-dark(rgb(0 212 255 / 0.2), rgb(0 212 255 / 0.2));
   border-radius: var(--mantine-radius-md);
 }
 
 .inlineSpinner {
   width: 16px;
   height: 16px;
-  border: 2px solid light-dark(rgb(0, 0, 0, 0.1), rgb(255, 255, 255, 0.1));
+  border: 2px solid light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
   border-top-color: var(--mantine-color-cyan-5);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
@@ -215,7 +215,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: light-dark(rgb(255, 255, 255, 0.8), rgb(10, 14, 20, 0.8));
+  background: light-dark(rgb(255 255 255 / 0.8), rgb(10 14 20 / 0.8));
   backdrop-filter: blur(4px);
   border-radius: var(--mantine-radius-lg);
   display: flex;
@@ -231,7 +231,7 @@
 .overlaySpinner {
   width: 40px;
   height: 40px;
-  border: 3px solid light-dark(rgb(0, 0, 0, 0.1), rgb(255, 255, 255, 0.1));
+  border: 3px solid light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
   border-top-color: var(--mantine-color-cyan-5);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;

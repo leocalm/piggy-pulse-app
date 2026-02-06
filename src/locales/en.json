@@ -3,7 +3,8 @@
     "save": "Save",
     "cancel": "Cancel",
     "success": "Success",
-    "error": "Error"
+    "error": "Error",
+    "close": "Close"
   },
   "auth": {
     "login": {
