@@ -23,6 +23,7 @@ RUN mkdir src && \
 # Copy source code
 COPY src ./src
 COPY migrations ./migrations
+COPY Budget.toml ./Budget.toml
 
 # Build the actual application
 RUN touch src/main.rs && cargo build --release
@@ -35,6 +36,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     libssl3 \
     postgresql-client \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -44,6 +46,9 @@ COPY --from=builder /app/target/release/budget /app/budget
 
 # Copy migrations
 COPY --from=builder /app/migrations /app/migrations
+
+# Copy configuration
+COPY --from=builder /app/Budget.toml /app/Budget.toml
 
 # Copy entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh
