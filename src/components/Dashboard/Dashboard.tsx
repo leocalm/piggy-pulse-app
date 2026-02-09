@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
-import { IconArrowRight } from '@tabler/icons-react';
+import { IconAlertTriangle, IconArrowRight } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Box, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { Alert, Box, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 import { BalanceLineChartCard } from '@/components/Dashboard/BalanceLineChartCard';
 import { RecentTransactionsCard } from '@/components/Dashboard/RecentTransactionsCard';
 import { StatCard } from '@/components/Dashboard/StatCard';
@@ -78,7 +79,24 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   }, [spentPerCategory]);
 
   if (isPeriodMissing) {
-    return <Text size="sm">{t('budget.unbudgetedCategories.loading')}</Text>;
+    return (
+      <Box className={styles.noPeriodContainer}>
+        <Alert
+          color="orange"
+          variant="light"
+          icon={<IconAlertTriangle size={18} />}
+          title={t('dashboard.noPeriod.title')}
+          className={styles.noPeriodAlert}
+        >
+          <Stack gap="md" mt="xs">
+            <Text size="sm">{t('dashboard.noPeriod.message')}</Text>
+            <Button component={Link} to="/periods" color="orange" variant="filled" size="sm">
+              {t('dashboard.noPeriod.cta')}
+            </Button>
+          </Stack>
+        </Alert>
+      </Box>
+    );
   }
 
   return (
@@ -95,6 +113,7 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           <Title order={1} className={styles.dashboardTitle}>
             Financial Dashboard
           </Title>
+          <PeriodHeaderControl />
         </Group>
 
         {/* Stats Grid */}
