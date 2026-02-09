@@ -9,6 +9,11 @@
   border-color: transparent;
 }
 
+.headerControl {
+  min-width: 240px;
+  width: 280px;
+}
+
 .desktopRoot {
   position: relative;
 }
@@ -121,6 +126,10 @@
 }
 
 @media (max-width: 768px) {
+  .headerControl {
+    width: 100%;
+  }
+
   .triggerLabel,
   .triggerMeta {
     max-width: 140px;

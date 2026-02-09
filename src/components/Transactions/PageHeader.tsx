@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, Text, Title } from '@mantine/core';
+import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 
 export interface PageHeaderProps {
   title: string;
@@ -50,16 +51,18 @@ export const PageHeader = ({ title, subtitle, actions }: PageHeaderProps) => {
             </Text>
           )}
         </Box>
-        {actions && (
-          <Box
-            style={{
-              display: 'flex',
-              gap: '16px',
-            }}
-          >
-            {actions}
-          </Box>
-        )}
+        <Box
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '16px',
+            justifyContent: 'flex-end',
+            marginLeft: 'auto',
+          }}
+        >
+          <PeriodHeaderControl />
+          {actions}
+        </Box>
       </Box>
     </Box>
   );

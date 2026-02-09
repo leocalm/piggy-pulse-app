@@ -3,6 +3,7 @@ import { IconAlertTriangle, IconArrowRight } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Alert, Box, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 import { BalanceLineChartCard } from '@/components/Dashboard/BalanceLineChartCard';
 import { RecentTransactionsCard } from '@/components/Dashboard/RecentTransactionsCard';
 import { StatCard } from '@/components/Dashboard/StatCard';
@@ -112,6 +113,7 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           <Title order={1} className={styles.dashboardTitle}>
             Financial Dashboard
           </Title>
+          <PeriodHeaderControl />
         </Group>
 
         {/* Stats Grid */}
