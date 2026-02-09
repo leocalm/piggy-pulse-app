@@ -131,8 +131,6 @@ export function Router() {
         { path: 'periods', element: withPageLoader(<PeriodsPage />) },
         { path: 'overlays', element: withPageLoader(<OverlaysPage />) },
         { path: 'settings', element: withPageLoader(<SettingsPage />) },
-        { path: 'help', element: <div>{t('router.help')}</div> },
-        { path: 'more', element: <div>{t('router.more')}</div> },
         // Catch-all for 404 within authenticated routes
         { path: '*', element: withPageLoader(<NotFoundPage />) },
       ],

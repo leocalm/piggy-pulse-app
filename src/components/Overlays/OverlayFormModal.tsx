@@ -260,7 +260,7 @@ export function OverlayFormModal({
 
     const categoryCapIds = dedupeAllowedIds(values.categoryCapIds, allowedCategoryIds);
 
-    return {
+    let payload: OverlayRequest = {
       name: values.name.trim(),
       icon: values.icon.trim() || undefined,
       startDate: values.startDate,
@@ -275,15 +275,21 @@ export function OverlayFormModal({
             capAmount: convertDisplayToCents(values.categoryCapDisplayValues[categoryId] || 0),
           }))
         : [],
-      rules:
-        values.inclusionMode === 'rules'
-          ? {
-              categoryIds: categoryRuleIds,
-              vendorIds: vendorRuleIds,
-              accountIds: accountRuleIds,
-            }
-          : null,
     };
+
+    if (values.inclusionMode === 'rules') {
+      payload = {
+        ...payload,
+        rules: {
+          ...payload.rules,
+          categoryIds: categoryRuleIds,
+          vendorIds: vendorRuleIds,
+          accountIds: accountRuleIds,
+        },
+      };
+    }
+
+    return payload;
   };
 
   const handleNext = async () => {
@@ -461,9 +467,10 @@ export function OverlayFormModal({
       <Stack gap="md">
         <Switch
           checked={values.hasTotalCap}
-          onChange={(event) =>
-            setValues((current) => ({ ...current, hasTotalCap: event.currentTarget.checked }))
-          }
+          onChange={(event) => {
+            const checked = (event.target as HTMLInputElement).checked;
+            setValues((current) => ({ ...current, hasTotalCap: checked }));
+          }}
           label={t('overlays.modal.totalCap')}
         />
 
@@ -488,9 +495,10 @@ export function OverlayFormModal({
 
         <Switch
           checked={values.hasCategoryCaps}
-          onChange={(event) =>
-            setValues((current) => ({ ...current, hasCategoryCaps: event.currentTarget.checked }))
-          }
+          onChange={(event) => {
+            const checked = (event.target as HTMLInputElement).checked;
+            setValues((current) => ({ ...current, hasCategoryCaps: checked }));
+          }}
           label={t('overlays.modal.categoryCaps')}
         />
 

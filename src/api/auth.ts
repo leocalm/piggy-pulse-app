@@ -84,7 +84,7 @@ export async function fetchCurrentUser(): Promise<User> {
  */
 export async function register(credentials: RegisterRequest): Promise<void> {
   try {
-    await apiPost<void, RegisterRequest>('/api/users/register', credentials);
+    await apiPost<void, RegisterRequest>('/api/users/', credentials);
   } catch (error) {
     if (error instanceof ApiError) {
       if (error.status === 409) {
