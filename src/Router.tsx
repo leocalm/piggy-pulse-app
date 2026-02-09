@@ -1,5 +1,4 @@
 import { lazy, ReactElement, Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
 import { BasicAppShell } from './AppShell';
 import { ProtectedRoute } from './components/Auth/ProtectedRoute';
@@ -113,7 +112,6 @@ const withPageLoader = (element: ReactElement) => (
 );
 
 export function Router() {
-  const { t } = useTranslation();
   const router = createBrowserRouter([
     {
       path: '/',

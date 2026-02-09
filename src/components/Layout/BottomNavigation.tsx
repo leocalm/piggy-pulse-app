@@ -1,16 +1,19 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Group, Paper, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { MoreMenuDrawer } from './MoreMenuDrawer';
 
 export function BottomNavigation() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [opened, { open, close }] = useDisclosure(false);
 
   const items = [
     { icon: () => <span>📊</span>, label: 'Dashboard', route: '/dashboard' },
     { icon: () => <span>💶</span>, label: 'Transactions', route: '/transactions' },
     { icon: () => <span>📊</span>, label: 'Budget', route: '/budget' },
     { icon: () => <span>👛</span>, label: 'Accounts', route: '/accounts' },
-    { icon: () => <span>⋯</span>, label: 'More', route: '/more' },
+    { icon: () => <span>⋯</span>, label: 'More', route: null }, // More button uses drawer
   ];
 
   return (
@@ -30,12 +33,20 @@ export function BottomNavigation() {
       <Group justify="space-around" align="center" h="100%" px="xs" gap={0}>
         {items.map((item) => {
           const isActive =
-            location.pathname === item.route ||
-            (item.route === '/dashboard' && location.pathname === '/');
+            item.route &&
+            (location.pathname === item.route ||
+              (item.route === '/dashboard' && location.pathname === '/'));
           return (
             <UnstyledButton
               key={item.label}
-              onClick={() => navigate(item.route)}
+              onClick={() => {
+                if (item.route === null) {
+                  // More button - open drawer
+                  open();
+                } else {
+                  navigate(item.route);
+                }
+              }}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -60,6 +71,8 @@ export function BottomNavigation() {
           );
         })}
       </Group>
+
+      <MoreMenuDrawer opened={opened} onClose={close} />
     </Paper>
   );
 }

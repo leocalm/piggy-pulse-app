@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Table, Text, TextInput } from '@mantine/core';
+import { Box, Stack, Table, Text, TextInput, useMantineTheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { TransactionResponse } from '@/types/transaction';
+import { MobileTransactionCardWithActions } from '../List/MobileTransactionCardWithActions';
 import { groupTransactionsByDate, TransactionGroup } from './TransactionGroup';
 
 export interface TransactionsSectionProps {
@@ -24,6 +26,9 @@ export const TransactionsSection = ({
   onClick,
 }: TransactionsSectionProps) => {
   const { t } = useTranslation();
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
   // Group transactions by date
   const groupedTransactions = useMemo(() => {
     return groupTransactionsByDate(transactions);
@@ -101,51 +106,94 @@ export const TransactionsSection = ({
 
       {/* Transaction Groups */}
       {transactions.length > 0 ? (
-        <Table verticalSpacing="sm">
-          <Table.Thead
-            style={{
-              background: 'rgba(255, 255, 255, 0.02)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-            }}
-          >
-            <Table.Tr>
-              <Table.Th w={110} style={{ paddingLeft: '16px' }}>
-                {t('transactions.list.date')}
-              </Table.Th>
-              <Table.Th style={{ paddingLeft: '16px' }}>
-                {t('transactions.list.descriptionVendor')}
-              </Table.Th>
-              <Table.Th w={180} style={{ paddingLeft: '16px' }}>
-                {t('transactions.list.category')}
-              </Table.Th>
-              <Table.Th w={250} style={{ paddingLeft: '16px' }}>
-                {t('transactions.list.accounts')}
-              </Table.Th>
-              <Table.Th w={120} align="right" style={{ paddingLeft: '16px' }}>
-                {t('transactions.list.amount')}
-              </Table.Th>
-              <Table.Th w={50} style={{ paddingLeft: '16px' }} />
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {Array.from(groupedTransactions.entries()).map(([date, groupTransactions]) => {
-              const currentDelay = cumulativeDelay;
-              cumulativeDelay += groupTransactions.length * 0.05;
-
+        isMobile ? (
+          // Mobile view: Stack of cards
+          <Stack gap="xs" p="md">
+            {Array.from(groupedTransactions.entries()).map(([date]) => {
+              const groupTransactions = groupedTransactions.get(date) || [];
               return (
-                <TransactionGroup
-                  key={date}
-                  date={date}
-                  transactions={groupTransactions}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
-                  onClick={onClick}
-                  baseAnimationDelay={currentDelay}
-                />
+                <Box key={date}>
+                  {/* Date header */}
+                  <Text
+                    size="xs"
+                    fw={700}
+                    c="dimmed"
+                    mb="xs"
+                    style={{
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                    }}
+                  >
+                    {new Date(date).toLocaleDateString('en-US', {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
+                      weekday: 'long',
+                    })}
+                  </Text>
+                  {/* Cards for this date */}
+                  <Stack gap="xs">
+                    {groupTransactions.map((transaction) => (
+                      <MobileTransactionCardWithActions
+                        key={transaction.id}
+                        transaction={transaction}
+                        onEdit={() => onEdit(transaction)}
+                        onDelete={() => onDelete(transaction.id)}
+                      />
+                    ))}
+                  </Stack>
+                </Box>
               );
             })}
-          </Table.Tbody>
-        </Table>
+          </Stack>
+        ) : (
+          // Desktop view: Table
+          <Table verticalSpacing="sm">
+            <Table.Thead
+              style={{
+                background: 'rgba(255, 255, 255, 0.02)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+              }}
+            >
+              <Table.Tr>
+                <Table.Th w={110} style={{ paddingLeft: '16px' }}>
+                  {t('transactions.list.date')}
+                </Table.Th>
+                <Table.Th style={{ paddingLeft: '16px' }}>
+                  {t('transactions.list.descriptionVendor')}
+                </Table.Th>
+                <Table.Th w={180} style={{ paddingLeft: '16px' }}>
+                  {t('transactions.list.category')}
+                </Table.Th>
+                <Table.Th w={250} style={{ paddingLeft: '16px' }}>
+                  {t('transactions.list.accounts')}
+                </Table.Th>
+                <Table.Th w={120} align="right" style={{ paddingLeft: '16px' }}>
+                  {t('transactions.list.amount')}
+                </Table.Th>
+                <Table.Th w={50} style={{ paddingLeft: '16px' }} />
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+              {Array.from(groupedTransactions.entries()).map(([date, groupTransactions]) => {
+                const currentDelay = cumulativeDelay;
+                cumulativeDelay += groupTransactions.length * 0.05;
+
+                return (
+                  <TransactionGroup
+                    key={date}
+                    date={date}
+                    transactions={groupTransactions}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                    onClick={onClick}
+                    baseAnimationDelay={currentDelay}
+                  />
+                );
+              })}
+            </Table.Tbody>
+          </Table>
+        )
       ) : (
         /* Empty State */
         <Box
