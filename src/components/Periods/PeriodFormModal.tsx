@@ -242,9 +242,10 @@ export function PeriodFormModal({
         type="date"
         label={t('periods.modal.startDate')}
         value={values.startDate}
-        onChange={(event) =>
-          setValues((current) => ({ ...current, startDate: event.currentTarget.value }))
-        }
+        onChange={(event) => {
+          const startDate = event.currentTarget.value;
+          setValues((current) => ({ ...current, startDate }));
+        }}
         required
       />
 
@@ -291,9 +292,10 @@ export function PeriodFormModal({
           type="date"
           label={t('periods.modal.manualEndDate')}
           value={values.manualEndDate}
-          onChange={(event) =>
-            setValues((current) => ({ ...current, manualEndDate: event.currentTarget.value }))
-          }
+          onChange={(event) => {
+            const manualEndDate = event.currentTarget.value;
+            setValues((current) => ({ ...current, manualEndDate }));
+          }}
           required
         />
       ) : (
@@ -309,19 +311,21 @@ export function PeriodFormModal({
         label={t('periods.modal.periodName')}
         placeholder={t('periods.modal.periodNamePlaceholder')}
         value={values.name}
-        onChange={(event) =>
-          setValues((current) => ({ ...current, name: event.currentTarget.value }))
-        }
+        onChange={(event) => {
+          const name = event.currentTarget.value;
+          setValues((current) => ({ ...current, name }));
+        }}
       />
 
       <Switch
         checked={values.copyBudgetsFromPrevious}
-        onChange={(event) =>
+        onChange={(event) => {
+          const copyBudgetsFromPrevious = event.currentTarget.checked;
           setValues((current) => ({
             ...current,
-            copyBudgetsFromPrevious: event.currentTarget.checked,
-          }))
-        }
+            copyBudgetsFromPrevious,
+          }));
+        }}
         label={t('periods.modal.copyBudgets')}
       />
 
