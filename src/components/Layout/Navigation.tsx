@@ -65,11 +65,6 @@ export function Navigation({ onNavigate }: NavigationProps) {
           label: t('layout.navigation.settings'),
           route: '/settings',
         },
-        {
-          icon: () => <span>❓</span>,
-          label: t('layout.navigation.helpSupport'),
-          route: '/help',
-        },
       ],
     },
   ];
