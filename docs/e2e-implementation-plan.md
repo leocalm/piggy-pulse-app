@@ -5,18 +5,18 @@ Implement Playwright-based end-to-end testing for local and Docker environments,
 
 ## PR Breakdown
 
-- [ ] PR 1: E2E foundation
+- [x] PR 1: E2E foundation
   - [x] Add Playwright configuration and runtime env loading
   - [x] Add local and Docker execution scripts
   - [x] Add Docker test compose + lifecycle shell scripts
   - [x] Add test helpers, fixtures, and base POMs
   - [x] Add tests README and initial auth/critical-route specs
-- [ ] PR 2: Desktop critical flows expansion
-  - [ ] Budget periods flow coverage
-  - [ ] Accounts flow coverage
-  - [ ] Categories flow coverage
-  - [ ] Transactions flow coverage
-  - [ ] Dashboard assertions with realistic data checks
+- [x] PR 2: Desktop critical flows expansion
+  - [x] Budget periods flow coverage
+  - [x] Accounts flow coverage
+  - [x] Categories flow coverage
+  - [x] Transactions flow coverage
+  - [x] Dashboard assertions with realistic data checks
 - [ ] PR 3: Mobile critical flows expansion
   - [ ] Mobile auth checks
   - [ ] Mobile navigation checks
@@ -37,3 +37,4 @@ Implement Playwright-based end-to-end testing for local and Docker environments,
 ## Progress Log
 - 2026-02-09: Created plan and started PR 1 foundation work.
 - 2026-02-09: Completed PR 1 foundation implementation (config, fixtures, mock/real modes, scripts, baseline desktop/mobile critical route specs).
+- 2026-02-09: Completed PR 2 desktop flow expansion with stateful mock API and desktop route flow specs for periods, accounts, categories, transactions, and dashboard.
