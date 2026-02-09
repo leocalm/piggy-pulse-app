@@ -203,6 +203,72 @@ Use these instead of magic numbers:
 - `UI.DESCRIPTION_MAX_LENGTH` — max transaction description length (255)
 - `UI.DASHBOARD_TOP_CATEGORIES` — number of top categories shown on dashboard (5)
 
+## Docker Deployment
+
+### Full Stack Setup
+
+The application can be run with Docker Compose, which orchestrates the frontend, backend, database, and reverse proxy:
+
+```bash
+# Start all services
+docker-compose up -d
+
+# Check service status
+docker-compose ps
+
+# View logs
+docker-compose logs -f [service]
+
+# Stop all services
+docker-compose down
+```
+
+**Services:**
+- `frontend` - React app served via Nginx (port 80 internal)
+- `backend` - Rust/Rocket API (port 8000 internal)
+- `db` - PostgreSQL 17 database (port 5432 internal)
+- `caddy` - Caddy reverse proxy (ports 80/443 exposed)
+
+**Access:**
+- Application: `http://localhost` (Caddy routes to frontend)
+- API: `http://localhost/api/*` (Caddy routes to backend)
+- Health check: `http://localhost/health` (Caddy endpoint)
+
+### Important Configuration Notes
+
+**Environment Variables:**
+The backend uses Rocket's environment variable system. Always use `ROCKET_` prefix for Rocket configuration:
+- `ROCKET_ADDRESS=0.0.0.0` - **CRITICAL**: Must bind to 0.0.0.0 for inter-container communication
+- `ROCKET_PORT=8000` - Backend listening port
+- `ROCKET_SECRET_KEY` - Session encryption key (required)
+
+**Database Configuration:**
+- Environment variables use double underscores for nesting: `BUDGET__DATABASE__URL`, `BUDGET__DATABASE__MAX_CONNECTIONS`
+- Configuration priority: Environment variables → `Budget.toml` → defaults
+- Database host must be `db` (Docker service name), not `localhost`
+
+**Common Issues:**
+1. **502 Bad Gateway from Caddy**: Backend is likely binding to `127.0.0.1` instead of `0.0.0.0`
+   - Fix: Ensure `ROCKET_ADDRESS=0.0.0.0` is set
+   - Verify in logs: Should show "Rocket has launched from http://0.0.0.0:8000"
+
+2. **Database Connection Timeout**:
+   - Check Budget.toml has correct database URL: `postgres://postgres:example@db:5432/budget_db`
+   - Verify network connectivity: `docker-compose exec backend curl http://db:5432`
+
+3. **Migrations Not Applied**:
+   ```bash
+   # Run migrations manually if needed
+   docker-compose exec -T backend cat /app/migrations/0001_init/up.sql | \
+     docker-compose exec -T db psql -U postgres -d budget_db
+   ```
+
+### Test User
+
+A test user is available for development:
+- **Email**: `demo@example.com`
+- **Password**: `SuperSecurePassword2024xyz`
+
 ## Backend API Proxy
 
 Vite dev server proxies `/api` requests to `http://localhost:8000` (configured in `vite.config.mjs`). Ensure the backend

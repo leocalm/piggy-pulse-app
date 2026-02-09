@@ -1,0 +1,61 @@
+# Backend Dockerfile - Multi-stage build for Rust/Rocket app
+
+# Build stage
+FROM rust:latest AS builder
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy manifests
+COPY Cargo.toml Cargo.lock ./
+
+# Create dummy src to cache dependencies
+RUN mkdir src && \
+    echo "fn main() {}" > src/main.rs && \
+    cargo build --release && \
+    rm -rf src
+
+# Copy source code
+COPY src ./src
+COPY migrations ./migrations
+COPY Budget.toml ./Budget.toml
+
+# Build the actual application
+RUN touch src/main.rs && cargo build --release
+
+# Runtime stage
+FROM debian:bookworm-slim
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    libssl3 \
+    postgresql-client \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy binary from builder
+COPY --from=builder /app/target/release/budget /app/budget
+
+# Copy migrations
+COPY --from=builder /app/migrations /app/migrations
+
+# Copy configuration
+COPY --from=builder /app/Budget.toml /app/Budget.toml
+
+# Copy entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Expose port
+EXPOSE 8000
+
+# Use entrypoint to run migrations before starting
+ENTRYPOINT ["/app/entrypoint.sh"]
