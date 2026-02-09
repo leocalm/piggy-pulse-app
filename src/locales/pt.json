@@ -155,7 +155,21 @@
       "title_one": "Lacuna detectada: {{count}} transação está fora de um período",
       "title_other": "Lacuna detectada: {{count}} transações estão fora de um período",
       "subtitle": "Crie um período que cubra essas transações para manter os relatórios corretos.",
-      "fixAction": "Criar Período para Cobrir"
+      "fixAction": "Criar Período para Cobrir",
+      "resolveAction": "Revisar Opções de Correção",
+      "resolveTitle": "Resolver Lacuna de Período",
+      "rangeSummary": "Intervalo da lacuna: {{start}} - {{end}}",
+      "extendPeriodLabel": "Expandir um período existente",
+      "extendPeriodPlaceholder": "Selecione um período",
+      "noEditablePeriods": "Não há períodos editáveis disponíveis para expansão.",
+      "previewTitle": "Prévia de cobertura",
+      "currentRange": "Intervalo atual: {{start}} - {{end}}",
+      "updatedRange": "Intervalo atualizado: {{start}} - {{end}}",
+      "overlapConflict": "Esta expansão causaria sobreposição com outro período. Escolha outro período ou crie um novo.",
+      "noCoverageChange": "O período selecionado já cobre o intervalo da lacuna.",
+      "extendAction": "Expandir Período Selecionado",
+      "extendSuccess": "Período expandido e transações da lacuna reatribuídas",
+      "extendFailed": "Falha ao expandir a cobertura do período"
     },
     "modal": {
       "createTitle": "Criar Período de Orçamento",
