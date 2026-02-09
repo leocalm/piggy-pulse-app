@@ -48,6 +48,7 @@
         "nameMinLength": "O nome deve ter pelo menos 2 letras",
         "invalidEmail": "E-mail inválido",
         "passwordMinLength": "A senha deve ter pelo menos 6 caracteres",
+        "passwordStrengthInsufficient": "A senha não é forte o suficiente. Aumente seu comprimento e variedade para torná-la mais segura.",
         "passwordsDoNotMatch": "As senhas não correspondem"
       },
       "errors": {

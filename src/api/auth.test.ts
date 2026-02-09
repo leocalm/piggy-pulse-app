@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { login, register, fetchCurrentUser, RegisterRequest, LoginRequest, User } from './auth';
+import { fetchCurrentUser, login, LoginRequest, register, RegisterRequest, User } from './auth';
 import { apiGet, apiPost } from './client';
 import { ApiError } from './errors';
 
@@ -36,9 +36,7 @@ describe('auth api', () => {
       };
 
       const apiPostMock = vi.mocked(apiPost);
-      apiPostMock.mockRejectedValueOnce(
-        new ApiError('Conflict', 409, '/api/users/register')
-      );
+      apiPostMock.mockRejectedValueOnce(new ApiError('Conflict', 409, '/api/users/register'));
 
       await expect(register(credentials)).rejects.toThrow(
         'This email is already registered. Please use a different email.'
@@ -53,9 +51,7 @@ describe('auth api', () => {
       };
 
       const apiPostMock = vi.mocked(apiPost);
-      apiPostMock.mockRejectedValueOnce(
-        new ApiError('Bad Request', 400, '/api/users/register')
-      );
+      apiPostMock.mockRejectedValueOnce(new ApiError('Bad Request', 400, '/api/users/register'));
 
       await expect(register(credentials)).rejects.toThrow('Bad Request');
     });
@@ -72,9 +68,7 @@ describe('auth api', () => {
         new ApiError('Internal Server Error', 500, '/api/users/register')
       );
 
-      await expect(register(credentials)).rejects.toThrow(
-        'Server error. Please try again later.'
-      );
+      await expect(register(credentials)).rejects.toThrow('Server error. Please try again later.');
     });
 
     it('throws error on network failure', async () => {
@@ -102,9 +96,7 @@ describe('auth api', () => {
       const apiPostMock = vi.mocked(apiPost);
       apiPostMock.mockRejectedValueOnce(new Error(''));
 
-      await expect(register(credentials)).rejects.toThrow(
-        'Registration failed. Please try again.'
-      );
+      await expect(register(credentials)).rejects.toThrow('Registration failed. Please try again.');
     });
   });
 
@@ -129,9 +121,7 @@ describe('auth api', () => {
       };
 
       const apiPostMock = vi.mocked(apiPost);
-      apiPostMock.mockRejectedValueOnce(
-        new ApiError('Unauthorized', 401, '/api/users/login')
-      );
+      apiPostMock.mockRejectedValueOnce(new ApiError('Unauthorized', 401, '/api/users/login'));
 
       await expect(login(credentials)).rejects.toThrow(
         'Invalid email or password. Please try again.'

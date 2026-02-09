@@ -23,7 +23,7 @@ test.describe('User Registration', () => {
     // Check for validation errors
     await expect(page.getByText(/name must have at least 2 letters/i)).toBeVisible();
     await expect(page.getByText(/invalid email/i)).toBeVisible();
-    await expect(page.getByText(/password should include at least 6 characters/i)).toBeVisible();
+    await expect(page.getByText(/password is required/i)).toBeVisible();
   });
 
   test('shows error when passwords do not match', async ({ page }) => {
@@ -32,8 +32,8 @@ test.describe('User Registration', () => {
 
     await page.getByLabel('Full Name').fill('John Doe');
     await page.getByLabel('Email').fill('john@example.test');
-    await page.getByLabel('Password', { exact: true }).first().fill('password123');
-    await page.getByLabel('Confirm Password').fill('password456');
+    await page.getByLabel('Password', { exact: true }).first().fill('SecurePass123!@#');
+    await page.getByLabel('Confirm Password').fill('DifferentPass123!@#');
 
     await page.getByRole('button', { name: 'Register' }).click();
 
@@ -46,8 +46,8 @@ test.describe('User Registration', () => {
 
     await page.getByLabel('Full Name').fill('John Doe');
     await page.getByLabel('Email').fill('john@example.test');
-    await page.getByLabel('Password', { exact: true }).first().fill('password123');
-    await page.getByLabel('Confirm Password').fill('password123');
+    await page.getByLabel('Password', { exact: true }).first().fill('SecurePass123!@#');
+    await page.getByLabel('Confirm Password').fill('SecurePass123!@#');
 
     const registerButton = page.getByRole('button', { name: 'Register' });
 
@@ -67,34 +67,56 @@ test.describe('User Registration', () => {
     await authPage.gotoRegister();
 
     const uniqueEmail = `user-${Date.now()}@example.test`;
-    await authPage.register('Jane Smith', uniqueEmail, 'password123');
+    await authPage.register('Jane Smith', uniqueEmail, 'SecurePassword123!@#');
 
     // Should redirect to dashboard after successful registration
     await expect(page).toHaveURL(/\/dashboard$/);
   });
 
-  test('shows error when trying to register with existing email', async ({ page, registeredUser }) => {
+  test('shows error when trying to register with existing email', async ({
+    page,
+    registeredUser,
+  }) => {
     const authPage = new AuthPage(page);
     await authPage.gotoRegister();
 
     // Try to register with email that already exists
-    await authPage.register('Another User', registeredUser.email, 'password123');
+    await authPage.register('Another User', registeredUser.email, 'SecurePassword123!@#');
 
     // Should show error about email already being registered
     await authPage.expectRegistrationError(/already registered|email.*use/i);
   });
 
-  test('shows error for invalid registration data', async ({ page }) => {
+  test('shows error for weak password', async ({ page }) => {
     const authPage = new AuthPage(page);
     await authPage.gotoRegister();
 
-    // Try to register with weak password
-    await authPage.register('Test User', 'test@example.test', 'weak');
+    await page.getByLabel('Full Name').fill('Test User');
+    await page.getByLabel('Email').fill('test@example.test');
+    await page.getByLabel('Password', { exact: true }).first().fill('abc123');
 
-    // Should show validation error
-    await expect(
-      page.getByText(/password should include at least 6 characters/i)
-    ).toBeVisible();
+    await page.getByRole('button', { name: 'Register' }).click();
+
+    // Should show password strength validation error
+    await expect(page.getByText(/password is not strong enough/i)).toBeVisible();
+  });
+
+  test('displays password strength feedback', async ({ page }) => {
+    const authPage = new AuthPage(page);
+    await authPage.gotoRegister();
+
+    const passwordInput = page.getByLabel('Password', { exact: true }).first();
+    await passwordInput.fill('weak');
+
+    // Should show weak password feedback
+    await expect(page.getByText(/weak password|very weak/i)).toBeVisible();
+
+    // Clear and enter a strong password
+    await passwordInput.fill('');
+    await passwordInput.fill('SuperSecurePassword123!@#$%');
+
+    // Should show strong password feedback
+    await expect(page.getByText(/good password|very strong|strong/i)).toBeVisible();
   });
 
   test('has link to login page', async ({ page }) => {

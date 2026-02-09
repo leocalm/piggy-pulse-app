@@ -16,14 +16,18 @@ import {
 import { useForm } from '@mantine/form';
 import { register } from '@/api/auth';
 import { useAuth } from '@/context/AuthContext';
+import { PasswordStrengthResult, usePasswordStrength } from '@/hooks/usePasswordStrength';
+import { PasswordStrengthIndicator } from './PasswordStrengthIndicator';
 
 export function RegisterPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, refreshUser } = useAuth();
+  const { evaluate: evaluatePassword } = usePasswordStrength();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [passwordStrength, setPasswordStrength] = useState<PasswordStrengthResult | null>(null);
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -43,7 +47,13 @@ export function RegisterPage() {
     validate: {
       name: (val) => (val.length < 2 ? t('auth.register.validation.nameMinLength') : null),
       email: (val) => (/^\S+@\S+$/.test(val) ? null : t('auth.register.validation.invalidEmail')),
-      password: (val) => (val.length <= 6 ? t('auth.register.validation.passwordMinLength') : null),
+      password: (val) => {
+        const strength = evaluatePassword(val);
+        if (!strength.isStrong) {
+          return t('auth.register.validation.passwordStrengthInsufficient');
+        }
+        return null;
+      },
       confirmPassword: (val, values) =>
         val !== values.password ? t('auth.register.validation.passwordsDoNotMatch') : null,
     },
@@ -108,13 +118,28 @@ export function RegisterPage() {
             disabled={loading}
             {...form.getInputProps('email')}
           />
-          <PasswordInput
-            label={t('auth.register.passwordLabel')}
-            placeholder={t('auth.register.passwordPlaceholder')}
-            required
-            disabled={loading}
-            {...form.getInputProps('password')}
-          />
+          <Stack gap="xs">
+            <PasswordInput
+              label={t('auth.register.passwordLabel')}
+              placeholder={t('auth.register.passwordPlaceholder')}
+              required
+              disabled={loading}
+              onBlur={(e) => {
+                const password = e.currentTarget.value;
+                setPasswordStrength(evaluatePassword(password));
+              }}
+              onChange={(e) => {
+                form.setFieldValue('password', e.currentTarget.value);
+                // Update strength in real-time
+                if (e.currentTarget.value) {
+                  setPasswordStrength(evaluatePassword(e.currentTarget.value));
+                }
+              }}
+              value={form.values.password}
+              error={form.errors.password}
+            />
+            <PasswordStrengthIndicator result={passwordStrength} />
+          </Stack>
           <PasswordInput
             label={t('auth.register.confirmPasswordLabel')}
             placeholder={t('auth.register.confirmPasswordPlaceholder')}
