@@ -52,10 +52,10 @@ This directory contains Docker configuration for running the complete Budget app
    ```
 
 4. **Access the application:**
-   - Application: https://localhost (accepts self-signed cert on first visit)
-   - API: https://localhost/api/v1
-   - Health check: https://localhost/health
-   - Note: HTTP URLs redirect to HTTPS automatically
+    - Application: https://localhost (accepts self-signed cert on first visit)
+    - API: https://localhost/api/v1
+    - Health check: https://localhost/health
+    - Note: HTTP URLs redirect to HTTPS automatically
 
 ## HTTPS Setup
 
@@ -63,9 +63,11 @@ The application uses HTTPS by default with self-signed certificates for local de
 
 ### First-Time Access
 
-On first visit to https://localhost, your browser will show a certificate warning. This is expected and safe for local development.
+On first visit to https://localhost, your browser will show a certificate warning. This is expected and safe for local
+development.
 
 **To proceed:**
+
 - **Chrome/Edge**: Click "Advanced" → "Proceed to localhost (unsafe)"
 - **Firefox**: Click "Advanced" → "Accept the Risk and Continue"
 - **Safari**: Click "Show Details" → "visit this website"
@@ -73,6 +75,7 @@ On first visit to https://localhost, your browser will show a certificate warnin
 ### Access URLs
 
 After accepting the certificate:
+
 - Application: https://localhost
 - API: https://localhost/api/v1
 - Health check: https://localhost/health
@@ -118,8 +121,8 @@ If you need to revert to HTTP only:
 
 1. Edit `Caddyfile` - add `auto_https off` in global options and change `:443` to `:80`
 2. Edit `docker-compose.yaml`:
-   - Change CORS origins from `https://` to `http://`
-   - Change `BUDGET_SESSION__COOKIE_SECURE: "false"`
+    - Change CORS origins from `https://` to `http://`
+    - Change `BUDGET_SESSION__COOKIE_SECURE: "false"`
 3. Restart: `docker compose down && docker compose up -d`
 
 ## Development with Debug Tools
@@ -161,21 +164,25 @@ Access Adminer at http://localhost:8080
 ## Commands
 
 ### Build and start all services
+
 ```bash
 docker compose up -d --build
 ```
 
 ### Stop all services
+
 ```bash
 docker compose down
 ```
 
 ### Stop and remove volumes (WARNING: deletes database data)
+
 ```bash
 docker compose down -v
 ```
 
 ### View logs
+
 ```bash
 # All services
 docker compose logs -f
@@ -187,16 +194,19 @@ docker compose logs -f caddy
 ```
 
 ### Restart a service
+
 ```bash
 docker compose restart backend
 ```
 
 ### Rebuild a specific service
+
 ```bash
 docker compose up -d --build backend
 ```
 
 ### Execute commands in a container
+
 ```bash
 # Backend shell
 docker compose exec backend sh
@@ -208,6 +218,7 @@ docker compose exec db psql -U postgres -d budget_db
 ## Configuration
 
 ### Backend Configuration
+
 Backend configuration is done via environment variables in the `docker-compose.yaml` file. Key settings:
 
 - `DATABASE_URL`: PostgreSQL connection string
@@ -215,7 +226,9 @@ Backend configuration is done via environment variables in the `docker-compose.y
 - `ROCKET_SECRET_KEY`: Required for sessions (set in .env)
 
 ### Frontend Build-Time Configuration
-If your frontend needs build-time environment variables (API URL, etc.), add them to the frontend service in `docker-compose.yaml`:
+
+If your frontend needs build-time environment variables (API URL, etc.), add them to the frontend service in
+`docker-compose.yaml`:
 
 ```yaml
 frontend:
@@ -223,12 +236,13 @@ frontend:
     context: .
     dockerfile: Dockerfile
     args:
-      VITE_API_URL: http://localhost/api/v1
+      VITE_API_URL: https://localhost/api/v1
 ```
 
 And update the Dockerfile to use them during build.
 
 ### Caddy Configuration
+
 Edit `Caddyfile` to customize routing, add HTTPS with automatic certificates, or configure additional domains:
 
 ```caddyfile
@@ -279,14 +293,15 @@ api.example.com {
    ```
 
 6. **Security**:
-   - Change default passwords in `.env`
-   - Keep images updated
-   - Use non-root users in Dockerfiles
-   - Scan images for vulnerabilities: `docker scan budget-backend`
+    - Change default passwords in `.env`
+    - Keep images updated
+    - Use non-root users in Dockerfiles
+    - Scan images for vulnerabilities: `docker scan budget-backend`
 
 ## Troubleshooting
 
 ### Services not starting
+
 ```bash
 # Check service status
 docker compose ps
@@ -296,6 +311,7 @@ docker compose logs
 ```
 
 ### Database connection issues
+
 ```bash
 # Verify database is running and healthy
 docker compose ps db
@@ -308,6 +324,7 @@ docker compose exec backend sh -c 'echo $DATABASE_URL'
 ```
 
 ### Frontend not loading
+
 ```bash
 # Check if frontend built successfully
 docker compose logs frontend
@@ -317,6 +334,7 @@ docker compose exec frontend ls -la /usr/share/nginx/html
 ```
 
 ### Permission issues
+
 ```bash
 # Ensure proper ownership of volumes
 docker compose down
