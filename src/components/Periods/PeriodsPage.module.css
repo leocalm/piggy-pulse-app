@@ -35,6 +35,15 @@
   padding: 8px 10px;
 }
 
+.gapPreviewCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+}
+
 .periodCard {
   background: var(--bg-card);
 }

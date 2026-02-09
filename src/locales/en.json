@@ -321,7 +321,21 @@
       "title_one": "Gap detected: {{count}} transaction is outside a period",
       "title_other": "Gap detected: {{count}} transactions are outside a period",
       "subtitle": "Create a period that covers these transactions to keep reporting accurate.",
-      "fixAction": "Create Period to Cover"
+      "fixAction": "Create Period to Cover",
+      "resolveAction": "Review Fix Options",
+      "resolveTitle": "Resolve Period Gap",
+      "rangeSummary": "Gap date range: {{start}} - {{end}}",
+      "extendPeriodLabel": "Extend an existing period",
+      "extendPeriodPlaceholder": "Select a period",
+      "noEditablePeriods": "No editable periods are available for extension.",
+      "previewTitle": "Coverage preview",
+      "currentRange": "Current range: {{start}} - {{end}}",
+      "updatedRange": "Updated range: {{start}} - {{end}}",
+      "overlapConflict": "This extension would overlap another period. Pick a different period or create a new one.",
+      "noCoverageChange": "Selected period already covers the gap range.",
+      "extendAction": "Extend Selected Period",
+      "extendSuccess": "Period extended and gap transactions reassigned",
+      "extendFailed": "Failed to extend period coverage"
     },
     "modal": {
       "createTitle": "Create Budget Period",
