@@ -194,7 +194,7 @@ export class MockApiServer {
     const cookieHeader = await request.headerValue('cookie');
     const authUser = this.findAuthenticatedUser(cookieHeader);
 
-    if (method === 'POST' && path === '/users/register') {
+    if (method === 'POST' && path === '/users/') {
       const body = this.parseBody(request.postData());
       const response = this.handleRegister(body);
       await this.fulfill(route, response);

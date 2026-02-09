@@ -73,11 +73,7 @@ export const e2eEnv: E2EEnv = {
   apiHealthPath: getEnvValue('E2E_API_HEALTH_PATH', '/api/v1/health', envFile),
   webServerHost: getEnvValue('E2E_WEB_HOST', '127.0.0.1', envFile),
   webServerPort: Number.parseInt(getEnvValue('E2E_WEB_PORT', '5173', envFile), 10),
-  registerEndpoints: getEnvValue(
-    'E2E_REGISTER_ENDPOINTS',
-    '/api/v1/users/register,/api/users/register',
-    envFile
-  )
+  registerEndpoints: getEnvValue('E2E_REGISTER_ENDPOINTS', '/api/v1/users/,/api/users/', envFile)
     .split(',')
     .map((entry) => entry.trim())
     .filter(Boolean),

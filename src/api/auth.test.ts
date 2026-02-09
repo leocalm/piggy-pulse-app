@@ -14,7 +14,7 @@ describe('auth api', () => {
   });
 
   describe('register', () => {
-    it('registers a user via /api/users/register', async () => {
+    it('registers a user via /api/users/', async () => {
       const credentials: RegisterRequest = {
         name: 'John Doe',
         email: 'john@example.com',
@@ -25,7 +25,7 @@ describe('auth api', () => {
       apiPostMock.mockResolvedValueOnce(undefined);
 
       await expect(register(credentials)).resolves.toBeUndefined();
-      expect(apiPostMock).toHaveBeenCalledWith('/api/users/register', credentials);
+      expect(apiPostMock).toHaveBeenCalledWith('/api/users/', credentials);
     });
 
     it('throws error when email is already registered (409)', async () => {
@@ -36,7 +36,7 @@ describe('auth api', () => {
       };
 
       const apiPostMock = vi.mocked(apiPost);
-      apiPostMock.mockRejectedValueOnce(new ApiError('Conflict', 409, '/api/users/register'));
+      apiPostMock.mockRejectedValueOnce(new ApiError('Conflict', 409, '/api/users/'));
 
       await expect(register(credentials)).rejects.toThrow(
         'This email is already registered. Please use a different email.'
@@ -51,7 +51,7 @@ describe('auth api', () => {
       };
 
       const apiPostMock = vi.mocked(apiPost);
-      apiPostMock.mockRejectedValueOnce(new ApiError('Bad Request', 400, '/api/users/register'));
+      apiPostMock.mockRejectedValueOnce(new ApiError('Bad Request', 400, '/api/users/'));
 
       await expect(register(credentials)).rejects.toThrow('Bad Request');
     });
@@ -64,9 +64,7 @@ describe('auth api', () => {
       };
 
       const apiPostMock = vi.mocked(apiPost);
-      apiPostMock.mockRejectedValueOnce(
-        new ApiError('Internal Server Error', 500, '/api/users/register')
-      );
+      apiPostMock.mockRejectedValueOnce(new ApiError('Internal Server Error', 500, '/api/users/'));
 
       await expect(register(credentials)).rejects.toThrow('Server error. Please try again later.');
     });
