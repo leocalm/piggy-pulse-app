@@ -4,7 +4,11 @@
     "cancel": "Cancelar",
     "success": "Sucesso",
     "error": "Erro",
-    "close": "Fechar"
+    "info": "Info",
+    "close": "Fechar",
+    "next": "Próximo",
+    "back": "Voltar",
+    "loadMore": "Carregar mais"
   },
   "auth": {
     "login": {
@@ -54,6 +58,65 @@
       "errors": {
         "title": "Falha no Cadastro",
         "generic": "Ocorreu um erro durante o cadastro. Por favor, tente novamente."
+      }
+    },
+    "forgotPassword": {
+      "title": "Esqueceu sua senha?",
+      "description": "Digite seu endereço de e-mail e enviaremos um link para redefinir sua senha.",
+      "emailLabel": "Endereço de e-mail",
+      "emailPlaceholder": "seu@email.com",
+      "sendResetLink": "Enviar link de redefinição",
+      "backToLogin": "Voltar para o login",
+      "noAccountYet": "Não tem uma conta?",
+      "createAccount": "Crie uma",
+      "validation": {
+        "invalidEmail": "Endereço de e-mail inválido"
+      },
+      "success": {
+        "title": "E-mail enviado!",
+        "message": "Se o seu endereço de e-mail existir em nosso sistema, você receberá um link de redefinição de senha em breve. Por favor, verifique sua caixa de entrada e pasta de spam."
+      },
+      "errors": {
+        "title": "Erro",
+        "generic": "Falha ao enviar e-mail de redefinição"
+      }
+    },
+    "resetPassword": {
+      "title": "Redefina sua senha",
+      "validating": "Validando link de redefinição...",
+      "pleaseWait": "Por favor, aguarde enquanto verificamos seu link de redefinição.",
+      "resettingFor": "Redefinindo senha para:",
+      "newPasswordLabel": "Nova senha",
+      "newPasswordPlaceholder": "Digite a nova senha",
+      "confirmPasswordLabel": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Confirme a nova senha",
+      "resetPassword": "Redefinir senha",
+      "backToLogin": "Voltar para o login",
+      "requestNew": "Solicitar novo link de redefinição",
+      "validation": {
+        "passwordMinLength": "A senha deve ter pelo menos 8 caracteres",
+        "passwordWeak": "A senha é muito fraca. Por favor, use uma senha mais forte.",
+        "passwordsDoNotMatch": "As senhas não correspondem"
+      },
+      "strength": {
+        "weak": "Fraca",
+        "fair": "Razoável",
+        "good": "Boa",
+        "strong": "Forte"
+      },
+      "success": {
+        "title": "Senha redefinida com sucesso!",
+        "message": "Sua senha foi redefinida com sucesso. Redirecionando para o login..."
+      },
+      "invalid": {
+        "title": "Link de redefinição inválido"
+      },
+      "errors": {
+        "title": "Erro",
+        "noToken": "Nenhum token de redefinição encontrado. Por favor, solicite uma nova redefinição de senha.",
+        "invalidToken": "Este link de redefinição de senha é inválido ou expirou. Por favor, solicite um novo.",
+        "validationFailed": "Falha ao validar token de redefinição",
+        "generic": "Falha ao redefinir senha"
       }
     },
     "logout": "Sair",
@@ -108,9 +171,167 @@
           "required": "Conta destino é obrigatória para transferências"
         }
       }
+    },
+    "editTransaction": {
+      "success": "Transação atualizada com sucesso",
+      "error": {
+        "update": "Falha ao atualizar transação"
+      },
+      "date": {
+        "label": "Data"
+      },
+      "description": {
+        "label": "Descrição",
+        "placeholder": "Digite a descrição"
+      },
+      "amount": {
+        "label": "Valor"
+      },
+      "fromAccount": {
+        "label": "Conta",
+        "placeholder": "Selecione a conta"
+      },
+      "toAccount": {
+        "label": "Conta Destino",
+        "placeholder": "Selecione a conta destino"
+      },
+      "category": {
+        "label": "Categoria",
+        "placeholder": "Selecione a categoria"
+      },
+      "vendor": {
+        "label": "Fornecedor (opcional)",
+        "placeholder": "Digite o nome do fornecedor"
+      },
+      "saveChanges": "Salvar alterações"
+    },
+    "list": {
+      "date": "Data",
+      "descriptionVendor": "Descrição / Fornecedor",
+      "category": "Categoria",
+      "accounts": "Contas (Origem → Destino)",
+      "amount": "Valor",
+      "row": {
+        "transferDescription": "Transferência Interna"
+      }
+    },
+    "stats": {
+      "totalIncome": "Receita Total",
+      "totalExpenses": "Despesas Totais",
+      "netChange": "Variação Líquida"
+    },
+    "filters": {
+      "allTransactions": "Todas as transações",
+      "incoming": "Entradas",
+      "outgoing": "Saídas",
+      "transfers": "Transferências",
+      "dateRange": "Período",
+      "accountAll": "Conta: Todas",
+      "categoryAll": "Categoria: Todas",
+      "amountAll": "Valor: Todos"
+    },
+    "section": {
+      "showing": "Mostrando {{count}} transações em {{period}}",
+      "thisPeriod": "este período",
+      "searchPlaceholder": "Pesquisar transações...",
+      "noTransactionsFound": "Nenhuma transação encontrada",
+      "adjustFilters": "Tente ajustar seus filtros ou adicione uma nova transação"
+    },
+    "tableView": {
+      "addTransaction": "Adicionar Transação",
+      "createTransaction": "Criar Transação",
+      "error": {
+        "load": "Erro ao carregar transações"
+      }
+    },
+    "container": {
+      "confirmDelete": "Tem certeza de que deseja excluir esta transação?",
+      "thisPeriod": "este período",
+      "title": "Transações",
+      "subtitle": "Revise e gerencie sua atividade financeira para o período selecionado.",
+      "editTitle": "Editar Transação",
+      "editing": "Editando"
+    }
+  },
+  "budget": {
+    "details": {
+      "title": "Detalhes do Orçamento",
+      "totalIncoming": "Total de Entradas",
+      "totalOutgoing": "Total de Saídas",
+      "difference": "Diferença"
+    },
+    "container": {
+      "title": "Orçamento Mensal",
+      "subtitle": "Gerencie seus limites de gasto e atribua orçamentos às categorias.",
+      "addCategory": "Adicionar Categoria"
+    },
+    "overview": {
+      "allocationTitle": "Alocação do Orçamento",
+      "breakdownTitle": "Distribuição do Orçamento",
+      "totalBudget": "Orçamento Total",
+      "allocated": "Alocado para Categorias",
+      "spent": "Gasto Até Agora",
+      "remaining": "Restante",
+      "overBudget": "Acima do Orçamento",
+      "unbudgeted": "{{count}} categorias",
+      "utilization": "Utilização do Orçamento",
+      "status": "Status",
+      "onTrack": "Dentro do Planejado",
+      "overBudgetMessage": "Você ultrapassou seu limite total de orçamento para este período.",
+      "onTrackMessage": "Você está dentro dos limites planejados.",
+      "allocation": "Alocação"
+    },
+    "budgetedCategories": {
+      "title": "Categorias Orçadas",
+      "status": "{{onTrack}} de {{total}} dentro do planejado",
+      "`spent`": "€{{spent}}",
+      "of": "de €{{budget}}",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "noCategories": "Ainda não há categorias orçadas",
+      "addFirst": "Clique em \"Adicionar Categoria\" para começar",
+      "description": "Ajuste seus limites de gasto mensais",
+      "error": {
+        "positiveValue": "O valor deve ser positivo"
+      },
+      "onTrack": "dentro do planejado",
+      "nearLimit": "perto do limite",
+      "overBudget": "acima do orçamento",
+      "over": "acima",
+      "remaining": "restante"
+    },
+    "configuration": {
+      "title": "Configuração do Orçamento",
+      "budgetNameLabel": "Nome do Orçamento",
+      "budgetNamePlaceholder": "Meu Orçamento",
+      "startDayLabel": "Dia de Início",
+      "startDayPlaceholder": "Dia de início",
+      "updateButton": "Atualizar Orçamento",
+      "error": {
+        "nameLength": "O nome deve ter pelo menos 2 letras",
+        "startDayRange": "O dia de início deve estar entre 1 e 31",
+        "load": "Erro ao carregar categorias"
+      }
+    },
+    "unbudgetedCategories": {
+      "title": "Sem Orçamento",
+      "allBudgeted": "Todas as categorias já têm orçamento!",
+      "subtitle": "Clique em uma categoria para definir o limite mensal e adicioná-la ao plano.",
+      "loading": "Carregando..."
     }
   },
   "layout": {
+    "logo": {
+      "title": "PiggyPulse"
+    },
+    "userMenu": {
+      "userName": "João Silva",
+      "userEmail": "joao@exemplo.com",
+      "application": "Aplicação",
+      "profile": "Perfil",
+      "settings": "Configurações",
+      "logout": "Sair"
+    },
     "navigation": {
       "overview": "Visão Geral",
       "dashboard": "Dashboard",
@@ -120,12 +341,122 @@
       "categories": "Categorias",
       "vendors": "Fornecedores",
       "budgetPlan": "Orçamento",
+      "periods": "Períodos",
       "overlays": "Overlays",
       "other": "Outro",
       "settings": "Configurações",
       "helpSupport": "Ajuda e Suporte",
       "more": "Mais"
     }
+  },
+  "accounts": {
+    "card": {
+      "viewDetails": "Ver Detalhes",
+      "editAccount": "Editar Conta",
+      "deleteAccount": "Excluir Conta",
+      "currentBalance": "Saldo Atual",
+      "thisPeriod": "este período",
+      "monthlySpent": "Gasto Mensal",
+      "transactions": "Transações",
+      "statusActive": "Ativa",
+      "noChange": "Sem alteração",
+      "change": "{{arrow}} {{amount}} neste mês",
+      "payBill": "Pagar Fatura",
+      "transfer": "Transferir",
+      "stats": {
+        "creditLimit": "Limite de Crédito",
+        "spendLimit": "Limite de Gastos",
+        "thisMonth": "Este mês",
+        "available": "Disponível",
+        "transactions": "Transações"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Excluir"
+      }
+    },
+    "header": {
+      "title": "Contas",
+      "subtitle": "Gerencie seus bancos, carteiras e cartões de crédito.",
+      "addAccount": "Adicionar Conta",
+      "cancel": "Cancelar"
+    },
+    "createSection": {
+      "title": "Detalhes da Nova Conta",
+      "description": "Preencha as informações abaixo para adicionar uma nova conta ao seu orçamento."
+    },
+    "summary": {
+      "netWorth": "Patrimônio Líquido Total",
+      "assets": "Ativos Totais",
+      "liabilities": "Passivos Totais",
+      "cashSavings": "Dinheiro e economias",
+      "creditCardsDebt": "Cartões de crédito e dívidas",
+      "accountCount": "{{count}} conta",
+      "accountCount_plural": "{{count}} contas"
+    },
+    "forms": {
+      "fields": {
+        "name": {
+          "label": "Nome da Conta",
+          "placeholder": "ex.: Conta Corrente Principal, Poupança, Dinheiro"
+        },
+        "type": {
+          "label": "Tipo",
+          "placeholder": "Pesquise o tipo..."
+        },
+        "typeSelectPlaceholder": "Selecione o tipo",
+        "initialBalance": {
+          "label": "Saldo Inicial",
+          "placeholder": "0,00"
+        },
+        "balance": {
+          "label": "Saldo",
+          "placeholder": "0,00"
+        },
+        "spendLimit": {
+          "label": "Limite de Gastos",
+          "placeholder": "0,00"
+        },
+        "color": {
+          "label": "Cor do Cartão",
+          "placeholder": "Escolha uma cor para o cartão"
+        }
+      },
+      "buttons": {
+        "reset": "Limpar",
+        "create": "Criar Conta",
+        "save": "Salvar alterações"
+      },
+      "validation": {
+        "nameMinLength": "O nome deve ter pelo menos 2 letras",
+        "accountTypeRequired": "O tipo de conta é obrigatório",
+        "balanceRequired": "O saldo é obrigatório"
+      },
+      "errors": {
+        "createFailed": "Falha ao criar conta",
+        "updateFailed": "Falha ao atualizar conta"
+      },
+      "select": {
+        "nothingFound": "Nenhum tipo encontrado..."
+      }
+    },
+    "modal": {
+      "editTitle": "Editar Conta"
+    },
+    "table": {
+      "editTitle": "Editar Conta"
+    },
+    "types": {
+      "CreditCard": "Cartão de Crédito",
+      "Checking": "Conta Corrente",
+      "Savings": "Poupança",
+      "Wallet": "Carteira",
+      "Allowance": "Dinheiro de bolso"
+    }
+  },
+  "transactionsPage": {
+    "title": "Transações",
+    "subtitle": "Revise e gerencie sua atividade financeira para o período selecionado."
   },
   "budgetPeriodSelector": {
     "selectPeriod": "Selecionar período",
@@ -399,6 +730,7 @@
     "more": "Página Mais"
   },
   "dashboard": {
+    "title": "Painel Financeiro",
     "noPeriod": {
       "title": "Você está em uma lacuna de período",
       "message": "Suas transações não estão associadas a nenhum período de orçamento. Crie ou ajuste períodos para restaurar relatórios corretos.",
@@ -410,6 +742,54 @@
       "noCap": "Sem limite definido • {{days}} dias",
       "moreCount": "+{{count}}",
       "dismiss": "Dispensar banner de overlay"
+    },
+    "stats": {
+      "remainingBudget": {
+        "label": "Orçamento Restante",
+        "meta": "{{limit}} limite",
+        "trend": {
+          "up": "↑ {{percent}}% vs mês passado",
+          "down": "↓ {{percent}}% vs mês passado"
+        }
+      },
+      "totalAssets": {
+        "label": "Ativos Totais",
+        "trend": {
+          "up": "↑ {{percent}}%",
+          "down": "↓ {{percent}}%"
+        }
+      },
+      "avgDailySpend": {
+        "label": "Média Diária de Gastos",
+        "meta": "Últimos 7 dias"
+      },
+      "monthProgress": {
+        "label": "Progresso do Mês",
+        "meta": "{{days}} dias até o reset",
+        "metaSingular": "{{days}} dia até o reset"
+      }
+    },
+    "charts": {
+      "balanceOverTime": {
+        "title": "Saldo ao Longo do Tempo",
+        "noData": "Sem dados de saldo disponíveis"
+      },
+      "topCategories": {
+        "title": "Principais Categorias"
+      }
+    },
+    "recentActivity": {
+      "title": "Atividades Recentes",
+      "viewAll": "Ver Tudo",
+      "table": {
+        "date": "Data",
+        "description": "Descrição / Fornecedor",
+        "category": "Categoria",
+        "account": "Conta",
+        "amount": "Valor"
+      },
+      "noTransactions": "Nenhuma transação recente",
+      "addFirst": "Adicione sua primeira transação para começar"
     }
   },
   "vendors": {
@@ -453,6 +833,26 @@
     "empty": {
       "title": "Ainda não há fornecedores",
       "subtitle": "Adicione seu primeiro fornecedor para rastrear onde seu dinheiro vai"
+    },
+    "card": {
+      "stats": {
+        "transactions": "Transações",
+        "lastUsed": "Último uso"
+      },
+      "actions": {
+        "more": "Mais",
+        "edit": "Editar Fornecedor",
+        "delete": "Excluir Fornecedor"
+      },
+      "transactionCount": "{{count}} transação",
+      "transactionCount_plural": "{{count}} transações"
+    },
+    "times": {
+      "never": "Nunca",
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "daysAgo": "há {{count}}d",
+      "weeksAgo": "há {{count}}s"
     }
   },
   "states": {
@@ -618,14 +1018,113 @@
       "justAMoment": "Só um momento"
     }
   },
-  "common": {
-    "save": "Salvar",
-    "cancel": "Cancelar",
-    "success": "Sucesso",
-    "error": "Erro",
-    "info": "Info",
-    "close": "Fechar",
-    "next": "Próximo",
-    "back": "Voltar"
+  "settings": {
+    "pageTitle": "Configurações",
+    "pageDescription": "Gerencie suas preferências e configurações de conta",
+    "profile": {
+      "title": "Informações do Perfil",
+      "description": "Atualize seus dados pessoais",
+      "fullNameLabel": "Nome Completo",
+      "fullNamePlaceholder": "Digite seu nome completo",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "Digite seu e-mail",
+      "saveButton": "Salvar alterações"
+    },
+    "appearance": {
+      "title": "Aparência",
+      "description": "Personalize a aparência do aplicativo",
+      "themeModeLabel": "Modo do Tema",
+      "themeModeDescription": "Escolha seu tema preferido",
+      "themeOptions": {
+        "light": "Claro",
+        "dark": "Escuro",
+        "auto": "Automático (seguir sistema)"
+      }
+    },
+    "preferences": {
+      "title": "Preferências",
+      "description": "Configurações regionais e do aplicativo",
+      "currencyLabel": "Moeda",
+      "currencyDescription": "Selecione sua moeda preferida para exibição",
+      "currencyPlaceholder": "Selecione a moeda",
+      "languageLabel": "Idioma",
+      "languageDescription": "Selecione seu idioma preferido",
+      "saveButton": "Salvar preferências",
+      "noCurrencies": "Nenhuma moeda disponível"
+    },
+    "notifications": {
+      "profile": {
+        "success": "Perfil atualizado com sucesso",
+        "error": "Falha ao atualizar o perfil. Por favor, tente novamente."
+      },
+      "preferences": {
+        "success": "Preferências salvas com sucesso",
+        "error": "Falha ao salvar as preferências. Por favor, tente novamente."
+      }
+    },
+    "errors": {
+      "loadFailed": "Falha ao carregar as configurações. Por favor, tente novamente mais tarde."
+    }
+  },
+  "categories": {
+    "header": {
+      "title": "Categorias",
+      "subtitle": "Organize suas transações em grupos significativos."
+    },
+    "actions": {
+      "addCategory": "Adicionar Categoria"
+    },
+    "tabs": {
+      "all": "Todas",
+      "outgoing": "Gastos",
+      "incoming": "Entradas",
+      "transfer": "Transferências"
+    },
+    "empty": {
+      "addButton": "Adicionar Categoria"
+    },
+    "forms": {
+      "fields": {
+        "name": {
+          "label": "Nome da Categoria",
+          "placeholder": "ex.: Aluguel, Supermercado"
+        },
+        "type": {
+          "label": "Tipo",
+          "placeholder": "Selecione o tipo"
+        }
+      },
+      "buttons": {
+        "create": "Criar Categoria",
+        "save": "Salvar alterações"
+      },
+      "validation": {
+        "nameMinLength": "O nome deve ter pelo menos 2 letras"
+      },
+      "errors": {
+        "createFailed": "Falha ao criar categoria",
+        "updateFailed": "Falha ao atualizar categoria"
+      },
+      "loadingEmojiPicker": "Carregando o seletor de emoji..."
+    },
+    "modal": {
+      "createTitle": "Criar Categoria",
+      "editTitle": "Editar Categoria"
+    },
+    "card": {
+      "stats": {
+        "thisMonth": "Este mês",
+        "transactions": "Transações"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Excluir"
+      }
+    },
+    "types": {
+      "Outgoing": "Gastos",
+      "Incoming": "Entradas",
+      "Transfer": "Transferências"
+    }
   }
 }

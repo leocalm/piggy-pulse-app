@@ -28,6 +28,7 @@ export function CategoriesContainer() {
   const { t } = useTranslation();
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const showFilters = false;
 
   // Get selected budget period from context
   const { selectedPeriodId } = useBudgetPeriodSelection();
@@ -97,49 +98,55 @@ export function CategoriesContainer() {
       <Stack gap="xl">
         {/* Header */}
         <PageHeader
-          title="Categories"
-          subtitle="Organize your transactions into meaningful groups."
+          title={t('categories.header.title')}
+          subtitle={t('categories.header.subtitle')}
           actions={
             <Button className={styles.addButton} size="md" onClick={openCreate}>
               <span style={{ fontSize: '16px', marginRight: '4px' }}>+</span>
-              Add Category
+              {t('categories.actions.addCategory')}
             </Button>
           }
         />
 
         {/* Filter Tabs */}
-        <Tabs
-          value={typeFilter}
-          onChange={(value) => setTypeFilter(value as CategoryTypeFilter)}
-          classNames={{
-            root: styles.filterTabs,
-            tab: styles.filterTab,
-          }}
-        >
-          <Tabs.List style={{ display: 'flex', gap: '8px' }}>
-            <Tabs.Tab value="all">
-              All <span className={styles.filterCount}>{categoryCounts.all}</span>
-            </Tabs.Tab>
-            <Tabs.Tab value="Outgoing">
-              Spending <span className={styles.filterCount}>{categoryCounts.Outgoing}</span>
-            </Tabs.Tab>
-            <Tabs.Tab value="Incoming">
-              Income <span className={styles.filterCount}>{categoryCounts.Incoming}</span>
-            </Tabs.Tab>
-            <Tabs.Tab value="Transfer">
-              Transfer <span className={styles.filterCount}>{categoryCounts.Transfer}</span>
-            </Tabs.Tab>
-          </Tabs.List>
-        </Tabs>
+        {showFilters && (
+          <Tabs
+            value={typeFilter}
+            onChange={(value) => setTypeFilter(value as CategoryTypeFilter)}
+            classNames={{
+              root: styles.filterTabs,
+              tab: styles.filterTab,
+            }}
+          >
+            <Tabs.List style={{ display: 'flex', gap: '8px' }}>
+              <Tabs.Tab value="all">
+                {t('categories.tabs.all')}{' '}
+                <span className={styles.filterCount}>{categoryCounts.all}</span>
+              </Tabs.Tab>
+              <Tabs.Tab value="Outgoing">
+                {t('categories.tabs.outgoing')}{' '}
+                <span className={styles.filterCount}>{categoryCounts.Outgoing}</span>
+              </Tabs.Tab>
+              <Tabs.Tab value="Incoming">
+                {t('categories.tabs.incoming')}{' '}
+                <span className={styles.filterCount}>{categoryCounts.Incoming}</span>
+              </Tabs.Tab>
+              <Tabs.Tab value="Transfer">
+                {t('categories.tabs.transfer')}{' '}
+                <span className={styles.filterCount}>{categoryCounts.Transfer}</span>
+              </Tabs.Tab>
+            </Tabs.List>
+          </Tabs>
+        )}
 
         {/* Categories Grid */}
         {filteredCategories.length === 0 ? (
-          <EmptyState
-            icon="📁"
-            title={t('states.empty.categories.title')}
-            message={t('states.empty.categories.message')}
-            primaryAction={{
-              label: t('states.empty.categories.addButton', 'Add Category'),
+            <EmptyState
+              icon="📁"
+              title={t('states.empty.categories.title')}
+              message={t('states.empty.categories.message')}
+              primaryAction={{
+                label: t('categories.empty.addButton'),
               icon: <span>+</span>,
               onClick: openCreate,
             }}
@@ -204,7 +211,7 @@ export function CategoriesContainer() {
                   }}
                   disabled={isFetchingNextPage}
                 >
-                  {isFetchingNextPage ? 'Loading...' : 'Load More'}
+                  {isFetchingNextPage ? t('states.loading.default') : t('common.loadMore')}
                 </button>
               </Box>
             )}
@@ -213,23 +220,23 @@ export function CategoriesContainer() {
 
         {isMobile ? (
           <>
-            <Drawer
-              opened={createOpened}
-              onClose={closeCreate}
-              title="Create Category"
-              position="bottom"
-            >
+        <Drawer
+          opened={createOpened}
+          onClose={closeCreate}
+          title={t('categories.modal.createTitle')}
+          position="bottom"
+        >
               <CreateCategoryForm
                 onCategoryCreated={closeCreate}
                 selectedPeriodId={selectedPeriodId}
               />
             </Drawer>
-            <Drawer
-              opened={editOpened}
-              onClose={onEditClosed}
-              title="Edit Category"
-              position="bottom"
-            >
+        <Drawer
+          opened={editOpened}
+          onClose={onEditClosed}
+          title={t('categories.modal.editTitle')}
+          position="bottom"
+        >
               {selectedCategory && (
                 <EditCategoryForm
                   category={selectedCategory}
@@ -241,13 +248,23 @@ export function CategoriesContainer() {
           </>
         ) : (
           <>
-            <Modal opened={createOpened} onClose={closeCreate} title="Create Category" centered>
+        <Modal
+          opened={createOpened}
+          onClose={closeCreate}
+          title={t('categories.modal.createTitle')}
+          centered
+        >
               <CreateCategoryForm
                 onCategoryCreated={closeCreate}
                 selectedPeriodId={selectedPeriodId}
               />
             </Modal>
-            <Modal opened={editOpened} onClose={onEditClosed} title="Edit Category" centered>
+        <Modal
+          opened={editOpened}
+          onClose={onEditClosed}
+          title={t('categories.modal.editTitle')}
+          centered
+        >
               {selectedCategory && (
                 <EditCategoryForm
                   category={selectedCategory}

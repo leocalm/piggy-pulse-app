@@ -15,6 +15,7 @@ import {
 import { useForm } from '@mantine/form';
 import { useCreateCategory } from '@/hooks/useCategories';
 import { CATEGORY_TYPES, CategoryRequest, CategoryType } from '@/types/category';
+import { useTranslation } from 'react-i18next';
 
 const EmojiPicker = React.lazy(() => import('emoji-picker-react'));
 
@@ -30,6 +31,7 @@ export function CreateCategoryForm({
   const createMutation = useCreateCategory(selectedPeriodId);
   const [opened, setOpened] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('❤️');
+  const { t } = useTranslation();
 
   const emojiSelected = (values: typeof form.values, emoji: EmojiClickData) => {
     values.icon = emoji.emoji;
@@ -48,9 +50,15 @@ export function CreateCategoryForm({
     },
 
     validate: {
-      name: (value) => (!value || value.length < 2 ? 'Name must have at least 2 letters' : null),
+      name: (value) =>
+        !value || value.length < 2 ? t('categories.forms.validation.nameMinLength') : null,
     },
   });
+
+  const categoryTypeOptions = CATEGORY_TYPES.map((categoryType) => ({
+    value: categoryType,
+    label: t(`categories.types.${categoryType}`, { defaultValue: categoryType }),
+  }));
 
   const submitForm = async (values: typeof form.values) => {
     const categoryData: CategoryRequest = {
@@ -74,7 +82,7 @@ export function CreateCategoryForm({
       <Stack gap="md">
         {createMutation.isError && (
           <Alert color="red" variant="light">
-            {createMutation.error.message || 'Failed to create category'}
+            {createMutation.error.message || t('categories.forms.errors.createFailed')}
           </Alert>
         )}
 
@@ -108,7 +116,7 @@ export function CreateCategoryForm({
                   </Popover.Target>
 
                   <Popover.Dropdown p="xs">
-                    <Suspense fallback={<div>Loading emoji picker...</div>}>
+                  <Suspense fallback={<div>{t('categories.forms.loadingEmojiPicker')}</div>}>
                       <EmojiPicker
                         open={opened}
                         onEmojiClick={(emojiData: EmojiClickData) =>
@@ -120,8 +128,8 @@ export function CreateCategoryForm({
                 </Popover>
               </Box>
               <TextInput
-                label="Category Name"
-                placeholder="e.g. Rent, Groceries"
+                label={t('categories.forms.fields.name.label')}
+                placeholder={t('categories.forms.fields.name.placeholder')}
                 style={{ flex: 1 }}
                 {...form.getInputProps('name')}
                 required
@@ -131,9 +139,9 @@ export function CreateCategoryForm({
 
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Select
-              label="Type"
-              placeholder="Select type"
-              data={[...CATEGORY_TYPES]}
+              label={t('categories.forms.fields.type.label')}
+              placeholder={t('categories.forms.fields.type.placeholder')}
+              data={categoryTypeOptions}
               searchable
               {...form.getInputProps('categoryType')}
               required
@@ -143,7 +151,7 @@ export function CreateCategoryForm({
 
         <Group justify="flex-end" mt="lg">
           <Button type="submit" px="xl">
-            Create Category
+            {t('categories.forms.buttons.create')}
           </Button>
         </Group>
       </Stack>

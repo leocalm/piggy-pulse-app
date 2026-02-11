@@ -12,20 +12,6 @@
   margin: 0 !important;
 }
 
-[data-mantine-color-scheme='dark'] .dashboardTitle {
-  background: linear-gradient(135deg, #fff 0%, var(--accent-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-[data-mantine-color-scheme='light'] .dashboardTitle {
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* ── Stats Grid Layout ── */
 .statsGrid {
   display: grid;

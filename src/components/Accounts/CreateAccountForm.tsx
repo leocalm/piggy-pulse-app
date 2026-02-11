@@ -14,6 +14,7 @@ import {
 import { useForm } from '@mantine/form';
 import { useCreateAccount } from '@/hooks/useAccounts';
 import { ACCOUNT_TYPES, AccountRequest, AccountType } from '@/types/account';
+import { useTranslation } from 'react-i18next';
 
 interface CreateAccountFormProps {
   onAccountCreated?: () => void;
@@ -22,6 +23,7 @@ interface CreateAccountFormProps {
 export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) {
   const createAccountMutation = useCreateAccount();
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -36,10 +38,17 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
     },
 
     validate: {
-      name: (value) => (!value || value.length < 2 ? 'Name must have at least 2 letters' : null),
-      accountType: (value) => (value ? null : 'Account type is required'),
+      name: (value) =>
+        !value || value.length < 2 ? t('accounts.forms.validation.nameMinLength') : null,
+      accountType: (value) =>
+        value ? null : t('accounts.forms.validation.accountTypeRequired'),
     },
   });
+
+  const accountTypeOptions = ACCOUNT_TYPES.map((accountType) => ({
+    value: accountType,
+    label: t(`accounts.types.${accountType}`, { defaultValue: accountType }),
+  }));
 
   const submitForm = async (values: typeof form.values) => {
     setError(null);
@@ -60,7 +69,7 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
 
       onAccountCreated?.();
     } catch {
-      setError('Failed to create account');
+      setError(t('accounts.forms.errors.createFailed'));
     }
   };
 
@@ -80,8 +89,8 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
         <Grid gutter="md">
           <Grid.Col span={{ base: 12, md: 8 }}>
             <TextInput
-              label="Account Name"
-              placeholder="e.g. Main Checking, Savings, Cash"
+              label={t('accounts.forms.fields.name.label')}
+              placeholder={t('accounts.forms.fields.name.placeholder')}
               leftSection={<IconTag size={16} />}
               {...form.getInputProps('name')}
               required
@@ -90,11 +99,11 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
 
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Select
-              label="Type"
-              placeholder="Search type..."
-              data={[...ACCOUNT_TYPES]}
+              label={t('accounts.forms.fields.type.label')}
+              placeholder={t('accounts.forms.fields.type.placeholder')}
+              data={accountTypeOptions}
               searchable
-              nothingFoundMessage="No types found..."
+              nothingFoundMessage={t('accounts.forms.select.nothingFound')}
               leftSection={<IconBriefcase size={16} />}
               {...form.getInputProps('accountType')}
               required
@@ -103,8 +112,8 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
 
           <Grid.Col span={bottomRowColSpan}>
             <NumberInput
-              label="Initial Balance"
-              placeholder="0.00"
+              label={t('accounts.forms.fields.initialBalance.label')}
+              placeholder={t('accounts.forms.fields.initialBalance.placeholder')}
               decimalScale={2}
               fixedDecimalScale
               leftSection={<IconCurrencyEuro size={16} />}
@@ -115,22 +124,22 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
 
           {hasLimit && (
             <Grid.Col span={bottomRowColSpan}>
-              <NumberInput
-                label="Spend Limit"
-                placeholder="0.00"
-                decimalScale={2}
-                fixedDecimalScale
-                leftSection={<IconCurrencyEuro size={16} />}
-                {...form.getInputProps('spendLimit')}
-                required
-              />
+            <NumberInput
+              label={t('accounts.forms.fields.spendLimit.label')}
+              placeholder={t('accounts.forms.fields.spendLimit.placeholder')}
+              decimalScale={2}
+              fixedDecimalScale
+              leftSection={<IconCurrencyEuro size={16} />}
+              {...form.getInputProps('spendLimit')}
+              required
+            />
             </Grid.Col>
           )}
 
           <Grid.Col span={bottomRowColSpan}>
             <ColorInput
-              label="Theme Color"
-              placeholder="Pick a color for the card"
+              label={t('accounts.forms.fields.color.label')}
+              placeholder={t('accounts.forms.fields.color.placeholder')}
               disallowInput
               withPicker={false}
               swatchesPerRow={10}
@@ -153,10 +162,10 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
 
         <Group justify="flex-end" mt="lg">
           <Button variant="light" color="gray" onClick={() => form.reset()}>
-            Reset
+            {t('accounts.forms.buttons.reset')}
           </Button>
           <Button type="submit" px="xl" loading={createAccountMutation.isPending}>
-            Create Account
+            {t('accounts.forms.buttons.create')}
           </Button>
         </Group>
       </Stack>

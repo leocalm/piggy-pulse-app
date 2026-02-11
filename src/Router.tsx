@@ -77,8 +77,13 @@ const RegisterPage = lazy(() =>
   }))
 );
 const ForgotPasswordPage = lazy(() =>
-  import('./components/Auth/ForgotPasswordPage').then((module) => ({
+  import('./pages/ForgotPassword.page').then((module) => ({
     default: module.ForgotPasswordPage,
+  }))
+);
+const ResetPasswordPage = lazy(() =>
+  import('./pages/ResetPassword.page').then((module) => ({
+    default: module.ResetPasswordPage,
   }))
 );
 const NotFoundPage = lazy(() =>
@@ -140,6 +145,7 @@ export function Router() {
         { path: 'login', element: withPageLoader(<LoginPage />) },
         { path: 'register', element: withPageLoader(<RegisterPage />) },
         { path: 'forgot-password', element: withPageLoader(<ForgotPasswordPage />) },
+        { path: 'reset-password', element: withPageLoader(<ResetPasswordPage />) },
       ],
     },
     // Error pages (accessible without authentication)

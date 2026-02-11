@@ -83,6 +83,8 @@
     --shadow-sm: 0 2px 8px rgb(0, 0, 0, 0.08);
     --shadow-md: 0 4px 16px rgb(0, 0, 0, 0.12);
     --shadow-lg: 0 8px 32px rgb(0, 0, 0, 0.16);
+    --brand-gradient-start: #2FB7F6;
+    --brand-gradient-end: #7A5CFF;
 }
 
 body {
@@ -183,6 +185,7 @@ body {
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .brand-glow {
