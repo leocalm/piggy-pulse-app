@@ -62,4 +62,46 @@ describe('api client URL resolution', () => {
       expect.objectContaining({ credentials: 'include' })
     );
   });
+
+  it('appends VITE_API_VERSION to VITE_API_BASE_PATH when base path has no version', async () => {
+    env.VITE_API_BASE_PATH = 'https://api.piggy-pulse.com/api';
+    env.VITE_API_VERSION = '2';
+    fetchMock.mockResolvedValue(createSuccessResponse({ id: 'user-1' }));
+
+    const { apiGet } = await import('./client');
+    await apiGet('/api/users/me');
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://api.piggy-pulse.com/api/v2/users/me',
+      expect.objectContaining({ credentials: 'include' })
+    );
+  });
+
+  it('does not append VITE_API_VERSION when VITE_API_BASE_PATH is already versioned', async () => {
+    env.VITE_API_BASE_PATH = 'https://api.piggy-pulse.com/api/v3';
+    env.VITE_API_VERSION = '2';
+    fetchMock.mockResolvedValue(createSuccessResponse({ id: 'user-1' }));
+
+    const { apiGet } = await import('./client');
+    await apiGet('/api/users/me');
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://api.piggy-pulse.com/api/v3/users/me',
+      expect.objectContaining({ credentials: 'include' })
+    );
+  });
+
+  it('preserves query string when requesting the /api root path', async () => {
+    delete env.VITE_API_BASE_PATH;
+    delete env.VITE_API_VERSION;
+    fetchMock.mockResolvedValue(createSuccessResponse({ ok: true }));
+
+    const { apiGet } = await import('./client');
+    await apiGet('/api?check=true');
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      '/api/v1?check=true',
+      expect.objectContaining({ credentials: 'include' })
+    );
+  });
 });
