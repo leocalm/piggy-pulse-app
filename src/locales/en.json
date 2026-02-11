@@ -4,7 +4,11 @@
     "cancel": "Cancel",
     "success": "Success",
     "error": "Error",
-    "close": "Close"
+    "info": "Info",
+    "close": "Close",
+    "next": "Next",
+    "back": "Back",
+    "loadMore": "Load More"
   },
   "auth": {
     "login": {
@@ -58,13 +62,61 @@
     },
     "forgotPassword": {
       "title": "Forgot your password?",
-      "subtitle": "Enter your email to get a reset link",
-      "emailLabel": "Email",
-      "emailPlaceholder": "you@example.com",
-      "resetPasswordButton": "Reset password",
-      "backToLogin": "Back to the login page",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "your@email.com",
+      "sendResetLink": "Send reset link",
+      "backToLogin": "Back to login",
+      "noAccountYet": "Don't have an account?",
+      "createAccount": "Create one",
       "validation": {
-        "invalidEmail": "Invalid email"
+        "invalidEmail": "Invalid email address"
+      },
+      "success": {
+        "title": "Email sent!",
+        "message": "If your email address exists in our system, you will receive a password reset link shortly. Please check your inbox and spam folder."
+      },
+      "errors": {
+        "title": "Error",
+        "generic": "Failed to send reset email"
+      }
+    },
+    "resetPassword": {
+      "title": "Reset your password",
+      "validating": "Validating reset link...",
+      "pleaseWait": "Please wait while we verify your reset link.",
+      "resettingFor": "Resetting password for:",
+      "newPasswordLabel": "New password",
+      "newPasswordPlaceholder": "Enter new password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm new password",
+      "resetPassword": "Reset password",
+      "backToLogin": "Back to login",
+      "requestNew": "Request new reset link",
+      "validation": {
+        "passwordMinLength": "Password must be at least 8 characters",
+        "passwordWeak": "Password is too weak. Please use a stronger password.",
+        "passwordsDoNotMatch": "Passwords do not match"
+      },
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      },
+      "success": {
+        "title": "Password reset successful!",
+        "message": "Your password has been reset successfully. Redirecting to login..."
+      },
+      "invalid": {
+        "title": "Invalid reset link"
+      },
+      "errors": {
+        "title": "Error",
+        "noToken": "No reset token found. Please request a new password reset.",
+        "invalidToken": "This password reset link is invalid or has expired. Please request a new one.",
+        "validationFailed": "Failed to validate reset token",
+        "generic": "Failed to reset password"
       }
     },
     "logout": "Log out",
@@ -564,6 +616,7 @@
       "categories": "Categories",
       "vendors": "Vendors",
       "budgetPlan": "Budget Plan",
+      "periods": "Periods",
       "overlays": "Overlays",
       "other": "Other",
       "settings": "Settings",
@@ -579,7 +632,101 @@
       "currentBalance": "Current Balance",
       "thisPeriod": "this period",
       "monthlySpent": "Monthly Spent",
-      "transactions": "Transactions"
+      "transactions": "Transactions",
+      "statusActive": "Active",
+      "noChange": "No change",
+      "change": "{{arrow}} {{amount}} this month",
+      "payBill": "Pay Bill",
+      "transfer": "Transfer",
+      "stats": {
+        "creditLimit": "Credit Limit",
+        "spendLimit": "Spend Limit",
+        "thisMonth": "This Month",
+        "available": "Available",
+        "transactions": "Transactions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "header": {
+      "title": "Accounts",
+      "subtitle": "Manage your banks, wallets, and credit cards.",
+      "addAccount": "Add Account",
+      "cancel": "Cancel"
+    },
+    "createSection": {
+      "title": "New Account Details",
+      "description": "Fill in the information below to add a new account to your budget."
+    },
+    "summary": {
+      "netWorth": "Total Net Worth",
+      "assets": "Total Assets",
+      "liabilities": "Total Liabilities",
+      "cashSavings": "Cash & savings",
+      "creditCardsDebt": "Credit cards & debt",
+      "accountCount": "{{count}} account",
+      "accountCount_plural": "{{count}} accounts"
+    },
+    "forms": {
+      "fields": {
+        "name": {
+          "label": "Account Name",
+          "placeholder": "e.g. Main Checking, Savings, Cash"
+        },
+        "type": {
+          "label": "Type",
+          "placeholder": "Search type..."
+        },
+        "typeSelectPlaceholder": "Select type",
+        "initialBalance": {
+          "label": "Initial Balance",
+          "placeholder": "0.00"
+        },
+        "balance": {
+          "label": "Balance",
+          "placeholder": "0.00"
+        },
+        "spendLimit": {
+          "label": "Spend Limit",
+          "placeholder": "0.00"
+        },
+        "color": {
+          "label": "Theme Color",
+          "placeholder": "Pick a color for the card"
+        }
+      },
+      "buttons": {
+        "reset": "Reset",
+        "create": "Create Account",
+        "save": "Save Changes"
+      },
+      "validation": {
+        "nameMinLength": "Name must have at least 2 letters",
+        "accountTypeRequired": "Account type is required",
+        "balanceRequired": "Balance is required"
+      },
+      "errors": {
+        "createFailed": "Failed to create account",
+        "updateFailed": "Failed to update account"
+      },
+      "select": {
+        "nothingFound": "No types found..."
+      }
+    },
+    "modal": {
+      "editTitle": "Edit Account"
+    },
+    "table": {
+      "editTitle": "Edit Account"
+    },
+    "types": {
+      "CreditCard": "Credit Card",
+      "Checking": "Checking",
+      "Savings": "Savings",
+      "Wallet": "Debit Card",
+      "Allowance": "Allowance"
     }
   },
   "vendors": {
@@ -623,6 +770,26 @@
     "empty": {
       "title": "No vendors yet",
       "subtitle": "Add your first vendor to track where your money goes"
+    },
+    "card": {
+      "stats": {
+        "transactions": "Transactions",
+        "lastUsed": "Last Used"
+      },
+      "actions": {
+        "more": "More",
+        "edit": "Edit Vendor",
+        "delete": "Delete Vendor"
+      },
+      "transactionCount": "{{count}} transaction",
+      "transactionCount_plural": "{{count}} transactions"
+    },
+    "times": {
+      "never": "Never",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "daysAgo": "{{count}}d ago",
+      "weeksAgo": "{{count}}w ago"
     }
   },
   "dashboard": {
@@ -851,14 +1018,113 @@
       "justAMoment": "Just a moment"
     }
   },
-  "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "success": "Success",
-    "error": "Error",
-    "info": "Info",
-    "close": "Close",
-    "next": "Next",
-    "back": "Back"
+  "settings": {
+    "pageTitle": "Settings",
+    "pageDescription": "Manage your preferences and account settings",
+    "profile": {
+      "title": "Profile Information",
+      "description": "Update your personal details",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "saveButton": "Save Changes"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Customize how the application looks",
+      "themeModeLabel": "Theme Mode",
+      "themeModeDescription": "Choose your preferred theme",
+      "themeOptions": {
+        "light": "Light",
+        "dark": "Dark",
+        "auto": "Auto (follow system)"
+      }
+    },
+    "preferences": {
+      "title": "Preferences",
+      "description": "Regional and application settings",
+      "currencyLabel": "Currency",
+      "currencyDescription": "Select your preferred currency for display",
+      "currencyPlaceholder": "Select currency",
+      "languageLabel": "Language",
+      "languageDescription": "Select your preferred language",
+      "saveButton": "Save Preferences",
+      "noCurrencies": "No currencies available"
+    },
+    "notifications": {
+      "profile": {
+        "success": "Profile updated successfully",
+        "error": "Failed to update profile. Please try again."
+      },
+      "preferences": {
+        "success": "Preferences saved successfully",
+        "error": "Failed to save preferences. Please try again."
+      }
+    },
+    "errors": {
+      "loadFailed": "Failed to load settings. Please try again later."
+    }
+  },
+  "categories": {
+    "header": {
+      "title": "Categories",
+      "subtitle": "Organize your transactions into meaningful groups."
+    },
+    "actions": {
+      "addCategory": "Add Category"
+    },
+    "tabs": {
+      "all": "All",
+      "outgoing": "Spending",
+      "incoming": "Income",
+      "transfer": "Transfer"
+    },
+    "empty": {
+      "addButton": "Add Category"
+    },
+    "forms": {
+      "fields": {
+        "name": {
+          "label": "Category Name",
+          "placeholder": "e.g. Rent, Groceries"
+        },
+        "type": {
+          "label": "Type",
+          "placeholder": "Select type"
+        }
+      },
+      "buttons": {
+        "create": "Create Category",
+        "save": "Save Changes"
+      },
+      "validation": {
+        "nameMinLength": "Name must have at least 2 letters"
+      },
+      "errors": {
+        "createFailed": "Failed to create category",
+        "updateFailed": "Failed to update category"
+      },
+      "loadingEmojiPicker": "Loading emoji picker..."
+    },
+    "modal": {
+      "createTitle": "Create Category",
+      "editTitle": "Edit Category"
+    },
+    "card": {
+      "stats": {
+        "thisMonth": "This Month",
+        "transactions": "Transactions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "types": {
+      "Outgoing": "Spending",
+      "Incoming": "Income",
+      "Transfer": "Transfer"
+    }
   }
 }

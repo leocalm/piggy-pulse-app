@@ -25,6 +25,7 @@ export function TransactionsContainer() {
   // State for filters
   const [typeFilter, setTypeFilter] = useState<TransactionTypeFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const showFilters = false; // Filters temporarily hidden until backend supports them
 
   // Modal state for editing
   const [editingTransaction, setEditingTransaction] = useState<TransactionResponse | null>(null);
@@ -193,13 +194,15 @@ export function TransactionsContainer() {
       {/* Stats Summary */}
       <TransactionStats income={stats.income} expenses={stats.expenses} balance={stats.balance} />
 
-      {/* Filters */}
-      <TransactionFilters
-        typeFilter={typeFilter}
-        onTypeFilterChange={setTypeFilter}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-      />
+      {/* Filters (hidden until backend filtering is ready) */}
+      {showFilters && (
+        <TransactionFilters
+          typeFilter={typeFilter}
+          onTypeFilterChange={setTypeFilter}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
+      )}
 
       {/* Transactions Section */}
       <TransactionsSection

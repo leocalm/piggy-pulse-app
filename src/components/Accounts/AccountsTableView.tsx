@@ -119,7 +119,12 @@ export function AccountsTableView({
       )}
 
       {isMobile ? (
-        <Drawer opened={editOpened} onClose={closeEdit} title="Edit Account" position="bottom">
+        <Drawer
+          opened={editOpened}
+          onClose={closeEdit}
+          title={t('accounts.table.editTitle')}
+          position="bottom"
+        >
           <div>
             {selected && (
               <EditAccountForm
@@ -134,7 +139,7 @@ export function AccountsTableView({
           </div>
         </Drawer>
       ) : (
-        <Modal opened={editOpened} onClose={closeEdit} title="Edit Account" centered>
+        <Modal opened={editOpened} onClose={closeEdit} title={t('accounts.table.editTitle')} centered>
           {selected && (
             <EditAccountForm
               account={selected}

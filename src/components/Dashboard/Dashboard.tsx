@@ -122,8 +122,8 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
       <Stack gap="xl" component="div">
         {/* Dashboard Header */}
         <Group justify="space-between" align="center" pb="md" className={styles.dashboardHeader}>
-          <Title order={1} className={styles.dashboardTitle}>
-            Financial Dashboard
+          <Title order={1} className={`${styles.dashboardTitle} brand-text brand-glow`}>
+            {t('dashboard.title')}
           </Title>
           <PeriodHeaderControl />
         </Group>

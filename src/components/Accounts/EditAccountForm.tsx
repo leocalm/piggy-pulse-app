@@ -14,6 +14,7 @@ import { useForm } from '@mantine/form';
 import { useUpdateAccount } from '@/hooks/useAccounts';
 import { ACCOUNT_TYPES, AccountRequest, AccountResponse, AccountType } from '@/types/account';
 import { convertCentsToDisplay, convertDisplayToCents } from '@/utils/currency';
+import { useTranslation } from 'react-i18next';
 
 interface EditAccountFormProps {
   account: AccountResponse;
@@ -23,6 +24,7 @@ interface EditAccountFormProps {
 export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
   const [error, setError] = useState<string | null>(null);
   const updateMutation = useUpdateAccount();
+  const { t } = useTranslation();
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -35,11 +37,21 @@ export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
       currency: account.currency.currency,
     },
     validate: {
-      name: (value) => (!value || value.length < 2 ? 'Name must have at least 2 letters' : null),
-      accountType: (value) => (value ? null : 'Account type is required'),
-      balance: (value) => (value === undefined || value === null ? 'Balance is required' : null),
+      name: (value) =>
+        !value || value.length < 2 ? t('accounts.forms.validation.nameMinLength') : null,
+      accountType: (value) =>
+        value ? null : t('accounts.forms.validation.accountTypeRequired'),
+      balance: (value) =>
+        value === undefined || value === null
+          ? t('accounts.forms.validation.balanceRequired')
+          : null,
     },
   });
+
+  const accountTypeOptions = ACCOUNT_TYPES.map((accountType) => ({
+    value: accountType,
+    label: t(`accounts.types.${accountType}`, { defaultValue: accountType }),
+  }));
 
   const submitForm = async (values: typeof form.values) => {
     setError(null);
@@ -56,7 +68,7 @@ export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
       { id: account.id, payload },
       {
         onSuccess: () => onUpdated?.(),
-        onError: () => setError('Failed to update account'),
+        onError: () => setError(t('accounts.forms.errors.updateFailed')),
       }
     );
   };
@@ -73,8 +85,8 @@ export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
         <Grid gutter="md">
           <Grid.Col span={{ base: 12, md: 8 }}>
             <TextInput
-              label="Account Name"
-              placeholder="e.g. Main Checking, Savings, Cash"
+              label={t('accounts.forms.fields.name.label')}
+              placeholder={t('accounts.forms.fields.name.placeholder')}
               leftSection={<span>🏷️</span>}
               {...form.getInputProps('name')}
               required
@@ -82,34 +94,34 @@ export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 4 }}>
-            <Select
-              label="Type"
-              placeholder="Search type..."
-              data={[...ACCOUNT_TYPES]}
-              searchable
-              nothingFoundMessage="No types found..."
-              leftSection={<span>💼</span>}
-              {...form.getInputProps('accountType')}
-              required
-            />
+          <Select
+            label={t('accounts.forms.fields.type.label')}
+            placeholder={t('accounts.forms.fields.type.placeholder')}
+            data={accountTypeOptions}
+            searchable
+            nothingFoundMessage={t('accounts.forms.select.nothingFound')}
+            leftSection={<span>💼</span>}
+            {...form.getInputProps('accountType')}
+            required
+          />
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <NumberInput
-              label="Balance"
-              placeholder="0.00"
-              decimalScale={2}
-              fixedDecimalScale
-              leftSection={<span>💶</span>}
-              {...form.getInputProps('balance')}
-              required
-            />
+          <NumberInput
+            label={t('accounts.forms.fields.balance.label')}
+            placeholder={t('accounts.forms.fields.balance.placeholder')}
+            decimalScale={2}
+            fixedDecimalScale
+            leftSection={<span>💶</span>}
+            {...form.getInputProps('balance')}
+            required
+          />
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 6 }}>
             <ColorInput
-              label="Theme Color"
-              placeholder="Pick a color for the card"
+              label={t('accounts.forms.fields.color.label')}
+              placeholder={t('accounts.forms.fields.color.placeholder')}
               disallowInput
               withPicker={false}
               swatchesPerRow={10}
@@ -132,7 +144,7 @@ export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
 
         <Group justify="flex-end" mt="lg">
           <Button type="submit" px="xl">
-            Save Changes
+            {t('accounts.forms.buttons.save')}
           </Button>
         </Group>
       </Stack>

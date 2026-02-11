@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Collapse, Divider, Paper, Stack, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import { useDeleteAccount, useInfiniteAccounts } from '@/hooks/useAccounts';
 import { PageHeader } from '../Transactions/PageHeader';
@@ -11,6 +12,7 @@ import { CreateAccountForm } from './CreateAccountForm';
 import styles from './Accounts.module.css';
 
 export function AccountsContainer() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { selectedPeriodId } = useBudgetPeriodSelection();
   const {
@@ -61,8 +63,8 @@ export function AccountsContainer() {
       <Stack gap="xl">
         {/* Header */}
         <PageHeader
-          title="Accounts"
-          subtitle="Manage your banks, wallets, and credit cards."
+          title={t('accounts.header.title')}
+          subtitle={t('accounts.header.subtitle')}
           actions={
             <Button
               onClick={toggleCreate}
@@ -74,7 +76,7 @@ export function AccountsContainer() {
               <span style={{ fontSize: '16px', marginRight: '4px' }}>
                 {createOpened ? '' + '' : '+'}
               </span>
-              {createOpened ? 'Cancel' : 'Add Account'}
+              {createOpened ? t('accounts.header.cancel') : t('accounts.header.addAccount')}
             </Button>
           }
         />
@@ -92,14 +94,14 @@ export function AccountsContainer() {
             }}
           >
             <Stack gap="md">
-              <div>
-                <Text fw={700} size="lg">
-                  New Account Details
-                </Text>
-                <Text size="xs" c="dimmed">
-                  Fill in the information below to add a new account to your budget.
-                </Text>
-              </div>
+            <div>
+              <Text fw={700} size="lg">
+                {t('accounts.createSection.title')}
+              </Text>
+              <Text size="xs" c="dimmed">
+                {t('accounts.createSection.description')}
+              </Text>
+            </div>
               <Divider variant="dashed" />
               <CreateAccountForm onAccountCreated={closeCreate} />
             </Stack>

@@ -1,13 +1,10 @@
 export type Theme = 'light' | 'dark' | 'auto';
 
-export type Language = 'en' | 'es' | 'pt' | 'fr' | 'de';
+export type Language = 'en' | 'pt';
 
 export const LANGUAGE_DISPLAY_NAMES: Record<Language, string> = {
   en: 'English',
-  es: 'Spanish',
   pt: 'Portuguese',
-  fr: 'French',
-  de: 'German',
 };
 
 export interface SettingsResponse {
