@@ -3,6 +3,7 @@ import { ActionIcon, Box, Group, Paper, Stack, Text } from '@mantine/core';
 import { CategoryResponse } from '@/types/category';
 import { formatCurrencyValue } from '@/utils/currency';
 import styles from './Categories.module.css';
+import { useTranslation } from 'react-i18next';
 
 interface CategoryCardProps {
   category: CategoryResponse;
@@ -18,10 +19,10 @@ interface CategoryCardProps {
 }
 
 // Category type meta info for icons and labels
-const CATEGORY_TYPE_META: Record<string, { icon: string; label: string }> = {
-  Outgoing: { icon: '💸', label: 'Outgoing' },
-  Incoming: { icon: '💵', label: 'Incoming' },
-  Transfer: { icon: '🔄', label: 'Transfer' },
+const CATEGORY_TYPE_ICONS: Record<string, string> = {
+  Outgoing: '💸',
+  Incoming: '💵',
+  Transfer: '🔄',
 };
 
 // Define background colors with alpha for each category type
@@ -39,10 +40,11 @@ export function CategoryCard({
   onDelete,
   onClick,
 }: CategoryCardProps) {
-  const typeMeta = CATEGORY_TYPE_META[category.categoryType] || {
-    icon: '💸',
-    label: category.categoryType,
-  };
+  const { t } = useTranslation();
+  const typeIcon = CATEGORY_TYPE_ICONS[category.categoryType] || '💸';
+  const typeLabel = t(`categories.types.${category.categoryType}`, {
+    defaultValue: category.categoryType,
+  });
 
   const handleCardClick = () => {
     onClick?.(category);
@@ -74,7 +76,7 @@ export function CategoryCard({
           <ActionIcon
             variant="subtle"
             color="gray"
-            title="Edit"
+            title={t('categories.card.actions.edit')}
             size="sm"
             onClick={(e) => {
               e.stopPropagation();
@@ -86,7 +88,7 @@ export function CategoryCard({
           <ActionIcon
             variant="subtle"
             color="gray"
-            title="Delete"
+            title={t('categories.card.actions.delete')}
             size="sm"
             onClick={(e) => {
               e.stopPropagation();
@@ -104,14 +106,14 @@ export function CategoryCard({
           {category.name}
         </Text>
         <span className={styles.categoryType}>
-          {typeMeta.icon} {typeMeta.label}
+          {typeIcon} {typeLabel}
         </span>
       </Box>
 
       {/* Stats */}
       <div className={styles.categoryStats}>
         <Stack gap={4}>
-          <Text className={styles.statLabel}>This Month</Text>
+          <Text className={styles.statLabel}>{t('categories.card.stats.thisMonth')}</Text>
           <Text className={styles.statValue}>€ {formatCurrencyValue(monthlySpent)}</Text>
           {trend && (
             <Text
@@ -122,7 +124,7 @@ export function CategoryCard({
           )}
         </Stack>
         <Stack gap={4}>
-          <Text className={styles.statLabel}>Transactions</Text>
+          <Text className={styles.statLabel}>{t('categories.card.stats.transactions')}</Text>
           <Text className={styles.statValue}>{transactionCount}</Text>
         </Stack>
       </div>

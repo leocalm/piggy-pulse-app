@@ -15,6 +15,7 @@ import {
 import { useForm } from '@mantine/form';
 import { useUpdateCategory } from '@/hooks/useCategories';
 import { CATEGORY_TYPES, CategoryRequest, CategoryResponse, CategoryType } from '@/types/category';
+import { useTranslation } from 'react-i18next';
 
 interface EditCategoryFormProps {
   category: CategoryResponse;
@@ -27,6 +28,7 @@ export function EditCategoryForm({ category, onUpdated, selectedPeriodId }: Edit
   const [error, setError] = useState<string | null>(null);
   const [opened, setOpened] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState(category.icon);
+  const { t } = useTranslation();
 
   const emojiSelected = (values: typeof form.values, emoji: EmojiClickData) => {
     values.icon = emoji.emoji;
@@ -44,9 +46,15 @@ export function EditCategoryForm({ category, onUpdated, selectedPeriodId }: Edit
       categoryType: category.categoryType as string,
     },
     validate: {
-      name: (value) => (!value || value.length < 2 ? 'Name must have at least 2 letters' : null),
+      name: (value) =>
+        !value || value.length < 2 ? t('categories.forms.validation.nameMinLength') : null,
     },
   });
+
+  const categoryTypeOptions = CATEGORY_TYPES.map((categoryType) => ({
+    value: categoryType,
+    label: t(`categories.types.${categoryType}`, { defaultValue: categoryType }),
+  }));
 
   const submitForm = async (values: typeof form.values) => {
     const payload: CategoryRequest = {
@@ -105,7 +113,9 @@ export function EditCategoryForm({ category, onUpdated, selectedPeriodId }: Edit
                   </Popover.Target>
 
                   <Popover.Dropdown p="xs">
-                    <Suspense fallback={<div>Loading emoji picker...</div>}>
+                  <Suspense
+                    fallback={<div>{t('categories.forms.loadingEmojiPicker')}</div>}
+                  >
                       <EmojiPicker
                         open={opened}
                         onEmojiClick={(emojiData: EmojiClickData) =>
@@ -117,8 +127,8 @@ export function EditCategoryForm({ category, onUpdated, selectedPeriodId }: Edit
                 </Popover>
               </Box>
               <TextInput
-                label="Category Name"
-                placeholder="e.g. Rent, Groceries"
+                label={t('categories.forms.fields.name.label')}
+                placeholder={t('categories.forms.fields.name.placeholder')}
                 style={{ flex: 1 }}
                 {...form.getInputProps('name')}
                 required
@@ -128,9 +138,9 @@ export function EditCategoryForm({ category, onUpdated, selectedPeriodId }: Edit
 
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Select
-              label="Type"
-              placeholder="Select type"
-              data={[...CATEGORY_TYPES]}
+              label={t('categories.forms.fields.type.label')}
+              placeholder={t('categories.forms.fields.type.placeholder')}
+              data={categoryTypeOptions}
               searchable
               {...form.getInputProps('categoryType')}
               required
@@ -140,7 +150,7 @@ export function EditCategoryForm({ category, onUpdated, selectedPeriodId }: Edit
 
         <Group justify="flex-end" mt="lg">
           <Button type="submit" px="xl">
-            Save Changes
+            {t('categories.forms.buttons.save')}
           </Button>
         </Group>
       </Stack>

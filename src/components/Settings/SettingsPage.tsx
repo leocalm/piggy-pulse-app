@@ -20,7 +20,8 @@ import { useAuth } from '@/context/AuthContext';
 import { useCurrencies } from '@/hooks/useCurrencies';
 import { useSettings, useUpdateSettings } from '@/hooks/useSettings';
 import { useUpdateUser } from '@/hooks/useUser';
-import { LANGUAGE_DISPLAY_NAMES, SettingsRequest, Theme } from '@/types/settings';
+import { LANGUAGE_DISPLAY_NAMES, SettingsRequest, Theme, Language } from '@/types/settings';
+import { useTranslation } from 'react-i18next';
 
 export function SettingsPage() {
   const { setColorScheme } = useMantineColorScheme();
@@ -29,11 +30,12 @@ export function SettingsPage() {
   const currenciesQuery = useCurrencies();
   const updateSettingsMutation = useUpdateSettings();
   const updateUserMutation = useUpdateUser();
+  const { i18n, t } = useTranslation();
 
   const [profileName, setProfileName] = useState(user?.name || '');
   const [profileEmail, setProfileEmail] = useState(user?.email || '');
   const [theme, setTheme] = useState<Theme>('auto');
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState<Language>('en');
   const [currencyId, setCurrencyId] = useState<string | null>(null);
 
   const hasInitializedSettings = useRef(false);
@@ -49,6 +51,10 @@ export function SettingsPage() {
       hasInitializedSettings.current = true;
     }
   }, [settingsQuery.data, setColorScheme]);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [i18n, language]);
 
   // Reset initialization when settings are saved
   useEffect(() => {
@@ -83,15 +89,15 @@ export function SettingsPage() {
       });
       await refreshUser();
       notifications.show({
-        title: 'Success',
-        message: 'Profile updated successfully',
+        title: t('common.success'),
+        message: t('settings.notifications.profile.success'),
         color: 'green',
       });
     } catch (error) {
       console.error('Failed to update profile:', error);
       notifications.show({
-        title: 'Error',
-        message: 'Failed to update profile. Please try again.',
+        title: t('common.error'),
+        message: t('settings.notifications.profile.error'),
         color: 'red',
       });
     }
@@ -100,21 +106,21 @@ export function SettingsPage() {
   const handleSavePreferences = async () => {
     const settingsData: SettingsRequest = {
       theme,
-      language: language as 'en' | 'es' | 'pt' | 'fr' | 'de',
+      language,
       defaultCurrencyId: currencyId,
     };
     try {
       await updateSettingsMutation.mutateAsync(settingsData);
       notifications.show({
-        title: 'Success',
-        message: 'Preferences saved successfully',
+        title: t('common.success'),
+        message: t('settings.notifications.preferences.success'),
         color: 'green',
       });
     } catch (error) {
       console.error('Failed to save preferences:', error);
       notifications.show({
-        title: 'Error',
-        message: 'Failed to save preferences. Please try again.',
+        title: t('common.error'),
+        message: t('settings.notifications.preferences.error'),
         color: 'red',
       });
     }
@@ -136,9 +142,9 @@ export function SettingsPage() {
   if (isError) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} title="Error" color="red">
-          Failed to load settings. Please try again later.
-        </Alert>
+          <Alert icon={<IconAlertCircle />} title={t('common.error')} color="red">
+            {t('settings.errors.loadFailed')}
+          </Alert>
       </Container>
     );
   }
@@ -152,7 +158,7 @@ export function SettingsPage() {
   const currencySelectData =
     currencyOptions.length > 0
       ? currencyOptions
-      : [{ value: 'none', label: 'No currencies available', disabled: true }];
+      : [{ value: 'none', label: t('settings.preferences.noCurrencies'), disabled: true }];
   const isCurrencyDisabled = currencyOptions.length === 0;
 
   const languageOptions = Object.entries(LANGUAGE_DISPLAY_NAMES).map(([code, name]) => ({
@@ -161,9 +167,9 @@ export function SettingsPage() {
   }));
 
   const themeOptions = [
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' },
-    { value: 'auto', label: 'Auto (follow system)' },
+    { value: 'light', label: t('settings.appearance.themeOptions.light') },
+    { value: 'dark', label: t('settings.appearance.themeOptions.dark') },
+    { value: 'auto', label: t('settings.appearance.themeOptions.auto') },
   ];
 
   // Determine avatar initials
@@ -179,8 +185,8 @@ export function SettingsPage() {
     <Container size="lg">
       <Stack gap="xl">
         <div>
-          <Title order={2}>Settings</Title>
-          <Text c="dimmed">Manage your preferences and account settings</Text>
+          <Title order={2}>{t('settings.pageTitle')}</Title>
+          <Text c="dimmed">{t('settings.pageDescription')}</Text>
         </div>
 
         {/* Profile Information */}
@@ -188,10 +194,10 @@ export function SettingsPage() {
           <Stack gap="lg">
             <div>
               <Title order={4} mb="xs">
-                Profile Information
+                {t('settings.profile.title')}
               </Title>
               <Text c="dimmed" size="sm">
-                Update your personal details
+                {t('settings.profile.description')}
               </Text>
             </div>
 
@@ -201,29 +207,29 @@ export function SettingsPage() {
               </Avatar>
               <Stack style={{ flex: 1 }}>
                 <TextInput
-                  label="Full Name"
+                  label={t('settings.profile.fullNameLabel')}
                   value={profileName}
                   onChange={(e) => setProfileName(e.currentTarget.value)}
-                  placeholder="Enter your full name"
+                  placeholder={t('settings.profile.fullNamePlaceholder')}
                 />
                 <TextInput
-                  label="Email"
+                  label={t('settings.profile.emailLabel')}
                   value={profileEmail}
                   onChange={(e) => setProfileEmail(e.currentTarget.value)}
-                  placeholder="Enter your email"
+                  placeholder={t('settings.profile.emailPlaceholder')}
                 />
               </Stack>
             </Group>
 
             <Group justify="flex-end">
-              <Button
-                leftSection={<span>💾</span>}
-                onClick={handleSaveProfile}
-                loading={updateUserMutation.isPending}
-                disabled={!profileName.trim() || !profileEmail.trim()}
-              >
-                Save Changes
-              </Button>
+                <Button
+                  leftSection={<span>💾</span>}
+                  onClick={handleSaveProfile}
+                  loading={updateUserMutation.isPending}
+                  disabled={!profileName.trim() || !profileEmail.trim()}
+                >
+                  {t('settings.profile.saveButton')}
+                </Button>
             </Group>
           </Stack>
         </Paper>
@@ -233,18 +239,18 @@ export function SettingsPage() {
           <Stack gap="lg">
             <div>
               <Title order={4} mb="xs">
-                Appearance
+                {t('settings.appearance.title')}
               </Title>
               <Text c="dimmed" size="sm">
-                Customize how the application looks
+                {t('settings.appearance.description')}
               </Text>
             </div>
 
             <Group justify="space-between">
               <div>
-                <Text fw={500}>Theme Mode</Text>
+                <Text fw={500}>{t('settings.appearance.themeModeLabel')}</Text>
                 <Text c="dimmed" size="sm">
-                  Choose your preferred theme
+                  {t('settings.appearance.themeModeDescription')}
                 </Text>
               </div>
               <Select
@@ -266,34 +272,34 @@ export function SettingsPage() {
           <Stack gap="lg">
             <div>
               <Title order={4} mb="xs">
-                Preferences
+                {t('settings.preferences.title')}
               </Title>
               <Text c="dimmed" size="sm">
-                Regional and application settings
+                {t('settings.preferences.description')}
               </Text>
             </div>
 
             <Select
-              label="Currency"
-              description="Select your preferred currency for display"
+              label={t('settings.preferences.currencyLabel')}
+              description={t('settings.preferences.currencyDescription')}
               data={currencySelectData}
               disabled={isCurrencyDisabled}
               value={currencyId}
               onChange={(value) => {
                 setCurrencyId(value);
               }}
-              placeholder="Select currency"
+              placeholder={t('settings.preferences.currencyPlaceholder')}
               clearable
               w={300}
             />
 
             <Select
-              label="Language"
-              description="Select your preferred language"
+              label={t('settings.preferences.languageLabel')}
+              description={t('settings.preferences.languageDescription')}
               data={languageOptions}
               value={language}
               onChange={(value) => {
-                setLanguage(value || 'en');
+                setLanguage((value || 'en') as Language);
               }}
               w={300}
             />
@@ -304,7 +310,7 @@ export function SettingsPage() {
                 onClick={handleSavePreferences}
                 loading={updateSettingsMutation.isPending}
               >
-                Save Preferences
+                {t('settings.preferences.saveButton')}
               </Button>
             </Group>
           </Stack>

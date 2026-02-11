@@ -151,6 +151,7 @@ export function VendorsContainer() {
   // Check if we have search results or no vendors at all
   const hasNoVendors = !allVendors || allVendors.length === 0;
   const hasNoSearchResults = searchTerm && processedVendors.length === 0;
+  const showControls = false;
 
   return (
     <Box
@@ -174,38 +175,40 @@ export function VendorsContainer() {
         />
 
         {/* Search and Sort Controls */}
-        <Group gap="md">
-          <TextInput
-            placeholder={t('vendors.searchPlaceholder')}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.currentTarget.value)}
-            style={{ flex: 1 }}
-            leftSection={<span>🔍</span>}
-          />
-          <Group gap="xs">
-            <Button
-              variant={sortOrder === 'name' ? 'filled' : 'light'}
-              size="sm"
-              onClick={() => setSortOrder('name')}
-            >
-              {t('vendors.sortByName')}
-            </Button>
-            <Button
-              variant={sortOrder === 'usage' ? 'filled' : 'light'}
-              size="sm"
-              onClick={() => setSortOrder('usage')}
-            >
-              {t('vendors.sortByUsage')}
-            </Button>
-            <Button
-              variant={sortOrder === 'recent' ? 'filled' : 'light'}
-              size="sm"
-              onClick={() => setSortOrder('recent')}
-            >
-              {t('vendors.sortByRecent')}
-            </Button>
+        {showControls && (
+          <Group gap="md">
+            <TextInput
+              placeholder={t('vendors.searchPlaceholder')}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.currentTarget.value)}
+              style={{ flex: 1 }}
+              leftSection={<span>🔍</span>}
+            />
+            <Group gap="xs">
+              <Button
+                variant={sortOrder === 'name' ? 'filled' : 'light'}
+                size="sm"
+                onClick={() => setSortOrder('name')}
+              >
+                {t('vendors.sortByName')}
+              </Button>
+              <Button
+                variant={sortOrder === 'usage' ? 'filled' : 'light'}
+                size="sm"
+                onClick={() => setSortOrder('usage')}
+              >
+                {t('vendors.sortByUsage')}
+              </Button>
+              <Button
+                variant={sortOrder === 'recent' ? 'filled' : 'light'}
+                size="sm"
+                onClick={() => setSortOrder('recent')}
+              >
+                {t('vendors.sortByRecent')}
+              </Button>
+            </Group>
           </Group>
-        </Group>
+        )}
 
         {/* Vendors Grid or Empty State */}
         {hasNoVendors ? (

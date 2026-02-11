@@ -13,6 +13,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import type { AccountResponse } from '@/types/account';
 import { convertCentsToDisplay } from '@/utils/currency';
 import styles from './Accounts.module.css';
@@ -32,12 +33,12 @@ interface AccountCardProps {
   onViewDetails: (account: AccountResponse) => void;
 }
 
-const ACCOUNT_TYPE_META: Record<string, { icon: string; label: string }> = {
-  CreditCard: { icon: '💳', label: 'Credit Card' },
-  Checking: { icon: '🏦', label: 'Checking' },
-  Savings: { icon: '💰', label: 'Savings' },
-  Wallet: { icon: '💳', label: 'Debit Card' },
-  Allowance: { icon: '👨‍👩‍👧', label: 'Allowance' },
+const ACCOUNT_TYPE_ICONS: Record<string, string> = {
+  CreditCard: '💳',
+  Checking: '🏦',
+  Savings: '💰',
+  Wallet: '💳',
+  Allowance: '👨‍👩‍👧',
 };
 
 const ACCOUNT_TYPE_COLORS: Record<string, string> = {
@@ -57,6 +58,7 @@ export function AccountCard({
   onDelete,
   onViewDetails,
 }: AccountCardProps) {
+  const { t } = useTranslation();
   const currentBalance = convertCentsToDisplay(account.balance);
   const startBalance =
     balanceHistory.length > 0 ? convertCentsToDisplay(balanceHistory[0].balance) : currentBalance;
@@ -65,10 +67,10 @@ export function AccountCard({
   const isNegativeBalance = currentBalance < 0;
 
   const accentColor = account.color || ACCOUNT_TYPE_COLORS[account.accountType] || '#00d4ff';
-  const typeMeta = ACCOUNT_TYPE_META[account.accountType] || {
-    icon: '💳',
-    label: account.accountType,
-  };
+  const typeIcon = ACCOUNT_TYPE_ICONS[account.accountType] || '💳';
+  const typeLabel = t(`accounts.types.${account.accountType}`, {
+    defaultValue: account.accountType,
+  });
 
   const formatCurrency = (value: number) => {
     const abs = Math.abs(value);
@@ -87,17 +89,31 @@ export function AccountCard({
 
   const balanceChangeColor = balanceChange === 0 ? 'gray' : isPositive ? 'green' : 'red';
 
+  const formattedChangeAmount = `${account.currency.symbol}${formatCurrency(Math.abs(balanceChange))}`;
   const balanceChangeText =
     balanceChange === 0
-      ? 'No change'
-      : `${isPositive ? '↑' : '↓'} ${account.currency.symbol}${formatCurrency(Math.abs(balanceChange))} this month`;
+      ? t('accounts.card.noChange')
+      : t('accounts.card.change', {
+          arrow: isPositive ? '↑' : '↓',
+          amount: formattedChangeAmount,
+        });
 
   // Determine stats based on account type
   const isCreditCard = account.accountType === 'CreditCard';
   const hasSpendLimit = !!account.spendLimit;
 
+  const creditLimitLabel = t('accounts.card.stats.creditLimit');
+  const spendLimitLabel = t('accounts.card.stats.spendLimit');
+  const thisMonthLabel = t('accounts.card.stats.thisMonth');
+  const availableLabel = t('accounts.card.stats.available');
+  const transactionsLabel = t('accounts.card.stats.transactions');
+
   const stat1Label =
-    isCreditCard && hasSpendLimit ? 'Credit Limit' : hasSpendLimit ? 'Spend Limit' : 'This Month';
+    isCreditCard && hasSpendLimit
+      ? creditLimitLabel
+      : hasSpendLimit
+        ? spendLimitLabel
+        : thisMonthLabel;
   const stat1Value =
     isCreditCard && hasSpendLimit
       ? `${account.currency.symbol} ${formatCurrency(convertCentsToDisplay(account.spendLimit!))}`
@@ -107,7 +123,7 @@ export function AccountCard({
           ? `-${account.currency.symbol} ${formatCurrency(Math.abs(convertCentsToDisplay(monthlySpent)))}`
           : `${account.currency.symbol} 0`;
 
-  const stat2Label = isCreditCard && hasSpendLimit ? 'Available' : 'Transactions';
+  const stat2Label = isCreditCard && hasSpendLimit ? availableLabel : transactionsLabel;
   const stat2Value =
     isCreditCard && hasSpendLimit
       ? `${account.currency.symbol} ${formatCurrency(convertCentsToDisplay(account.spendLimit! - Math.abs(account.balance)))}`
@@ -128,18 +144,23 @@ export function AccountCard({
               {account.name}
             </Title>
             <Badge variant="light" color="gray" size="sm" tt="uppercase">
-              {typeMeta.icon} {typeMeta.label}
+              {typeIcon} {typeLabel}
             </Badge>
           </Group>
         </Box>
         <Group gap="xs" className={styles.accountActions}>
-          <ActionIcon variant="subtle" color="gray" title="Edit" onClick={() => onEdit(account)}>
+          <ActionIcon
+            variant="subtle"
+            color="gray"
+            title={t('accounts.card.actions.edit')}
+            onClick={() => onEdit(account)}
+          >
             <span>✏️</span>
           </ActionIcon>
           <ActionIcon
             variant="subtle"
             color="gray"
-            title="Delete"
+            title={t('accounts.card.actions.delete')}
             onClick={() => onDelete(account.id)}
           >
             <span>🗑️</span>
@@ -150,7 +171,7 @@ export function AccountCard({
       {/* Balance */}
       <Box px="xl" pb="xl">
         <Text size="sm" c="dimmed" mb="xs">
-          Current Balance
+          {t('accounts.card.currentBalance')}
         </Text>
         <Text size="2xl" fw={700} ff="monospace" c={getBalanceColor()} mb="md">
           {isNegativeBalance ? '-' : ''}
@@ -213,20 +234,25 @@ export function AccountCard({
       <Group gap="sm" px="xl" py="sm">
         <Box className={styles.statusIndicator} />
         <Text size="sm" c="dimmed">
-          Active
+          {t('accounts.card.statusActive')}
         </Text>
       </Group>
 
       {/* Quick Actions */}
       <Divider />
-      <Group grow gap="sm" p="lg" px="xl">
-        <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
-          📊 View Details
-        </Button>
-        <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
-          {isCreditCard ? '💳 Pay Bill' : '💸 Transfer'}
-        </Button>
-      </Group>
+      {false && (
+        <Group grow gap="sm" p="lg" px="xl">
+          <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
+            <span style={{ marginRight: 4 }}>📊</span>
+            {t('accounts.card.viewDetails')}
+          </Button>
+          <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
+            {isCreditCard
+              ? `💳 ${t('accounts.card.payBill')}`
+              : `💸 ${t('accounts.card.transfer')}`}
+          </Button>
+        </Group>
+      )}
     </Paper>
   );
 }

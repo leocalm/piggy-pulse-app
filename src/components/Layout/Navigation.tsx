@@ -51,6 +51,11 @@ export function Navigation({ onNavigate }: NavigationProps) {
           route: '/budget',
         },
         {
+          icon: () => <span>🗓️</span>,
+          label: t('layout.navigation.periods'),
+          route: '/periods',
+        },
+        {
           icon: () => <span>🎯</span>,
           label: t('layout.navigation.overlays'),
           route: '/overlays',

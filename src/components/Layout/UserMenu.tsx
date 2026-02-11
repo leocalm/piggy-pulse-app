@@ -54,20 +54,12 @@ export function UserMenu() {
                 {user?.email || t('layout.userMenu.userEmail')}
               </Text>
             </div>
-            <span style={{ fontSize: 14 }}>➡️</span>
+            <span style={{ fontSize: 14 }}>›</span>
           </Group>
         </UnstyledButton>
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Label>{t('layout.userMenu.application')}</Menu.Label>
-        <Menu.Item leftSection={<span style={{ fontSize: 14 }}>👤</span>}>
-          {t('layout.userMenu.profile')}
-        </Menu.Item>
-        <Menu.Item leftSection={<span style={{ fontSize: 14 }}>⚙️</span>}>
-          {t('layout.userMenu.settings')}
-        </Menu.Item>
-        <Menu.Divider />
         <Menu.Item
           data-testid="user-menu-logout"
           color="red"
