@@ -56,6 +56,65 @@
         "generic": "Ocorreu um erro durante o cadastro. Por favor, tente novamente."
       }
     },
+    "forgotPassword": {
+      "title": "Esqueceu sua senha?",
+      "description": "Digite seu endereço de e-mail e enviaremos um link para redefinir sua senha.",
+      "emailLabel": "Endereço de e-mail",
+      "emailPlaceholder": "seu@email.com",
+      "sendResetLink": "Enviar link de redefinição",
+      "backToLogin": "Voltar para o login",
+      "noAccountYet": "Não tem uma conta?",
+      "createAccount": "Crie uma",
+      "validation": {
+        "invalidEmail": "Endereço de e-mail inválido"
+      },
+      "success": {
+        "title": "E-mail enviado!",
+        "message": "Se o seu endereço de e-mail existir em nosso sistema, você receberá um link de redefinição de senha em breve. Por favor, verifique sua caixa de entrada e pasta de spam."
+      },
+      "errors": {
+        "title": "Erro",
+        "generic": "Falha ao enviar e-mail de redefinição"
+      }
+    },
+    "resetPassword": {
+      "title": "Redefina sua senha",
+      "validating": "Validando link de redefinição...",
+      "pleaseWait": "Por favor, aguarde enquanto verificamos seu link de redefinição.",
+      "resettingFor": "Redefinindo senha para:",
+      "newPasswordLabel": "Nova senha",
+      "newPasswordPlaceholder": "Digite a nova senha",
+      "confirmPasswordLabel": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Confirme a nova senha",
+      "resetPassword": "Redefinir senha",
+      "backToLogin": "Voltar para o login",
+      "requestNew": "Solicitar novo link de redefinição",
+      "validation": {
+        "passwordMinLength": "A senha deve ter pelo menos 8 caracteres",
+        "passwordWeak": "A senha é muito fraca. Por favor, use uma senha mais forte.",
+        "passwordsDoNotMatch": "As senhas não correspondem"
+      },
+      "strength": {
+        "weak": "Fraca",
+        "fair": "Razoável",
+        "good": "Boa",
+        "strong": "Forte"
+      },
+      "success": {
+        "title": "Senha redefinida com sucesso!",
+        "message": "Sua senha foi redefinida com sucesso. Redirecionando para o login..."
+      },
+      "invalid": {
+        "title": "Link de redefinição inválido"
+      },
+      "errors": {
+        "title": "Erro",
+        "noToken": "Nenhum token de redefinição encontrado. Por favor, solicite uma nova redefinição de senha.",
+        "invalidToken": "Este link de redefinição de senha é inválido ou expirou. Por favor, solicite um novo.",
+        "validationFailed": "Falha ao validar token de redefinição",
+        "generic": "Falha ao redefinir senha"
+      }
+    },
     "logout": "Sair",
     "session": {
       "refreshFailed": "Nao foi possivel restaurar sua sessao. Por favor, faca login novamente."
