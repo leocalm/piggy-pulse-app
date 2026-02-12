@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkline } from '@mantine/charts';
 import {
   ActionIcon,
@@ -13,7 +14,6 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useTranslation } from 'react-i18next';
 import type { AccountResponse } from '@/types/account';
 import { convertCentsToDisplay } from '@/utils/currency';
 import styles from './Accounts.module.css';
@@ -31,6 +31,7 @@ interface AccountCardProps {
   onEdit: (account: AccountResponse) => void;
   onDelete: (id: string) => void;
   onViewDetails: (account: AccountResponse) => void;
+  onTransferOrPayBill?: (account: AccountResponse) => void;
 }
 
 const ACCOUNT_TYPE_ICONS: Record<string, string> = {
@@ -57,6 +58,7 @@ export function AccountCard({
   onEdit,
   onDelete,
   onViewDetails,
+  onTransferOrPayBill,
 }: AccountCardProps) {
   const { t } = useTranslation();
   const currentBalance = convertCentsToDisplay(account.balance);
@@ -240,19 +242,17 @@ export function AccountCard({
 
       {/* Quick Actions */}
       <Divider />
-      {false && (
-        <Group grow gap="sm" p="lg" px="xl">
-          <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
-            <span style={{ marginRight: 4 }}>📊</span>
-            {t('accounts.card.viewDetails')}
+      <Group grow gap="sm" p="lg" px="xl">
+        <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
+          <span style={{ marginRight: 4 }}>📊</span>
+          {t('accounts.card.viewDetails')}
+        </Button>
+        {onTransferOrPayBill && (
+          <Button variant="default" size="xs" onClick={() => onTransferOrPayBill(account)}>
+            {isCreditCard ? `💳 ${t('accounts.card.payBill')}` : `💸 ${t('accounts.card.transfer')}`}
           </Button>
-          <Button variant="default" size="xs" onClick={() => onViewDetails(account)}>
-            {isCreditCard
-              ? `💳 ${t('accounts.card.payBill')}`
-              : `💸 ${t('accounts.card.transfer')}`}
-          </Button>
-        </Group>
-      )}
+        )}
+      </Group>
     </Paper>
   );
 }
