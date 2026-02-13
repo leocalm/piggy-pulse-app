@@ -249,7 +249,9 @@ export function AccountCard({
         </Button>
         {onTransferOrPayBill && (
           <Button variant="default" size="xs" onClick={() => onTransferOrPayBill(account)}>
-            {isCreditCard ? `💳 ${t('accounts.card.payBill')}` : `💸 ${t('accounts.card.transfer')}`}
+            {isCreditCard
+              ? `💳 ${t('accounts.card.payBill')}`
+              : `💸 ${t('accounts.card.transfer')}`}
           </Button>
         )}
       </Group>
