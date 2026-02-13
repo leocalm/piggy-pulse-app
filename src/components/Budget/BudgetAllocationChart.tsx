@@ -1,6 +1,8 @@
 import { DonutChart } from '@mantine/charts';
 import { Center, Stack, Text } from '@mantine/core';
-import { convertCentsToDisplay } from '@/utils/currency';
+import { formatCurrency } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
+import { useTranslation } from 'react-i18next';
 
 interface ChartData {
   name: string;
@@ -14,6 +16,10 @@ interface BudgetAllocationChartProps {
 }
 
 export function BudgetAllocationChart({ data, totalBudget }: BudgetAllocationChartProps) {
+  const { i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
+  const format = (cents: number) => formatCurrency(cents, globalCurrency, i18n.language);
+
   if (data.length === 0) {
     return (
       <Center h={200}>
@@ -30,9 +36,7 @@ export function BudgetAllocationChart({ data, totalBudget }: BudgetAllocationCha
         thickness={20}
         withTooltip
         tooltipDataSource="segment"
-        valueFormatter={(value) =>
-          `€${convertCentsToDisplay(value).toLocaleString('de-DE', { minimumFractionDigits: 0 })}`
-        }
+        valueFormatter={(value) => format(value)}
       />
       <Center style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
         <Stack gap={0} align="center">
@@ -40,10 +44,7 @@ export function BudgetAllocationChart({ data, totalBudget }: BudgetAllocationCha
             Total
           </Text>
           <Text fw={700} size="xl">
-            €
-            {convertCentsToDisplay(totalBudget).toLocaleString('de-DE', {
-              minimumFractionDigits: 0,
-            })}
+            {format(totalBudget)}
           </Text>
         </Stack>
       </Center>

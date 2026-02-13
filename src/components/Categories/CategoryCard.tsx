@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActionIcon, Box, Group, Paper, Stack, Text } from '@mantine/core';
 import { CategoryResponse } from '@/types/category';
-import { formatCurrencyValue } from '@/utils/currency';
+import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import styles from './Categories.module.css';
 
 interface CategoryCardProps {
@@ -114,7 +114,9 @@ export function CategoryCard({
       <div className={styles.categoryStats}>
         <Stack gap={4}>
           <Text className={styles.statLabel}>{t('categories.card.stats.thisMonth')}</Text>
-          <Text className={styles.statValue}>€ {formatCurrencyValue(monthlySpent)}</Text>
+          <Text className={styles.statValue}>
+            <CurrencyValue cents={monthlySpent} />
+          </Text>
           {trend && (
             <Text
               className={`${styles.trend} ${trend.direction === 'up' ? styles.trendUp : styles.trendDown}`}

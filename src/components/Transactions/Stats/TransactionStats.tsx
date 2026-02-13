@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, SimpleGrid, Text } from '@mantine/core';
-import { convertCentsToDisplay } from '@/utils/currency';
+import { formatCurrencyValue } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 
 interface TransactionStatsProps {
   income: number;
@@ -17,7 +18,14 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, color, type }: StatCardProps) => {
-  const displayValue = Math.abs(convertCentsToDisplay(value));
+  const { i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
+
+  const formattedValue = formatCurrencyValue(
+    Math.abs(value),
+    globalCurrency.decimalPlaces,
+    i18n.language
+  );
   const prefix = type === 'net' && value < 0 ? '-' : '';
 
   return (
@@ -49,7 +57,8 @@ const StatCard = ({ label, value, color, type }: StatCardProps) => {
           color,
         }}
       >
-        {prefix}€ {displayValue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+        {prefix}
+        {globalCurrency.symbol} {formattedValue}
       </Text>
     </Box>
   );

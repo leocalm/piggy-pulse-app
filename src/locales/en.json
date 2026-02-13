@@ -10,6 +10,13 @@
     "back": "Back",
     "loadMore": "Load More"
   },
+  "currencies": {
+    "EUR": "Euro",
+    "USD": "US Dollar",
+    "GBP": "British Pound",
+    "JPY": "Japanese Yen",
+    "BHD": "Bahraini Dinar"
+  },
   "auth": {
     "login": {
       "welcomeBack": "Welcome back!",

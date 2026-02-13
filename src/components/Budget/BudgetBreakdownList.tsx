@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Stack } from '@mantine/core';
-import { formatCurrencyValue } from '@/utils/currency';
+import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import styles from './Budget.module.css';
 
 interface BudgetBreakdownListProps {
@@ -27,7 +27,9 @@ export function BudgetBreakdownList({
           <div className={styles.breakdownDot} style={{ backgroundColor: '#00d4ff' }} />
           <div className={styles.breakdownLabel}>{t('budget.overview.totalBudget')}</div>
         </div>
-        <div className={styles.breakdownValue}>€{formatCurrencyValue(totalBudget)}</div>
+        <div className={styles.breakdownValue}>
+          <CurrencyValue cents={totalBudget} />
+        </div>
       </div>
 
       <div className={styles.breakdownItem}>
@@ -35,7 +37,9 @@ export function BudgetBreakdownList({
           <div className={styles.breakdownDot} style={{ backgroundColor: '#845ef7' }} />
           <div className={styles.breakdownLabel}>{t('budget.overview.allocated')}</div>
         </div>
-        <div className={styles.breakdownValue}>€{formatCurrencyValue(totalBudget)}</div>
+        <div className={styles.breakdownValue}>
+          <CurrencyValue cents={totalBudget} />
+        </div>
       </div>
 
       <div className={styles.breakdownItem}>
@@ -43,7 +47,9 @@ export function BudgetBreakdownList({
           <div className={styles.breakdownDot} style={{ backgroundColor: '#ff6b6b' }} />
           <div className={styles.breakdownLabel}>{t('budget.overview.spent')}</div>
         </div>
-        <div className={styles.breakdownValue}>€{formatCurrencyValue(totalSpent)}</div>
+        <div className={styles.breakdownValue}>
+          <CurrencyValue cents={totalSpent} />
+        </div>
       </div>
 
       <div className={styles.breakdownItem}>
@@ -57,7 +63,7 @@ export function BudgetBreakdownList({
           </div>
         </div>
         <div className={styles.breakdownValue}>
-          €{formatCurrencyValue(remaining >= 0 ? remaining : overBudget)}
+          <CurrencyValue cents={remaining >= 0 ? remaining : overBudget} />
         </div>
       </div>
 

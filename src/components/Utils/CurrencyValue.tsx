@@ -1,9 +1,13 @@
 import { useTranslation } from 'react-i18next';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { CurrencyResponse } from '@/types/account';
 import { formatCurrencyValue } from '@/utils/currency';
 
 interface CurrencyValueProps {
-  currency: CurrencyResponse | undefined;
+  /**
+   * Optional override for currency. If not provided, uses the global display currency.
+   */
+  currency?: CurrencyResponse | undefined;
   /**
    * Amount in smallest currency unit (cents)
    */
@@ -20,16 +24,30 @@ interface CurrencyValueProps {
    * Custom locale override (uses i18next locale by default)
    */
   locale?: string;
+  /**
+   * Force using the global display currency even if a specific currency is provided.
+   * Useful for single-currency view modes.
+   */
+  forceGlobal?: boolean;
 }
 
 export const CurrencyValue = ({
-  currency,
+  currency: propCurrency,
   cents,
   showSymbol = true,
   compact = false,
   locale: customLocale,
+  forceGlobal = true, // Defaulting to true as per "single currency" requirement
 }: CurrencyValueProps) => {
   const { i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
+
+  // Decide which currency to use: 
+  // 1. If forceGlobal is true, always use globalCurrency
+  // 2. Else if propCurrency is provided, use it
+  // 3. Fallback to globalCurrency
+  const currency = forceGlobal || !propCurrency ? globalCurrency : propCurrency;
+
   const locale = customLocale ?? i18n.language;
   const currencySymbol = currency?.symbol ?? '€';
   const decimalPlaces = currency?.decimalPlaces ?? 2;

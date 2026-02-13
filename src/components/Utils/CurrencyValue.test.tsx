@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render } from '@/test-utils';
 import { describe, expect, it } from 'vitest';
 import { CurrencyValue } from './CurrencyValue';
 
@@ -9,6 +9,7 @@ describe('CurrencyValue', () => {
         currency={{ id: 'usd', name: 'USD', symbol: '$', currency: 'USD', decimalPlaces: 2 }}
         cents={1234}
         locale="en"
+        forceGlobal={false}
       />
     );
 
@@ -24,6 +25,7 @@ describe('CurrencyValue', () => {
         locale="en"
         showSymbol={false}
         compact
+        forceGlobal={false}
       />
     );
 

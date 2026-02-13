@@ -18,6 +18,7 @@ import { CategoryResponse, CategoryType } from '@/types/category';
 import { TransactionResponse } from '@/types/transaction';
 import { Vendor } from '@/types/vendor';
 import { convertCentsToDisplay } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { getIcon, iconMap } from '@/utils/IconMap';
 
 interface EditTransactionFormProps {
@@ -80,6 +81,7 @@ export const EditTransactionForm = ({
   isPending = false,
 }: EditTransactionFormProps) => {
   const { t } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
   const form = useForm<EditFormValues>({
     initialValues: {
       description: transaction.description,
@@ -176,12 +178,12 @@ export const EditTransactionForm = ({
           value={form.values.amount}
           onChange={(value) => form.setFieldValue('amount', Number(value) || 0)}
           error={form.errors.amount}
-          decimalScale={2}
+          decimalScale={globalCurrency.decimalPlaces}
           fixedDecimalScale
           hideControls
           leftSection={
             <Text size="sm" c="dimmed">
-              €
+              {globalCurrency.symbol}
             </Text>
           }
           styles={inputStyles}

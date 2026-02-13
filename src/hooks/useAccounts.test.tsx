@@ -114,7 +114,6 @@ describe('useAccounts', () => {
       color: '#000000',
       icon: '🏦',
       accountType: 'Checking',
-      currency: 'USD',
       balance: 1200,
     };
 
@@ -174,7 +173,6 @@ describe('useAccounts', () => {
       color: '#000000',
       icon: '🏦',
       accountType: 'Checking',
-      currency: 'USD',
       balance: 1200,
     };
 

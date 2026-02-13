@@ -2,7 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActionIcon, Group, NumberInput, Paper, Stack, Text } from '@mantine/core';
 import { BudgetCategoryResponse } from '@/types/budget';
-import { formatCurrencyValue } from '@/utils/currency';
+import { CurrencyValue } from '@/components/Utils/CurrencyValue';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import styles from './Budget.module.css';
 
 interface BudgetCategoryItemProps {
@@ -31,6 +32,7 @@ export function BudgetCategoryItem({
   inputRef,
 }: BudgetCategoryItemProps) {
   const { t } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
 
   const percentage = category.budgetedValue > 0 ? (spent / category.budgetedValue) * 100 : 0;
 
@@ -58,11 +60,16 @@ export function BudgetCategoryItem({
                 {category.category.name}
               </Text>
               <div className={styles.amountsSection}>
-                <span className={styles.spentAmount}>€{formatCurrencyValue(spent)}</span>
+                <span className={styles.spentAmount}>
+                  <CurrencyValue cents={spent} />
+                </span>
                 <span className={styles.budgetAmount}>
-                  {t('budget.budgetedCategories.of', {
-                    budget: formatCurrencyValue(category.budgetedValue),
-                  })}
+                  {t('budget.budgetedCategories.of').replace(
+                    '{{budget}}',
+                    ''
+                  )}
+                  {/* Using a separate component for the value to handle formatting correctly */}
+                  <CurrencyValue cents={category.budgetedValue} />
                 </span>
               </div>
             </Stack>
@@ -120,12 +127,12 @@ export function BudgetCategoryItem({
                 typeof value === 'number' ? value : Number.parseFloat(value || '');
               onEditChange(Number.isFinite(parsedValue) ? parsedValue : 0);
             }}
-            decimalScale={2}
+            decimalScale={globalCurrency.decimalPlaces}
             fixedDecimalScale
             size="sm"
             variant="filled"
             hideControls
-            prefix="€"
+            leftSection={<Text size="sm">{globalCurrency.symbol}</Text>}
             placeholder="0.00"
             autoFocus
           />
@@ -149,7 +156,7 @@ export function BudgetCategoryItem({
                   : t('budget.budgetedCategories.overBudget')}
             </Text>
             <Text size="xs" c="dimmed">
-              €{formatCurrencyValue(Math.max(0, category.budgetedValue - spent))}{' '}
+              <CurrencyValue cents={Math.max(0, category.budgetedValue - spent)} />{' '}
               {percentage > 100
                 ? t('budget.budgetedCategories.over')
                 : t('budget.budgetedCategories.remaining')}

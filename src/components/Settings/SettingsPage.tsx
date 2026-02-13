@@ -194,7 +194,7 @@ export function SettingsPage() {
   const currencyOptions =
     currenciesQuery.data?.map((currency) => ({
       value: currency.id,
-      label: `${currency.name} (${currency.symbol})`,
+      label: `${t(`currencies.${currency.currency}`, { defaultValue: currency.name })} (${currency.symbol})`,
     })) || [];
 
   const currencySelectData =

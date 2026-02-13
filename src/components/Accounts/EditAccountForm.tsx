@@ -34,7 +34,7 @@ export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
       balance: convertCentsToDisplay(account.balance),
       color: account.color,
       icon: account.icon,
-      currency: account.currency.currency,
+      spendLimit: account.spendLimit ? account.spendLimit / 100 : undefined,
     },
     validate: {
       name: (value) =>
@@ -60,7 +60,8 @@ export function EditAccountForm({ account, onUpdated }: EditAccountFormProps) {
       balance: convertDisplayToCents(values.balance || 0),
       color: values.color,
       icon: values.icon,
-      currency: values.currency,
+      // currency: values.currency, // Removed
+      spendLimit: values.spendLimit ? values.spendLimit * 100 : undefined,
     };
 
     updateMutation.mutate(

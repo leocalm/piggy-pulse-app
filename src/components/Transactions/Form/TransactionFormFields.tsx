@@ -2,7 +2,6 @@ import React from 'react';
 import {
   IconBriefcase,
   IconCalendar,
-  IconCurrencyEuro,
   IconPlus,
   IconTag,
   IconTruckDelivery,
@@ -15,6 +14,7 @@ import {
   SegmentedControl,
   Select,
   Stack,
+  Text,
   TextInput,
   useMantineTheme,
 } from '@mantine/core';
@@ -22,6 +22,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { AccountResponse } from '@/types/account';
 import { CategoryResponse } from '@/types/category';
 import { Vendor } from '@/types/vendor';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { useTransactionFormContext } from './TransactionFormContext';
 
 interface TransactionFormFieldsProps {
@@ -47,6 +48,7 @@ export const TransactionFormFields = ({
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const isTransfer = form.values.category?.categoryType === 'Transfer';
+  const globalCurrency = useDisplayCurrency();
 
   const formatDateInput = (value: string) => {
     const digits = value.replace(/\D/g, '');
@@ -156,10 +158,10 @@ export const TransactionFormFields = ({
           <NumberInput
             label="Amount"
             placeholder="0.00"
-            decimalScale={2}
+            decimalScale={globalCurrency.decimalPlaces}
             fixedDecimalScale
             hideControls
-            leftSection={<IconCurrencyEuro size={14} />}
+            leftSection={<Text size="sm">{globalCurrency.symbol}</Text>}
             size={size}
             {...form.getInputProps('amount')}
           />

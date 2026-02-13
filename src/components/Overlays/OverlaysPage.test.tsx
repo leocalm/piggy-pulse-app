@@ -1,8 +1,7 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { MemoryRouter } from 'react-router-dom';
+import { render, screen, userEvent, waitFor, within } from '@/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MantineProvider } from '@mantine/core';
+import { MemoryRouter } from 'react-router-dom';
 import { OverlaysPage } from './OverlaysPage';
 
 const useOverlaysMock = vi.hoisted(() => vi.fn());
