@@ -12,7 +12,7 @@ interface AuthContextType {
   refreshUser: (rememberMe?: boolean, showToast?: boolean) => Promise<boolean>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;

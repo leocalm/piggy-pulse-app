@@ -122,7 +122,45 @@ export const theme = createTheme({
     lg: '0 8px 32px rgba(0, 0, 0, 0.24)',
     glow: '0 0 32px rgba(0, 212, 255, 0.15)',
   },
+  components: {
+    Container: {
+      defaultProps: {
+        size: 'xl',
+      },
+    },
+    Paper: {
+      defaultProps: {
+        radius: 'md',
+        withBorder: true,
+      },
+      styles: {
+        root: {
+          backgroundColor: 'var(--bg-card)',
+          borderColor: 'var(--border-medium)',
+        },
+      },
+    },
+    Button: {
+      defaultProps: {
+        radius: 'md',
+        fw: 600,
+      },
+    },
+    Card: {
+      defaultProps: {
+        radius: 'md',
+        withBorder: true,
+      },
+      styles: {
+        root: {
+          backgroundColor: 'var(--bg-card)',
+          borderColor: 'var(--border-medium)',
+        },
+      },
+    },
+  },
   other: {
+    brandGradient: 'linear-gradient(90deg, #4FD1FF 0%, #9B6BFF 100%)',
     colors: {
       background: {
         primary: '#0a0e14',

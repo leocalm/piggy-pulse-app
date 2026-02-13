@@ -32,7 +32,11 @@ export const TransactionRow = ({
 
   const isTransfer = t.category.categoryType === 'Transfer';
   const isOutgoing = t.category.categoryType === 'Outgoing';
-  const amountColor = isTransfer ? '#00d4ff' : isOutgoing ? '#ff6b9d' : '#00ffa3';
+  const amountColor = isTransfer
+    ? 'var(--accent-primary)'
+    : isOutgoing
+      ? 'var(--accent-danger)'
+      : 'var(--accent-success)';
 
   const prefix = isOutgoing ? '-' : isTransfer ? '' : '+';
   const formattedValue = formatCurrencyValue(
@@ -49,7 +53,7 @@ export const TransactionRow = ({
         onClick={() => onClick?.(t)}
         style={{
           padding: '16px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+          borderBottom: '1px solid var(--border-medium)',
           cursor: onClick ? 'pointer' : 'default',
           animation: `fadeInUp 0.4s ease backwards`,
           animationDelay: `${animationDelay}s`,

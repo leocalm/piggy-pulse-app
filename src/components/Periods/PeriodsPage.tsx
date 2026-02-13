@@ -631,11 +631,20 @@ export function PeriodsPage() {
       <Modal
         opened={isDisableScheduleConfirmOpen}
         onClose={() => setDisableScheduleConfirmOpen(false)}
-        title={t('periods.schedule.disable')}
+        title={t('periods.schedule.disableWarningTitle')}
         centered
       >
         <Stack gap="md">
-          <Text>{t('periods.schedule.disableConfirm')}</Text>
+          <Alert icon={<IconAlertTriangle size={16} />} variant="light" color="orange">
+            <Text fw={700} mb="xs">{t('periods.schedule.disableWarningIntro')}</Text>
+            <Stack gap={4}>
+              <Text size="sm">• {t('periods.schedule.disableWarningStop')}</Text>
+              <Text size="sm">• {t('periods.schedule.disableWarningDelete')}</Text>
+              <Text size="sm">• {t('periods.schedule.disableWarningConvert')}</Text>
+              <Text size="sm">• {t('periods.schedule.disableWarningManual')}</Text>
+            </Stack>
+          </Alert>
+          <Text size="sm">{t('periods.schedule.disableWarningOutro')}</Text>
           <Group justify="flex-end">
             <Button variant="subtle" onClick={() => setDisableScheduleConfirmOpen(false)}>
               {t('common.cancel')}

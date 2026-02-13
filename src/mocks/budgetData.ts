@@ -48,9 +48,9 @@ export const mockCategories: CategoryResponse[] = [
   {
     id: 'cat-out-1',
     name: 'Food',
-    icon: 'shopping-cart',
+    icon: 'cart',
     categoryType: 'Outgoing',
-    color: '',
+    color: '#ff6b9d',
     parentId: null,
   },
   {
@@ -58,7 +58,7 @@ export const mockCategories: CategoryResponse[] = [
     name: 'Salary',
     icon: 'cash',
     categoryType: 'Incoming',
-    color: '',
+    color: '#00ffa3',
     parentId: null,
   },
   {
@@ -66,7 +66,7 @@ export const mockCategories: CategoryResponse[] = [
     name: 'Transfer',
     icon: 'repeat',
     categoryType: 'Transfer',
-    color: '',
+    color: '#00d4ff',
     parentId: null,
   },
 ];

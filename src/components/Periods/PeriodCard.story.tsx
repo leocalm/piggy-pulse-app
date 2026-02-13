@@ -56,3 +56,18 @@ export const Past: Story = {
     status: 'past',
   },
 };
+
+export const Converted: Story = {
+  args: {
+    period: {
+      ...basePeriod,
+      id: 'period-converted',
+      name: 'March 2026',
+      startDate: '2026-03-01',
+      endDate: '2026-03-31',
+      isConverted: true,
+      transactionCount: 5,
+    },
+    status: 'upcoming',
+  },
+};

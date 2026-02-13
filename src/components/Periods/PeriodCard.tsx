@@ -54,6 +54,11 @@ export function PeriodCard({ period, status, onEdit, onDelete }: PeriodCardProps
                 {t('periods.autoBadge')}
               </Badge>
             )}
+            {period.isConverted && (
+              <Badge size="xs" variant="light" color="orange" leftSection={<IconEdit size={10} />}>
+                {t('periods.convertedBadge')}
+              </Badge>
+            )}
           </Group>
           <Text size="sm" c="dimmed">
             {dayjs(period.startDate).format('MMM D')} - {dayjs(period.endDate).format('MMM D')} (

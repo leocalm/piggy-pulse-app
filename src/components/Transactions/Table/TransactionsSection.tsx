@@ -72,7 +72,7 @@ export const TransactionsSection = ({
       style={{
         background: 'var(--bg-card)',
         borderRadius: '16px',
-        border: '1px solid var(--border-subtle)',
+        border: '1px solid var(--border-medium)',
         overflow: 'hidden',
       }}
     >
@@ -80,7 +80,7 @@ export const TransactionsSection = ({
       <Box
         style={{
           padding: '32px',
-          borderBottom: '1px solid var(--border-subtle)',
+          borderBottom: '1px solid var(--border-medium)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -178,7 +178,7 @@ export const TransactionsSection = ({
           </Stack>
         ) : (
           // Desktop view: Table
-          <Table verticalSpacing="sm">
+          <Table verticalSpacing="sm" withRowBorders>
             <Table.Thead
               style={{
                 background: 'rgba(255, 255, 255, 0.02)',

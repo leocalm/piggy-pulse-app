@@ -15,7 +15,8 @@ const VERSIONED_API_PREFIX = /^\/api\/v\d+(?:[/?#]|$)/;
 const LOGIN_PATH_PATTERN = /\/api(?:\/v\d+)?\/users\/login(?:[/?#]|$)/;
 
 function normalizeApiVersion(version: string): string {
-  const trimmed = version.trim();
+  if (!version) return DEFAULT_API_VERSION;
+  const trimmed = String(version).trim();
   if (!trimmed) {
     return DEFAULT_API_VERSION;
   }
@@ -23,7 +24,8 @@ function normalizeApiVersion(version: string): string {
 }
 
 function normalizeBasePath(basePath: string): string {
-  const trimmed = basePath.trim();
+  if (!basePath) return `/api/${DEFAULT_API_VERSION}`;
+  const trimmed = String(basePath).trim();
   if (!trimmed) {
     return `/api/${DEFAULT_API_VERSION}`;
   }
@@ -39,7 +41,8 @@ function normalizeBasePath(basePath: string): string {
 // Allow configuration via env: VITE_API_BASE_PATH (full path) or VITE_API_VERSION (e.g. "v1" or "1").
 function resolveApiBasePath(): string {
   const env = import.meta.env;
-  const version = env?.VITE_API_VERSION?.trim();
+  const rawVersion = env?.VITE_API_VERSION;
+  const version = typeof rawVersion === 'string' ? rawVersion.trim() : undefined;
   const explicitBasePath = env?.VITE_API_BASE_PATH;
   if (explicitBasePath) {
     const normalizedBasePath = normalizeBasePath(explicitBasePath);

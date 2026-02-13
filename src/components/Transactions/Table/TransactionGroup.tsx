@@ -44,7 +44,7 @@ export const TransactionGroup = ({
       <Table.Tr
         style={{
           background: 'var(--bg-elevated)',
-          borderBottom: '1px solid var(--border-subtle)',
+          borderBottom: '1px solid var(--border-medium)',
         }}
       >
         <Table.Td colSpan={6} style={{ padding: '16px 16px' }}>

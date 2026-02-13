@@ -23,7 +23,7 @@ export const MobileTransactionCardWithActions = ({
   const categoryColor = isTransfer ? undefined : isOutgoing ? 'red.4' : 'green.4';
 
   return (
-    <Card withBorder radius="md" p="sm">
+    <Card withBorder radius="md" p="sm" style={{ border: '1px solid var(--border-medium)' }}>
       <Stack gap="sm">
         {/* Top section: Icon, Description, Amount */}
         <Group justify="space-between" align="flex-start" wrap="nowrap">

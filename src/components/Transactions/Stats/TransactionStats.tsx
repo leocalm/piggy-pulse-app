@@ -34,7 +34,7 @@ const StatCard = ({ label, value, color, type }: StatCardProps) => {
         background: 'var(--bg-card)',
         padding: '24px',
         borderRadius: '12px',
-        border: '1px solid var(--border-subtle)',
+        border: '1px solid var(--border-medium)',
       }}
     >
       <Text
@@ -71,19 +71,19 @@ export function TransactionStats({ income, expenses, balance }: TransactionStats
       <StatCard
         label={t('transactions.stats.totalIncome')}
         value={income}
-        color="#00ffa3"
+        color="var(--accent-success)"
         type="income"
       />
       <StatCard
         label={t('transactions.stats.totalExpenses')}
         value={expenses}
-        color="#ff6b9d"
+        color="var(--accent-danger)"
         type="expenses"
       />
       <StatCard
         label={t('transactions.stats.netChange')}
         value={balance}
-        color="#00d4ff"
+        color="var(--accent-primary)"
         type="net"
       />
     </SimpleGrid>

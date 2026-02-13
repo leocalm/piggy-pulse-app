@@ -268,7 +268,7 @@ export function SettingsPage() {
                 leftSection={<span>💾</span>}
                 onClick={handleSaveProfile}
                 loading={updateUserMutation.isPending}
-                disabled={!profileName.trim() || !profileEmail.trim()}
+                disabled={!(profileName || '').trim() || !(profileEmail || '').trim()}
               >
                 {t('settings.profile.saveButton')}
               </Button>

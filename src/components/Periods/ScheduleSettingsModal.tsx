@@ -180,9 +180,20 @@ export function ScheduleSettingsModal({ opened, onClose, schedule }: ScheduleSet
 
   const automaticSettings = (
     <Stack gap="md">
-      <Alert icon={<IconInfoCircle size={16} />} variant="light" color="blue">
-        {t('periods.schedule.autoInfo')}
-      </Alert>
+      {schedule ? (
+        <Alert icon={<IconInfoCircle size={16} />} variant="light" color="blue" title={t('periods.schedule.editImportant')}>
+          <Stack gap={4}>
+            <Text size="sm">• {t('periods.schedule.editWarningCurrent')}</Text>
+            <Text size="sm">• {t('periods.schedule.editWarningPast')}</Text>
+            <Text size="sm">• {t('periods.schedule.editWarningFuture')}</Text>
+            <Text size="sm">• {t('periods.schedule.editWarningUsed')}</Text>
+          </Stack>
+        </Alert>
+      ) : (
+        <Alert icon={<IconInfoCircle size={16} />} variant="light" color="blue">
+          {t('periods.schedule.autoInfo')}
+        </Alert>
+      )}
 
       <Group grow>
         <NumberInput
@@ -294,27 +305,29 @@ export function ScheduleSettingsModal({ opened, onClose, schedule }: ScheduleSet
 
   const content = (
     <Stack gap="lg">
-      <Radio.Group
-        label={t('periods.schedule.mode')}
-        value={values.mode}
-        onChange={(value) =>
-          setValues((current) => ({ ...current, mode: value as 'manual' | 'automatic' }))
-        }
-      >
-        <Stack mt="xs" gap="xs">
-          <Radio value="manual" label={t('periods.schedule.manualMode')} />
-          <Radio value="automatic" label={t('periods.schedule.automaticMode')} />
-        </Stack>
-      </Radio.Group>
+      {!schedule && (
+        <Radio.Group
+          label={t('periods.schedule.mode')}
+          value={values.mode}
+          onChange={(value) =>
+            setValues((current) => ({ ...current, mode: value as 'manual' | 'automatic' }))
+          }
+        >
+          <Stack mt="xs" gap="xs">
+            <Radio value="manual" label={t('periods.schedule.manualMode')} />
+            <Radio value="automatic" label={t('periods.schedule.automaticMode')} />
+          </Stack>
+        </Radio.Group>
+      )}
 
-      {values.mode === 'automatic' && automaticSettings}
+      {(values.mode === 'automatic' || !!schedule) && automaticSettings}
 
       <Group justify="flex-end">
         <Button variant="subtle" onClick={onClose} disabled={isSubmitting}>
           {t('common.cancel')}
         </Button>
         <Button onClick={saveSchedule} loading={isSubmitting}>
-          {t('common.save')}
+          {schedule ? t('periods.schedule.updateSchedule') : t('common.save')}
         </Button>
       </Group>
     </Stack>

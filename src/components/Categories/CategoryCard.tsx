@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ActionIcon, Box, Group, Paper, Stack, Text } from '@mantine/core';
 import { CategoryResponse } from '@/types/category';
 import { CurrencyValue } from '@/components/Utils/CurrencyValue';
+import { getIcon } from '@/utils/IconMap';
 import styles from './Categories.module.css';
 
 interface CategoryCardProps {
@@ -50,8 +51,8 @@ export function CategoryCard({
     onClick?.(category);
   };
 
-  const categoryColor = category.color || '#00d4ff';
-  const categoryBg = getCategoryBackground(categoryColor);
+  const categoryColor = category.color || 'var(--accent-primary)';
+  const categoryBg = getCategoryBackground(categoryColor.startsWith('var') ? '#00d4ff' : categoryColor);
 
   return (
     <Paper
@@ -70,7 +71,7 @@ export function CategoryCard({
           className={styles.categoryIconWrapper}
           style={{ '--category-bg': categoryBg } as React.CSSProperties}
         >
-          {category.icon}
+          {getIcon(category.icon, 28)}
         </Box>
         <Group gap="xs" className={styles.categoryActions}>
           <ActionIcon

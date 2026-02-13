@@ -201,13 +201,15 @@ export function CategoriesContainer() {
                   }}
                   style={{
                     marginTop: '8px',
-                    padding: '8px 16px',
+                    padding: '10px 24px',
                     background: 'var(--accent-primary)',
-                    color: 'white',
+                    color: 'var(--mono-black)',
                     border: 'none',
-                    borderRadius: '4px',
+                    borderRadius: 'var(--radius-md)',
+                    fontWeight: 600,
                     cursor: isFetchingNextPage ? 'not-allowed' : 'pointer',
                     opacity: isFetchingNextPage ? 0.6 : 1,
+                    transition: 'all 0.2s ease',
                   }}
                   disabled={isFetchingNextPage}
                 >

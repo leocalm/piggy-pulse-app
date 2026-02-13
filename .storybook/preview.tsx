@@ -9,57 +9,65 @@ import React from 'react';
 import type { Preview } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { initialize, mswLoader } from 'msw-storybook-addon';
 import { theme } from '../src/theme';
+import { handlers } from '../src/mocks/handlers';
 
 import '../src/i18n';
+import '../src/global.css';
+
+// Initialize MSW
+initialize({
+  onUnhandledRequest: 'warn',
+  serviceWorker: {
+    url: '/mockServiceWorker.js',
+  },
+}, handlers);
 
 dayjs.extend(customParseFormat);
-
-export const parameters = {
-  layout: 'fullscreen',
-  options: {
-    showPanel: false,
-    storySort: (a: any, b: any) => a.title.localeCompare(b.title, undefined, { numeric: true }),
-  },
-  backgrounds: { disable: true },
-  // interactions settings for the interactions addon / test runtime
-  interactions: { timeout: 2000 },
-};
-
-export const globalTypes = {
-  theme: {
-    name: 'Theme',
-    description: 'Mantine color scheme',
-    defaultValue: 'light',
-    toolbar: {
-      icon: 'mirror',
-      items: [
-        { value: 'light', title: 'Light' },
-        { value: 'dark', title: 'Dark' },
-      ],
-    },
-  },
-};
-
-export const decorators = [
-  // Use standard Story param instead of renderStory
-  (Story: any, context: any) => {
-    const scheme = (context.globals?.theme || 'light') as 'light' | 'dark';
-    return (
-      <MemoryRouter>
-        <MantineProvider theme={theme} forceColorScheme={scheme}>
-          <ColorSchemeScript />
-          <Story />
-        </MantineProvider>
-      </MemoryRouter>
-    );
-  },
-];
 
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on.*' },
+    msw: {
+      handlers: handlers,
+    },
+    layout: 'fullscreen',
+    options: {
+      showPanel: false,
+      storySort: (a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }),
+    },
+    backgrounds: { disable: true },
+    interactions: { timeout: 2000 },
   },
+  globalTypes: {
+    theme: {
+      name: 'Theme',
+      description: 'Mantine color scheme',
+      defaultValue: 'light',
+      toolbar: {
+        icon: 'mirror',
+        items: [
+          { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
+        ],
+      },
+    },
+  },
+  decorators: [
+    (Story, context) => {
+      const scheme = (context.globals?.theme || 'light') as 'light' | 'dark';
+      return (
+        <MemoryRouter>
+          <MantineProvider theme={theme} forceColorScheme={scheme}>
+            <ColorSchemeScript />
+            <Story />
+          </MantineProvider>
+        </MemoryRouter>
+      );
+    },
+  ],
+  loaders: [mswLoader],
 };
 
 export default preview;
