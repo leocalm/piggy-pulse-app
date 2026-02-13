@@ -16,6 +16,8 @@ import {
 } from '@mantine/core';
 import type { AccountResponse } from '@/types/account';
 import { convertCentsToDisplay } from '@/utils/currency';
+import { CurrencyValue } from '@/components/Utils/CurrencyValue';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import styles from './Accounts.module.css';
 
 interface BudgetPerDay {
@@ -61,9 +63,14 @@ export function AccountCard({
   onTransferOrPayBill,
 }: AccountCardProps) {
   const { t } = useTranslation();
-  const currentBalance = convertCentsToDisplay(account.balance);
+  const globalCurrency = useDisplayCurrency();
+
+  // Use global currency decimal places for internal calculations to consistent with display
+  const decimalPlaces = globalCurrency.decimalPlaces;
+
+  const currentBalance = convertCentsToDisplay(account.balance, decimalPlaces);
   const startBalance =
-    balanceHistory.length > 0 ? convertCentsToDisplay(balanceHistory[0].balance) : currentBalance;
+    balanceHistory.length > 0 ? convertCentsToDisplay(balanceHistory[0].balance, decimalPlaces) : currentBalance;
   const balanceChange = currentBalance - startBalance;
   const isPositive = balanceChange >= 0;
   const isNegativeBalance = currentBalance < 0;
@@ -73,11 +80,6 @@ export function AccountCard({
   const typeLabel = t(`accounts.types.${account.accountType}`, {
     defaultValue: account.accountType,
   });
-
-  const formatCurrency = (value: number) => {
-    const abs = Math.abs(value);
-    return abs.toLocaleString('en-US', { minimumFractionDigits: 2 });
-  };
 
   const getBalanceColor = () => {
     if (isNegativeBalance) {
@@ -91,14 +93,11 @@ export function AccountCard({
 
   const balanceChangeColor = balanceChange === 0 ? 'gray' : isPositive ? 'green' : 'red';
 
-  const formattedChangeAmount = `${account.currency.symbol}${formatCurrency(Math.abs(balanceChange))}`;
-  const balanceChangeText =
-    balanceChange === 0
-      ? t('accounts.card.noChange')
-      : t('accounts.card.change', {
-          arrow: isPositive ? '↑' : '↓',
-          amount: formattedChangeAmount,
-        });
+  // Need raw cents for CurrencyValue
+  const balanceChangeCents = Math.abs(account.balance - (balanceHistory.length > 0 ? balanceHistory[0].balance : account.balance));
+
+  // Note: Embedding component in translated string is complex. 
+  // For now, we will reconstruct the "change" display cleanly.
 
   // Determine stats based on account type
   const isCreditCard = account.accountType === 'CreditCard';
@@ -116,20 +115,35 @@ export function AccountCard({
       : hasSpendLimit
         ? spendLimitLabel
         : thisMonthLabel;
-  const stat1Value =
-    isCreditCard && hasSpendLimit
-      ? `${account.currency.symbol} ${formatCurrency(convertCentsToDisplay(account.spendLimit!))}`
-      : hasSpendLimit
-        ? `${account.currency.symbol} ${formatCurrency(convertCentsToDisplay(account.spendLimit!))}/mo`
-        : monthlySpent !== 0
-          ? `-${account.currency.symbol} ${formatCurrency(Math.abs(convertCentsToDisplay(monthlySpent)))}`
-          : `${account.currency.symbol} 0`;
+
+  // Stat 1 Value
+  let Stat1Component;
+  if (isCreditCard && hasSpendLimit) {
+    Stat1Component = <CurrencyValue cents={account.spendLimit!} />;
+  } else if (hasSpendLimit) {
+    Stat1Component = (
+      <>
+        <CurrencyValue cents={account.spendLimit!} />/mo
+      </>
+    );
+  } else if (monthlySpent !== 0) {
+    Stat1Component = (
+      <>
+        -<CurrencyValue cents={Math.abs(monthlySpent)} />
+      </>
+    );
+  } else {
+    Stat1Component = <CurrencyValue cents={0} />;
+  }
 
   const stat2Label = isCreditCard && hasSpendLimit ? availableLabel : transactionsLabel;
-  const stat2Value =
-    isCreditCard && hasSpendLimit
-      ? `${account.currency.symbol} ${formatCurrency(convertCentsToDisplay(account.spendLimit! - Math.abs(account.balance)))}`
-      : String(transactionCount);
+
+  let Stat2Component;
+  if (isCreditCard && hasSpendLimit) {
+    Stat2Component = <CurrencyValue cents={account.spendLimit! - Math.abs(account.balance)} />;
+  } else {
+    Stat2Component = String(transactionCount);
+  }
 
   return (
     <Paper
@@ -176,11 +190,10 @@ export function AccountCard({
           {t('accounts.card.currentBalance')}
         </Text>
         <Text size="2xl" fw={700} ff="monospace" c={getBalanceColor()} mb="md">
-          {isNegativeBalance ? '-' : ''}
-          {account.currency.symbol} {formatCurrency(Math.abs(currentBalance))}
+          <CurrencyValue cents={account.balance} />
         </Text>
         <Badge variant="light" color={balanceChangeColor} size="lg" ff="monospace">
-          {balanceChangeText}
+          {isPositive ? '↑' : '↓'} <CurrencyValue cents={balanceChangeCents} /> {t('accounts.card.change').replace('{{arrow}} {{amount}}', '').trim()}
         </Badge>
       </Box>
 
@@ -190,7 +203,7 @@ export function AccountCard({
         <Sparkline
           data={
             balanceHistory.length > 0
-              ? balanceHistory.map((h) => convertCentsToDisplay(h.balance))
+              ? balanceHistory.map((h) => convertCentsToDisplay(h.balance, decimalPlaces))
               : [currentBalance, currentBalance]
           }
           h={80}
@@ -218,7 +231,7 @@ export function AccountCard({
                 : 'var(--text-secondary)'
             }
           >
-            {stat1Value}
+            {Stat1Component}
           </Text>
         </Stack>
         <Stack gap={4}>
@@ -226,7 +239,7 @@ export function AccountCard({
             {stat2Label}
           </Text>
           <Text size="sm" fw={700} ff="monospace" c="var(--text-secondary)">
-            {stat2Value}
+            {Stat2Component}
           </Text>
         </Stack>
       </SimpleGrid>

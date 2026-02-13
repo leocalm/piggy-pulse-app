@@ -22,7 +22,8 @@ import {
   useTotalAssets,
 } from '@/hooks/useDashboard';
 import { SpentPerCategory } from '@/types/dashboard';
-import { convertCentsToDisplay } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
+import { formatCurrency } from '@/utils/currency';
 import styles from './Dashboard.module.css';
 
 interface DashboardProps {
@@ -30,7 +31,8 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
 
   const isPeriodMissing = selectedPeriodId === null;
   const {
@@ -60,27 +62,24 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     if (!monthlyBurnIn) {
       return 0;
     }
-    return convertCentsToDisplay(monthlyBurnIn.totalBudget - monthlyBurnIn.spentBudget);
+    return monthlyBurnIn.totalBudget - monthlyBurnIn.spentBudget;
   }, [monthlyBurnIn]);
 
   const avgDailySpend = useMemo(() => {
     if (!monthlyBurnIn || monthlyBurnIn.currentDay === 0) {
       return 0;
     }
-    return convertCentsToDisplay(monthlyBurnIn.spentBudget) / monthlyBurnIn.currentDay;
+    return monthlyBurnIn.spentBudget / monthlyBurnIn.currentDay;
   }, [monthlyBurnIn]);
 
-  const totalAssets = convertCentsToDisplay(totalAsset?.totalAssets || 0);
+  const totalAssets = totalAsset?.totalAssets || 0;
   const daysPassedPercentage = monthProgress?.daysPassedPercentage || 0;
   const daysUntilReset = monthProgress?.remainingDays || 0;
-  const budgetLimit = convertCentsToDisplay(monthlyBurnIn?.totalBudget || 0);
+  const budgetLimit = monthlyBurnIn?.totalBudget || 0;
 
-  // Format currency - € on left side
-  const formatCurrency = (value: number): string =>
-    new Intl.NumberFormat('en-IE', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(value);
+  // Format currency using global settings
+  const format = (cents: number): string =>
+    formatCurrency(cents, globalCurrency, i18n.language);
 
   // Get top 5 categories
   const topCategories: SpentPerCategory[] = useMemo(() => {
@@ -152,8 +151,8 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           <StatCard
             icon={() => <span style={{ fontSize: 18 }}>💰</span>}
             label={t('dashboard.stats.remainingBudget.label')}
-            value={formatCurrency(remainingBudget)}
-            meta={t('dashboard.stats.remainingBudget.meta', { limit: formatCurrency(budgetLimit) })}
+            value={format(remainingBudget)}
+            meta={t('dashboard.stats.remainingBudget.meta', { limit: format(budgetLimit) })}
             trend={{ direction: 'down', value: '12%', positive: false }}
             featured
             loading={isMonthlyBurnInLoading}
@@ -163,7 +162,7 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           <StatCard
             icon={() => <span style={{ fontSize: 18 }}>💳</span>}
             label={t('dashboard.stats.totalAssets.label')}
-            value={formatCurrency(totalAssets)}
+            value={format(totalAssets)}
             trend={{ direction: 'up', value: '8%', positive: true }}
             loading={isTotalAssetLoading}
           />
@@ -172,7 +171,7 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           <StatCard
             icon={() => <span style={{ fontSize: 18 }}>📊</span>}
             label={t('dashboard.stats.avgDailySpend.label')}
-            value={formatCurrency(avgDailySpend)}
+            value={format(avgDailySpend)}
             meta={t('dashboard.stats.avgDailySpend.meta')}
             loading={isMonthlyBurnInLoading}
           />

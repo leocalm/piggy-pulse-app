@@ -33,7 +33,7 @@ export interface AccountRequest {
   color: string;
   icon: string;
   accountType: AccountType;
-  currency: string;
+  // currency: string; // Removed
   balance: number;
   spendLimit?: number;
 }

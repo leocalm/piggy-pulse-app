@@ -5,6 +5,7 @@ import { ChartSkeleton, EmptyState } from '@/components/Utils';
 import { AccountResponse } from '@/types/account';
 import { BudgetPerDay } from '@/types/dashboard';
 import { convertCentsToDisplay } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import styles from './Dashboard.module.css';
 
 type BalanceLineChartCardProps = {
@@ -14,7 +15,18 @@ type BalanceLineChartCardProps = {
 };
 
 export function BalanceLineChartCard({ data, accounts, isLoading }: BalanceLineChartCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
+
+  const format = (displayValue: number) => {
+    // The chart data is already in display units (converted in dictData loop)
+    // So we just need to format the number with the symbol
+    return new Intl.NumberFormat(i18n.language, {
+      style: 'currency',
+      currency: globalCurrency.currency,
+      minimumFractionDigits: globalCurrency.decimalPlaces,
+    }).format(displayValue);
+  };
 
   if (isLoading) {
     return (
@@ -124,9 +136,7 @@ export function BalanceLineChartCard({ data, accounts, isLoading }: BalanceLineC
         series={series}
         gridAxis="x"
         curveType="monotone"
-        valueFormatter={(val: number) =>
-          new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' }).format(val)
-        }
+        valueFormatter={(val: number) => format(val)}
         withDots={false}
         strokeWidth={2}
         fillOpacity={0.1}

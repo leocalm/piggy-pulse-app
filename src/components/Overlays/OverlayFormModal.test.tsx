@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { render } from '@/test-utils';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MantineProvider } from '@mantine/core';
@@ -32,7 +33,7 @@ describe('OverlayFormModal', () => {
       <MantineProvider>
         <OverlayFormModal
           opened
-          onClose={() => {}}
+          onClose={() => { }}
           overlay={props?.overlay ?? null}
           categories={props?.categories ?? []}
           vendors={props?.vendors ?? []}

@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ActionIcon, Badge, Group, Paper, Progress, Stack, Text } from '@mantine/core';
 import { useActiveOverlays } from '@/hooks/useOverlays';
-import { formatCurrencyValue } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
+import { formatCurrency } from '@/utils/currency';
 import classes from './ActiveOverlayBanner.module.css';
 
 export function ActiveOverlayBanner() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
   const { data: activeOverlays = [] } = useActiveOverlays();
   const [dismissedOverlayId, setDismissedOverlayId] = useState<string | null>(null);
 
@@ -32,17 +34,19 @@ export function ActiveOverlayBanner() {
   );
   const hasMultiple = visibleOverlays.length > 1;
 
+  const format = (cents: number) => formatCurrency(cents, globalCurrency, i18n.language);
+
   const remainingMessage =
     totalCap && totalCap > 0
       ? spent <= totalCap
         ? t('dashboard.overlayBanner.remaining', {
-            amount: `€${formatCurrencyValue(totalCap - spent)}`,
-            days: daysLeft,
-          })
+          amount: format(totalCap - spent),
+          days: daysLeft,
+        })
         : t('dashboard.overlayBanner.over', {
-            amount: `€${formatCurrencyValue(spent - totalCap)}`,
-            days: daysLeft,
-          })
+          amount: format(spent - totalCap),
+          days: daysLeft,
+        })
       : t('dashboard.overlayBanner.noCap', { days: daysLeft });
 
   const progressValue =

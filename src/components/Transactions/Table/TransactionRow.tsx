@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Box, Group, Table, Text, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { TransactionResponse } from '@/types/transaction';
-import { convertCentsToDisplay } from '@/utils/currency';
+import { formatCurrencyValue } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { AccountBadge } from './AccountBadge';
 import { ActionButtons } from './ActionButtons';
 import { CategoryBadge } from './CategoryBadge';
@@ -23,7 +24,8 @@ export const TransactionRow = ({
   onClick,
   animationDelay = 0,
 }: TransactionRowProps) => {
-  const { t: translator } = useTranslation();
+  const { t: translator, i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
 
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -32,12 +34,13 @@ export const TransactionRow = ({
   const isOutgoing = t.category.categoryType === 'Outgoing';
   const amountColor = isTransfer ? '#00d4ff' : isOutgoing ? '#ff6b9d' : '#00ffa3';
 
-  const formattedAmount = `${isOutgoing ? '-' : isTransfer ? '' : '+'}€ ${convertCentsToDisplay(
-    t.amount
-  ).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
+  const prefix = isOutgoing ? '-' : isTransfer ? '' : '+';
+  const formattedValue = formatCurrencyValue(
+    t.amount,
+    globalCurrency.decimalPlaces,
+    i18n.language
+  );
+  const formattedAmount = `${prefix}${globalCurrency.symbol} ${formattedValue}`;
 
   // Mobile Layout
   if (isMobile) {

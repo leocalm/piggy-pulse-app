@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Stack } from '@mantine/core';
 import { CategoryListSkeleton, EmptyState } from '@/components/Utils';
 import { SpentPerCategory } from '@/types/dashboard';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
+import { formatCurrency } from '@/utils/currency';
 import styles from './Dashboard.module.css';
 
 interface TopCategoriesChartProps {
@@ -20,21 +22,16 @@ const CATEGORY_COLORS = [
 ];
 
 export function TopCategoriesChart({ data, isLoading }: TopCategoriesChartProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
 
   const maxSpent = useMemo(() => {
-    // amountSpent comes in cents — convert to display value for calculations
-    return Math.max(...data.map((item) => item.amountSpent / 100), 1);
+    // amountSpent comes in cents
+    return Math.max(...data.map((item) => item.amountSpent), 100);
   }, [data]);
 
-  const formatCurrency = (valueInCents: number): string => {
-    // valueInCents is in cents — reuse existing currency util
-    // Importing here to keep top-level imports minimal
-    const display = valueInCents / 100;
-    return new Intl.NumberFormat('en-IE', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(display);
+  const format = (valueInCents: number): string => {
+    return formatCurrency(valueInCents, globalCurrency, i18n.language);
   };
 
   if (isLoading) {
@@ -77,7 +74,7 @@ export function TopCategoriesChart({ data, isLoading }: TopCategoriesChartProps)
                 }
               />
             </div>
-            <div className={styles.categoryAmount}>{formatCurrency(category.amountSpent)}</div>
+            <div className={styles.categoryAmount}>{format(category.amountSpent)}</div>
           </div>
         );
       })}

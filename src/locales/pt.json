@@ -10,6 +10,13 @@
     "back": "Voltar",
     "loadMore": "Carregar mais"
   },
+  "currencies": {
+    "EUR": "Euro",
+    "USD": "Dólar Americano",
+    "GBP": "Libra Esterlina",
+    "JPY": "Iene Japonês",
+    "BHD": "Dinar do Bahrein"
+  },
   "auth": {
     "login": {
       "welcomeBack": "Bem-vindo de volta!",

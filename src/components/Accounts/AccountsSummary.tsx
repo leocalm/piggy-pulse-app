@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paper, SimpleGrid, Text } from '@mantine/core';
-import { convertCentsToDisplay } from '@/utils/currency';
+import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import styles from './Accounts.module.css';
 
 interface AccountsSummaryProps {
@@ -18,12 +18,6 @@ export function AccountsSummary({
   accountCount,
 }: AccountsSummaryProps) {
   const { t } = useTranslation();
-  const formatCurrency = (value: number) => {
-    const displayValue = convertCentsToDisplay(value);
-    const abs = Math.abs(displayValue);
-    const formatted = abs.toLocaleString('en-US', { minimumFractionDigits: 2 });
-    return value < 0 ? `-€ ${formatted}` : `€ ${formatted}`;
-  };
 
   return (
     <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg" mb="xl">
@@ -32,7 +26,7 @@ export function AccountsSummary({
           {t('accounts.summary.netWorth')}
         </Text>
         <Text size="2xl" fw={700} ff="monospace" mb="xs" className={styles.summaryValueGradient}>
-          {formatCurrency(netWorth)}
+          <CurrencyValue cents={netWorth} />
         </Text>
         <Text size="sm" c="dimmed">
           {t('accounts.summary.accountCount', { count: accountCount })}
@@ -43,7 +37,7 @@ export function AccountsSummary({
           {t('accounts.summary.assets')}
         </Text>
         <Text size="2xl" fw={700} ff="monospace" mb="xs" c="var(--accent-success)">
-          {formatCurrency(totalAssets)}
+          <CurrencyValue cents={totalAssets} />
         </Text>
         <Text size="sm" c="dimmed">
           {t('accounts.summary.cashSavings')}
@@ -54,7 +48,7 @@ export function AccountsSummary({
           {t('accounts.summary.liabilities')}
         </Text>
         <Text size="2xl" fw={700} ff="monospace" mb="xs" c="var(--accent-danger)">
-          {formatCurrency(totalLiabilities)}
+          <CurrencyValue cents={totalLiabilities} />
         </Text>
         <Text size="sm" c="dimmed">
           {t('accounts.summary.creditCardsDebt')}

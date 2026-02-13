@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IconBriefcase, IconCurrencyEuro, IconTag } from '@tabler/icons-react';
+import { IconBriefcase, IconTag } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import {
   Alert,
@@ -10,10 +10,12 @@ import {
   NumberInput,
   Select,
   Stack,
+  Text,
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useCreateAccount } from '@/hooks/useAccounts';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { ACCOUNT_TYPES, AccountRequest, AccountType } from '@/types/account';
 
 interface CreateAccountFormProps {
@@ -24,6 +26,7 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
   const createAccountMutation = useCreateAccount();
   const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -33,7 +36,6 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
       balance: 0,
       color: '',
       icon: 'wallet',
-      currency: 'EUR',
       spendLimit: undefined,
     },
 
@@ -59,7 +61,7 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
         balance: values.balance * 100,
         color: values.color,
         icon: values.icon,
-        currency: values.currency,
+        // currency: values.currency, // Removed as per backend change
         spendLimit: (values.spendLimit || 0) * 100,
       };
 
@@ -113,9 +115,9 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
             <NumberInput
               label={t('accounts.forms.fields.initialBalance.label')}
               placeholder={t('accounts.forms.fields.initialBalance.placeholder')}
-              decimalScale={2}
+              decimalScale={globalCurrency.decimalPlaces}
               fixedDecimalScale
-              leftSection={<IconCurrencyEuro size={16} />}
+              leftSection={<Text size="sm">{globalCurrency.symbol}</Text>}
               {...form.getInputProps('balance')}
               required
             />
@@ -126,9 +128,9 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
               <NumberInput
                 label={t('accounts.forms.fields.spendLimit.label')}
                 placeholder={t('accounts.forms.fields.spendLimit.placeholder')}
-                decimalScale={2}
+                decimalScale={globalCurrency.decimalPlaces}
                 fixedDecimalScale
-                leftSection={<IconCurrencyEuro size={16} />}
+                leftSection={<Text size="sm">{globalCurrency.symbol}</Text>}
                 {...form.getInputProps('spendLimit')}
                 required
               />

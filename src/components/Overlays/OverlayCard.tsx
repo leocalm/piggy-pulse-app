@@ -9,7 +9,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ActionIcon, Badge, Group, Paper, Progress, Stack, Text } from '@mantine/core';
 import { Overlay } from '@/types/overlay';
-import { formatCurrencyValue } from '@/utils/currency';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
+import { formatCurrency } from '@/utils/currency';
 import classes from './OverlayCard.module.css';
 
 export type OverlayCardStatus = 'active' | 'upcoming' | 'past';
@@ -35,10 +36,13 @@ const getStatusColor = (status: OverlayCardStatus): string => {
 };
 
 export function OverlayCard({ overlay, status, onEdit, onDelete, onView }: OverlayCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
   const now = dayjs().startOf('day');
   const start = dayjs(overlay.startDate).startOf('day');
   const end = dayjs(overlay.endDate).startOf('day');
+
+  const format = (cents: number) => formatCurrency(cents, globalCurrency, i18n.language);
 
   const icon = overlay.icon?.trim() || '🎯';
   const durationDays = Math.max(end.diff(start, 'day') + 1, 1);
@@ -130,7 +134,7 @@ export function OverlayCard({ overlay, status, onEdit, onDelete, onView }: Overl
           <>
             <Group justify="space-between" align="center">
               <Text className={classes.amount}>
-                €{formatCurrencyValue(spentAmount)} / €{formatCurrencyValue(totalCapAmount)}
+                {format(spentAmount)} / {format(totalCapAmount)}
               </Text>
               <Group gap={4} c={isOverCap ? 'red' : 'dimmed'}>
                 <IconTrendingUp size={14} />
@@ -146,11 +150,11 @@ export function OverlayCard({ overlay, status, onEdit, onDelete, onView }: Overl
             <Text size="xs" c={isOverCap ? 'red' : 'dimmed'}>
               {isOverCap
                 ? t('overlays.card.overBy', {
-                    amount: `€${formatCurrencyValue(spentAmount - totalCapAmount)}`,
-                  })
+                  amount: format(spentAmount - totalCapAmount),
+                })
                 : t('overlays.card.remaining', {
-                    amount: `€${formatCurrencyValue(totalCapAmount - spentAmount)}`,
-                  })}
+                  amount: format(totalCapAmount - spentAmount),
+                })}
             </Text>
           </>
         ) : (

@@ -27,11 +27,12 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { useCreateOverlay, useUpdateOverlay } from '@/hooks/useOverlays';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { AccountResponse } from '@/types/account';
 import { CategoryWithStats } from '@/types/category';
 import { Overlay, OverlayInclusionMode, OverlayRequest } from '@/types/overlay';
 import { VendorWithStats } from '@/types/vendor';
-import { convertDisplayToCents, formatCurrencyValue } from '@/utils/currency';
+import { convertDisplayToCents, formatCurrency } from '@/utils/currency';
 import classes from './OverlayFormModal.module.css';
 
 type OverlayFormStep = 'basic' | 'inclusion' | 'rules' | 'caps' | 'review';
@@ -122,13 +123,16 @@ export function OverlayFormModal({
   vendors,
   accounts,
 }: OverlayFormModalProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const globalCurrency = useDisplayCurrency();
   const isMobile = useMediaQuery('(max-width: 48em)');
   const createMutation = useCreateOverlay();
   const updateMutation = useUpdateOverlay();
   const [values, setValues] = useState<OverlayFormValues>(getDefaultValues(overlay));
   const [activeStep, setActiveStep] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const format = (cents: number) => formatCurrency(cents, globalCurrency, i18n.language);
 
   const isEditMode = Boolean(overlay);
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
@@ -271,9 +275,9 @@ export function OverlayFormModal({
         : null,
       categoryCaps: values.hasCategoryCaps
         ? categoryCapIds.map((categoryId) => ({
-            categoryId,
-            capAmount: convertDisplayToCents(values.categoryCapDisplayValues[categoryId] || 0),
-          }))
+          categoryId,
+          capAmount: convertDisplayToCents(values.categoryCapDisplayValues[categoryId] || 0),
+        }))
         : [],
     };
 
@@ -477,9 +481,9 @@ export function OverlayFormModal({
         {values.hasTotalCap && (
           <NumberInput
             min={0}
-            decimalScale={2}
+            decimalScale={globalCurrency.decimalPlaces}
             fixedDecimalScale
-            prefix="€"
+            prefix={globalCurrency.symbol}
             value={values.totalCapDisplayValue}
             onChange={(value) =>
               setValues((current) => ({
@@ -533,9 +537,9 @@ export function OverlayFormModal({
                 </Text>
                 <NumberInput
                   min={0}
-                  decimalScale={2}
+                  decimalScale={globalCurrency.decimalPlaces}
                   fixedDecimalScale
-                  prefix="€"
+                  prefix={globalCurrency.symbol}
                   value={row.amount}
                   onChange={(value) =>
                     setValues((current) => ({
@@ -574,7 +578,7 @@ export function OverlayFormModal({
         {values.hasTotalCap && (
           <Text size="sm">
             {t('overlays.modal.reviewTotalCap', {
-              amount: `€${formatCurrencyValue(convertDisplayToCents(values.totalCapDisplayValue))}`,
+              amount: format(convertDisplayToCents(values.totalCapDisplayValue)),
             })}
           </Text>
         )}
