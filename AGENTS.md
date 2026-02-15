@@ -320,36 +320,9 @@ should be logged for debugging production issues (e.g., silent failures in logou
 ### General Best Practices
 
 - Always run `yarn prettier:write` before committing
-- Always run `yarn test` before committing
+- Always run `npm run test` before committing
 - Run `yarn typecheck` to ensure type safety
 - Use TypeScript types instead of `any` whenever possible
 - Follow existing patterns and conventions in the codebase
 - Write descriptive commit messages
 - Keep components focused and single-responsibility
-
-### Conventional Commits (Required)
-
-This repo enforces **Conventional Commits** for:
-
-- PR titles
-- Commit subjects in the PR (merge commits are ignored)
-
-Format:
-
-- `type(scope)!: description`
-- `type: description`
-
-Allowed `type` values:
-
-- `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`
-
-Examples:
-
-- `feat(ui): add mobile more menu drawer`
-- `fix(auth)!: redirect on invalid session cookie`
-- `docs: document local dev setup`
-
-If CI fails on commit messages, rewrite history (for a branch PR):
-
-- Reword commits: `git rebase -i origin/main` then change `pick` to `reword`
-- Or squash to a single Conventional Commit

@@ -21,8 +21,8 @@ import {
   useSpentPerCategory,
   useTotalAssets,
 } from '@/hooks/useDashboard';
-import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { SpentPerCategory } from '@/types/dashboard';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { formatCurrency } from '@/utils/currency';
 import styles from './Dashboard.module.css';
 
@@ -78,7 +78,8 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const budgetLimit = monthlyBurnIn?.totalBudget || 0;
 
   // Format currency using global settings
-  const format = (cents: number): string => formatCurrency(cents, globalCurrency, i18n.language);
+  const format = (cents: number): string =>
+    formatCurrency(cents, globalCurrency, i18n.language);
 
   // Get top 5 categories
   const topCategories: SpentPerCategory[] = useMemo(() => {

@@ -636,9 +636,7 @@ export function PeriodsPage() {
       >
         <Stack gap="md">
           <Alert icon={<IconAlertTriangle size={16} />} variant="light" color="orange">
-            <Text fw={700} mb="xs">
-              {t('periods.schedule.disableWarningIntro')}
-            </Text>
+            <Text fw={700} mb="xs">{t('periods.schedule.disableWarningIntro')}</Text>
             <Stack gap={4}>
               <Text size="sm">• {t('periods.schedule.disableWarningStop')}</Text>
               <Text size="sm">• {t('periods.schedule.disableWarningDelete')}</Text>

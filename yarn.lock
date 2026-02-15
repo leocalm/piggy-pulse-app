@@ -5646,9 +5646,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"piggy-pulse@workspace:.":
+"piggy-pulse-app@workspace:.":
   version: 0.0.0-use.local
-  resolution: "piggy-pulse@workspace:."
+  resolution: "piggy-pulse-app@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.37.0"
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.0"

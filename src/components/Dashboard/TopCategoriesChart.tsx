@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Stack } from '@mantine/core';
 import { CategoryListSkeleton, EmptyState } from '@/components/Utils';
-import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { SpentPerCategory } from '@/types/dashboard';
+import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { formatCurrency } from '@/utils/currency';
 import styles from './Dashboard.module.css';
 

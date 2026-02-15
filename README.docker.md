@@ -42,7 +42,7 @@ This directory contains Docker configuration for running the complete PiggyPulse
    **Option B: Use a temporary container with sqlx-cli**
    ```bash
    # Create a temporary container with sqlx-cli
-   docker run --rm --network budget-app_budget-network \
+   docker run --rm --network piggy-pulse-app_budget-network \
      -v "$(pwd)/../budget/migrations:/migrations" \
      -e DATABASE_URL=postgres://postgres:example@db:5432/budget_db \
      rust:1.84-slim \
@@ -296,7 +296,7 @@ api.example.com {
     - Change default passwords in `.env`
     - Keep images updated
     - Use non-root users in Dockerfiles
-    - Scan images for vulnerabilities: `docker scan budget-backend`
+    - Scan images for vulnerabilities: `docker scan piggy-pulse-api`
 
 ## Troubleshooting
 
@@ -338,7 +338,7 @@ docker compose exec frontend ls -la /usr/share/nginx/html
 ```bash
 # Ensure proper ownership of volumes
 docker compose down
-docker volume rm budget-app_postgres_data
+docker volume rm piggy-pulse-app_postgres_data
 docker compose up -d
 ```
 

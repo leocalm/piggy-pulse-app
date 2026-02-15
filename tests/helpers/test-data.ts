@@ -1,5 +1,3 @@
-import { randomInt } from 'crypto';
-
 export interface TestUserCredentials {
   name: string;
   email: string;
@@ -17,7 +15,9 @@ function normalizeToken(input: string): string {
 export function createTestUserCredentials(seed: string): TestUserCredentials {
   const safeSeed = normalizeToken(seed);
   const timestamp = Date.now();
-  const randomSuffix = randomInt(0, 1_000_000).toString().padStart(6, '0');
+  const randomSuffix = Math.floor(Math.random() * 1_000_000)
+    .toString()
+    .padStart(6, '0');
 
   return {
     name: `E2E User ${safeSeed || 'test'}`,
