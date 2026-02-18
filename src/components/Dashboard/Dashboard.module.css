@@ -15,7 +15,7 @@
 /* ── Stats Grid Layout ── */
 .statsGrid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: 24px;
   margin-bottom: 48px;
 }
@@ -123,6 +123,14 @@
   grid-template-columns: 2fr 1fr;
   gap: 24px;
   margin-bottom: 48px;
+}
+
+.netPositionCard {
+  margin-bottom: 24px;
+}
+
+.netPositionBreakdown {
+  row-gap: 8px;
 }
 
 /* ── Chart Card Styling ── */
@@ -314,6 +322,10 @@
   .chartsSection {
     gap: 16px;
     margin-bottom: 32px;
+  }
+
+  .netPositionCard {
+    margin-bottom: 16px;
   }
 
   .statValue {

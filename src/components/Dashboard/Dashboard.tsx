@@ -7,6 +7,7 @@ import { ApiError } from '@/api/errors';
 import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 import { ActiveOverlayBanner } from '@/components/Dashboard/ActiveOverlayBanner';
 import { BalanceLineChartCard } from '@/components/Dashboard/BalanceLineChartCard';
+import { NetPositionCard } from '@/components/Dashboard/NetPositionCard';
 import { RecentTransactionsCard } from '@/components/Dashboard/RecentTransactionsCard';
 import { StatCard } from '@/components/Dashboard/StatCard';
 import { TopCategoriesChart } from '@/components/Dashboard/TopCategoriesChart';
@@ -17,9 +18,9 @@ import {
   useBudgetPerDay,
   useMonthlyBurnIn,
   useMonthProgress,
+  useNetPosition,
   useRecentTransactions,
   useSpentPerCategory,
-  useTotalAssets,
 } from '@/hooks/useDashboard';
 import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { SpentPerCategory } from '@/types/dashboard';
@@ -54,7 +55,12 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const { data: budgetPerDay, isLoading: isBudgetPerDayLoading } =
     useBudgetPerDay(selectedPeriodId);
   const { data: recentTransactions } = useRecentTransactions(selectedPeriodId);
-  const { data: totalAsset, isLoading: isTotalAssetLoading } = useTotalAssets();
+  const {
+    data: netPosition,
+    isLoading: isNetPositionLoading,
+    isError: isNetPositionError,
+    refetch: refetchNetPosition,
+  } = useNetPosition(selectedPeriodId);
   const { data: accounts } = useAccounts(selectedPeriodId);
 
   // Calculate derived values from dashboard data
@@ -72,7 +78,6 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     return monthlyBurnIn.spentBudget / monthlyBurnIn.currentDay;
   }, [monthlyBurnIn]);
 
-  const totalAssets = totalAsset?.totalAssets || 0;
   const daysPassedPercentage = monthProgress?.daysPassedPercentage || 0;
   const daysUntilReset = monthProgress?.remainingDays || 0;
   const budgetLimit = monthlyBurnIn?.totalBudget || 0;
@@ -157,15 +162,6 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
             loading={isMonthlyBurnInLoading}
           />
 
-          {/* Total Assets */}
-          <StatCard
-            icon={() => <span style={{ fontSize: 18 }}>💳</span>}
-            label={t('dashboard.stats.totalAssets.label')}
-            value={format(totalAssets)}
-            trend={{ direction: 'up', value: '8%', positive: true }}
-            loading={isTotalAssetLoading}
-          />
-
           {/* Avg Daily Spend */}
           <StatCard
             icon={() => <span style={{ fontSize: 18 }}>📊</span>}
@@ -188,6 +184,17 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
             loading={isMonthProgressLoading}
           />
         </div>
+
+        <NetPositionCard
+          data={netPosition}
+          isLoading={isNetPositionLoading}
+          isError={isNetPositionError}
+          onRetry={() => {
+            void refetchNetPosition();
+          }}
+          currency={globalCurrency}
+          locale={i18n.language}
+        />
 
         {/* Charts Section */}
         <div className={styles.chartsSection}>

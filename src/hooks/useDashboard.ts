@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import {
+  fetchNetPosition,
   fetchRecentTransactions,
   fetchTotalAssets,
   getBudgetPerDay,
@@ -53,5 +54,13 @@ export const useTotalAssets = () => {
   return useQuery({
     queryKey: queryKeys.totalAssets(),
     queryFn: fetchTotalAssets,
+  });
+};
+
+export const useNetPosition = (selectedPeriodId: string | null) => {
+  return useQuery({
+    queryKey: queryKeys.netPosition(selectedPeriodId),
+    queryFn: () => fetchNetPosition(selectedPeriodId!),
+    enabled: Boolean(selectedPeriodId),
   });
 };

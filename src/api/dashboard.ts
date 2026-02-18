@@ -2,6 +2,7 @@ import {
   BudgetPerDay,
   MonthlyBurnIn,
   MonthProgress,
+  NetPosition,
   SpentPerCategory,
   TotalAssets,
 } from '@/types/dashboard';
@@ -44,4 +45,8 @@ export async function fetchRecentTransactions(
 
 export async function fetchTotalAssets(): Promise<TotalAssets> {
   return apiGet<TotalAssets>('/api/dashboard/total-assets');
+}
+
+export async function fetchNetPosition(selectedPeriodId: string): Promise<NetPosition> {
+  return apiGet<NetPosition>(`/api/dashboard/net-position?period_id=${selectedPeriodId}`);
 }
