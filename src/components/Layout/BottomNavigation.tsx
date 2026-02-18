@@ -1,3 +1,4 @@
+import { ComponentType } from 'react';
 import {
   IconArrowsExchange,
   IconBuildingStore,
@@ -21,6 +22,18 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+
+interface MoreMenuItem {
+  route: string;
+  icon: ComponentType<{ size: number }>;
+  labelKey: string;
+}
+
+const moreMenuItems: MoreMenuItem[] = [
+  { route: '/accounts', icon: IconWallet, labelKey: 'layout.navigation.accounts' },
+  { route: '/categories', icon: IconTag, labelKey: 'layout.navigation.categories' },
+  { route: '/vendors', icon: IconBuildingStore, labelKey: 'layout.navigation.vendors' },
+];
 
 export function BottomNavigation() {
   const { t } = useTranslation();
@@ -81,7 +94,6 @@ export function BottomNavigation() {
                 onClose={close}
                 position="top"
                 withArrow
-                trapFocus={false}
               >
                 <Popover.Target>
                   <UnstyledButton
@@ -123,13 +135,15 @@ export function BottomNavigation() {
                   }}
                 >
                   <Stack gap={0}>
-                    {(() => {
-                      const route = '/accounts';
-                      const active = location.pathname === route;
+                    {moreMenuItems.map((menuItem, index) => {
+                      const active = location.pathname === menuItem.route;
+                      const Icon = menuItem.icon;
+                      const isLast = index === moreMenuItems.length - 1;
                       return (
                         <>
                           <NavLink
-                            label={t('layout.navigation.accounts')}
+                            key={menuItem.route}
+                            label={t(menuItem.labelKey)}
                             leftSection={
                               <ThemeIcon
                                 variant={active ? 'light' : 'transparent'}
@@ -137,11 +151,11 @@ export function BottomNavigation() {
                                 size="lg"
                                 radius="md"
                               >
-                                <IconWallet size={22} />
+                                <Icon size={22} />
                               </ThemeIcon>
                             }
                             onClick={() => {
-                              navigate(route);
+                              navigate(menuItem.route);
                               close();
                             }}
                             variant="light"
@@ -156,88 +170,12 @@ export function BottomNavigation() {
                             }}
                             style={{ padding: '8px 12px' }}
                           />
-                          <Divider />
+                          {!isLast && <Divider key={`divider-${menuItem.route}`} />}
                         </>
                       );
-                    })()}
-
-                    {(() => {
-                      const route = '/categories';
-                      const active = location.pathname === route;
-                      return (
-                        <>
-                          <NavLink
-                            label={t('layout.navigation.categories')}
-                            leftSection={
-                              <ThemeIcon
-                                variant={active ? 'light' : 'transparent'}
-                                color={active ? 'cyan' : 'gray'}
-                                size="lg"
-                                radius="md"
-                              >
-                                <IconTag size={22} />
-                              </ThemeIcon>
-                            }
-                            onClick={() => {
-                              navigate(route);
-                              close();
-                            }}
-                            variant="light"
-                            styles={{
-                              label: {
-                                color: active
-                                  ? 'var(--mantine-color-cyan-6)'
-                                  : 'var(--mantine-color-dimmed)',
-                                fontSize: 14,
-                                fontWeight: 500,
-                              },
-                            }}
-                            style={{ padding: '8px 12px' }}
-                          />
-                          <Divider />
-                        </>
-                      );
-                    })()}
-
-                    {(() => {
-                      const route = '/vendors';
-                      const active = location.pathname === route;
-                      return (
-                        <>
-                          <NavLink
-                            label={t('layout.navigation.vendors')}
-                            leftSection={
-                              <ThemeIcon
-                                variant={active ? 'light' : 'transparent'}
-                                color={active ? 'cyan' : 'gray'}
-                                size="lg"
-                                radius="md"
-                              >
-                                <IconBuildingStore size={22} />
-                              </ThemeIcon>
-                            }
-                            onClick={() => {
-                              navigate(route);
-                              close();
-                            }}
-                            variant="light"
-                            styles={{
-                              label: {
-                                color: active
-                                  ? 'var(--mantine-color-cyan-6)'
-                                  : 'var(--mantine-color-dimmed)',
-                                fontSize: 14,
-                                fontWeight: 500,
-                              },
-                            }}
-                            style={{ padding: '8px 12px' }}
-                          />
-                        </>
-                      );
-                    })()}
-
-                    {/* Settings intentionally removed from mobile More popover per request */}
+                    })}
                   </Stack>
+                  {/* Settings intentionally removed from mobile More popover per request */}
                 </Popover.Dropdown>
               </Popover>
             );

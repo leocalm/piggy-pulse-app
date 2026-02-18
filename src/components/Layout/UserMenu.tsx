@@ -29,7 +29,10 @@ export function UserMenu({ variant = 'sidebar' }: UserMenuProps) {
   };
 
   const getInitials = (name: string) => {
-    const parts = name.split(' ');
+    if (!name.trim()) {
+      return 'U';
+    }
+    const parts = name.trim().split(' ');
     if (parts.length >= 2) {
       return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
     }

@@ -17,6 +17,9 @@ export function usePageTitle(): string {
     '/categories': t('layout.navigation.categories'),
     '/vendors': t('layout.navigation.vendors'),
     '/settings': t('layout.navigation.settings'),
+    '/budget': t('layout.navigation.budgetPlan'),
+    '/overlays': t('layout.navigation.overlays'),
+    // Error pages intentionally return empty string (no page title shown in header)
   };
 
   // Match exact path first, then check prefix for detail routes

@@ -116,8 +116,8 @@ const AccessDeniedPage = lazy(() =>
 const Layout = () => {
   const location = useLocation();
 
+  /** Move focus to page H1 on route change for screen reader accessibility */
   useEffect(() => {
-    // Move focus to page H1 on route change for screen reader accessibility
     const h1 = document.querySelector('h1');
     if (h1) {
       if (!h1.hasAttribute('tabindex')) {

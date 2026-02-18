@@ -6,6 +6,8 @@ import { Sidebar } from '@/components/Layout/Sidebar';
 import { UserMenu } from '@/components/Layout/UserMenu';
 import { usePageTitle } from '@/hooks/usePageTitle';
 
+const CONTENT_WRAPPER_STYLE = { maxWidth: '1100px', margin: '0 auto' } as const;
+
 export function BasicAppShell({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -38,14 +40,7 @@ export function BasicAppShell({ children }: { children: React.ReactNode }) {
       <Sidebar />
 
       <AppShell.Main pb={isMobile ? 80 : undefined} data-testid="app-shell-main">
-        <div
-          style={{
-            maxWidth: '1100px',
-            margin: '0 auto',
-          }}
-        >
-          {children}
-        </div>
+        <div style={CONTENT_WRAPPER_STYLE}>{children}</div>
       </AppShell.Main>
 
       {isMobile && <BottomNavigation />}
