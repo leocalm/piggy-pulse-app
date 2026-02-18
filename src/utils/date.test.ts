@@ -45,7 +45,7 @@ describe('Date Utilities', () => {
       const result = getCurrentDateForApi();
       expect(result).toMatch(/^\d{4}-\d{2}-\d{2}$/);
 
-      // Verify it's actually today's date
+      // Verify it's actually today's date (function returns UTC date, so compare against UTC)
       const today = dayjs().utc().format('YYYY-MM-DD');
       expect(result).toBe(today);
     });

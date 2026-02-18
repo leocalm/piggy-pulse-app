@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
-import { IconAlertTriangle, IconArrowRight } from '@tabler/icons-react';
+import { IconArrowRight } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Alert, Box, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { Box, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { ApiError } from '@/api/errors';
 import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 import { ActiveOverlayBanner } from '@/components/Dashboard/ActiveOverlayBanner';
 import { BalanceLineChartCard } from '@/components/Dashboard/BalanceLineChartCard';
 import { BudgetStabilityCard } from '@/components/Dashboard/BudgetStabilityCard';
+import { CurrentPeriodCard } from '@/components/Dashboard/CurrentPeriodCard';
 import { RecentTransactionsCard } from '@/components/Dashboard/RecentTransactionsCard';
 import { StatCard } from '@/components/Dashboard/StatCard';
 import { TopCategoriesChart } from '@/components/Dashboard/TopCategoriesChart';
@@ -32,6 +33,41 @@ interface DashboardProps {
   selectedPeriodId: string | null;
 }
 
+interface LockedDashboardCardProps {
+  title: string;
+  status: string;
+  requirement: string;
+  configureLabel: string;
+}
+
+const LockedDashboardCard = ({
+  title,
+  status,
+  requirement,
+  configureLabel,
+}: LockedDashboardCardProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <Paper className={styles.lockedCard} radius="lg" p="xl" withBorder>
+      <Stack gap="sm" className={styles.lockedCardContent}>
+        <Text fw={600} size="lg">
+          {title}
+        </Text>
+        <Text size="xs" className={styles.lockedStatus}>
+          {t('dashboard.locked.statusLabel', { status })}
+        </Text>
+        <Text size="sm" c="dimmed">
+          {requirement}
+        </Text>
+        <Text component={Link} to="/periods" size="sm" className={styles.lockedConfigureLink}>
+          {configureLabel}
+        </Text>
+      </Stack>
+    </Paper>
+  );
+};
+
 export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const { t, i18n } = useTranslation();
   const globalCurrency = useDisplayCurrency();
@@ -46,23 +82,39 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     isCurrentPeriodFetched &&
     !currentPeriod &&
     (currentPeriodError instanceof ApiError ? currentPeriodError.isNotFound : true);
+  const isLocked = isPeriodMissing || hasNoActivePeriod;
+  const lockedStatus = isPeriodMissing
+    ? t('dashboard.locked.status.notConfigured')
+    : t('dashboard.locked.status.noActivePeriod');
+  const lockedRequirement = isPeriodMissing
+    ? t('dashboard.locked.requirement.notConfigured')
+    : t('dashboard.locked.requirement.noActivePeriod');
+  const lockedConfigureLabel = t('dashboard.locked.configure');
 
   const { data: spentPerCategory, isLoading: isSpentPerCategoryLoading } =
     useSpentPerCategory(selectedPeriodId);
-  const { data: monthlyBurnIn, isLoading: isMonthlyBurnInLoading } =
-    useMonthlyBurnIn(selectedPeriodId);
-  const { data: monthProgress, isLoading: isMonthProgressLoading } =
-    useMonthProgress(selectedPeriodId);
+  const {
+    data: monthlyBurnIn,
+    isLoading: isMonthlyBurnInLoading,
+    error: monthlyBurnInError,
+    refetch: refetchMonthlyBurnIn,
+  } = useMonthlyBurnIn(selectedPeriodId);
+  const {
+    data: monthProgress,
+    isLoading: isMonthProgressLoading,
+    error: monthProgressError,
+    refetch: refetchMonthProgress,
+  } = useMonthProgress(selectedPeriodId);
   const { data: budgetPerDay, isLoading: isBudgetPerDayLoading } =
     useBudgetPerDay(selectedPeriodId);
   const { data: recentTransactions } = useRecentTransactions(selectedPeriodId);
+  const { data: totalAsset, isLoading: isTotalAssetLoading } = useTotalAssets();
   const {
     data: budgetStability,
     isLoading: isBudgetStabilityLoading,
     isError: isBudgetStabilityError,
     refetch: refetchBudgetStability,
   } = useBudgetStability({ enabled: !isPeriodMissing });
-  const { data: totalAsset, isLoading: isTotalAssetLoading } = useTotalAssets();
   const { data: accounts } = useAccounts(selectedPeriodId);
 
   // Calculate derived values from dashboard data
@@ -84,6 +136,15 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const daysPassedPercentage = monthProgress?.daysPassedPercentage || 0;
   const daysUntilReset = monthProgress?.remainingDays || 0;
   const budgetLimit = monthlyBurnIn?.totalBudget || 0;
+  const hasCurrentPeriodError = Boolean(monthlyBurnInError || monthProgressError);
+  const isCurrentPeriodLoading =
+    selectedPeriodId !== null &&
+    !hasCurrentPeriodError &&
+    (isMonthlyBurnInLoading || isMonthProgressLoading || !monthlyBurnIn || !monthProgress);
+
+  const retryCurrentPeriod = () => {
+    void Promise.all([refetchMonthlyBurnIn(), refetchMonthProgress()]);
+  };
 
   // Format currency using global settings
   const format = (cents: number): string => formatCurrency(cents, globalCurrency, i18n.language);
@@ -96,35 +157,72 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     return spentPerCategory.slice(0, UI.DASHBOARD_TOP_CATEGORIES);
   }, [spentPerCategory]);
 
-  if (isPeriodMissing) {
+  if (isLocked) {
     return (
-      <Box className={styles.noPeriodContainer}>
-        <Alert
-          color="orange"
-          variant="light"
-          icon={<IconAlertTriangle size={18} />}
-          title={t('dashboard.noPeriod.title')}
-          className={styles.noPeriodAlert}
-        >
-          <Stack gap="md" mt="xs">
-            <Text size="sm">{t('dashboard.noPeriod.message')}</Text>
-            <Button component={Link} to="/periods" color="orange" variant="filled" size="sm">
-              {t('dashboard.noPeriod.cta')}
-            </Button>
-          </Stack>
-        </Alert>
+      <Box className={styles.dashboardRoot}>
+        <Stack gap="xl" component="div">
+          <Group justify="space-between" align="center" pb="md" className={styles.dashboardHeader}>
+            <Title order={1} className={`${styles.dashboardTitle} brand-text brand-glow`}>
+              {t('dashboard.title')}
+            </Title>
+            <PeriodHeaderControl />
+          </Group>
+
+          <div className={styles.statsGrid}>
+            <LockedDashboardCard
+              title={t('dashboard.stats.remainingBudget.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.stats.totalAssets.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.stats.avgDailySpend.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.stats.monthProgress.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+          </div>
+
+          <div className={styles.chartsSection}>
+            <LockedDashboardCard
+              title={t('dashboard.charts.balanceOverTime.title')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.charts.topCategories.title')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+          </div>
+
+          <LockedDashboardCard
+            title={t('dashboard.recentActivity.title')}
+            status={lockedStatus}
+            requirement={lockedRequirement}
+            configureLabel={lockedConfigureLabel}
+          />
+        </Stack>
       </Box>
     );
   }
 
   return (
-    <Box
-      style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        padding: '32px',
-      }}
-    >
+    <Box className={styles.dashboardRoot}>
       <Stack gap="xl" component="div">
         {/* Dashboard Header */}
         <Group justify="space-between" align="center" pb="md" className={styles.dashboardHeader}>
@@ -134,23 +232,16 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           <PeriodHeaderControl />
         </Group>
 
-        {hasNoActivePeriod && (
-          <Alert
-            color="orange"
-            variant="light"
-            icon={<IconAlertTriangle size={18} />}
-            title={t('dashboard.noPeriod.title')}
-          >
-            <Stack gap="md" mt="xs">
-              <Text size="sm">{t('dashboard.noPeriod.message')}</Text>
-              <Button component={Link} to="/periods" color="orange" variant="filled" size="sm">
-                {t('dashboard.noPeriod.cta')}
-              </Button>
-            </Stack>
-          </Alert>
-        )}
-
         <ActiveOverlayBanner />
+
+        <CurrentPeriodCard
+          selectedPeriodId={selectedPeriodId}
+          monthlyBurnIn={monthlyBurnIn}
+          monthProgress={monthProgress}
+          isLoading={isCurrentPeriodLoading}
+          isError={hasCurrentPeriodError}
+          onRetry={retryCurrentPeriod}
+        />
 
         {/* Stats Grid */}
         <div className={styles.statsGrid}>
