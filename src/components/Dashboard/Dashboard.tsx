@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { IconAlertTriangle, IconArrowRight } from '@tabler/icons-react';
+import { IconArrowRight } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Alert, Box, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import { Box, Button, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { ApiError } from '@/api/errors';
 import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 import { ActiveOverlayBanner } from '@/components/Dashboard/ActiveOverlayBanner';
@@ -31,10 +31,46 @@ interface DashboardProps {
   selectedPeriodId: string | null;
 }
 
+interface LockedDashboardCardProps {
+  title: string;
+  status: string;
+  requirement: string;
+  configureLabel: string;
+}
+
+const LockedDashboardCard = ({
+  title,
+  status,
+  requirement,
+  configureLabel,
+}: LockedDashboardCardProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <Paper className={styles.lockedCard} radius="lg" p="xl" withBorder>
+      <Stack gap="sm" className={styles.lockedCardContent}>
+        <Text fw={600} size="lg">
+          {title}
+        </Text>
+        <Text size="xs" className={styles.lockedStatus}>
+          {t('dashboard.locked.statusLabel', { status })}
+        </Text>
+        <Text size="sm" c="dimmed">
+          {requirement}
+        </Text>
+        <Text component={Link} to="/periods" size="sm" className={styles.lockedConfigureLink}>
+          {configureLabel}
+        </Text>
+      </Stack>
+    </Paper>
+  );
+};
+
 export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const { t, i18n } = useTranslation();
   const globalCurrency = useDisplayCurrency();
 
+  const isPeriodMissing = selectedPeriodId === null;
   const {
     data: currentPeriod,
     error: currentPeriodError,
@@ -44,6 +80,14 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     isCurrentPeriodFetched &&
     !currentPeriod &&
     (currentPeriodError instanceof ApiError ? currentPeriodError.isNotFound : true);
+  const isLocked = isPeriodMissing || hasNoActivePeriod;
+  const lockedStatus = isPeriodMissing
+    ? t('dashboard.locked.status.notConfigured')
+    : t('dashboard.locked.status.noActivePeriod');
+  const lockedRequirement = isPeriodMissing
+    ? t('dashboard.locked.requirement.notConfigured')
+    : t('dashboard.locked.requirement.noActivePeriod');
+  const lockedConfigureLabel = t('dashboard.locked.configure');
 
   const { data: spentPerCategory, isLoading: isSpentPerCategoryLoading } =
     useSpentPerCategory(selectedPeriodId);
@@ -65,6 +109,14 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const { data: totalAsset, isLoading: isTotalAssetLoading } = useTotalAssets();
   const { data: accounts } = useAccounts(selectedPeriodId);
 
+  // Calculate derived values from dashboard data
+  const remainingBudget = useMemo(() => {
+    if (!monthlyBurnIn) {
+      return 0;
+    }
+    return monthlyBurnIn.totalBudget - monthlyBurnIn.spentBudget;
+  }, [monthlyBurnIn]);
+
   const avgDailySpend = useMemo(() => {
     if (!monthlyBurnIn || monthlyBurnIn.currentDay === 0) {
       return 0;
@@ -75,6 +127,7 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const totalAssets = totalAsset?.totalAssets || 0;
   const daysPassedPercentage = monthProgress?.daysPassedPercentage || 0;
   const daysUntilReset = monthProgress?.remainingDays || 0;
+  const budgetLimit = monthlyBurnIn?.totalBudget || 0;
   const hasCurrentPeriodError = Boolean(monthlyBurnInError || monthProgressError);
   const isCurrentPeriodLoading =
     selectedPeriodId !== null &&
@@ -96,14 +149,72 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     return spentPerCategory.slice(0, UI.DASHBOARD_TOP_CATEGORIES);
   }, [spentPerCategory]);
 
+  if (isLocked) {
+    return (
+      <Box className={styles.dashboardRoot}>
+        <Stack gap="xl" component="div">
+          <Group justify="space-between" align="center" pb="md" className={styles.dashboardHeader}>
+            <Title order={1} className={`${styles.dashboardTitle} brand-text brand-glow`}>
+              {t('dashboard.title')}
+            </Title>
+            <PeriodHeaderControl />
+          </Group>
+
+          <div className={styles.statsGrid}>
+            <LockedDashboardCard
+              title={t('dashboard.stats.remainingBudget.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.stats.totalAssets.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.stats.avgDailySpend.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.stats.monthProgress.label')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+          </div>
+
+          <div className={styles.chartsSection}>
+            <LockedDashboardCard
+              title={t('dashboard.charts.balanceOverTime.title')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+            <LockedDashboardCard
+              title={t('dashboard.charts.topCategories.title')}
+              status={lockedStatus}
+              requirement={lockedRequirement}
+              configureLabel={lockedConfigureLabel}
+            />
+          </div>
+
+          <LockedDashboardCard
+            title={t('dashboard.recentActivity.title')}
+            status={lockedStatus}
+            requirement={lockedRequirement}
+            configureLabel={lockedConfigureLabel}
+          />
+        </Stack>
+      </Box>
+    );
+  }
+
   return (
-    <Box
-      style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        padding: '32px',
-      }}
-    >
+    <Box className={styles.dashboardRoot}>
       <Stack gap="xl" component="div">
         {/* Dashboard Header */}
         <Group justify="space-between" align="center" pb="md" className={styles.dashboardHeader}>
@@ -112,22 +223,6 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           </Title>
           <PeriodHeaderControl />
         </Group>
-
-        {hasNoActivePeriod && (
-          <Alert
-            color="orange"
-            variant="light"
-            icon={<IconAlertTriangle size={18} />}
-            title={t('dashboard.noPeriod.title')}
-          >
-            <Stack gap="md" mt="xs">
-              <Text size="sm">{t('dashboard.noPeriod.message')}</Text>
-              <Button component={Link} to="/periods" color="orange" variant="filled" size="sm">
-                {t('dashboard.noPeriod.cta')}
-              </Button>
-            </Stack>
-          </Alert>
-        )}
 
         <ActiveOverlayBanner />
 
@@ -142,6 +237,17 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
 
         {/* Stats Grid */}
         <div className={styles.statsGrid}>
+          {/* Remaining Budget - Featured Card */}
+          <StatCard
+            icon={() => <span style={{ fontSize: 18 }}>💰</span>}
+            label={t('dashboard.stats.remainingBudget.label')}
+            value={format(remainingBudget)}
+            meta={t('dashboard.stats.remainingBudget.meta', { limit: format(budgetLimit) })}
+            trend={{ direction: 'down', value: '12%', positive: false }}
+            featured
+            loading={isMonthlyBurnInLoading}
+          />
+
           {/* Total Assets */}
           <StatCard
             icon={() => <span style={{ fontSize: 18 }}>💳</span>}

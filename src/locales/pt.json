@@ -747,20 +747,32 @@
   },
   "dashboard": {
     "title": "Painel Financeiro",
+    "locked": {
+      "statusLabel": "Status: {{status}}",
+      "status": {
+        "notConfigured": "Não configurado",
+        "noActivePeriod": "Sem período ativo"
+      },
+      "requirement": {
+        "notConfigured": "Configure um período de orçamento para exibir dados no painel.",
+        "noActivePeriod": "Crie ou ajuste períodos para que um período esteja ativo hoje."
+      },
+      "configure": "Configurar"
+    },
     "currentPeriod": {
-      "title": "Período Atual",
+      "title": "Per\u00edodo Atual",
       "hero": {
         "remaining": "{{amount}} restante",
-        "meta": "{{percent}}% usado • {{days}} dias restantes"
+        "meta": "{{percent}}% usado \u2022 {{days}} dias restantes"
       },
       "metrics": {
-        "totalBudget": "Orçamento total",
+        "totalBudget": "Or\u00e7amento total",
         "actualSpend": "Total gasto"
       },
       "projection": "Gasto projetado no ritmo atual: {{amount}}",
       "states": {
-        "empty": "Nenhum período selecionado.",
-        "error": "Não foi possível carregar os valores do período atual."
+        "empty": "Nenhum per\u00edodo selecionado.",
+        "error": "N\u00e3o foi poss\u00edvel carregar os valores do per\u00edodo atual."
       }
     },
     "noPeriod": {

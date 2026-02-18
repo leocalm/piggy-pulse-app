@@ -836,11 +836,23 @@
   },
   "dashboard": {
     "title": "Financial Dashboard",
+    "locked": {
+      "statusLabel": "Status: {{status}}",
+      "status": {
+        "notConfigured": "Not configured",
+        "noActivePeriod": "No active period"
+      },
+      "requirement": {
+        "notConfigured": "Set up a budget period to display dashboard data.",
+        "noActivePeriod": "Create or adjust periods so one period is active today."
+      },
+      "configure": "Configure"
+    },
     "currentPeriod": {
       "title": "Current Period",
       "hero": {
         "remaining": "{{amount}} remaining",
-        "meta": "{{percent}}% used • {{days}} days remaining"
+        "meta": "{{percent}}% used \u2022 {{days}} days remaining"
       },
       "metrics": {
         "totalBudget": "Total budget",
