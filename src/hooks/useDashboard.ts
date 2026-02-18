@@ -3,6 +3,7 @@ import {
   fetchRecentTransactions,
   fetchTotalAssets,
   getBudgetPerDay,
+  getBudgetStability,
   getMonthlyBurnIn,
   getMonthProgress,
   getSpentByCategory,
@@ -53,5 +54,13 @@ export const useTotalAssets = () => {
   return useQuery({
     queryKey: queryKeys.totalAssets(),
     queryFn: fetchTotalAssets,
+  });
+};
+
+export const useBudgetStability = (options?: { enabled?: boolean }) => {
+  return useQuery({
+    queryKey: queryKeys.budgetStability(),
+    queryFn: getBudgetStability,
+    enabled: options?.enabled ?? true,
   });
 };

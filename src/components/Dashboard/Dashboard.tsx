@@ -7,6 +7,7 @@ import { ApiError } from '@/api/errors';
 import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 import { ActiveOverlayBanner } from '@/components/Dashboard/ActiveOverlayBanner';
 import { BalanceLineChartCard } from '@/components/Dashboard/BalanceLineChartCard';
+import { BudgetStabilityCard } from '@/components/Dashboard/BudgetStabilityCard';
 import { CurrentPeriodCard } from '@/components/Dashboard/CurrentPeriodCard';
 import { RecentTransactionsCard } from '@/components/Dashboard/RecentTransactionsCard';
 import { StatCard } from '@/components/Dashboard/StatCard';
@@ -16,6 +17,7 @@ import { useAccounts } from '@/hooks/useAccounts';
 import { useCurrentBudgetPeriod } from '@/hooks/useBudget';
 import {
   useBudgetPerDay,
+  useBudgetStability,
   useMonthlyBurnIn,
   useMonthProgress,
   useRecentTransactions,
@@ -107,6 +109,12 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
     useBudgetPerDay(selectedPeriodId);
   const { data: recentTransactions } = useRecentTransactions(selectedPeriodId);
   const { data: totalAsset, isLoading: isTotalAssetLoading } = useTotalAssets();
+  const {
+    data: budgetStability,
+    isLoading: isBudgetStabilityLoading,
+    isError: isBudgetStabilityError,
+    refetch: refetchBudgetStability,
+  } = useBudgetStability({ enabled: !isPeriodMissing });
   const { data: accounts } = useAccounts(selectedPeriodId);
 
   // Calculate derived values from dashboard data
@@ -290,25 +298,36 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
           />
 
           {/* Top Categories Chart */}
-          <Paper
-            className={styles.chartCard}
-            shadow="md"
-            radius="lg"
-            p="xl"
-            withBorder
-            style={{
-              background: 'var(--bg-card)',
-              borderColor: 'var(--border-medium)',
-            }}
-          >
-            <Group justify="space-between" mb="xl">
-              <Text fw={600} size="lg">
-                {t('dashboard.charts.topCategories.title')}
-              </Text>
-            </Group>
+          <Stack gap="md">
+            <BudgetStabilityCard
+              data={budgetStability}
+              isLoading={isBudgetStabilityLoading}
+              isError={isBudgetStabilityError}
+              onRetry={() => {
+                void refetchBudgetStability();
+              }}
+            />
 
-            <TopCategoriesChart data={topCategories} isLoading={isSpentPerCategoryLoading} />
-          </Paper>
+            <Paper
+              className={styles.chartCard}
+              shadow="md"
+              radius="lg"
+              p="xl"
+              withBorder
+              style={{
+                background: 'var(--bg-card)',
+                borderColor: 'var(--border-medium)',
+              }}
+            >
+              <Group justify="space-between" mb="xl">
+                <Text fw={600} size="lg">
+                  {t('dashboard.charts.topCategories.title')}
+                </Text>
+              </Group>
+
+              <TopCategoriesChart data={topCategories} isLoading={isSpentPerCategoryLoading} />
+            </Paper>
+          </Stack>
         </div>
 
         {/* Recent Activity */}
