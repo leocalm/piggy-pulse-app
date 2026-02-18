@@ -1,6 +1,14 @@
 import { apiPost } from './client';
 import { ApiError } from './errors';
 
+function throwWithCause(message: string, cause: unknown): never {
+  if (cause instanceof Error) {
+    throw new Error(message, { cause });
+  }
+
+  throw new Error(message);
+}
+
 export interface PasswordResetRequestPayload {
   email: string;
 }
@@ -37,23 +45,26 @@ export async function requestPasswordReset(email: string): Promise<PasswordReset
   } catch (error) {
     if (error instanceof ApiError) {
       if (error.status === 429) {
-        throw new Error('Too many password reset attempts. Please try again later.');
+        throwWithCause('Too many password reset attempts. Please try again later.', error);
       }
 
       if (error.status >= 500) {
-        throw new Error('Server error. Please try again later.');
+        throwWithCause('Server error. Please try again later.', error);
       }
 
       if (error.message) {
-        throw new Error(error.message);
+        throwWithCause(error.message, error);
       }
     }
 
     if (error instanceof Error && error.message.includes('Failed to fetch')) {
-      throw new Error('Unable to connect to the server. Please check your internet connection.');
+      throwWithCause(
+        'Unable to connect to the server. Please check your internet connection.',
+        error
+      );
     }
 
-    throw new Error('Password reset request failed. Please try again.');
+    throwWithCause('Password reset request failed. Please try again.', error);
   }
 }
 
@@ -72,23 +83,26 @@ export async function validatePasswordResetToken(
   } catch (error) {
     if (error instanceof ApiError) {
       if (error.status === 400) {
-        throw new Error('Invalid or expired reset token.');
+        throwWithCause('Invalid or expired reset token.', error);
       }
 
       if (error.status >= 500) {
-        throw new Error('Server error. Please try again later.');
+        throwWithCause('Server error. Please try again later.', error);
       }
 
       if (error.message) {
-        throw new Error(error.message);
+        throwWithCause(error.message, error);
       }
     }
 
     if (error instanceof Error && error.message.includes('Failed to fetch')) {
-      throw new Error('Unable to connect to the server. Please check your internet connection.');
+      throwWithCause(
+        'Unable to connect to the server. Please check your internet connection.',
+        error
+      );
     }
 
-    throw new Error('Token validation failed. Please try again.');
+    throwWithCause('Token validation failed. Please try again.', error);
   }
 }
 
@@ -105,28 +119,32 @@ export async function confirmPasswordReset(token: string, newPassword: string): 
   } catch (error) {
     if (error instanceof ApiError) {
       if (error.status === 400) {
-        throw new Error(
-          error.message || 'Invalid or expired reset token. Please request a new one.'
+        throwWithCause(
+          error.message || 'Invalid or expired reset token. Please request a new one.',
+          error
         );
       }
 
       if (error.status === 429) {
-        throw new Error('Too many attempts. Please try again later.');
+        throwWithCause('Too many attempts. Please try again later.', error);
       }
 
       if (error.status >= 500) {
-        throw new Error('Server error. Please try again later.');
+        throwWithCause('Server error. Please try again later.', error);
       }
 
       if (error.message) {
-        throw new Error(error.message);
+        throwWithCause(error.message, error);
       }
     }
 
     if (error instanceof Error && error.message.includes('Failed to fetch')) {
-      throw new Error('Unable to connect to the server. Please check your internet connection.');
+      throwWithCause(
+        'Unable to connect to the server. Please check your internet connection.',
+        error
+      );
     }
 
-    throw new Error('Password reset failed. Please try again.');
+    throwWithCause('Password reset failed. Please try again.', error);
   }
 }
