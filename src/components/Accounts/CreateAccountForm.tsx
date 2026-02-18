@@ -22,6 +22,19 @@ interface CreateAccountFormProps {
   onAccountCreated?: () => void;
 }
 
+const ACCOUNT_COLOR_SWATCHES = [
+  'var(--accent-primary)',
+  'var(--accent-secondary)',
+  'var(--text-primary)',
+  'var(--text-secondary)',
+  'var(--text-muted)',
+  'var(--accent-primary)',
+  'var(--accent-secondary)',
+  'var(--text-primary)',
+  'var(--text-secondary)',
+  'var(--text-muted)',
+];
+
 export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) {
   const createAccountMutation = useCreateAccount();
   const [error, setError] = useState<string | null>(null);
@@ -144,18 +157,7 @@ export function CreateAccountForm({ onAccountCreated }: CreateAccountFormProps) 
               disallowInput
               withPicker={false}
               swatchesPerRow={10}
-              swatches={[
-                '#fa5252',
-                '#fd7e14',
-                '#fab005',
-                '#82c91e',
-                '#40c057',
-                '#15aabf',
-                '#228be6',
-                '#4c6ef5',
-                '#7950f2',
-                '#be4bdb',
-              ]}
+              swatches={ACCOUNT_COLOR_SWATCHES}
               {...form.getInputProps('color')}
             />
           </Grid.Col>

@@ -2,11 +2,11 @@
 .addButton {
     background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-purple) 100%);
     border: none;
-    box-shadow: 0 4px 16px rgb(0 212 255 / 30%);
+    box-shadow: var(--shadow-reflective-glow);
 }
 
 .addButton:hover {
-    box-shadow: 0 6px 20px rgb(0 212 255 / 40%);
+    box-shadow: var(--shadow-reflective-glow);
 }
 
 /* ── Budget Category Item: card with hover effects + animations ── */
@@ -100,7 +100,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--category-bg, rgb(0, 212, 255, 0.1));
+    background: var(--category-bg, var(--color-accent-primary-soft));
     border-radius: var(--radius-md, 12px);
     font-size: 24px;
     flex-shrink: 0;
@@ -121,32 +121,32 @@
 }
 
 [data-mantine-color-scheme="dark"] .progressBar {
-    background: rgb(255, 255, 255, 0.05);
+    background: var(--bg-elevated);
 }
 
 [data-mantine-color-scheme="light"] .progressBar {
-    background: rgb(0, 0, 0, 0.06);
+    background: var(--bg-elevated);
 }
 
 .progressFill {
     height: 100%;
     border-radius: 4px;
     transition: width 0.3s ease;
-    background: var(--progress-color, var(--accent-success));
+    background: var(--progress-color, var(--accent-primary));
     animation: shimmer 2s infinite;
 }
 
 /* Color variants for progress bar */
 .progressFill.success {
-    background: linear-gradient(90deg, var(--accent-success) 0%, var(--accent-success) 100%);
+    background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-primary) 100%);
 }
 
 .progressFill.warning {
-    background: linear-gradient(90deg, var(--accent-warning) 0%, var(--accent-warning) 100%);
+    background: linear-gradient(90deg, var(--accent-secondary) 0%, var(--accent-secondary) 100%);
 }
 
 .progressFill.danger {
-    background: linear-gradient(90deg, var(--accent-danger) 0%, var(--accent-danger) 100%);
+    background: linear-gradient(90deg, var(--text-secondary) 0%, var(--text-secondary) 100%);
 }
 
 /* ── Shimmer animation ── */
@@ -208,7 +208,7 @@
     display: inline-flex;
     align-items: center;
     padding: 4px 12px;
-    background: rgb(0, 212, 255, 0.1);
+    background: var(--color-accent-primary-soft);
     border-radius: 6px;
     font-size: 12px;
     font-weight: 600;

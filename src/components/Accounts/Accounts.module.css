@@ -98,7 +98,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent-success);
+  background: var(--accent-primary);
   animation: pulse 2s infinite;
 }
 
