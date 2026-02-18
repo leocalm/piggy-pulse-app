@@ -42,14 +42,14 @@ export function UserMenu({ variant = 'sidebar' }: UserMenuProps) {
     <Menu shadow="md" width={200} position={menuPosition}>
       <Menu.Target>
         {variant === 'topbar' ? (
-          <UnstyledButton
-            data-testid="user-menu-trigger"
-            style={{ borderRadius: '50%', display: 'flex', alignItems: 'center' }}
-          >
-            <Avatar radius="xl" color="cyan" size="sm">
-              {user?.name ? getInitials(user.name) : 'U'}
-            </Avatar>
-          </UnstyledButton>
+            <UnstyledButton
+              data-testid="user-menu-trigger"
+              style={{ borderRadius: '50%', display: 'flex', alignItems: 'center', padding: 4 }}
+            >
+              <Avatar radius="xl" color="cyan" size={36}>
+                {user?.name ? getInitials(user.name) : 'U'}
+              </Avatar>
+            </UnstyledButton>
         ) : (
           <UnstyledButton
             w="100%"
@@ -58,7 +58,7 @@ export function UserMenu({ variant = 'sidebar' }: UserMenuProps) {
             style={{ borderRadius: '8px', transition: 'background-color 0.2s' }}
           >
             <Group>
-              <Avatar radius="xl" color="cyan">
+              <Avatar radius="xl" color="cyan" size={40}>
                 {user?.name ? getInitials(user.name) : 'U'}
               </Avatar>
               <div style={{ flex: 1 }}>
