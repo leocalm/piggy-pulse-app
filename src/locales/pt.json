@@ -748,19 +748,19 @@
   "dashboard": {
     "title": "Painel Financeiro",
     "currentPeriod": {
-      "title": "Periodo Atual",
+      "title": "Período Atual",
       "hero": {
         "remaining": "{{amount}} restante",
         "meta": "{{percent}}% usado • {{days}} dias restantes"
       },
       "metrics": {
-        "totalBudget": "Orcamento total",
+        "totalBudget": "Orçamento total",
         "actualSpend": "Total gasto"
       },
       "projection": "Gasto projetado no ritmo atual: {{amount}}",
       "states": {
-        "empty": "Nenhum periodo selecionado.",
-        "error": "Nao foi possivel carregar os valores do periodo atual."
+        "empty": "Nenhum período selecionado.",
+        "error": "Não foi possível carregar os valores do período atual."
       }
     },
     "noPeriod": {

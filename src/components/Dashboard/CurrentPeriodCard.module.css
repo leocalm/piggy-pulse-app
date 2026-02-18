@@ -6,7 +6,7 @@
     color-mix(in srgb, var(--accent-primary) 10%, var(--bg-card) 90%),
     color-mix(in srgb, var(--accent-purple) 8%, var(--bg-card) 92%)
   );
-  box-shadow: 0 10px 30px rgb(20, 22, 26, 0.08);
+  box-shadow: 0 10px 30px rgb(20 22 26 / 0.08);
 }
 
 .label {
