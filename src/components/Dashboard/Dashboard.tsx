@@ -7,6 +7,7 @@ import { ApiError } from '@/api/errors';
 import { PeriodHeaderControl } from '@/components/BudgetPeriodSelector';
 import { ActiveOverlayBanner } from '@/components/Dashboard/ActiveOverlayBanner';
 import { BalanceLineChartCard } from '@/components/Dashboard/BalanceLineChartCard';
+import { CurrentPeriodCard } from '@/components/Dashboard/CurrentPeriodCard';
 import { RecentTransactionsCard } from '@/components/Dashboard/RecentTransactionsCard';
 import { StatCard } from '@/components/Dashboard/StatCard';
 import { TopCategoriesChart } from '@/components/Dashboard/TopCategoriesChart';
@@ -90,10 +91,18 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
 
   const { data: spentPerCategory, isLoading: isSpentPerCategoryLoading } =
     useSpentPerCategory(selectedPeriodId);
-  const { data: monthlyBurnIn, isLoading: isMonthlyBurnInLoading } =
-    useMonthlyBurnIn(selectedPeriodId);
-  const { data: monthProgress, isLoading: isMonthProgressLoading } =
-    useMonthProgress(selectedPeriodId);
+  const {
+    data: monthlyBurnIn,
+    isLoading: isMonthlyBurnInLoading,
+    error: monthlyBurnInError,
+    refetch: refetchMonthlyBurnIn,
+  } = useMonthlyBurnIn(selectedPeriodId);
+  const {
+    data: monthProgress,
+    isLoading: isMonthProgressLoading,
+    error: monthProgressError,
+    refetch: refetchMonthProgress,
+  } = useMonthProgress(selectedPeriodId);
   const { data: budgetPerDay, isLoading: isBudgetPerDayLoading } =
     useBudgetPerDay(selectedPeriodId);
   const { data: recentTransactions } = useRecentTransactions(selectedPeriodId);
@@ -119,6 +128,15 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
   const daysPassedPercentage = monthProgress?.daysPassedPercentage || 0;
   const daysUntilReset = monthProgress?.remainingDays || 0;
   const budgetLimit = monthlyBurnIn?.totalBudget || 0;
+  const hasCurrentPeriodError = Boolean(monthlyBurnInError || monthProgressError);
+  const isCurrentPeriodLoading =
+    selectedPeriodId !== null &&
+    !hasCurrentPeriodError &&
+    (isMonthlyBurnInLoading || isMonthProgressLoading || !monthlyBurnIn || !monthProgress);
+
+  const retryCurrentPeriod = () => {
+    void Promise.all([refetchMonthlyBurnIn(), refetchMonthProgress()]);
+  };
 
   // Format currency using global settings
   const format = (cents: number): string => formatCurrency(cents, globalCurrency, i18n.language);
@@ -207,6 +225,15 @@ export const Dashboard = ({ selectedPeriodId }: DashboardProps) => {
         </Group>
 
         <ActiveOverlayBanner />
+
+        <CurrentPeriodCard
+          selectedPeriodId={selectedPeriodId}
+          monthlyBurnIn={monthlyBurnIn}
+          monthProgress={monthProgress}
+          isLoading={isCurrentPeriodLoading}
+          isError={hasCurrentPeriodError}
+          onRetry={retryCurrentPeriod}
+        />
 
         {/* Stats Grid */}
         <div className={styles.statsGrid}>

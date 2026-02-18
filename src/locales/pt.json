@@ -759,6 +759,22 @@
       },
       "configure": "Configurar"
     },
+    "currentPeriod": {
+      "title": "Per\u00edodo Atual",
+      "hero": {
+        "remaining": "{{amount}} restante",
+        "meta": "{{percent}}% usado \u2022 {{days}} dias restantes"
+      },
+      "metrics": {
+        "totalBudget": "Or\u00e7amento total",
+        "actualSpend": "Total gasto"
+      },
+      "projection": "Gasto projetado no ritmo atual: {{amount}}",
+      "states": {
+        "empty": "Nenhum per\u00edodo selecionado.",
+        "error": "N\u00e3o foi poss\u00edvel carregar os valores do per\u00edodo atual."
+      }
+    },
     "noPeriod": {
       "title": "Você está em uma lacuna de período",
       "message": "Suas transações não estão associadas a nenhum período de orçamento. Crie ou ajuste períodos para restaurar relatórios corretos.",
