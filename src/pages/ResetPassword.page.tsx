@@ -54,7 +54,7 @@ function getPasswordStrength(password: string): {
   // Normalize to 0-100
   const percentage = (score / 6) * 100;
 
-  const { label, color } =
+  const strength =
     percentage < 30
       ? { label: 'Weak', color: 'red' }
       : percentage < 50
@@ -63,7 +63,7 @@ function getPasswordStrength(password: string): {
           ? { label: 'Good', color: 'yellow' }
           : { label: 'Strong', color: 'green' };
 
-  return { score: percentage, label, color };
+  return { score: percentage, ...strength };
 }
 
 export function ResetPasswordPage() {
