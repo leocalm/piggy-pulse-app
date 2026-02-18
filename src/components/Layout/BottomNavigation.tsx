@@ -68,6 +68,7 @@ export function BottomNavigation() {
               <Popover
                 key={item.label}
                 opened={opened}
+                onChange={(o) => (o ? open() : close())}
                 onClose={close}
                 position="top"
                 withArrow
