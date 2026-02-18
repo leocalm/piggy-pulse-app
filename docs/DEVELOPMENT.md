@@ -1,11 +1,11 @@
 # Development Guide
 
-This document describes how to run, test, and develop the budget-app frontend locally.
+This document describes how to run, test, and develop the piggy-pulse-app frontend locally.
 
 ## Requirements
 
 - Node.js (via nvm/asdf/etc)
-- Yarn (recommended) or npm
+- Yarn (required)
 
 ## Common Commands
 
@@ -18,7 +18,7 @@ yarn dev
 Full test suite (matches `npm run test`):
 
 ```bash
-npm run test
+yarn test
 ```
 
 ## Conventional Commits (Required)
@@ -47,4 +47,3 @@ Fixing failures:
 
 - Reword commits: `git rebase -i origin/main` then change `pick` to `reword`
 - Squash commits: interactive rebase and squash into a single Conventional Commit
-
