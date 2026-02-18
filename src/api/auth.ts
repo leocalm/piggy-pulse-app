@@ -95,7 +95,7 @@ export async function fetchCurrentUser(): Promise<User> {
  * @throws Error with user-friendly message on failure
  */
 export async function updateUser(id: string, data: UpdateUserRequest): Promise<User> {
-    try {
+  try {
     return await apiPut<User, UpdateUserRequest>(`/api/users/${id}`, data);
   } catch (error) {
     if (error instanceof ApiError) {
@@ -117,7 +117,6 @@ export async function updateUser(id: string, data: UpdateUserRequest): Promise<U
     }
     throw errorWithCause('Update failed. Please try again.', error);
   }
-  }
 }
 
 /**
@@ -131,25 +130,6 @@ export async function register(credentials: RegisterRequest): Promise<void> {
   } catch (error) {
     if (error instanceof ApiError) {
       if (error.status === 409) {
-<<<<<<< HEAD
-        throw new Error('This email is already registered. Please use a different email.', {
-          cause: error,
-        });
-      }
-
-      if (error.status === 400) {
-        throw new Error(error.message || 'Invalid registration data. Please check your inputs.', {
-          cause: error,
-        });
-      }
-
-      if (error.status >= 500) {
-        throw new Error('Server error. Please try again later.', { cause: error });
-      }
-
-      if (error.message) {
-        throw new Error(error.message, { cause: error });
-=======
         throw errorWithCause(
           'This email is already registered. Please use a different email.',
           error
@@ -169,7 +149,6 @@ export async function register(credentials: RegisterRequest): Promise<void> {
 
       if (error.message) {
         throw errorWithCause(error.message, error);
->>>>>>> origin/main
       }
     }
 
@@ -177,15 +156,6 @@ export async function register(credentials: RegisterRequest): Promise<void> {
     if (error instanceof Error) {
       // Check if it's a network error
       if (error.message.includes('Failed to fetch')) {
-<<<<<<< HEAD
-        throw new Error('Unable to connect to the server. Please check your internet connection.', {
-          cause: error,
-        });
-      }
-
-      if (error.message.trim().length > 0) {
-        throw new Error(error.message, { cause: error });
-=======
         throw errorWithCause(
           'Unable to connect to the server. Please check your internet connection.',
           error
@@ -194,16 +164,11 @@ export async function register(credentials: RegisterRequest): Promise<void> {
 
       if (error.message.trim().length > 0) {
         throw errorWithCause(error.message, error);
->>>>>>> origin/main
       }
     }
 
     // Generic error fallback
-<<<<<<< HEAD
-    throw new Error('Registration failed. Please try again.', { cause: error });
-=======
     throw errorWithCause('Registration failed. Please try again.', error);
->>>>>>> origin/main
   }
 }
 

@@ -53,21 +53,17 @@
 
 /* ── Featured Stat Card Styling ── */
 [data-mantine-color-scheme='dark'] .statCard.featured {
-  background: linear-gradient(
-    135deg,
-    var(--color-accent-primary-soft-strong) 0%,
-    var(--color-accent-secondary-soft) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-accent-primary-soft-strong) 0%,
+      var(--color-accent-secondary-soft) 100%);
   border: 1px solid var(--accent-primary);
   box-shadow: var(--shadow-reflective-glow);
 }
 
 [data-mantine-color-scheme='light'] .statCard.featured {
-  background: linear-gradient(
-    135deg,
-    var(--color-accent-primary-soft) 0%,
-    var(--color-accent-secondary-soft) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-accent-primary-soft) 0%,
+      var(--color-accent-secondary-soft) 100%);
   border: 1px solid var(--accent-primary);
   box-shadow: var(--shadow-reflective-glow);
 }
@@ -218,11 +214,9 @@
   font-weight: 600;
   color: white;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(
-    90deg,
-    var(--bar-color, var(--accent-primary)) 0%,
-    var(--bar-color-end, var(--accent-primary)) 100%
-  );
+  background: linear-gradient(90deg,
+      var(--bar-color, var(--accent-primary)) 0%,
+      var(--bar-color-end, var(--accent-primary)) 100%);
 }
 
 .categoryAmount {
@@ -274,11 +268,9 @@
 
 .noPeriodAlert {
   border: 1px solid var(--color-accent-primary-soft-strong);
-  background: linear-gradient(
-    135deg,
-    var(--color-accent-primary-soft) 0%,
-    var(--color-accent-secondary-soft) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-accent-primary-soft) 0%,
+      var(--color-accent-secondary-soft) 100%);
 }
 
 /* ── Trend Badge Styles ── */
