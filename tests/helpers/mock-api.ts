@@ -175,9 +175,7 @@ export class MockApiServer {
       total_cap_amount: 50000,
       spent_amount: 25000,
       transaction_count: 5,
-      category_caps: [
-        { category_id: 'category-1', cap_amount: 20000 },
-      ],
+      category_caps: [{ category_id: 'category-1', cap_amount: 20000 }],
       rules: null,
     },
     {
@@ -564,7 +562,7 @@ export class MockApiServer {
     if (method === 'DELETE' && path.startsWith('/overlays/')) {
       const id = path.slice('/overlays/'.length);
       if (id) {
-        this.overlays = this.overlays.filter(overlay => overlay.id !== id);
+        this.overlays = this.overlays.filter((overlay) => overlay.id !== id);
       }
       return { status: 200, body: {} };
     }
