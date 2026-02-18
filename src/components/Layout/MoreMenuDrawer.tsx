@@ -1,3 +1,4 @@
+import { IconBuildingStore, IconSettings, IconTag, IconWallet } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Drawer, NavLink, Stack } from '@mantine/core';
@@ -13,22 +14,22 @@ export function MoreMenuDrawer({ opened, onClose }: MoreMenuDrawerProps) {
 
   const moreItems = [
     {
-      icon: () => <span>🏷️</span>,
+      icon: <IconWallet size={18} />,
+      label: t('layout.navigation.accounts'),
+      route: '/accounts',
+    },
+    {
+      icon: <IconTag size={18} />,
       label: t('layout.navigation.categories'),
       route: '/categories',
     },
     {
-      icon: () => <span>🏪</span>,
+      icon: <IconBuildingStore size={18} />,
       label: t('layout.navigation.vendors'),
       route: '/vendors',
     },
     {
-      icon: () => <span>🎯</span>,
-      label: t('layout.navigation.overlays'),
-      route: '/overlays',
-    },
-    {
-      icon: () => <span>⚙️</span>,
+      icon: <IconSettings size={18} />,
       label: t('layout.navigation.settings'),
       route: '/settings',
     },
@@ -59,7 +60,7 @@ export function MoreMenuDrawer({ opened, onClose }: MoreMenuDrawerProps) {
           <NavLink
             key={item.route}
             label={item.label}
-            leftSection={<item.icon />}
+            leftSection={item.icon}
             onClick={() => handleNavigate(item.route)}
             variant="light"
             color="cyan"

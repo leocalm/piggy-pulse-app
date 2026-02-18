@@ -1,6 +1,19 @@
+import { useState } from 'react';
+import {
+  IconArrowsExchange,
+  IconBuildingStore,
+  IconCalendar,
+  IconLayoutDashboard,
+  IconLogout,
+  IconSettings,
+  IconTag,
+  IconWallet,
+} from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, NavLink, Stack, Text } from '@mantine/core';
+import { logout as apiLogout } from '@/api/auth';
+import { useAuth } from '@/context/AuthContext';
 
 interface NavigationProps {
   onNavigate?: () => void;
@@ -10,74 +23,77 @@ export function Navigation({ onNavigate }: NavigationProps) {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const { logout } = useAuth();
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      await apiLogout();
+    } finally {
+      logout();
+      setLoggingOut(false);
+      navigate('/auth/login');
+    }
+  };
 
   const navigationSections = [
     {
-      title: t('layout.navigation.overview'),
+      key: 'core',
+      title: t('layout.navigation.core'),
       items: [
         {
-          icon: () => <span>📊</span>,
+          icon: <IconLayoutDashboard size={18} />,
           label: t('layout.navigation.dashboard'),
           route: '/dashboard',
         },
         {
-          icon: () => <span>💶</span>,
+          icon: <IconArrowsExchange size={18} />,
           label: t('layout.navigation.transactions'),
           route: '/transactions',
+        },
+        {
+          icon: <IconCalendar size={18} />,
+          label: t('layout.navigation.periods'),
+          route: '/periods',
         },
       ],
     },
     {
-      title: t('layout.navigation.management'),
+      key: 'structure',
+      title: t('layout.navigation.structure'),
       items: [
         {
-          icon: () => <span>👛</span>,
+          icon: <IconWallet size={18} />,
           label: t('layout.navigation.accounts'),
           route: '/accounts',
         },
         {
-          icon: () => <span>🏷️</span>,
+          icon: <IconTag size={18} />,
           label: t('layout.navigation.categories'),
           route: '/categories',
         },
         {
-          icon: () => <span>🏪</span>,
+          icon: <IconBuildingStore size={18} />,
           label: t('layout.navigation.vendors'),
           route: '/vendors',
         },
-        {
-          icon: () => <span>📊</span>,
-          label: t('layout.navigation.budgetPlan'),
-          route: '/budget',
-        },
-        {
-          icon: () => <span>🗓️</span>,
-          label: t('layout.navigation.periods'),
-          route: '/periods',
-        },
-        {
-          icon: () => <span>🎯</span>,
-          label: t('layout.navigation.overlays'),
-          route: '/overlays',
-        },
       ],
     },
+  ];
+
+  const sessionItems = [
     {
-      title: t('layout.navigation.other'),
-      items: [
-        {
-          icon: () => <span>⚙️</span>,
-          label: t('layout.navigation.settings'),
-          route: '/settings',
-        },
-      ],
+      icon: <IconSettings size={18} />,
+      label: t('layout.navigation.settings'),
+      route: '/settings',
     },
   ];
 
   return (
     <Stack gap="md">
       {navigationSections.map((section) => (
-        <Box key={section.title}>
+        <Box key={section.key}>
           <Text size="xs" fw={700} c="dimmed" mb="xs" tt="uppercase" px="sm">
             {section.title}
           </Text>
@@ -86,7 +102,7 @@ export function Navigation({ onNavigate }: NavigationProps) {
               <NavLink
                 key={item.route}
                 label={item.label}
-                leftSection={<item.icon />}
+                leftSection={item.icon}
                 active={
                   location.pathname === item.route ||
                   (item.route === '/dashboard' && location.pathname === '/')
@@ -103,6 +119,38 @@ export function Navigation({ onNavigate }: NavigationProps) {
           </Stack>
         </Box>
       ))}
+
+      <Box>
+        <Text size="xs" fw={700} c="dimmed" mb="xs" tt="uppercase" px="sm">
+          {t('layout.navigation.session')}
+        </Text>
+        <Stack gap={2}>
+          {sessionItems.map((item) => (
+            <NavLink
+              key={item.route}
+              label={item.label}
+              leftSection={item.icon}
+              active={location.pathname === item.route}
+              onClick={() => {
+                navigate(item.route);
+                onNavigate?.();
+              }}
+              variant="light"
+              color="cyan"
+              style={{ borderRadius: '8px' }}
+            />
+          ))}
+          <NavLink
+            label={t('layout.navigation.logout')}
+            leftSection={<IconLogout size={18} />}
+            onClick={handleLogout}
+            disabled={loggingOut}
+            variant="subtle"
+            color="dimmed"
+            style={{ borderRadius: '8px' }}
+          />
+        </Stack>
+      </Box>
     </Stack>
   );
 }

@@ -43,10 +43,6 @@ export const OnTransactions: Story = {
   render: () => <NavigationWrapper route="/transactions" />,
 };
 
-export const OnBudget: Story = {
-  render: () => <NavigationWrapper route="/budget" />,
-};
-
-export const OnAccounts: Story = {
-  render: () => <NavigationWrapper route="/accounts" />,
+export const OnPeriods: Story = {
+  render: () => <NavigationWrapper route="/periods" />,
 };
