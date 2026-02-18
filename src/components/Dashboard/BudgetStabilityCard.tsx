@@ -68,7 +68,9 @@ export function BudgetStabilityCard({
           </Text>
         ) : (
           <Stack gap="sm">
-            <Text className={styles.stabilityValue}>{`${Math.round(data.withinTolerancePercentage)}%`}</Text>
+            <Text
+              className={styles.stabilityValue}
+            >{`${Math.round(data.withinTolerancePercentage)}%`}</Text>
             <Text size="sm" c="dimmed">
               {t('dashboard.stability.withinRangeCount', {
                 within: data.periodsWithinTolerance,
