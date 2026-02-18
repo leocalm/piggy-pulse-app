@@ -747,6 +747,34 @@
   },
   "dashboard": {
     "title": "Painel Financeiro",
+    "locked": {
+      "statusLabel": "Status: {{status}}",
+      "status": {
+        "notConfigured": "Não configurado",
+        "noActivePeriod": "Sem período ativo"
+      },
+      "requirement": {
+        "notConfigured": "Configure um período de orçamento para exibir dados no painel.",
+        "noActivePeriod": "Crie ou ajuste períodos para que um período esteja ativo hoje."
+      },
+      "configure": "Configurar"
+    },
+    "currentPeriod": {
+      "title": "Per\u00edodo Atual",
+      "hero": {
+        "remaining": "{{amount}} restante",
+        "meta": "{{percent}}% usado \u2022 {{days}} dias restantes"
+      },
+      "metrics": {
+        "totalBudget": "Or\u00e7amento total",
+        "actualSpend": "Total gasto"
+      },
+      "projection": "Gasto projetado no ritmo atual: {{amount}}",
+      "states": {
+        "empty": "Nenhum per\u00edodo selecionado.",
+        "error": "N\u00e3o foi poss\u00edvel carregar os valores do per\u00edodo atual."
+      }
+    },
     "noPeriod": {
       "title": "Você está em uma lacuna de período",
       "message": "Suas transações não estão associadas a nenhum período de orçamento. Crie ou ajuste períodos para restaurar relatórios corretos.",
@@ -816,6 +844,18 @@
       },
       "noTransactions": "Nenhuma transação recente",
       "addFirst": "Adicione sua primeira transação para começar"
+    },
+    "stability": {
+      "title": "Estabilidade do Orçamento",
+      "withinRangeCount": "{{within}} de {{total}} períodos dentro da faixa",
+      "lastClosedPeriodsLabel": "Últimos 6 períodos fechados",
+      "empty": "Ainda não há períodos fechados",
+      "error": "Não foi possível carregar a estabilidade do orçamento.",
+      "retry": "Tentar novamente",
+      "dots": {
+        "outside": "Fora da tolerância",
+        "within": "Dentro da tolerância"
+      }
     }
   },
   "vendors": {

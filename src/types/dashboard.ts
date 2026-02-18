@@ -37,3 +37,15 @@ export interface NetPosition {
   debtBalance: number;
   accountCount: number;
 }
+
+export interface BudgetStabilityPeriod {
+  periodId: string;
+  isOutsideTolerance: boolean;
+}
+
+export interface BudgetStability {
+  withinTolerancePercentage: number;
+  periodsWithinTolerance: number;
+  totalClosedPeriods: number;
+  recentClosedPeriods: BudgetStabilityPeriod[];
+}

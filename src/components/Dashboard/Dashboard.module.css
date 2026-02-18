@@ -1,13 +1,20 @@
 /* ── Dashboard Header ── */
+.dashboardRoot {
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: 32px;
+}
+
 .dashboardHeader {
   border-bottom: 1px solid var(--border-subtle);
-  margin-bottom: 24px !important;
-  padding-bottom: 24px !important;
+  margin-bottom: var(--spacing-xl) !important;
+  padding-bottom: var(--spacing-xl) !important;
 }
 
 .dashboardTitle {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: var(--type-reflective-hero-size);
+  font-weight: var(--type-reflective-hero-weight);
+  font-family: var(--font-title);
   letter-spacing: -0.02em;
   margin: 0 !important;
 }
@@ -15,9 +22,9 @@
 /* ── Stats Grid Layout ── */
 .statsGrid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 48px;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
 }
 
 /* ── Stat Card Base Styles ── */
@@ -35,7 +42,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-purple));
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -52,27 +59,35 @@
 
 /* ── Featured Stat Card Styling ── */
 [data-mantine-color-scheme='dark'] .statCard.featured {
-  background: linear-gradient(135deg, rgb(0, 212, 255, 0.12) 0%, rgb(180, 122, 255, 0.08) 100%);
-  border: 1px solid rgb(0, 212, 255, 0.25);
-  box-shadow: 0 0 40px rgb(0, 212, 255, 0.2);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-primary-soft-strong) 0%,
+    var(--color-accent-secondary-soft) 100%
+  );
+  border: 1px solid var(--accent-primary);
+  box-shadow: var(--shadow-reflective-glow);
 }
 
 [data-mantine-color-scheme='light'] .statCard.featured {
-  background: linear-gradient(135deg, rgb(0, 212, 255, 0.08) 0%, rgb(180, 122, 255, 0.05) 100%);
-  border: 1px solid rgb(0, 212, 255, 0.2);
-  box-shadow: 0 0 24px rgb(0, 212, 255, 0.12);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-primary-soft) 0%,
+    var(--color-accent-secondary-soft) 100%
+  );
+  border: 1px solid var(--accent-primary);
+  box-shadow: var(--shadow-reflective-glow);
 }
 
 .statCard.featured::before {
   opacity: 1;
   height: 4px;
-  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-purple) 100%);
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
 }
 
 .statCard.featured .statValue {
-  font-size: 48px;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-purple) 100%);
+  font-size: var(--type-reflective-hero-size);
+  font-weight: var(--type-reflective-hero-weight);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -110,8 +125,8 @@
 
 /* ── Stat Value Styling ── */
 .statValue {
-  font-size: 36px;
-  font-weight: 700;
+  font-size: var(--type-reflective-secondary-size);
+  font-weight: var(--type-reflective-secondary-weight);
   font-family: var(--mantine-font-family-monospace);
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -121,16 +136,27 @@
 .chartsSection {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 24px;
-  margin-bottom: 48px;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
 }
 
-.netPositionCard {
-  margin-bottom: 24px;
+.stabilityValue {
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-.netPositionBreakdown {
-  row-gap: 8px;
+.stabilityDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--text-secondary);
+  background: transparent;
+}
+
+.stabilityDotFilled {
+  background: var(--text-secondary);
 }
 
 /* ── Chart Card Styling ── */
@@ -146,7 +172,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-purple));
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -159,15 +185,15 @@
 .categoryBarContainer {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-l);
 }
 
 /* ── Category Item ── */
 .categoryItem {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 0;
+  gap: var(--spacing-l);
+  padding: var(--spacing-l) 0;
   border-bottom: 1px solid var(--border-subtle);
   transition: all 0.2s ease;
 }
@@ -182,7 +208,7 @@
 
 .categoryName {
   flex: 1;
-  font-size: 14px;
+  font-size: var(--type-reflective-label-size);
   font-weight: 500;
   color: var(--text-primary);
   white-space: nowrap;
@@ -192,18 +218,18 @@
 
 .categoryBarWrapper {
   flex: 3;
-  height: 32px;
+  height: var(--progress-reflective-height);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
 }
 
 [data-mantine-color-scheme='dark'] .categoryBarWrapper {
-  background: rgb(255, 255, 255, 0.03);
+  background: var(--bg-elevated);
 }
 
 [data-mantine-color-scheme='light'] .categoryBarWrapper {
-  background: rgb(0, 0, 0, 0.04);
+  background: var(--bg-elevated);
 }
 
 .categoryBar {
@@ -212,7 +238,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 8px;
+  padding-right: var(--spacing-s);
   font-size: 12px;
   font-weight: 600;
   color: white;
@@ -239,20 +265,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-xl);
 }
 
 .activityTitle {
-  font-size: 18px;
+  font-size: var(--type-reflective-secondary-size);
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .viewAllBtn {
-  padding: 8px 16px;
-  background: rgb(0, 212, 255, 0.1);
+  padding: var(--spacing-s) var(--spacing-l);
+  background: var(--color-accent-primary-soft);
   color: var(--accent-primary);
-  border: 1px solid rgb(0, 212, 255, 0.2);
+  border: 1px solid var(--color-accent-primary-soft-strong);
   border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
@@ -261,19 +287,33 @@
 }
 
 .viewAllBtn:hover {
-  background: rgb(0, 212, 255, 0.15);
+  background: var(--color-accent-primary-soft-strong);
   transform: translateX(4px);
 }
 
-.noPeriodContainer {
-  margin: 0 auto;
-  max-width: 820px;
-  padding: 24px;
+.lockedCard {
+  background: color-mix(in srgb, var(--bg-card) 80%, var(--bg-primary) 20%);
+  border-style: dashed;
+  border-color: var(--border-medium);
+  opacity: 0.65;
 }
 
-.noPeriodAlert {
-  border: 1px solid rgb(255, 169, 64, 0.35);
-  background: linear-gradient(135deg, rgb(255, 169, 64, 0.14) 0%, rgb(255, 107, 157, 0.08) 100%);
+.lockedCardContent {
+  pointer-events: none;
+}
+
+.lockedStatus {
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.lockedConfigureLink {
+  color: var(--mantine-color-indigo-6);
+  pointer-events: auto;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  width: fit-content;
 }
 
 /* ── Trend Badge Styles ── */
@@ -288,13 +328,13 @@
 }
 
 .trendBadge.positive {
-  color: var(--accent-success);
-  background: rgb(0, 255, 163, 0.1);
+  color: var(--accent-primary);
+  background: var(--color-accent-primary-soft);
 }
 
 .trendBadge.negative {
-  color: var(--accent-danger);
-  background: rgb(255, 107, 157, 0.1);
+  color: var(--accent-primary);
+  background: var(--color-accent-primary-soft);
 }
 
 /* ── Responsive Design ── */
@@ -309,27 +349,23 @@
 }
 
 @media (max-width: 768px) {
-  .noPeriodContainer {
-    padding: 8px;
+  .dashboardRoot {
+    padding: 16px;
   }
 
   .statsGrid {
     grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 32px;
+    gap: var(--spacing-l);
+    margin-bottom: var(--spacing-2xl);
   }
 
   .chartsSection {
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .netPositionCard {
-    margin-bottom: 16px;
+    gap: var(--spacing-l);
+    margin-bottom: var(--spacing-2xl);
   }
 
   .statValue {
-    font-size: 28px;
+    font-size: var(--type-reflective-hero-size);
   }
 
   .statCard.featured .statValue {

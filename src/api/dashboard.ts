@@ -1,5 +1,6 @@
 import {
   BudgetPerDay,
+  BudgetStability,
   MonthlyBurnIn,
   MonthProgress,
   NetPosition,
@@ -44,4 +45,8 @@ export async function fetchRecentTransactions(
 
 export async function fetchNetPosition(selectedPeriodId: string): Promise<NetPosition> {
   return apiGet<NetPosition>(`/api/dashboard/net-position?period_id=${selectedPeriodId}`);
+}
+
+export async function getBudgetStability(): Promise<BudgetStability> {
+  return apiGet<BudgetStability>('/api/dashboard/budget-stability');
 }

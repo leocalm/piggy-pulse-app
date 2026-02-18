@@ -836,6 +836,34 @@
   },
   "dashboard": {
     "title": "Financial Dashboard",
+    "locked": {
+      "statusLabel": "Status: {{status}}",
+      "status": {
+        "notConfigured": "Not configured",
+        "noActivePeriod": "No active period"
+      },
+      "requirement": {
+        "notConfigured": "Set up a budget period to display dashboard data.",
+        "noActivePeriod": "Create or adjust periods so one period is active today."
+      },
+      "configure": "Configure"
+    },
+    "currentPeriod": {
+      "title": "Current Period",
+      "hero": {
+        "remaining": "{{amount}} remaining",
+        "meta": "{{percent}}% used \u2022 {{days}} days remaining"
+      },
+      "metrics": {
+        "totalBudget": "Total budget",
+        "actualSpend": "Total actual spend"
+      },
+      "projection": "Projected spend at current pace: {{amount}}",
+      "states": {
+        "empty": "No period selected.",
+        "error": "Unable to load current period values."
+      }
+    },
     "noPeriod": {
       "title": "You are in a period gap",
       "message": "Your transactions are not currently associated with a budget period. Create or manage periods to restore accurate reporting.",
@@ -905,6 +933,18 @@
       },
       "noTransactions": "No recent transactions",
       "addFirst": "Add your first transaction to get started"
+    },
+    "stability": {
+      "title": "Budget Stability",
+      "withinRangeCount": "{{within}} of {{total}} periods within range",
+      "lastClosedPeriodsLabel": "Last 6 closed periods",
+      "empty": "No closed periods yet",
+      "error": "Could not load budget stability.",
+      "retry": "Retry",
+      "dots": {
+        "outside": "Outside tolerance",
+        "within": "Within tolerance"
+      }
     }
   },
   "states": {

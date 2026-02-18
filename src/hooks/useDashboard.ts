@@ -3,6 +3,7 @@ import {
   fetchNetPosition,
   fetchRecentTransactions,
   getBudgetPerDay,
+  getBudgetStability,
   getMonthlyBurnIn,
   getMonthProgress,
   getSpentByCategory,
@@ -54,5 +55,13 @@ export const useNetPosition = (selectedPeriodId: string | null) => {
     queryKey: queryKeys.netPosition(selectedPeriodId),
     queryFn: () => fetchNetPosition(selectedPeriodId!),
     enabled: Boolean(selectedPeriodId),
+  });
+};
+
+export const useBudgetStability = (options?: { enabled?: boolean }) => {
+  return useQuery({
+    queryKey: queryKeys.budgetStability(),
+    queryFn: getBudgetStability,
+    enabled: options?.enabled ?? true,
   });
 };
