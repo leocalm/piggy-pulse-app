@@ -1,15 +1,25 @@
 import {
   IconArrowsExchange,
+  IconBuildingStore,
   IconCalendar,
   IconDots,
   IconLayoutDashboard,
-  IconWallet,
   IconTag,
-  IconBuildingStore,
+  IconWallet,
 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Group, Paper, Text, ThemeIcon, UnstyledButton, Popover, Stack, NavLink, Divider } from '@mantine/core';
+import {
+  Divider,
+  Group,
+  NavLink,
+  Paper,
+  Popover,
+  Stack,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 export function BottomNavigation() {
@@ -74,7 +84,7 @@ export function BottomNavigation() {
                 trapFocus={false}
               >
                 <Popover.Target>
-                <UnstyledButton
+                  <UnstyledButton
                     onClick={() => open()}
                     style={{
                       display: 'flex',
@@ -85,7 +95,16 @@ export function BottomNavigation() {
                       height: '100%',
                     }}
                   >
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: isActive ? 'var(--mantine-color-cyan-6)' : 'var(--mantine-color-dimmed)' }}>
+                    <span
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: isActive
+                          ? 'var(--mantine-color-cyan-6)'
+                          : 'var(--mantine-color-dimmed)',
+                      }}
+                    >
                       {item.icon}
                     </span>
                     <Text size="xs" mt={4} c={isActive ? 'cyan' : 'dimmed'} fw={500}>
@@ -94,12 +113,15 @@ export function BottomNavigation() {
                   </UnstyledButton>
                 </Popover.Target>
 
-                <Popover.Dropdown p={0} style={{
-                  backgroundColor: 'var(--mantine-color-body)',
-                  border: '1px solid var(--border-medium)',
-                  borderRadius: 12,
-                  minWidth: 220,
-                }}>
+                <Popover.Dropdown
+                  p={0}
+                  style={{
+                    backgroundColor: 'var(--mantine-color-body)',
+                    border: '1px solid var(--border-medium)',
+                    borderRadius: 12,
+                    minWidth: 220,
+                  }}
+                >
                   <Stack gap={0}>
                     {(() => {
                       const route = '/accounts';
@@ -125,7 +147,9 @@ export function BottomNavigation() {
                             variant="light"
                             styles={{
                               label: {
-                                color: active ? 'var(--mantine-color-cyan-6)' : 'var(--mantine-color-dimmed)',
+                                color: active
+                                  ? 'var(--mantine-color-cyan-6)'
+                                  : 'var(--mantine-color-dimmed)',
                                 fontSize: 14,
                                 fontWeight: 500,
                               },
@@ -161,7 +185,9 @@ export function BottomNavigation() {
                             variant="light"
                             styles={{
                               label: {
-                                color: active ? 'var(--mantine-color-cyan-6)' : 'var(--mantine-color-dimmed)',
+                                color: active
+                                  ? 'var(--mantine-color-cyan-6)'
+                                  : 'var(--mantine-color-dimmed)',
                                 fontSize: 14,
                                 fontWeight: 500,
                               },
@@ -197,7 +223,9 @@ export function BottomNavigation() {
                             variant="light"
                             styles={{
                               label: {
-                                color: active ? 'var(--mantine-color-cyan-6)' : 'var(--mantine-color-dimmed)',
+                                color: active
+                                  ? 'var(--mantine-color-cyan-6)'
+                                  : 'var(--mantine-color-dimmed)',
                                 fontSize: 14,
                                 fontWeight: 500,
                               },

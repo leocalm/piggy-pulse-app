@@ -1,7 +1,6 @@
 import { AppShell, Group, ScrollArea } from '@mantine/core';
 import { Logo } from './Logo';
 import { Navigation } from './Navigation';
-import { UserMenu } from './UserMenu';
 
 interface SidebarProps {
   onNavigate?: () => void;

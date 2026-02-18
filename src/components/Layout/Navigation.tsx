@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import {
   IconArrowsExchange,
   IconBuildingStore,
@@ -65,8 +65,6 @@ export function Navigation({ onNavigate }: NavigationProps) {
       ],
     },
   ];
-
-  
 
   return (
     <Stack gap="md">
