@@ -1,9 +1,10 @@
 import {
   BudgetPerDay,
+  BudgetStability,
   MonthlyBurnIn,
   MonthProgress,
+  NetPosition,
   SpentPerCategory,
-  TotalAssets,
 } from '@/types/dashboard';
 import { TransactionResponse } from '@/types/transaction';
 import { apiGet } from './client';
@@ -42,6 +43,10 @@ export async function fetchRecentTransactions(
   );
 }
 
-export async function fetchTotalAssets(): Promise<TotalAssets> {
-  return apiGet<TotalAssets>('/api/dashboard/total-assets');
+export async function fetchNetPosition(selectedPeriodId: string): Promise<NetPosition> {
+  return apiGet<NetPosition>(`/api/dashboard/net-position?period_id=${selectedPeriodId}`);
+}
+
+export async function getBudgetStability(): Promise<BudgetStability> {
+  return apiGet<BudgetStability>('/api/dashboard/budget-stability');
 }
