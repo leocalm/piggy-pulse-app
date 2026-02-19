@@ -732,7 +732,11 @@
   .managementGroupArchived,
   .group {
     border: none;
-    background: transparent;
+    background: transparent !important;
+  }
+
+  .archivedShell {
+    background: transparent !important;
   }
 
   .groupHeader {
