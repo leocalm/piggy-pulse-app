@@ -30,5 +30,7 @@ export const createMockCategory = (overrides?: Partial<CategoryResponse>): Categ
   icon: '🏷️',
   parentId: null,
   categoryType: 'Outgoing',
+  isArchived: false,
+  description: null,
   ...overrides,
 });
