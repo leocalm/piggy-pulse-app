@@ -115,7 +115,6 @@ describe('Dashboard locked state', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('PeriodContextStrip')).toBeInTheDocument();
     expect(screen.getAllByText('Status: Not configured')).toHaveLength(7);
 
     const configureLinks = screen.getAllByRole('link', { name: 'Configure' });

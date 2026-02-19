@@ -1177,6 +1177,10 @@
       "title": "Categorias",
       "subtitle": "Visão diagnóstica da posição e desvio por categoria."
     },
+    "modeSwitch": {
+      "overview": "Visão Geral",
+      "management": "Gerenciamento"
+    },
     "actions": {
       "addCategory": "Adicionar Categoria"
     },
@@ -1200,7 +1204,14 @@
         "used": "Uso",
         "projectedAtCurrentPace": "Projeção no ritmo atual",
         "shareOfTotalSpend": "Participação no gasto total",
-        "lastThreePeriods": "Últimos 3 períodos"
+        "lastThreePeriods": "Últimos 3 períodos",
+        "summary": "Resumo",
+        "elapsedInPeriod": "Tempo decorrido no período",
+        "period": "Período",
+        "varianceLabel": "{{spentBudgetLabel}} de {{totalBudgetLabel}} · Variação {{varianceLabel}}",
+        "noData": "Sem dados",
+        "withinTolerance": "Dentro da tolerância",
+        "outsideTolerance": "Fora da tolerância"
       },
       "empty": {
         "budgeted": "Nenhuma categoria orçada",
