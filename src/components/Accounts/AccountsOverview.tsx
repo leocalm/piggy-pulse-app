@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Badge, Box, Group, Loader, Stack, Text, Tooltip } from '@mantine/core';
+import { Alert, Box, Group, Loader, Progress, Stack, Text, Tooltip } from '@mantine/core';
 import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import { useInfiniteAccounts } from '@/hooks/useAccounts';
 import { AccountResponse, AccountType, CurrencyResponse } from '@/types/account';
@@ -16,11 +16,11 @@ type AccountGroup = {
 const ACCOUNT_GROUPS: AccountGroup[] = [
   {
     key: 'liquid',
-    labelKey: 'accounts.overview.groups.liquid',
-    types: ['Checking', 'Wallet', 'Allowance'],
+    labelKey: 'accounts.overview.groups.liquidSection',
+    types: ['Checking', 'Wallet'],
   },
-  { key: 'savings', labelKey: 'accounts.overview.groups.savings', types: ['Savings'] },
-  { key: 'debt', labelKey: 'accounts.overview.groups.debt', types: ['CreditCard'] },
+  { key: 'savings', labelKey: 'accounts.overview.groups.protectedSection', types: ['Savings'] },
+  { key: 'debt', labelKey: 'accounts.overview.groups.debtSection', types: ['CreditCard'] },
 ];
 
 function PeriodChange({ amount, currency }: { amount: number; currency: CurrencyResponse }) {
@@ -47,28 +47,26 @@ function AllowanceAccountRow({ account }: { account: AccountResponse }) {
 
   return (
     <Box className={styles.accountRow}>
-      <Group justify="space-between" mb={8}>
-        <Group gap={8}>
-          <span>{account.icon}</span>
-          <Text fw={600}>{account.name}</Text>
-          <Badge variant="light" size="xs" color="orange">
-            {t('accounts.types.Allowance')}
-          </Badge>
-        </Group>
-        <Text fw={700}>{formatCurrency(account.balance, account.currency)}</Text>
+      <Group justify="space-between" mb={12}>
+        <Text fw={700} size="lg">
+          {account.name}
+        </Text>
+        <Text fw={700} size="lg">
+          {formatCurrency(account.balance, account.currency)}
+        </Text>
       </Group>
 
-      <div className={styles.allowanceGrid}>
-        <div className={styles.allowanceCell}>
-          <Text size="xs" c="dimmed" mb={2}>
+      <Stack gap={6}>
+        <Group justify="space-between">
+          <Text size="sm" c="dimmed">
             {t('accounts.overview.allowanceCard.thisPeriod')}
           </Text>
           <Text fw={600} size="sm">
             {formatCurrency(account.balanceChangeThisPeriod, account.currency)}
           </Text>
-        </div>
-        <div className={styles.allowanceCell}>
-          <Text size="xs" c="dimmed" mb={2}>
+        </Group>
+        <Group justify="space-between">
+          <Text size="sm" c="dimmed">
             {t('accounts.overview.allowanceCard.nextTransfer')}
           </Text>
           <Text fw={600} size="sm">
@@ -76,9 +74,9 @@ function AllowanceAccountRow({ account }: { account: AccountResponse }) {
               ? formatCurrency(account.nextTransferAmount, account.currency)
               : t('accounts.overview.allowanceCard.notSet')}
           </Text>
-        </div>
-        <div className={styles.allowanceCell}>
-          <Text size="xs" c="dimmed" mb={2}>
+        </Group>
+        <Group justify="space-between">
+          <Text size="sm" c="dimmed">
             {t('accounts.overview.allowanceCard.projectedAfterTransfer')}
           </Text>
           <Text fw={600} size="sm">
@@ -86,24 +84,51 @@ function AllowanceAccountRow({ account }: { account: AccountResponse }) {
               ? formatCurrency(projected, account.currency)
               : t('accounts.overview.allowanceCard.notSet')}
           </Text>
-        </div>
-      </div>
+        </Group>
+      </Stack>
     </Box>
+  );
+}
+
+function AllowanceGroupSection({ accounts }: { accounts: AccountResponse[] }) {
+  const { t } = useTranslation();
+  const allowanceAccounts = accounts.filter((a) => a.accountType === 'Allowance');
+
+  if (allowanceAccounts.length === 0) {
+    return null;
+  }
+
+  const primaryCurrency = allowanceAccounts[0]?.currency;
+  const total = allowanceAccounts.reduce((sum, a) => sum + a.balance, 0);
+
+  return (
+    <div className={styles.groupSection}>
+      <Group justify="space-between">
+        <Text className={styles.groupLabel}>{t('accounts.overview.groups.allowance')}</Text>
+        {primaryCurrency && (
+          <Text className={styles.groupLabel}>{formatCurrency(total, primaryCurrency)}</Text>
+        )}
+      </Group>
+      {allowanceAccounts.map((account) => (
+        <AllowanceAccountRow key={account.id} account={account} />
+      ))}
+    </div>
   );
 }
 
 function StandardAccountRow({ account }: { account: AccountResponse }) {
   return (
     <Box className={styles.accountRow}>
-      <Group justify="space-between">
-        <Group gap={8}>
-          <span>{account.icon}</span>
-          <div>
-            <Text fw={600}>{account.name}</Text>
-            <PeriodChange amount={account.balanceChangeThisPeriod} currency={account.currency} />
-          </div>
-        </Group>
-        <Text fw={700}>{formatCurrency(account.balance, account.currency)}</Text>
+      <Group justify="space-between" align="flex-start">
+        <div>
+          <Text fw={700} size="lg" c="var(--text-primary)">
+            {account.name}
+          </Text>
+          <PeriodChange amount={account.balanceChangeThisPeriod} currency={account.currency} />
+        </div>
+        <Text fw={700} size="lg" c="var(--text-primary)">
+          {formatCurrency(account.balance, account.currency)}
+        </Text>
       </Group>
     </Box>
   );
@@ -123,16 +148,20 @@ function AccountGroupSection({
     return null;
   }
 
+  const primaryCurrency = groupAccounts[0]?.currency;
+  const total = groupAccounts.reduce((sum, a) => sum + a.balance, 0);
+
   return (
     <div className={styles.groupSection}>
-      <Text className={styles.groupLabel}>{t(group.labelKey)}</Text>
-      {groupAccounts.map((account) =>
-        account.accountType === 'Allowance' ? (
-          <AllowanceAccountRow key={account.id} account={account} />
-        ) : (
-          <StandardAccountRow key={account.id} account={account} />
-        )
-      )}
+      <Group justify="space-between">
+        <Text className={styles.groupLabel}>{t(group.labelKey)}</Text>
+        {primaryCurrency && (
+          <Text className={styles.groupLabel}>{formatCurrency(total, primaryCurrency)}</Text>
+        )}
+      </Group>
+      {groupAccounts.map((account) => (
+        <StandardAccountRow key={account.id} account={account} />
+      ))}
     </div>
   );
 }
@@ -156,6 +185,25 @@ export function AccountsOverview() {
   const netPosition = useMemo(() => accounts.reduce((sum, a) => sum + a.balance, 0), [accounts]);
   const primaryCurrency = accounts[0]?.currency;
 
+  const liquidTotal = useMemo(
+    () =>
+      accounts
+        .filter((a) => (['Checking', 'Wallet'] as AccountType[]).includes(a.accountType))
+        .reduce((sum, a) => sum + a.balance, 0),
+    [accounts]
+  );
+  const savingsTotal = useMemo(
+    () => accounts.filter((a) => a.accountType === 'Savings').reduce((sum, a) => sum + a.balance, 0),
+    [accounts]
+  );
+  const debtTotal = useMemo(
+    () =>
+      accounts.filter((a) => a.accountType === 'CreditCard').reduce((sum, a) => sum + a.balance, 0),
+    [accounts]
+  );
+  const progressMax = liquidTotal + savingsTotal;
+  const progressValue = progressMax > 0 ? Math.max(0, (netPosition / progressMax) * 100) : 0;
+
   if (isLoading) {
     return (
       <Group justify="center" py="xl">
@@ -177,7 +225,7 @@ export function AccountsOverview() {
       {/* Net Position */}
       <Box className={styles.netPositionBlock}>
         <Group gap={8} mb={4}>
-          <Text size="sm" c="dimmed">
+          <Text className={styles.netPositionLabel}>
             {t('accounts.overview.netPosition')}
           </Text>
           <Tooltip label={t('accounts.overview.netPositionTooltip')}>
@@ -189,13 +237,36 @@ export function AccountsOverview() {
         <Text className={styles.netPositionValue}>
           {primaryCurrency ? formatCurrency(netPosition, primaryCurrency) : '—'}
         </Text>
+        {progressMax > 0 && (
+          <>
+            <Progress value={progressValue} size="sm" radius="xl" mt={12} mb={8} />
+            <Group gap="lg">
+              {liquidTotal > 0 && primaryCurrency && (
+                <Text size="xs" c="dimmed">
+                  {t('accounts.overview.groups.liquid')} {formatCurrency(liquidTotal, primaryCurrency)}
+                </Text>
+              )}
+              {savingsTotal > 0 && primaryCurrency && (
+                <Text size="xs" c="dimmed">
+                  {t('accounts.overview.groups.savings')} {formatCurrency(savingsTotal, primaryCurrency)}
+                </Text>
+              )}
+              {debtTotal !== 0 && primaryCurrency && (
+                <Text size="xs" c="dimmed">
+                  {t('accounts.overview.groups.debt')} {formatCurrency(debtTotal, primaryCurrency)}
+                </Text>
+              )}
+            </Group>
+          </>
+        )}
       </Box>
 
-      {/* Account Groups */}
+      {/* Account Groups: Liquid → Allowance → Protected → Debt */}
       <Stack gap="xl">
-        {ACCOUNT_GROUPS.map((group) => (
-          <AccountGroupSection key={group.key} group={group} accounts={accounts} />
-        ))}
+        <AccountGroupSection group={ACCOUNT_GROUPS[0]} accounts={accounts} />
+        <AllowanceGroupSection accounts={accounts} />
+        <AccountGroupSection group={ACCOUNT_GROUPS[1]} accounts={accounts} />
+        <AccountGroupSection group={ACCOUNT_GROUPS[2]} accounts={accounts} />
       </Stack>
     </Stack>
   );

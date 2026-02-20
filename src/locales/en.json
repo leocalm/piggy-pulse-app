@@ -780,7 +780,11 @@
       "groups": {
         "liquid": "Liquid",
         "savings": "Savings",
-        "debt": "Debt"
+        "debt": "Debt",
+        "allowance": "Allowance Accounts",
+        "liquidSection": "Liquid Accounts",
+        "protectedSection": "Protected Accounts",
+        "debtSection": "Debt Accounts"
       },
       "allowanceCard": {
         "thisPeriod": "This Period",

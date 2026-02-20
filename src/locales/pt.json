@@ -478,7 +478,11 @@
       "groups": {
         "liquid": "Líquido",
         "savings": "Poupança",
-        "debt": "Dívidas"
+        "debt": "Dívidas",
+        "allowance": "Contas de Mesada",
+        "liquidSection": "Contas Líquidas",
+        "protectedSection": "Contas Protegidas",
+        "debtSection": "Contas de Dívida"
       },
       "allowanceCard": {
         "thisPeriod": "Este Período",
