@@ -2,6 +2,8 @@
 export { Accounts } from './Accounts';
 export { AccountsContainer } from './AccountsContainer';
 export { AccountDetailPage } from './AccountDetailPage';
+export { AccountsOverview } from './AccountsOverview';
+export { AccountsManagement } from './AccountsManagement';
 
 // Sub-components
 export { AccountCard } from './AccountCard';

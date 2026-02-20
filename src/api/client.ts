@@ -346,6 +346,26 @@ export async function apiPut<T, B = unknown>(url: string, body?: B): Promise<T> 
 }
 
 /**
+ * PATCH request with optional body and response transformation
+ */
+export async function apiPatch<T = void, B = unknown>(url: string, body?: B): Promise<T> {
+  const res = await baseFetch(url, {
+    method: 'PATCH',
+    headers: body !== undefined ? { 'Content-Type': 'application/json' } : undefined,
+    body: body !== undefined ? JSON.stringify(toSnakeCase(body)) : undefined,
+  });
+  if (!res.ok) {
+    await throwForStatus(res, url);
+  }
+  const contentType = res.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    const data = await res.json();
+    return toCamelCase<T>(data);
+  }
+  return undefined as T;
+}
+
+/**
  * DELETE request with optional response transformation
  */
 export async function apiDelete<T = void, B = unknown>(url: string, body?: B): Promise<T> {

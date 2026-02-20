@@ -769,6 +769,132 @@
       "Savings": "Savings",
       "Wallet": "Debit Card",
       "Allowance": "Allowance"
+    },
+    "overview": {
+      "title": "Accounts",
+      "subtitle": "Balance-level structure across liquid, allowance, protected, and debt accounts.",
+      "viewModeOverview": "Overview",
+      "viewModeManagement": "Management",
+      "netPosition": "Net Position",
+      "netPositionTooltip": "Sum of all account balances (all time)",
+      "groups": {
+        "liquid": "Liquid",
+        "savings": "Savings",
+        "debt": "Debt",
+        "allowance": "Allowance Accounts",
+        "liquidSection": "Liquid Accounts",
+        "protectedSection": "Protected Accounts",
+        "debtSection": "Debt Accounts"
+      },
+      "allowanceCard": {
+        "netChangeThisPeriod": "Net change this period",
+        "nextTransfer": "Next Transfer",
+        "balanceAfterNextTransfer": "Balance after next transfer",
+        "notSet": "Not set"
+      },
+      "standardBar": {
+        "rangeLabel": "30-day closing balance range",
+        "low": "Low {{value}}",
+        "high": "High {{value}}",
+        "current": "Current {{value}}",
+        "zero": "Zero",
+        "withinRange": "Current is within this account's 30-day closing range.",
+        "aboveHigh": "Current is above 30-day high by {{amount}}.",
+        "belowLow": "Current is below 30-day low by {{amount}}.",
+        "netChangeThisPeriod": "Net change this period",
+        "ariaLabel": "30-day closing range: low {{low}}, high {{high}}, current {{current}}. {{status}}",
+        "ariaWithinRange": "Within range.",
+        "ariaAboveHigh": "Above high by {{amount}}.",
+        "ariaBelowLow": "Below low by {{amount}}."
+      },
+      "allowanceBar": {
+        "rangeLabel": "30-day closing balance range",
+        "boundsNote": "Bounds include historical min/max plus zero and projected balance.",
+        "low": "Low {{value}}",
+        "high": "High {{value}}",
+        "current": "Current {{value}}",
+        "afterNextTransfer": "After next transfer {{value}}",
+        "zero": "Zero",
+        "ariaLabel": "30-day balance range. Low: {{low}}, Current: {{current}}, High: {{high}}"
+      },
+      "periodChange": "{{arrow}} {{amount}} this period"
+    },
+    "management": {
+      "title": "Accounts",
+      "subtitle": "Manage your account setup.",
+      "addAccount": "Add Account",
+      "columns": {
+        "name": "Name",
+        "type": "Type",
+        "currency": "Currency",
+        "startingBalance": "Starting Balance",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "archived": "Archived"
+      },
+      "archivedSection": "Archived",
+      "actions": {
+        "edit": "Edit",
+        "archive": "Archive",
+        "restore": "Restore",
+        "delete": "Delete",
+        "adjustBalance": "Adjust Starting Balance"
+      },
+      "archiveConfirm": {
+        "title": "Archive Account",
+        "message": "Are you sure you want to archive \"{{name}}\"? It will be hidden from the overview but its history will be kept.",
+        "confirm": "Archive",
+        "cancel": "Cancel"
+      },
+      "restoreConfirm": {
+        "title": "Restore Account",
+        "message": "Restore \"{{name}}\" to active status?",
+        "confirm": "Restore",
+        "cancel": "Cancel"
+      },
+      "deleteConfirm": {
+        "title": "Delete Account",
+        "message": "Are you sure you want to permanently delete \"{{name}}\"? This action cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "adjustBalanceModal": {
+        "title": "Adjust Starting Balance",
+        "description": "Change the starting balance for \"{{name}}\". This is only available while the earliest budget period is still open.",
+        "newBalance": "New Starting Balance",
+        "confirm": "Save",
+        "cancel": "Cancel"
+      },
+      "createModal": {
+        "title": "New Account"
+      },
+      "editModal": {
+        "title": "Edit Account",
+        "typeImmutable": "Account type cannot be changed after creation."
+      },
+      "forms": {
+        "nextTransferAmount": {
+          "label": "Next Transfer Amount",
+          "placeholder": "0.00"
+        }
+      }
+    },
+    "success": {
+      "created": "Account created successfully",
+      "updated": "Account updated successfully",
+      "deleted": "Account deleted successfully",
+      "archived": "Account archived successfully",
+      "restored": "Account restored successfully",
+      "balanceAdjusted": "Starting balance adjusted"
+    },
+    "errors": {
+      "archiveFailed": "Failed to archive account",
+      "restoreFailed": "Failed to restore account",
+      "deleteFailed": "Failed to delete account",
+      "adjustBalanceFailed": "Failed to adjust starting balance"
     }
   },
   "vendors": {

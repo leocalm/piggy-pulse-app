@@ -22,6 +22,7 @@ export const mockAccounts: AccountResponse[] = [
       decimalPlaces: 2,
     },
     spendLimit: 0,
+    isArchived: false,
   },
   {
     id: 'acc-2',
@@ -41,6 +42,7 @@ export const mockAccounts: AccountResponse[] = [
       decimalPlaces: 2,
     },
     spendLimit: 0,
+    isArchived: false,
   },
 ];
 

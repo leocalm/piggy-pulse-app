@@ -127,6 +127,7 @@ describe('useAccounts', () => {
       balancePerDay: [],
       balanceChangeThisPeriod: 0,
       transactionCount: 0,
+      isArchived: false,
       currency: {
         id: 'currency-1',
         name: 'USD',
@@ -157,6 +158,7 @@ describe('useAccounts', () => {
       balancePerDay: [],
       balanceChangeThisPeriod: 0,
       transactionCount: 0,
+      isArchived: false,
       currency: {
         id: 'currency-1',
         name: 'USD',
@@ -209,6 +211,7 @@ describe('useAccounts', () => {
             balancePerDay: [],
             balanceChangeThisPeriod: 0,
             transactionCount: 0,
+            isArchived: false,
             currency: {
               id: 'currency-1',
               name: 'USD',

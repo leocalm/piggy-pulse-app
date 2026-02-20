@@ -1,12 +1,16 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  adjustStartingBalance,
+  archiveAccount,
   createAccount,
   deleteAccount,
   fetchAccounts,
+  fetchAccountsManagement,
   fetchAccountsPage,
+  restoreAccount,
   updateAccount,
 } from '@/api/account';
-import { AccountRequest } from '@/types/account';
+import { AccountRequest, AdjustStartingBalanceRequest } from '@/types/account';
 import { queryKeys } from './queryKeys';
 
 const ACCOUNTS_PAGE_SIZE = 50;
@@ -34,6 +38,13 @@ export const useInfiniteAccounts = (selectedPeriodId: string | null) => {
   });
 };
 
+export const useAccountsManagement = () => {
+  return useQuery({
+    queryKey: queryKeys.accountsManagement(),
+    queryFn: () => fetchAccountsManagement(),
+  });
+};
+
 export const useDeleteAccount = () => {
   const queryClient = useQueryClient();
 
@@ -42,6 +53,7 @@ export const useDeleteAccount = () => {
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: queryKeys.accounts() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accountsManagement() }),
         queryClient.invalidateQueries({ queryKey: queryKeys.totalAssets() }),
       ]);
     },
@@ -56,6 +68,7 @@ export const useCreateAccount = () => {
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: queryKeys.accounts() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accountsManagement() }),
         queryClient.invalidateQueries({ queryKey: queryKeys.totalAssets() }),
       ]);
     },
@@ -71,6 +84,53 @@ export const useUpdateAccount = () => {
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: queryKeys.accounts() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accountsManagement() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.totalAssets() }),
+      ]);
+    },
+  });
+};
+
+export const useArchiveAccount = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => archiveAccount(id),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.accounts() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accountsManagement() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.totalAssets() }),
+      ]);
+    },
+  });
+};
+
+export const useRestoreAccount = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => restoreAccount(id),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.accounts() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accountsManagement() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.totalAssets() }),
+      ]);
+    },
+  });
+};
+
+export const useAdjustStartingBalance = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, payload }: { id: string; payload: AdjustStartingBalanceRequest }) =>
+      adjustStartingBalance(id, payload),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: queryKeys.accounts() }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accountsManagement() }),
         queryClient.invalidateQueries({ queryKey: queryKeys.totalAssets() }),
       ]);
     },

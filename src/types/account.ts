@@ -23,6 +23,8 @@ export interface AccountResponse {
   currency: CurrencyResponse;
   balance: number;
   spendLimit?: number;
+  isArchived: boolean;
+  nextTransferAmount?: number;
   balancePerDay: BalancePerDay[];
   balanceChangeThisPeriod: number;
   transactionCount: number;
@@ -33,9 +35,29 @@ export interface AccountRequest {
   color: string;
   icon: string;
   accountType: AccountType;
-  // currency: string; // Removed
   balance: number;
   spendLimit?: number;
+  nextTransferAmount?: number;
+}
+
+export interface AdjustStartingBalanceRequest {
+  newBalance: number;
+}
+
+export interface AccountManagementResponse {
+  id: string;
+  name: string;
+  color: string;
+  icon: string;
+  accountType: AccountType;
+  currency: CurrencyResponse;
+  balance: number;
+  spendLimit?: number;
+  isArchived: boolean;
+  nextTransferAmount?: number;
+  transactionCount: number;
+  canDelete: boolean;
+  canAdjustBalance: boolean;
 }
 
 export interface AccountsPage {

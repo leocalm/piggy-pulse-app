@@ -467,6 +467,132 @@
       "Savings": "Poupança",
       "Wallet": "Carteira",
       "Allowance": "Dinheiro de bolso"
+    },
+    "overview": {
+      "title": "Contas",
+      "subtitle": "Estrutura de Saldo de Contas, incluindo liquidez, dinheiro de bolso, poupança, e dívidas.",
+      "viewModeOverview": "Visão Geral",
+      "viewModeManagement": "Gerenciamento",
+      "netPosition": "Posição Líquida",
+      "netPositionTooltip": "Soma de todos os saldos de conta (acumulado)",
+      "groups": {
+        "liquid": "Líquido",
+        "savings": "Poupança",
+        "debt": "Dívidas",
+        "allowance": "Contas de Mesada",
+        "liquidSection": "Contas Líquidas",
+        "protectedSection": "Contas Protegidas",
+        "debtSection": "Contas de Dívida"
+      },
+      "allowanceCard": {
+        "netChangeThisPeriod": "Variação líquida neste período",
+        "nextTransfer": "Próxima Transferência",
+        "balanceAfterNextTransfer": "Saldo após próxima transferência",
+        "notSet": "Não definido"
+      },
+      "standardBar": {
+        "rangeLabel": "Faixa de saldo de fechamento de 30 dias",
+        "low": "Mín. {{value}}",
+        "high": "Máx. {{value}}",
+        "current": "Atual {{value}}",
+        "zero": "Zero",
+        "withinRange": "O saldo atual está dentro da faixa de fechamento de 30 dias desta conta.",
+        "aboveHigh": "O saldo atual está acima do máximo de 30 dias em {{amount}}.",
+        "belowLow": "O saldo atual está abaixo do mínimo de 30 dias em {{amount}}.",
+        "netChangeThisPeriod": "Variação líquida neste período",
+        "ariaLabel": "Faixa de fechamento de 30 dias: mínimo {{low}}, máximo {{high}}, atual {{current}}. {{status}}",
+        "ariaWithinRange": "Dentro da faixa.",
+        "ariaAboveHigh": "Acima do máximo em {{amount}}.",
+        "ariaBelowLow": "Abaixo do mínimo em {{amount}}."
+      },
+      "allowanceBar": {
+        "rangeLabel": "Faixa de saldo de fechamento de 30 dias",
+        "boundsNote": "Os limites incluem mínimo/máximo histórico, zero e saldo projetado.",
+        "low": "Mín. {{value}}",
+        "high": "Máx. {{value}}",
+        "current": "Atual {{value}}",
+        "afterNextTransfer": "Após próxima transferência {{value}}",
+        "zero": "Zero",
+        "ariaLabel": "Faixa de saldo de 30 dias. Mínimo: {{low}}, Atual: {{current}}, Máximo: {{high}}"
+      },
+      "periodChange": "{{arrow}} {{amount}} neste período"
+    },
+    "management": {
+      "title": "Contas",
+      "subtitle": "Gerencie a configuração das suas contas.",
+      "addAccount": "Adicionar Conta",
+      "columns": {
+        "name": "Nome",
+        "type": "Tipo",
+        "currency": "Moeda",
+        "startingBalance": "Saldo Inicial",
+        "status": "Status",
+        "actions": "Ações"
+      },
+      "status": {
+        "active": "Ativa",
+        "archived": "Arquivada"
+      },
+      "archivedSection": "Arquivadas",
+      "actions": {
+        "edit": "Editar",
+        "archive": "Arquivar",
+        "restore": "Restaurar",
+        "delete": "Excluir",
+        "adjustBalance": "Ajustar Saldo Inicial"
+      },
+      "archiveConfirm": {
+        "title": "Arquivar Conta",
+        "message": "Tem certeza que deseja arquivar \"{{name}}\"? Ela ficará oculta da visão geral, mas o histórico será mantido.",
+        "confirm": "Arquivar",
+        "cancel": "Cancelar"
+      },
+      "restoreConfirm": {
+        "title": "Restaurar Conta",
+        "message": "Restaurar \"{{name}}\" para o status ativo?",
+        "confirm": "Restaurar",
+        "cancel": "Cancelar"
+      },
+      "deleteConfirm": {
+        "title": "Excluir Conta",
+        "message": "Tem certeza que deseja excluir permanentemente \"{{name}}\"? Esta ação não pode ser desfeita.",
+        "confirm": "Excluir",
+        "cancel": "Cancelar"
+      },
+      "adjustBalanceModal": {
+        "title": "Ajustar Saldo Inicial",
+        "description": "Altere o saldo inicial de \"{{name}}\". Disponível somente enquanto o período de orçamento mais antigo estiver aberto.",
+        "newBalance": "Novo Saldo Inicial",
+        "confirm": "Salvar",
+        "cancel": "Cancelar"
+      },
+      "createModal": {
+        "title": "Nova Conta"
+      },
+      "editModal": {
+        "title": "Editar Conta",
+        "typeImmutable": "O tipo de conta não pode ser alterado após a criação."
+      },
+      "forms": {
+        "nextTransferAmount": {
+          "label": "Valor da Próxima Transferência",
+          "placeholder": "0,00"
+        }
+      }
+    },
+    "success": {
+      "created": "Conta criada com sucesso",
+      "updated": "Conta atualizada com sucesso",
+      "deleted": "Conta excluída com sucesso",
+      "archived": "Conta arquivada com sucesso",
+      "restored": "Conta restaurada com sucesso",
+      "balanceAdjusted": "Saldo inicial ajustado"
+    },
+    "errors": {
+      "archiveFailed": "Falha ao arquivar conta",
+      "restoreFailed": "Falha ao restaurar conta",
+      "deleteFailed": "Falha ao excluir conta",
+      "adjustBalanceFailed": "Falha ao ajustar saldo inicial"
     }
   },
   "transactionsPage": {

@@ -36,6 +36,7 @@ export const queryKeys = {
   accountsInfinite: (periodId?: string | null, pageSize = 50) =>
     ['accounts', periodId, 'infinite', pageSize] as const,
   account: (id: string) => ['account', id] as const,
+  accountsManagement: () => ['accountsManagement'] as const,
 
   // Budget
   budget: () => ['budget'] as const,

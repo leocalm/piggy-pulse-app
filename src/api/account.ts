@@ -1,5 +1,11 @@
-import { AccountRequest, AccountResponse, AccountsPage } from '@/types/account';
-import { apiDelete, apiGet, apiGetRaw, apiPost, apiPut } from './client';
+import {
+  AccountManagementResponse,
+  AccountRequest,
+  AccountResponse,
+  AccountsPage,
+  AdjustStartingBalanceRequest,
+} from '@/types/account';
+import { apiDelete, apiGet, apiGetRaw, apiPatch, apiPost, apiPut } from './client';
 
 export async function fetchAccounts(selectedPeriodId: string | null): Promise<AccountResponse[]> {
   const query = selectedPeriodId ? `?period_id=${selectedPeriodId}` : '';
@@ -106,4 +112,26 @@ export async function deleteAccount(id: string): Promise<void> {
 
 export async function updateAccount(id: string, payload: AccountRequest): Promise<AccountResponse> {
   return apiPut<AccountResponse, AccountRequest>(`/api/accounts/${id}`, payload);
+}
+
+export async function archiveAccount(id: string): Promise<void> {
+  return apiPatch(`/api/accounts/${id}/archive`);
+}
+
+export async function restoreAccount(id: string): Promise<void> {
+  return apiPatch(`/api/accounts/${id}/restore`);
+}
+
+export async function adjustStartingBalance(
+  id: string,
+  payload: AdjustStartingBalanceRequest
+): Promise<AccountResponse> {
+  return apiPost<AccountResponse, AdjustStartingBalanceRequest>(
+    `/api/accounts/${id}/adjust-balance`,
+    payload
+  );
+}
+
+export async function fetchAccountsManagement(): Promise<AccountManagementResponse[]> {
+  return apiGet<AccountManagementResponse[]>('/api/accounts/management');
 }
