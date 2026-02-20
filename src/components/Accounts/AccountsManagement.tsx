@@ -1,19 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ActionIcon,
-  Alert,
-  Badge,
-  Button,
-  Group,
-  Loader,
-  Menu,
-  Modal,
-  NumberInput,
-  Stack,
-  Text,
-  Tooltip,
-} from '@mantine/core';
+import { Alert, Box, Button, Group, Loader, Modal, NumberInput, Stack, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { ConfirmDialog } from '@/components/Overlays/ConfirmDialog';
@@ -33,24 +20,12 @@ import styles from './Accounts.module.css';
 
 type ConfirmAction = 'archive' | 'restore' | 'delete' | null;
 
-function AccountStatusBadge({ isArchived }: { isArchived: boolean }) {
-  const { t } = useTranslation();
-  return (
-    <Badge variant="light" color={isArchived ? 'gray' : 'teal'} size="sm">
-      {isArchived
-        ? t('accounts.management.status.archived')
-        : t('accounts.management.status.active')}
-    </Badge>
-  );
-}
-
 interface AccountManagementRowProps {
   account: AccountManagementResponse;
   onEdit: (account: AccountManagementResponse) => void;
   onArchive: (account: AccountManagementResponse) => void;
   onRestore: (account: AccountManagementResponse) => void;
   onDelete: (account: AccountManagementResponse) => void;
-  onAdjustBalance: (account: AccountManagementResponse) => void;
 }
 
 function AccountManagementRow({
@@ -59,74 +34,73 @@ function AccountManagementRow({
   onArchive,
   onRestore,
   onDelete,
-  onAdjustBalance,
 }: AccountManagementRowProps) {
   const { t } = useTranslation();
 
   return (
-    <div className={`${styles.mgmtRow} ${account.isArchived ? styles.mgmtRowArchived : ''}`}>
-      <Group gap={8} style={{ minWidth: 0, flex: 1 }}>
-        <span>{account.icon}</span>
-        <div style={{ minWidth: 0 }}>
-          <Text fw={600} truncate>
-            {account.name}
-          </Text>
-          <Text size="xs" c="dimmed">
-            {t(`accounts.types.${account.accountType}`)}
-          </Text>
-        </div>
-      </Group>
+    <Box className={`${styles.mgmtRow} ${account.isArchived ? styles.mgmtRowArchived : ''}`}>
+      {/* Icon frame */}
+      <Box className={styles.mgmtIconFrame}>
+        <Box component="span" className={styles.mgmtIconEmoji}>{account.icon}</Box>
+      </Box>
 
-      <Text size="sm" c="dimmed" style={{ minWidth: 80 }}>
-        {account.currency.currency}
-      </Text>
+      {/* Name + meta */}
+      <Box className={styles.mgmtAccountInfo}>
+        <Text className={styles.mgmtAccountName}>{account.name}</Text>
+        <Text className={styles.mgmtAccountMeta}>
+          {t('accounts.management.columns.type')}:{' '}
+          <strong>{t(`accounts.types.${account.accountType}`)}</strong>
+          {' | '}
+          {t('accounts.management.columns.currency')}: <strong>{account.currency.currency}</strong>
+        </Text>
+      </Box>
 
-      <Text size="sm" fw={500} style={{ minWidth: 100 }}>
-        {formatCurrency(account.balance, account.currency)}
-      </Text>
+      {/* Starting balance */}
+      <Box className={styles.mgmtBalanceColumn}>
+        <Text component="span" className={styles.mgmtBalanceLabel}>
+          {t('accounts.management.columns.startingBalance')}
+        </Text>
+        <Text component="span" className={styles.mgmtBalanceValue}>
+          {formatCurrency(account.balance, account.currency)}
+        </Text>
+      </Box>
 
-      <div style={{ minWidth: 80 }}>
-        <AccountStatusBadge isArchived={account.isArchived} />
-      </div>
+      {/* Status */}
+      <Box className={styles.mgmtStatusColumn}>
+        <Box
+          component="span"
+          className={`${styles.mgmtStatusDot} ${
+            account.isArchived ? styles.mgmtStatusDotArchived : styles.mgmtStatusDotActive
+          }`}
+        />
+        <Text size="sm">
+          {account.isArchived
+            ? t('accounts.management.status.archived')
+            : t('accounts.management.status.active')}
+        </Text>
+      </Box>
 
-      <Menu shadow="md" width={200} position="bottom-end">
-        <Menu.Target>
-          <ActionIcon variant="subtle" color="gray">
-            ···
-          </ActionIcon>
-        </Menu.Target>
-        <Menu.Dropdown>
-          <Menu.Item onClick={() => onEdit(account)}>
-            {t('accounts.management.actions.edit')}
-          </Menu.Item>
-          {account.canAdjustBalance && (
-            <Menu.Item onClick={() => onAdjustBalance(account)}>
-              {t('accounts.management.actions.adjustBalance')}
-            </Menu.Item>
-          )}
-          <Menu.Divider />
-          {account.isArchived ? (
-            <Menu.Item onClick={() => onRestore(account)}>
-              {t('accounts.management.actions.restore')}
-            </Menu.Item>
-          ) : (
-            <Menu.Item onClick={() => onArchive(account)}>
-              {t('accounts.management.actions.archive')}
-            </Menu.Item>
-          )}
-          {account.canDelete && (
-            <Menu.Item color="red" onClick={() => onDelete(account)}>
-              {t('accounts.management.actions.delete')}
-            </Menu.Item>
-          )}
-          {!account.canDelete && (
-            <Tooltip label={`${t('accounts.management.actions.delete')} (has transactions)`}>
-              <Menu.Item disabled>{t('accounts.management.actions.delete')}</Menu.Item>
-            </Tooltip>
-          )}
-        </Menu.Dropdown>
-      </Menu>
-    </div>
+      {/* Actions */}
+      <Box className={styles.mgmtActionsColumn}>
+        <Button size="xs" variant="default" onClick={() => onEdit(account)}>
+          {t('accounts.management.actions.edit')}
+        </Button>
+        {account.isArchived ? (
+          <Button size="xs" variant="default" onClick={() => onRestore(account)}>
+            {t('accounts.management.actions.restore')}
+          </Button>
+        ) : (
+          <Button size="xs" variant="default" onClick={() => onArchive(account)}>
+            {t('accounts.management.actions.archive')}
+          </Button>
+        )}
+        {account.canDelete && (
+          <Button size="xs" variant="default" color="red" onClick={() => onDelete(account)}>
+            {t('accounts.management.actions.delete')}
+          </Button>
+        )}
+      </Box>
+    </Box>
   );
 }
 
@@ -211,11 +185,14 @@ export function AccountsManagement() {
   const activeAccounts = accounts.filter((a) => !a.isArchived);
   const archivedAccounts = accounts.filter((a) => a.isArchived);
 
-  // Group active by type order
   const typeOrder: AccountType[] = ['Checking', 'Savings', 'Allowance', 'CreditCard', 'Wallet'];
-  const sortedActive = [...activeAccounts].sort(
-    (a, b) => typeOrder.indexOf(a.accountType) - typeOrder.indexOf(b.accountType)
-  );
+
+  const groupedActive = typeOrder
+    .map((type) => ({
+      type,
+      accounts: activeAccounts.filter((a) => a.accountType === type),
+    }))
+    .filter((g) => g.accounts.length > 0);
 
   const openConfirm = (account: AccountManagementResponse, action: ConfirmAction) => {
     setActionAccount(account);
@@ -300,25 +277,27 @@ export function AccountsManagement() {
         </Button>
       </Group>
 
-      {/* Active accounts */}
-      <Stack gap="sm">
-        {sortedActive.map((account) => (
-          <AccountManagementRow
-            key={account.id}
-            account={account}
-            onEdit={setEditAccount}
-            onArchive={(a) => openConfirm(a, 'archive')}
-            onRestore={(a) => openConfirm(a, 'restore')}
-            onDelete={(a) => openConfirm(a, 'delete')}
-            onAdjustBalance={setAdjustAccount}
-          />
-        ))}
-      </Stack>
+      {/* Active accounts grouped by type */}
+      {groupedActive.map(({ type, accounts: typeAccounts }) => (
+        <Box key={type} className={styles.mgmtSection}>
+          <Text className={styles.mgmtSectionHeader}>{t(`accounts.types.${type}`)}</Text>
+          {typeAccounts.map((account) => (
+            <AccountManagementRow
+              key={account.id}
+              account={account}
+              onEdit={setEditAccount}
+              onArchive={(a) => openConfirm(a, 'archive')}
+              onRestore={(a) => openConfirm(a, 'restore')}
+              onDelete={(a) => openConfirm(a, 'delete')}
+            />
+          ))}
+        </Box>
+      ))}
 
       {/* Archived section */}
       {archivedAccounts.length > 0 && (
-        <Stack gap="sm">
-          <Text className={styles.groupLabel}>{t('accounts.management.archivedSection')}</Text>
+        <Box className={styles.mgmtSection}>
+          <Text className={styles.mgmtSectionHeader}>{t('accounts.management.archivedSection')}</Text>
           {archivedAccounts.map((account) => (
             <AccountManagementRow
               key={account.id}
@@ -327,10 +306,9 @@ export function AccountsManagement() {
               onArchive={(a) => openConfirm(a, 'archive')}
               onRestore={(a) => openConfirm(a, 'restore')}
               onDelete={(a) => openConfirm(a, 'delete')}
-              onAdjustBalance={setAdjustAccount}
             />
           ))}
-        </Stack>
+        </Box>
       )}
 
       {/* Create modal */}

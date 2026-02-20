@@ -104,24 +104,129 @@
   border-color: var(--border-medium);
 }
 
+/* ── Management section card ── */
+.mgmtSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mgmtSectionHeader {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted, dimgray);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
 /* ── Management table row ── */
 .mgmtRow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   padding: 14px 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  transition: border-color 0.2s ease;
+  transition: background 0.15s ease;
+}
+
+.mgmtRow + .mgmtRow {
+  border-top: 1px solid var(--border-subtle);
 }
 
 .mgmtRow:hover {
-  border-color: var(--border-medium);
+  background: var(--bg-elevated);
 }
 
 .mgmtRowArchived {
   opacity: 0.6;
+}
+
+/* ── Icon frame ── */
+.mgmtIconFrame {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mgmtIconEmoji {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* ── Account info ── */
+.mgmtAccountInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.mgmtAccountName {
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  line-height: 1.3;
+}
+
+.mgmtAccountMeta {
+  font-size: 12px !important;
+  color: var(--text-secondary) !important;
+  margin-top: 2px;
+}
+
+/* ── Balance column ── */
+.mgmtBalanceColumn {
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mgmtBalanceLabel {
+  font-size: 11px;
+  color: var(--text-muted, dimgray);
+  font-weight: 500;
+}
+
+.mgmtBalanceValue {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ── Status column ── */
+.mgmtStatusColumn {
+  min-width: 90px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mgmtStatusDot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+}
+
+.mgmtStatusDotActive {
+  background: var(--accent-primary, #4a90d9);
+}
+
+.mgmtStatusDotArchived {
+  background: var(--text-muted, dimgray);
+}
+
+/* ── Actions column ── */
+.mgmtActionsColumn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
 }
 
 /* ── Add Button gradient ── */
