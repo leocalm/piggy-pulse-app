@@ -46,11 +46,13 @@ const vendors = [
     id: 'vendor-1',
     name: 'Airline Co',
     transactionCount: 0,
+    isArchived: false,
   },
   {
     id: 'vendor-2',
     name: 'Hotel Group',
     transactionCount: 0,
+    isArchived: false,
   },
 ];
 
@@ -72,6 +74,7 @@ const accounts = [
     balancePerDay: [],
     balanceChangeThisPeriod: 0,
     transactionCount: 0,
+    isArchived: false,
   },
 ];
 

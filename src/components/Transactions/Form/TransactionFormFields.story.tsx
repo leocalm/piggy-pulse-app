@@ -46,6 +46,7 @@ const mockAccounts: AccountResponse[] = [
     balancePerDay: [],
     balanceChangeThisPeriod: 0,
     transactionCount: 0,
+    isArchived: false,
   },
 ];
 

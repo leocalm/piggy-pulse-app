@@ -39,6 +39,7 @@ export const Checking: Story = {
       balancePerDay: [],
       balanceChangeThisPeriod: 0,
       transactionCount: 0,
+      isArchived: false,
     },
   },
 };
@@ -56,6 +57,7 @@ export const Savings: Story = {
       balancePerDay: [],
       balanceChangeThisPeriod: 0,
       transactionCount: 0,
+      isArchived: false,
     },
   },
 };
@@ -73,6 +75,7 @@ export const CreditCard: Story = {
       balancePerDay: [],
       balanceChangeThisPeriod: 0,
       transactionCount: 0,
+      isArchived: false,
     },
   },
 };
@@ -92,6 +95,7 @@ export const AllVariants: Story = {
           balancePerDay: [],
           balanceChangeThisPeriod: 0,
           transactionCount: 0,
+          isArchived: false,
         }}
       />
       <AccountBadge
@@ -106,6 +110,7 @@ export const AllVariants: Story = {
           balancePerDay: [],
           balanceChangeThisPeriod: 0,
           transactionCount: 0,
+          isArchived: false,
         }}
       />
       <AccountBadge
@@ -120,6 +125,7 @@ export const AllVariants: Story = {
           balancePerDay: [],
           balanceChangeThisPeriod: 0,
           transactionCount: 0,
+          isArchived: false,
         }}
       />
       <AccountBadge
@@ -134,6 +140,7 @@ export const AllVariants: Story = {
           balancePerDay: [],
           balanceChangeThisPeriod: 0,
           transactionCount: 0,
+          isArchived: false,
         }}
       />
     </Group>

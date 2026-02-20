@@ -24,6 +24,7 @@ const mockAccount: AccountResponse = {
   balancePerDay: [],
   balanceChangeThisPeriod: 0,
   transactionCount: 0,
+  isArchived: false,
 };
 
 const mockCategory: CategoryResponse = {

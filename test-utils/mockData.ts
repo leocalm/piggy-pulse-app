@@ -16,6 +16,7 @@ export const createMockAccount = (overrides?: Partial<AccountResponse>): Account
   accountType: 'Checking',
   currency: mockCurrency,
   balance: 100000,
+  isArchived: false,
   balancePerDay: [],
   balanceChangeThisPeriod: 0,
   transactionCount: 0,

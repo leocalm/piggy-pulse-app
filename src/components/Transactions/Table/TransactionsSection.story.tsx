@@ -39,6 +39,7 @@ const mockAccount: AccountResponse = {
   balancePerDay: [],
   balanceChangeThisPeriod: 0,
   transactionCount: 0,
+  isArchived: false,
 };
 
 const mockTransactions: TransactionResponse[] = [
@@ -144,6 +145,7 @@ const mockTransactions: TransactionResponse[] = [
       balancePerDay: [],
       balanceChangeThisPeriod: 0,
       transactionCount: 0,
+      isArchived: false,
     },
     toAccount: mockAccount,
     vendor: null,
