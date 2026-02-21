@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 import {
   IconAlertTriangle,
-  IconCalendarPlus,
   IconChevronDown,
   IconChevronUp,
   IconPlayerPause,
@@ -314,68 +313,81 @@ export function PeriodsPage() {
 
   return (
     <Stack gap="xl" className={classes.pageRoot}>
-      <div>
-        <Title order={1}>{t('periods.page.title')}</Title>
-        <Text c="dimmed">{t('periods.page.description')}</Text>
-      </div>
+      <Group justify="space-between" align="flex-start" className={classes.headerRow}>
+        <Stack gap={4}>
+          <Title order={1}>{t('periods.page.title')}</Title>
+          <Text c="dimmed">{t('periods.page.description')}</Text>
+        </Stack>
+
+        <Button onClick={openCreateModal}>{t('periods.createPeriod')}</Button>
+      </Group>
 
       {schedule ? (
-        <Paper withBorder radius="lg" p="lg" className={classes.scheduleCard}>
-          <Group justify="space-between" align="flex-start" gap="md">
-            <Stack gap={4}>
-              <Group gap="xs">
-                <Text fw={700}>{t('periods.schedule.activeTitle')}</Text>
-                <Badge color="violet" variant="light">
-                  {t('periods.schedule.activeBadge')}
-                </Badge>
-              </Group>
-              <Text size="sm" c="dimmed">
-                {t('periods.schedule.summary', {
-                  startDay: schedule.startDay,
-                  durationValue: schedule.durationValue,
-                  durationUnit: t(`periods.modal.durationUnits.${schedule.durationUnit}`),
-                  generateAhead: schedule.generateAhead,
-                })}
-              </Text>
-            </Stack>
-
-            <Group gap="xs">
-              <Button
-                variant="light"
-                leftSection={<IconSettings size={14} />}
-                onClick={() => setScheduleModalOpen(true)}
-              >
-                {t('periods.schedule.edit')}
-              </Button>
-              <Button
-                color="red"
-                variant="light"
-                leftSection={<IconPlayerPause size={14} />}
-                onClick={() => setDisableScheduleConfirmOpen(true)}
-                loading={disableScheduleMutation.isPending}
-              >
-                {t('periods.schedule.disable')}
-              </Button>
-            </Group>
+        <section className={classes.scheduleSection}>
+          <Group justify="space-between" align="center" mb="md">
+            <Title order={3}>Schedule</Title>
           </Group>
-        </Paper>
+          <Paper withBorder radius="lg" p="lg" className={classes.scheduleCard}>
+            <Group justify="space-between" align="flex-start" gap="md">
+              <Stack gap={4}>
+                <Group gap="xs">
+                  <Text fw={700}>{t('periods.schedule.activeTitle')}</Text>
+                  <Badge color="violet" variant="light">
+                    {t('periods.schedule.activeBadge')}
+                  </Badge>
+                </Group>
+                <Text size="sm" c="dimmed">
+                  {t('periods.schedule.summary', {
+                    startDay: schedule.startDay,
+                    durationValue: schedule.durationValue,
+                    durationUnit: t(`periods.modal.durationUnits.${schedule.durationUnit}`),
+                    generateAhead: schedule.generateAhead,
+                  })}
+                </Text>
+              </Stack>
+
+              <Group gap="xs">
+                <Button
+                  variant="light"
+                  leftSection={<IconSettings size={14} />}
+                  onClick={() => setScheduleModalOpen(true)}
+                >
+                  {t('periods.schedule.edit')}
+                </Button>
+                <Button
+                  color="red"
+                  variant="light"
+                  leftSection={<IconPlayerPause size={14} />}
+                  onClick={() => setDisableScheduleConfirmOpen(true)}
+                  loading={disableScheduleMutation.isPending}
+                >
+                  {t('periods.schedule.disable')}
+                </Button>
+              </Group>
+            </Group>
+          </Paper>
+        </section>
       ) : (
-        <Paper withBorder radius="lg" p="lg" className={classes.setupCard}>
-          <Group justify="space-between" align="center">
-            <div>
+        <section className={classes.scheduleSection}>
+          <Group justify="space-between" align="center" mb="md">
+            <Title order={3}>Schedule</Title>
+          </Group>
+          <Paper withBorder radius="lg" p="lg" className={classes.setupCard}>
+            <Stack gap={4}>
               <Text fw={700}>{t('periods.schedule.notConfiguredTitle')}</Text>
               <Text size="sm" c="dimmed">
                 {t('periods.schedule.notConfiguredDescription')}
               </Text>
-            </div>
+            </Stack>
+
             <Button
               leftSection={<IconRefresh size={14} />}
               onClick={() => setScheduleModalOpen(true)}
             >
               {t('periods.schedule.configure')}
             </Button>
-          </Group>
-        </Paper>
+          </Paper>
+        </section>
       )}
 
       {(gaps?.unassignedCount ?? 0) > 0 && (
@@ -410,7 +422,7 @@ export function PeriodsPage() {
         </Alert>
       )}
 
-      <section className={classes.section}>
+      <section className={`${classes.section} ${classes.currentSection}`}>
         <Group justify="space-between">
           <Title order={3}>{t('periods.sections.current')}</Title>
         </Group>
@@ -432,7 +444,7 @@ export function PeriodsPage() {
         </Stack>
       </section>
 
-      <section className={classes.section}>
+      <section className={`${classes.section} ${classes.upcomingSection}`}>
         <Group justify="space-between">
           <Title order={3}>{t('periods.sections.upcoming')}</Title>
           <Badge variant="light" color="gray">
@@ -457,7 +469,7 @@ export function PeriodsPage() {
         </Stack>
       </section>
 
-      <section className={classes.section}>
+      <section className={`${classes.section} ${classes.pastSection}`}>
         <Group justify="space-between" align="center">
           <Title order={3}>{t('periods.sections.past')}</Title>
           <Group gap="xs">
@@ -493,18 +505,6 @@ export function PeriodsPage() {
           </Stack>
         )}
       </section>
-
-      {!schedule && (
-        <Button
-          className={classes.fab}
-          radius="xl"
-          size="lg"
-          leftSection={<IconCalendarPlus size={16} />}
-          onClick={openCreateModal}
-        >
-          {t('periods.createPeriod')}
-        </Button>
-      )}
 
       <PeriodFormModal
         opened={isPeriodModalOpen}
