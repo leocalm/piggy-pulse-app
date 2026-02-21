@@ -977,18 +977,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/dates@npm:^8.3.10":
-  version: 8.3.14
-  resolution: "@mantine/dates@npm:8.3.14"
+"@mantine/dates@npm:^8.3.15":
+  version: 8.3.15
+  resolution: "@mantine/dates@npm:8.3.15"
   dependencies:
     clsx: "npm:^2.1.1"
   peerDependencies:
-    "@mantine/core": 8.3.14
-    "@mantine/hooks": 8.3.14
+    "@mantine/core": 8.3.15
+    "@mantine/hooks": 8.3.15
     dayjs: ">=1.0.0"
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/3e13fa766e9c7194ddd25a2ac0de292a06d4f3187dad54be07fb35ba0e542957d39f21c1f1e0053637dc88438de8cc759e60b576465da3f3c32f58cb5eab6df0
+  checksum: 10c0/ec1f6f482b135524181d22f9d324ae65a4ca815059d1af367482411c469751fbcf61301ee631e4d60be4e488cb4432c26ef6d6b33d2f0a200bf81dee43ab6b78
   languageName: node
   linkType: hard
 
@@ -5676,7 +5676,7 @@ __metadata:
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.0"
     "@mantine/charts": "npm:^8.3.10"
     "@mantine/core": "npm:^8.3.10"
-    "@mantine/dates": "npm:^8.3.10"
+    "@mantine/dates": "npm:^8.3.15"
     "@mantine/form": "npm:^8.3.10"
     "@mantine/hooks": "npm:^8.3.10"
     "@mantine/notifications": "npm:^8.3.10"
@@ -5723,7 +5723,7 @@ __metadata:
     react-is: "npm:^19.2.3"
     react-router-dom: "npm:^7.9.4"
     recharts: "npm:^3.5.0"
-    storybook: "npm:10.2.8"
+    storybook: "npm:10.2.10"
     stylelint: "npm:^16.25.0"
     stylelint-config-standard-scss: "npm:^17.0.0"
     typescript: "npm:^5.9.3"
@@ -6833,9 +6833,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:10.2.8":
-  version: 10.2.8
-  resolution: "storybook@npm:10.2.8"
+"storybook@npm:10.2.10":
+  version: 10.2.10
+  resolution: "storybook@npm:10.2.10"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
     "@storybook/icons": "npm:^2.0.1"
@@ -6856,7 +6856,7 @@ __metadata:
       optional: true
   bin:
     storybook: ./dist/bin/dispatcher.js
-  checksum: 10c0/b3ed541f233470d80d3fbef48083e8dcda50fc789ae16853b7a33bc003fdb9dfc5aeaa6d61fac5e2e1f78a9ee3bd13d6ff777a6cf6657b3d6f91c2bd9ab2f0da
+  checksum: 10c0/ef7e8d937ef65247b5e752f8fbf0e75c1d3e5d7d6af1b012cf6103d4e2563bf116deffe632e4904e6057d41a6f7c92448ce2adb945a1e6a52b334c0470c999b2
   languageName: node
   linkType: hard
 
