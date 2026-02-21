@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import * as useBudget from '@/hooks/useBudget';
 import { fireEvent, render, screen } from '@/test-utils';
 import { PeriodsPage } from './PeriodsPage';
@@ -71,7 +71,10 @@ vi.mock('@/hooks/useDisplayCurrency', () => ({
 
 describe('PeriodsPage', () => {
   beforeEach(() => {
-    vi.mocked(useBudget.useBudgetPeriods).mockReturnValue({ data: mockPeriods, isLoading: false } as any);
+    vi.mocked(useBudget.useBudgetPeriods).mockReturnValue({
+      data: mockPeriods,
+      isLoading: false,
+    } as any);
     vi.mocked(useBudget.useBudgetPeriodGaps).mockReturnValue({
       data: { unassignedCount: 0, transactions: [] },
       isLoading: false,
@@ -116,7 +119,9 @@ describe('PeriodsPage', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Toggle past periods/i }));
 
-    expect(screen.getAllByRole('link', { name: /^View budget period$/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: /^View budget period$/i }).length).toBeGreaterThan(
+      0
+    );
     expect(screen.getByText(/^Auto$/i)).toBeInTheDocument();
     expect(screen.queryByText(/Auto-generated/i)).not.toBeInTheDocument();
   });

@@ -17,8 +17,8 @@ import { FormOverlay } from '@/components/Overlays/FormOverlay';
 import { useCreateBudgetPeriod, useUpdateBudgetPeriod } from '@/hooks/useBudget';
 import { toast } from '@/lib/toast';
 import { BudgetPeriod, PeriodDurationUnit } from '@/types/budget';
-import classes from './PeriodFormModal.module.css';
 import sharedClasses from './ModalSectionShared.module.css';
+import classes from './PeriodFormModal.module.css';
 
 interface PeriodFormModalProps {
   opened: boolean;

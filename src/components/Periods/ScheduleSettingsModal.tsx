@@ -26,8 +26,8 @@ import {
   PeriodDurationUnit,
   WeekendAdjustment,
 } from '@/types/budget';
-import classes from './ScheduleSettingsModal.module.css';
 import sharedClasses from './ModalSectionShared.module.css';
+import classes from './ScheduleSettingsModal.module.css';
 
 interface ScheduleSettingsModalProps {
   opened: boolean;
