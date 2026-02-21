@@ -1,81 +1,60 @@
-import React, { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ActionIcon, Button, Group, Loader, Paper, Stack, Text, Title } from '@mantine/core';
+import { ActionIcon, Container } from '@mantine/core';
 import { fetchAccount } from '@/api/account';
-import { TransactionList } from '@/components/Transactions';
+import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import { queryKeys } from '@/hooks/queryKeys';
-import { useDeleteTransaction, useTransactions } from '@/hooks/useTransactions';
-import { AccountCard } from './AccountCard';
+import { useAccountDetail } from '@/hooks/useAccountDetail';
+import { AccountContextSection } from './AccountContextSection';
+import { AccountDetailHeader } from './AccountDetailHeader';
+import { AccountTransactions } from './AccountTransactions';
+import { BalanceHistoryChart } from './BalanceHistoryChart';
+import { PeriodFlow } from './PeriodFlow';
 
 export function AccountDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const deleteTransactionMutation = useDeleteTransaction(null);
+  const { selectedPeriodId } = useBudgetPeriodSelection();
 
-  const { data: account, isLoading: isLoadingAccount } = useQuery({
+  const { data: account, isLoading: accountLoading } = useQuery({
     queryKey: queryKeys.account(id!),
     queryFn: () => fetchAccount(id!),
     enabled: !!id,
   });
 
-  const { data: transactions } = useTransactions(null);
-
-  // Filter transactions for this account
-  const accountTransactions = useMemo(() => {
-    if (!transactions || !id) {
-      return [];
-    }
-    return transactions.filter((t) => t.fromAccount.id === id || t.toAccount?.id === id);
-  }, [transactions, id]);
-
-  if (isLoadingAccount) {
-    return <Loader />;
-  }
-
-  if (!account) {
-    return <Text>Account not found</Text>;
-  }
+  const { data: detail, isLoading: detailLoading } = useAccountDetail(id!, selectedPeriodId);
 
   return (
-    <Stack gap="lg">
-      <Group justify="space-between">
-        <Group>
-          <ActionIcon variant="subtle" onClick={() => navigate('/accounts')}>
-            <span>⬅️</span>
-          </ActionIcon>
-          <Title order={2}>{account.name}</Title>
-        </Group>
-        <Button variant="light" leftSection={<span>✏️</span>}>
-          Edit Account
-        </Button>
-      </Group>
+    <Container size="lg" py="xl">
+      <ActionIcon variant="subtle" mb="md" onClick={() => navigate('/accounts')}>
+        ←
+      </ActionIcon>
 
-      <AccountCard
+      <AccountDetailHeader
         account={account}
-        balanceHistory={[]} // Placeholder for history data
-        monthlySpent={0} // Placeholder
-        transactionCount={accountTransactions.length}
-        onEdit={() => {}}
-        onDelete={() => {}}
-        onViewDetails={() => {}}
+        detail={detail}
+        isLoading={accountLoading || detailLoading}
       />
 
-      <Paper withBorder p="md" radius="md">
-        <Title order={4} mb="md">
-          Transaction History
-        </Title>
-        {accountTransactions.length > 0 ? (
-          <TransactionList
-            transactions={accountTransactions}
-            deleteTransaction={(txId) => deleteTransactionMutation.mutateAsync(txId)}
-          />
-        ) : (
-          <Text c="dimmed" ta="center" py="xl">
-            No transactions found for this account.
-          </Text>
-        )}
-      </Paper>
-    </Stack>
+      <BalanceHistoryChart
+        accountId={id!}
+        periodId={selectedPeriodId}
+        currency={account?.currency}
+      />
+
+      <PeriodFlow detail={detail} currency={account?.currency} isLoading={detailLoading} />
+
+      <AccountContextSection
+        accountId={id!}
+        periodId={selectedPeriodId}
+        currency={account?.currency}
+      />
+
+      <AccountTransactions
+        accountId={id!}
+        periodId={selectedPeriodId}
+        currency={account?.currency}
+      />
+    </Container>
   );
 }
