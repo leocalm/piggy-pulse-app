@@ -2,7 +2,7 @@ export interface CategoryTargetRow {
   id: string;
   categoryId: string;
   categoryName: string;
-  categoryType: 'Incoming' | 'Outgoing';
+  categoryType: 'Incoming' | 'Outgoing' | 'Transfer';
   categoryIcon: string;
   categoryColor: string;
   isArchived: boolean;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, Stack, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -27,6 +28,7 @@ type ViewMode = 'overview' | 'management';
 
 export function CategoriesContainer() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [viewMode, setViewMode] = useState<ViewMode>('overview');
 
@@ -182,6 +184,15 @@ export function CategoriesContainer() {
                 onClick={() => setViewMode('management')}
               >
                 {t('categories.modeSwitch.management')}
+              </button>
+              <button
+                type="button"
+                className={styles.modePill}
+                tabIndex={0}
+                aria-label={t('categories.modeSwitch.targets')}
+                onClick={() => navigate('/categories/targets')}
+              >
+                {t('categories.modeSwitch.targets')}
               </button>
             </nav>
           </div>
