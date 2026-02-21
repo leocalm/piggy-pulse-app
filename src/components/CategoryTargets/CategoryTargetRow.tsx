@@ -2,8 +2,8 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, TextInput } from '@mantine/core';
 import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
-import { formatCurrency } from '@/utils/currency';
 import { CategoryTargetRow as CategoryTargetRowType } from '@/types/categoryTarget';
+import { formatCurrency } from '@/utils/currency';
 import styles from './CategoryTargets.module.css';
 
 interface CategoryTargetRowProps {

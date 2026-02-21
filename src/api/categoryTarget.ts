@@ -1,4 +1,4 @@
-import { CategoryTargetsResponse, BatchUpsertTargetsRequest } from '@/types/categoryTarget';
+import { BatchUpsertTargetsRequest, CategoryTargetsResponse } from '@/types/categoryTarget';
 import { apiGet, apiPost } from './client';
 
 export async function fetchCategoryTargets(periodId: string): Promise<CategoryTargetsResponse> {

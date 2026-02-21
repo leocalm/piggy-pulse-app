@@ -1374,7 +1374,8 @@
     "header": {
       "title": "Categories",
       "subtitle": "Diagnostic view of category-level position and deviation.",
-      "subtitleManagement": "Define and organize your budgeting structure."
+      "subtitleManagement": "Define and organize your budgeting structure.",
+      "subtitleTargets": "Set spending targets and track budget adherence per category."
     },
     "modeSwitch": {
       "overview": "Overview",

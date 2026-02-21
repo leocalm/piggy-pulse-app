@@ -112,11 +112,6 @@ const AccessDeniedPage = lazy(() =>
     default: module.AccessDeniedPage,
   }))
 );
-const CategoryTargetsPage = lazy(() =>
-  import('./pages/CategoryTargets.page').then((module) => ({
-    default: module.CategoryTargetsPage,
-  }))
-);
 
 const Layout = () => {
   const location = useLocation();
@@ -159,7 +154,6 @@ export function Router() {
         { path: 'accounts', element: withPageLoader(<Accounts />) },
         { path: 'accounts/:id', element: withPageLoader(<AccountDetailPage />) },
         { path: 'categories', element: withPageLoader(<Categories />) },
-        { path: 'categories/targets', element: withPageLoader(<CategoryTargetsPage />) },
         { path: 'categories/:id', element: withPageLoader(<CategoryDetailPage />) },
         { path: 'vendors', element: withPageLoader(<Vendors />) },
         { path: 'budget', element: withPageLoader(<Budget />) },

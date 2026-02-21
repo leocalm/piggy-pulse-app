@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
-import { formatCurrency } from '@/utils/currency';
 import { CategoryTargetsResponse } from '@/types/categoryTarget';
+import { formatCurrency } from '@/utils/currency';
 import styles from './CategoryTargets.module.css';
 
 interface CategoryTargetsContextProps {
@@ -46,17 +46,12 @@ export function CategoryTargetsContext({ data }: CategoryTargetsContextProps) {
           <span className={styles.contextValue}>{categoriesLabel}</span>
         </div>
         <div className={styles.contextBlock}>
-          <span className={styles.contextLabel}>
-            {t('categoryTargets.context.periodProgress')}
-          </span>
+          <span className={styles.contextLabel}>{t('categoryTargets.context.periodProgress')}</span>
           <span className={styles.contextProgressLabel}>
             {progressPercent}% {t('categoryTargets.context.elapsed')}
           </span>
           <div className={styles.contextProgressTrack}>
-            <div
-              className={styles.contextProgressFill}
-              style={{ width: `${progressPercent}%` }}
-            />
+            <div className={styles.contextProgressFill} style={{ width: `${progressPercent}%` }} />
           </div>
         </div>
       </div>

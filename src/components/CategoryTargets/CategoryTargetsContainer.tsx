@@ -104,7 +104,9 @@ export function CategoryTargetsContainer() {
   );
 
   const isEmpty = useMemo(() => {
-    if (!data) { return false; }
+    if (!data) {
+      return false;
+    }
     return (
       data.outgoingTargets.length === 0 &&
       data.incomingTargets.length === 0 &&
