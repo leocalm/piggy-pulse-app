@@ -742,6 +742,7 @@
       }
     },
     "schedule": {
+      "sectionTitle": "Agendamento",
       "title": "Configurações de Agendamento",
       "mode": "Modo de Criação",
       "manualMode": "Manual - criar períodos manualmente",

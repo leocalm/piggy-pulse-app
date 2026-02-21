@@ -90,6 +90,17 @@ describe('PeriodsPage', () => {
     expect(screen.getByRole('heading', { name: /Past Periods/i })).toBeInTheDocument();
   });
 
+  it('shows create period button when schedule is absent', () => {
+    vi.mocked(useBudget.useBudgetPeriodSchedule).mockReturnValue({
+      data: null,
+      isLoading: false,
+    } as any);
+
+    renderPeriodsPage();
+
+    expect(screen.getByRole('button', { name: /Create Period/i })).toBeInTheDocument();
+  });
+
   it('renders compact card affordances with view action and auto-generated marker', async () => {
     renderPeriodsPage();
 

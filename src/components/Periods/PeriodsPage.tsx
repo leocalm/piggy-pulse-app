@@ -325,7 +325,7 @@ export function PeriodsPage() {
       {schedule ? (
         <section className={classes.scheduleSection}>
           <Group justify="space-between" align="center" mb="md">
-            <Title order={3}>Schedule</Title>
+            <Title order={3}>{t('periods.schedule.sectionTitle')}</Title>
           </Group>
           <Paper withBorder radius="lg" p="lg" className={classes.scheduleCard}>
             <Group justify="space-between" align="flex-start" gap="md">
@@ -370,7 +370,7 @@ export function PeriodsPage() {
       ) : (
         <section className={classes.scheduleSection}>
           <Group justify="space-between" align="center" mb="md">
-            <Title order={3}>Schedule</Title>
+            <Title order={3}>{t('periods.schedule.sectionTitle')}</Title>
           </Group>
           <Paper withBorder radius="lg" p="lg" className={classes.setupCard}>
             <Stack gap={4}>

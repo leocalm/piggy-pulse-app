@@ -444,6 +444,7 @@
       }
     },
     "schedule": {
+      "sectionTitle": "Schedule",
       "title": "Period Schedule Settings",
       "mode": "Creation Mode",
       "manualMode": "Manual - create periods yourself",
