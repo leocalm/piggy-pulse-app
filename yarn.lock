@@ -1838,12 +1838,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^19.2.2":
+"@types/react@npm:*":
   version: 19.2.13
   resolution: "@types/react@npm:19.2.13"
   dependencies:
     csstype: "npm:^3.2.2"
   checksum: 10c0/e512dc53b805b9066f5c6ad42944372e1204290d618dbaec634d8bbd80d3aadcc1b8cdd7251329936bbdafae0425c02f531083213473bb370df903f20bb66e91
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^19.2.14":
+  version: 19.2.14
+  resolution: "@types/react@npm:19.2.14"
+  dependencies:
+    csstype: "npm:^3.2.2"
+  checksum: 10c0/7d25bf41b57719452d86d2ac0570b659210402707313a36ee612666bf11275a1c69824f8c3ee1fdca077ccfe15452f6da8f1224529b917050eb2d861e52b59b7
   languageName: node
   linkType: hard
 
@@ -2054,12 +2063,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-v8@npm:4.0.17":
-  version: 4.0.17
-  resolution: "@vitest/coverage-v8@npm:4.0.17"
+"@vitest/coverage-v8@npm:4.0.18":
+  version: 4.0.18
+  resolution: "@vitest/coverage-v8@npm:4.0.18"
   dependencies:
     "@bcoe/v8-coverage": "npm:^1.0.2"
-    "@vitest/utils": "npm:4.0.17"
+    "@vitest/utils": "npm:4.0.18"
     ast-v8-to-istanbul: "npm:^0.3.10"
     istanbul-lib-coverage: "npm:^3.2.2"
     istanbul-lib-report: "npm:^3.0.1"
@@ -2069,12 +2078,12 @@ __metadata:
     std-env: "npm:^3.10.0"
     tinyrainbow: "npm:^3.0.3"
   peerDependencies:
-    "@vitest/browser": 4.0.17
-    vitest: 4.0.17
+    "@vitest/browser": 4.0.18
+    vitest: 4.0.18
   peerDependenciesMeta:
     "@vitest/browser":
       optional: true
-  checksum: 10c0/a7120ec1446f4a7a3d0d1c2963a406ec281e99a2c7d163725de0a7ad166d9b996f00a14f8386da09bc3fde0441356e4fb9f3ff99e3cb5a3e8d09ddc8c076cf42
+  checksum: 10c0/e23e0da86f0b2a020c51562bc40ebdc7fc7553c24f8071dfb39a6df0161badbd5eaf2eebbf8ceaef18933a18c1934ff52d1c0c4bde77bb87e0c1feb0c8cbee4d
   languageName: node
   linkType: hard
 
@@ -2133,15 +2142,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/pretty-format@npm:4.0.17":
-  version: 4.0.17
-  resolution: "@vitest/pretty-format@npm:4.0.17"
-  dependencies:
-    tinyrainbow: "npm:^3.0.3"
-  checksum: 10c0/10a2dd7e2daf7ee006107d380bbd28b66b09a7014d31087daab0dea7dee0d12868cfcf6b3372729268502fd9065162345b68b9b9c5d225f5c6c2fd2c664a2a86
-  languageName: node
-  linkType: hard
-
 "@vitest/pretty-format@npm:4.0.18":
   version: 4.0.18
   resolution: "@vitest/pretty-format@npm:4.0.18"
@@ -2196,16 +2196,6 @@ __metadata:
     loupe: "npm:^3.1.4"
     tinyrainbow: "npm:^2.0.0"
   checksum: 10c0/024a9b8c8bcc12cf40183c246c244b52ecff861c6deb3477cbf487ac8781ad44c68a9c5fd69f8c1361878e55b97c10d99d511f2597f1f7244b5e5101d028ba64
-  languageName: node
-  linkType: hard
-
-"@vitest/utils@npm:4.0.17":
-  version: 4.0.17
-  resolution: "@vitest/utils@npm:4.0.17"
-  dependencies:
-    "@vitest/pretty-format": "npm:4.0.17"
-    tinyrainbow: "npm:^3.0.3"
-  checksum: 10c0/1e2e4d7d7709ec022f603a1e12015523a2290f326c0bbe0c6bd5481ec396d4efc6bf8c738d601915d88e74267e9841df1e05157edced10f5048865204aeb86ff
   languageName: node
   linkType: hard
 
@@ -5703,13 +5693,13 @@ __metadata:
     "@testing-library/react": "npm:^16.3.0"
     "@testing-library/user-event": "npm:^14.6.1"
     "@types/node": "npm:^25.2.3"
-    "@types/react": "npm:^19.2.2"
+    "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.1"
     "@types/react-is": "npm:^19"
     "@vitejs/plugin-react": "npm:^5.0.4"
     "@vitest/browser": "npm:^4.0.17"
     "@vitest/browser-playwright": "npm:^4.0.17"
-    "@vitest/coverage-v8": "npm:4.0.17"
+    "@vitest/coverage-v8": "npm:4.0.18"
     dayjs: "npm:^1.11.19"
     emoji-picker-react: "npm:^4.18.0"
     eslint: "npm:^9.39.2"
@@ -5735,7 +5725,7 @@ __metadata:
     react-is: "npm:^19.2.3"
     react-router-dom: "npm:^7.9.4"
     recharts: "npm:^3.5.0"
-    storybook: "npm:10.2.8"
+    storybook: "npm:10.2.10"
     stylelint: "npm:^16.25.0"
     stylelint-config-standard-scss: "npm:^17.0.0"
     typescript: "npm:^5.9.3"
@@ -6845,9 +6835,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:10.2.8":
-  version: 10.2.8
-  resolution: "storybook@npm:10.2.8"
+"storybook@npm:10.2.10":
+  version: 10.2.10
+  resolution: "storybook@npm:10.2.10"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
     "@storybook/icons": "npm:^2.0.1"
@@ -6868,7 +6858,7 @@ __metadata:
       optional: true
   bin:
     storybook: ./dist/bin/dispatcher.js
-  checksum: 10c0/b3ed541f233470d80d3fbef48083e8dcda50fc789ae16853b7a33bc003fdb9dfc5aeaa6d61fac5e2e1f78a9ee3bd13d6ff777a6cf6657b3d6f91c2bd9ab2f0da
+  checksum: 10c0/ef7e8d937ef65247b5e752f8fbf0e75c1d3e5d7d6af1b012cf6103d4e2563bf116deffe632e4904e6057d41a6f7c92448ce2adb945a1e6a52b334c0470c999b2
   languageName: node
   linkType: hard
 
