@@ -1,9 +1,13 @@
 import {
+  AccountContext,
+  AccountDetail,
   AccountManagementResponse,
   AccountRequest,
   AccountResponse,
   AccountsPage,
+  AccountTransactionsPage,
   AdjustStartingBalanceRequest,
+  BalanceHistoryPoint,
 } from '@/types/account';
 import { apiDelete, apiGet, apiGetRaw, apiPatch, apiPost, apiPut } from './client';
 
@@ -134,4 +138,43 @@ export async function adjustStartingBalance(
 
 export async function fetchAccountsManagement(): Promise<AccountManagementResponse[]> {
   return apiGet<AccountManagementResponse[]>('/api/accounts/management');
+}
+
+export async function fetchAccountDetail(
+  accountId: string,
+  periodId: string
+): Promise<AccountDetail> {
+  return apiGet<AccountDetail>(`/api/accounts/${accountId}/detail?period_id=${periodId}`);
+}
+
+export async function fetchAccountBalanceHistory(
+  accountId: string,
+  range: 'period' | '30d' | '90d' | '1y',
+  periodId?: string
+): Promise<BalanceHistoryPoint[]> {
+  const params = new URLSearchParams({ range });
+  if (periodId) {
+    params.set('period_id', periodId);
+  }
+  return apiGet<BalanceHistoryPoint[]>(`/api/accounts/${accountId}/balance-history?${params}`);
+}
+
+export async function fetchAccountTransactions(
+  accountId: string,
+  periodId: string,
+  txType: 'all' | 'in' | 'out' = 'all',
+  cursor?: string
+): Promise<AccountTransactionsPage> {
+  const params = new URLSearchParams({ period_id: periodId, tx_type: txType });
+  if (cursor) {
+    params.set('cursor', cursor);
+  }
+  return apiGetRaw<AccountTransactionsPage>(`/api/accounts/${accountId}/transactions?${params}`);
+}
+
+export async function fetchAccountContext(
+  accountId: string,
+  periodId: string
+): Promise<AccountContext> {
+  return apiGet<AccountContext>(`/api/accounts/${accountId}/context?period_id=${periodId}`);
 }

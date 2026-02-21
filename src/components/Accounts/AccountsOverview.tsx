@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Alert, Box, Group, Loader, Progress, Stack, Text, Tooltip } from '@mantine/core';
 import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import { useInfiniteAccounts } from '@/hooks/useAccounts';
@@ -27,11 +28,16 @@ const ACCOUNT_GROUPS: AccountGroup[] = [
 
 function AllowanceAccountRow({ account }: { account: AccountResponse }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const projected =
     account.nextTransferAmount != null ? account.balance + account.nextTransferAmount : null;
 
   return (
-    <Box className={styles.accountRow}>
+    <Box
+      className={styles.accountRow}
+      onClick={() => navigate(`/accounts/${account.id}`)}
+      style={{ cursor: 'pointer' }}
+    >
       <Group justify="space-between" mb={12}>
         <Text fw={700} size="lg">
           {account.name}
@@ -104,8 +110,14 @@ function AllowanceGroupSection({ accounts }: { accounts: AccountResponse[] }) {
 }
 
 function StandardAccountRow({ account }: { account: AccountResponse }) {
+  const navigate = useNavigate();
+
   return (
-    <Box className={styles.accountRow}>
+    <Box
+      className={styles.accountRow}
+      onClick={() => navigate(`/accounts/${account.id}`)}
+      style={{ cursor: 'pointer' }}
+    >
       <Group justify="space-between" mb={12}>
         <Text fw={700} size="lg" c="var(--text-primary)">
           {account.name}

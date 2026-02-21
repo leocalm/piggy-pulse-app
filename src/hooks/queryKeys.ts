@@ -37,6 +37,12 @@ export const queryKeys = {
     ['accounts', periodId, 'infinite', pageSize] as const,
   account: (id: string) => ['account', id] as const,
   accountsManagement: () => ['accountsManagement'] as const,
+  accountDetail: (id: string, periodId: string) => ['account', id, 'detail', periodId] as const,
+  accountBalanceHistory: (id: string, range: string, periodId?: string) =>
+    ['account', id, 'balance-history', range, periodId] as const,
+  accountTransactions: (id: string, periodId: string, txType: string) =>
+    ['account', id, 'transactions', periodId, txType] as const,
+  accountContext: (id: string, periodId: string) => ['account', id, 'context', periodId] as const,
 
   // Budget
   budget: () => ['budget'] as const,

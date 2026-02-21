@@ -64,3 +64,55 @@ export interface AccountsPage {
   accounts: AccountResponse[];
   nextCursor: string | null;
 }
+
+export interface AccountDetail {
+  balance: number;
+  balanceChange: number;
+  inflows: number;
+  outflows: number;
+  net: number;
+  periodStart: string;
+  periodEnd: string;
+}
+
+export interface BalanceHistoryPoint {
+  date: string;
+  balance: number;
+}
+
+export interface AccountTransaction {
+  id: string;
+  amount: number;
+  description: string;
+  occurredAt: string;
+  categoryName: string;
+  categoryColor: string;
+  flow: 'in' | 'out';
+  runningBalance: number;
+}
+
+export interface AccountTransactionsPage {
+  data: AccountTransaction[];
+  nextCursor: string | null;
+}
+
+export interface CategoryImpactItem {
+  categoryName: string;
+  amount: number;
+  percentage: number;
+}
+
+export interface AccountStability {
+  periodsClosedPositive: number;
+  periodsEvaluated: number;
+  avgClosingBalance: number;
+  highestClosingBalance: number;
+  lowestClosingBalance: number;
+  largestSingleOutflow: number;
+  largestSingleOutflowCategory: string;
+}
+
+export interface AccountContext {
+  categoryImpact: CategoryImpactItem[];
+  stability: AccountStability;
+}
