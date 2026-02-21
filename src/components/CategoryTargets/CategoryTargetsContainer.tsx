@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Skeleton, Stack, Text } from '@mantine/core';
+import { StateRenderer } from '@/components/Utils';
 import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import {
   useCategoryTargets,
@@ -9,7 +10,6 @@ import {
   useSaveCategoryTargets,
 } from '@/hooks/useCategoryTargets';
 import { toast } from '@/lib/toast';
-import { StateRenderer } from '@/components/Utils';
 import { CategoryTargetsContext } from './CategoryTargetsContext';
 import { CategoryTargetTable } from './CategoryTargetTable';
 import { ExcludedCategoriesTable } from './ExcludedCategoriesTable';
@@ -104,7 +104,7 @@ export function CategoryTargetsContainer() {
   );
 
   const isEmpty = useMemo(() => {
-    if (!data) return false;
+    if (!data) { return false; }
     return (
       data.outgoingTargets.length === 0 &&
       data.incomingTargets.length === 0 &&
