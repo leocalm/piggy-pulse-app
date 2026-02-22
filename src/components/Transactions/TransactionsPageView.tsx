@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { IconPlus } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import {
   ActionIcon,
-  Affix,
   Button,
   Drawer,
   Group,
   Stack,
   Text,
-  Transition,
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
@@ -116,7 +113,7 @@ export const TransactionsPageView = ({
 
   const headerActions = (
     <Group gap="xs">
-      {insertEnabled && (
+      {!isMobile && insertEnabled && (
         <Button size="sm" onClick={openAdd} variant="filled">
           {t('transactions.tableView.addTransaction')}
         </Button>
@@ -129,6 +126,13 @@ export const TransactionsPageView = ({
         >
           {batchMode ? t('states.done') : t('transactions.tableView.batchEntry')}
         </Button>
+      )}
+      {isMobile && insertEnabled && (
+        <ActionIcon variant="subtle" onClick={openAdd} aria-label={t('transactions.tableView.addTransaction')}>
+          <Text fw={700} size="lg">
+            +
+          </Text>
+        </ActionIcon>
       )}
       {isMobile && (
         <ActionIcon variant="subtle" onClick={openMobileFilter}>
@@ -198,23 +202,6 @@ export const TransactionsPageView = ({
                 vendors={vendors}
               />
             </Drawer>
-
-            <Affix position={{ bottom: 80, right: 20 }}>
-              <Transition transition="slide-up" mounted={insertEnabled}>
-                {(styles) => (
-                  <ActionIcon
-                    color="blue"
-                    radius="xl"
-                    size={56}
-                    style={styles}
-                    onClick={openAdd}
-                    variant="filled"
-                  >
-                    <IconPlus size={24} />
-                  </ActionIcon>
-                )}
-              </Transition>
-            </Affix>
           </>
         ) : (
           <TransactionsLedger
