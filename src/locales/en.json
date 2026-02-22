@@ -243,7 +243,18 @@
       "dateRange": "Date Range",
       "accountAll": "Account: All",
       "categoryAll": "Category: All",
-      "amountAll": "Amount: All"
+      "amountAll": "Amount: All",
+      "direction": "Direction",
+      "accounts": "Accounts",
+      "categories": "Categories",
+      "vendors": "Vendors",
+      "dateFrom": "From",
+      "dateTo": "To",
+      "allAccounts": "All accounts",
+      "allCategories": "All categories",
+      "allVendors": "All vendors",
+      "clearAll": "Clear filters",
+      "title": "Filters"
     },
     "section": {
       "showing": "Showing {{count}} transactions in {{period}}",
