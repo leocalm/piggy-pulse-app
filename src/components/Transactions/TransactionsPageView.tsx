@@ -8,6 +8,7 @@ import {
   Drawer,
   Group,
   Stack,
+  Text,
   Transition,
   useMantineTheme,
 } from '@mantine/core';
@@ -22,7 +23,7 @@ import { Vendor } from '@/types/vendor';
 import { convertDisplayToCents } from '@/utils/currency';
 import { formatDateForApi } from '@/utils/date';
 import type { EditFormValues } from './Form/EditTransactionForm';
-import { MobileTransactionCard } from './List/MobileTransactionCard';
+import { MobileTransactionsList } from './List/MobileTransactionsList';
 import { PageHeader } from './PageHeader';
 import { TransactionFilters } from './TransactionFilters';
 import { TransactionModal } from './TransactionModal';
@@ -148,14 +149,6 @@ export const TransactionsPageView = ({
       onRetry={onRetry}
       isLoading={isLoading}
       loadingSkeleton={<TransactionListSkeleton count={8} />}
-      isEmpty={!transactions || transactions.length === 0}
-      emptyItemsLabel={t('states.contract.items.transactions')}
-      emptyMessage={t('states.empty.transactions.message')}
-      emptyAction={
-        insertEnabled && isMobile
-          ? { label: t('states.empty.transactions.addTransaction'), onClick: openAdd }
-          : undefined
-      }
     >
       <Stack gap="md">
         <PageHeader
@@ -176,11 +169,19 @@ export const TransactionsPageView = ({
 
         {isMobile ? (
           <>
-            <Stack gap="xs">
-              {transactions?.map((tx) => (
-                <MobileTransactionCard key={tx.id} transaction={tx} />
-              ))}
-            </Stack>
+            {transactions && transactions.length > 0 ? (
+              <MobileTransactionsList
+                transactions={transactions}
+                onEdit={openEdit}
+                onDelete={async (id: string) => {
+                  await deleteTransaction(id);
+                }}
+              />
+            ) : (
+              <Text size="sm" c="dimmed" ta="center" py="lg">
+                {t('states.empty.transactions.message')}
+              </Text>
+            )}
 
             <Drawer
               opened={mobileFilterDrawer}
