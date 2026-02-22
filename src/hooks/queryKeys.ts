@@ -9,6 +9,7 @@ export const queryKeys = {
   vendors: (periodId?: string | null) => ['vendors', periodId] as const,
   vendorsInfinite: (periodId?: string | null, pageSize = 50) =>
     ['vendors', periodId, 'infinite', pageSize] as const,
+  vendorsArchived: () => ['vendors', 'archived'] as const,
   vendor: (id: string) => ['vendor', id] as const,
 
   // Transactions
