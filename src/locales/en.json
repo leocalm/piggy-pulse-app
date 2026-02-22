@@ -222,13 +222,19 @@
     },
     "list": {
       "date": "Date",
+      "notes": "Notes",
       "descriptionVendor": "Description / Vendor",
       "category": "Category",
+      "account": "Account",
       "accounts": "Accounts (From → To)",
+      "vendor": "Vendor",
       "amount": "Amount",
       "row": {
         "transferDescription": "Internal Transfer"
       }
+    },
+    "ledger": {
+      "confirmDelete": "Delete this transaction?"
     },
     "stats": {
       "totalIncome": "Total Income",
@@ -281,6 +287,16 @@
     "modal": {
       "addTitle": "Add Transaction",
       "editTitle": "Edit Transaction"
+    },
+    "batch": {
+      "notesPlaceholder": "Notes",
+      "categoryPlaceholder": "Category",
+      "accountPlaceholder": "Account",
+      "fromAccount": "From",
+      "toAccount": "To",
+      "vendorPlaceholder": "Vendor",
+      "save": "Save",
+      "saveError": "Failed to save transaction"
     }
   },
   "budget": {
