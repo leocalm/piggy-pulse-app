@@ -1090,6 +1090,9 @@
     "form": {
       "nameLabel": "Nome do Fornecedor",
       "namePlaceholder": "Digite o nome do fornecedor",
+      "descriptionLabel": "Descrição (opcional)",
+      "descriptionPlaceholder": "Nota de referência curta",
+      "editNote": "Edições atualizam apenas o rótulo do fornecedor. O histórico financeiro não é alterado.",
       "saveButton": "Salvar Fornecedor",
       "cancelButton": "Cancelar"
     },

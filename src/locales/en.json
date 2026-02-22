@@ -966,6 +966,9 @@
     "form": {
       "nameLabel": "Vendor Name",
       "namePlaceholder": "Enter vendor name",
+      "descriptionLabel": "Description (optional)",
+      "descriptionPlaceholder": "Short reference note",
+      "editNote": "Edits update vendor labeling only. Financial history is unchanged.",
       "saveButton": "Save Vendor",
       "cancelButton": "Cancel"
     },
