@@ -20,7 +20,9 @@ function groupByDate(transactions: TransactionResponse[]): DateGroup[] {
   const map = new Map<string, TransactionResponse[]>();
   for (const tx of transactions) {
     const d = tx.occurredAt.slice(0, 10);
-    if (!map.has(d)) map.set(d, []);
+    if (!map.has(d)) {
+      map.set(d, []);
+    }
     map.get(d)!.push(tx);
   }
   return Array.from(map.entries()).map(([date, items]) => ({ date, items }));

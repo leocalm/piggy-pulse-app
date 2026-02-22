@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ActionIcon,
-  Button,
-  Drawer,
-  Group,
-  Stack,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { ActionIcon, Button, Drawer, Group, Stack, Text, useMantineTheme } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import type { TransactionFilterParams } from '@/api/transaction';
 import { StateRenderer, TransactionListSkeleton } from '@/components/Utils';
@@ -128,11 +120,14 @@ export const TransactionsPageView = ({
         </Button>
       )}
       {isMobile && insertEnabled && (
-        <ActionIcon variant="subtle" onClick={openAdd} aria-label={t('transactions.tableView.addTransaction')}>
-          <Text fw={700} size="lg">
-            +
-          </Text>
-        </ActionIcon>
+        <Button
+          onClick={openAdd}
+          variant="filled"
+          size="sm"
+          style={{ fontWeight: 700, fontSize: '18px' }}
+        >
+          +
+        </Button>
       )}
       {isMobile && (
         <ActionIcon variant="subtle" onClick={openMobileFilter}>
