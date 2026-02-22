@@ -275,6 +275,7 @@
     "tableView": {
       "addTransaction": "Add Transaction",
       "createTransaction": "Create Transaction",
+      "batchEntry": "Batch Entry",
       "error": {
         "load": "Error loading transactions"
       }
