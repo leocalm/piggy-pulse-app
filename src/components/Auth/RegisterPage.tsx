@@ -12,7 +12,7 @@ import {
 import { useForm } from '@mantine/form';
 import { register } from '@/api/auth';
 import { useAuth } from '@/context/AuthContext';
-import { PasswordStrengthResult, usePasswordStrength } from '@/hooks/usePasswordStrength';
+import { type PasswordStrengthResult, usePasswordStrength } from '@/hooks/usePasswordStrength';
 import { sleep } from '@/utils/time';
 import { AuthCard, AuthMessage } from './AuthCard';
 import { PasswordStrengthIndicator } from './PasswordStrengthIndicator';
@@ -30,7 +30,9 @@ export function RegisterPage() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      const from = (location.state as any)?.from?.pathname || '/dashboard';
+      const from =
+        (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ??
+        '/dashboard';
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, navigate, location]);
