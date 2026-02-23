@@ -30,7 +30,7 @@
   },
   "auth": {
     "login": {
-      "welcomeBack": "Welcome back!",
+      "welcomeBack": "Welcome back",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
       "passwordLabel": "Password",
