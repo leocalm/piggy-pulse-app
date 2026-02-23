@@ -31,6 +31,7 @@
   "auth": {
     "login": {
       "welcomeBack": "Welcome back",
+      "tagline": "Clarity begins with structure.",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
       "passwordLabel": "Password",

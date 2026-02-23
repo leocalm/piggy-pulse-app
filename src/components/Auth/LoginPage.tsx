@@ -152,22 +152,22 @@ export function LoginPage() {
   }
 
   return (
-    <AuthCard tagline="Clarity begins with structure.">
+    <AuthCard tagline={t('auth.login.tagline', 'Clarity begins with structure.')}>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
           <Text fw={600} size="lg" ta="center">
             {t('auth.login.welcomeBack', 'Welcome back')}
           </Text>
           <TextInput
-            label="Email"
-            placeholder="name@example.com"
+            label={t('auth.login.emailLabel', 'Email')}
+            placeholder={t('auth.login.emailPlaceholder', 'name@example.com')}
             required
             disabled={loading}
             {...form.getInputProps('email')}
           />
           <PasswordInput
-            label="Password"
-            placeholder="Enter password"
+            label={t('auth.login.passwordLabel', 'Password')}
+            placeholder={t('auth.login.passwordPlaceholder', 'Enter password')}
             required
             disabled={loading}
             {...form.getInputProps('password')}
