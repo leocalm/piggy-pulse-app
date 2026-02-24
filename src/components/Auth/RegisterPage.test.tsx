@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { MantineProvider } from '@mantine/core';
 import { vi } from 'vitest';
+import { MantineProvider } from '@mantine/core';
+import { RegisterPage } from './RegisterPage';
 
 vi.mock('@/api/auth', () => ({ register: vi.fn() }));
 vi.mock('@/context/AuthContext', () => ({
@@ -16,8 +17,6 @@ vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return { ...actual, useNavigate: () => vi.fn(), useLocation: () => ({ state: null }) };
 });
-
-import { RegisterPage } from './RegisterPage';
 
 const wrap = () =>
   render(

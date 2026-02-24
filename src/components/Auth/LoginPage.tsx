@@ -86,11 +86,23 @@ export function LoginPage() {
       }
 
       if (err instanceof ApiError && (err.status === 423 || err.status === 429)) {
-        setLockedMessage(t('auth.login.errors.locked', "We're temporarily limiting sign-in attempts. Please try again later."));
+        setLockedMessage(
+          t(
+            'auth.login.errors.locked',
+            "We're temporarily limiting sign-in attempts. Please try again later."
+          )
+        );
       } else if (requires2FA) {
-        setError(t('auth.login.twoFactor.errors.generic', 'Verification failed. Please try again.'));
+        setError(
+          t('auth.login.twoFactor.errors.generic', 'Verification failed. Please try again.')
+        );
       } else {
-        setError(t('auth.login.errors.generic', "We couldn't sign you in. Please verify your credentials and try again."));
+        setError(
+          t(
+            'auth.login.errors.generic',
+            "We couldn't sign you in. Please verify your credentials and try again."
+          )
+        );
       }
     } finally {
       setLoading(false);
@@ -113,7 +125,10 @@ export function LoginPage() {
               {t('auth.login.twoFactor.title', 'Verify your identity')}
             </Text>
             <Text size="sm" c="dimmed" ta="center">
-              {t('auth.login.twoFactor.description', 'Enter your 6-digit verification code from your authenticator app.')}
+              {t(
+                'auth.login.twoFactor.description',
+                'Enter your 6-digit verification code from your authenticator app.'
+              )}
             </Text>
             <Group justify="center">
               <PinInput
@@ -132,13 +147,10 @@ export function LoginPage() {
               />
             </Group>
             <AuthMessage message={error} />
-            <Button
-              fullWidth
-              type="submit"
-              loading={loading}
-              disabled={twoFactorCode.length !== 6}
-            >
-              {loading ? t('auth.login.twoFactor.verifying', 'Verifying…') : t('auth.login.twoFactor.verify', 'Verify')}
+            <Button fullWidth type="submit" loading={loading} disabled={twoFactorCode.length !== 6}>
+              {loading
+                ? t('auth.login.twoFactor.verifying', 'Verifying…')
+                : t('auth.login.twoFactor.verify', 'Verify')}
             </Button>
             <Text ta="center" size="sm">
               <Anchor onClick={handleBack} style={{ cursor: 'pointer' }}>

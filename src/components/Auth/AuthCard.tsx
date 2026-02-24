@@ -8,12 +8,7 @@ interface AuthCardProps {
 
 export function AuthCard({ tagline, children }: AuthCardProps) {
   return (
-    <Paper
-      withBorder
-      shadow="none"
-      p={30}
-      radius="md"
-    >
+    <Paper withBorder shadow="none" p={30} radius="md">
       <Stack gap="md">
         <Stack gap={4} align="center" mb="xs">
           <Logo />
@@ -34,7 +29,9 @@ interface AuthMessageProps {
 }
 
 export function AuthMessage({ message }: AuthMessageProps) {
-  if (!message) return null;
+  if (!message) {
+    return null;
+  }
 
   return (
     <Transition mounted transition="fade" duration={150}>

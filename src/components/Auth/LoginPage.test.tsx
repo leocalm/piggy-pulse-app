@@ -1,8 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { MantineProvider } from '@mantine/core';
 import { vi } from 'vitest';
+import { MantineProvider } from '@mantine/core';
+import { apiPost } from '@/api/client';
+import { LoginPage } from './LoginPage';
 
 vi.mock('@/api/client', () => ({ apiPost: vi.fn() }));
 vi.mock('@/context/AuthContext', () => ({
@@ -12,9 +14,6 @@ vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return { ...actual, useNavigate: () => vi.fn(), useLocation: () => ({ state: null }) };
 });
-
-import { apiPost } from '@/api/client';
-import { LoginPage } from './LoginPage';
 
 const wrap = () =>
   render(
@@ -52,9 +51,7 @@ describe('LoginPage', () => {
     await userEvent.type(screen.getByLabelText(/email/i), 'a@b.com');
     await userEvent.type(screen.getByLabelText(/password/i), 'password123');
     await userEvent.click(screen.getByRole('button', { name: /log in/i }));
-    await waitFor(() =>
-      expect(screen.getByRole('status')).toBeInTheDocument()
-    );
+    await waitFor(() => expect(screen.getByRole('status')).toBeInTheDocument());
     // Must not be a red Alert
     expect(document.querySelector('[data-mantine-color="red"]')).toBeNull();
   });

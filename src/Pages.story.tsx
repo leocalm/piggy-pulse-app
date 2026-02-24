@@ -3,8 +3,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http, HttpResponse } from 'msw';
 import { BasicAppShell } from './AppShell';
 import { Accounts } from './components/Accounts/Accounts';
+import { ForgotPasswordPage } from './components/Auth/ForgotPasswordPage';
 import { LoginPage } from './components/Auth/LoginPage';
 import { RegisterPage } from './components/Auth/RegisterPage';
+import { ResetPasswordPage } from './components/Auth/ResetPasswordPage';
 import { Categories } from './components/Categories/Categories';
 import { DashboardPage } from './components/Dashboard/DashboardPage';
 import { OverlaysPage } from './components/Overlays/OverlaysPage';
@@ -15,8 +17,6 @@ import { Vendors } from './components/Vendors/Vendors';
 import { AuthContext } from './context/AuthContext';
 import { BudgetProvider } from './context/BudgetContext';
 import { handlers } from './mocks/handlers';
-import { ForgotPasswordPage } from './components/Auth/ForgotPasswordPage';
-import { ResetPasswordPage } from './components/Auth/ResetPasswordPage';
 
 // Mock Auth Context setup
 const mockUser = {

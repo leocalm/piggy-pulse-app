@@ -12,17 +12,29 @@ const wrap = (ui: React.ReactNode) =>
 
 describe('AuthCard', () => {
   it('renders children', () => {
-    wrap(<AuthCard><p>form content</p></AuthCard>);
+    wrap(
+      <AuthCard>
+        <p>form content</p>
+      </AuthCard>
+    );
     expect(screen.getByText('form content')).toBeInTheDocument();
   });
 
   it('renders tagline when provided', () => {
-    wrap(<AuthCard tagline="Clarity begins with structure."><p>x</p></AuthCard>);
+    wrap(
+      <AuthCard tagline="Clarity begins with structure.">
+        <p>x</p>
+      </AuthCard>
+    );
     expect(screen.getByText('Clarity begins with structure.')).toBeInTheDocument();
   });
 
   it('does not render tagline when omitted', () => {
-    wrap(<AuthCard><p>x</p></AuthCard>);
+    wrap(
+      <AuthCard>
+        <p>x</p>
+      </AuthCard>
+    );
     expect(screen.queryByText('Clarity begins with structure.')).not.toBeInTheDocument();
   });
 });

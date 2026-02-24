@@ -1,5 +1,5 @@
-import { Progress, Stack, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { Progress, Stack, Text } from '@mantine/core';
 import { PasswordStrengthResult } from '@/hooks/usePasswordStrength';
 
 interface PasswordStrengthIndicatorProps {

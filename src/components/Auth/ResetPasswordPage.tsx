@@ -156,8 +156,7 @@ export function ResetPasswordPage() {
   }
 
   // Main form state
-  const strengthResult =
-    form.values.password.length > 0 ? evaluate(form.values.password) : null;
+  const strengthResult = form.values.password.length > 0 ? evaluate(form.values.password) : null;
 
   return (
     <AuthCard>

@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import {
-  Anchor,
-  Button,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-} from '@mantine/core';
+import { Anchor, Button, PasswordInput, Stack, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { register } from '@/api/auth';
 import { useAuth } from '@/context/AuthContext';
-import { type PasswordStrengthResult, usePasswordStrength } from '@/hooks/usePasswordStrength';
+import { usePasswordStrength, type PasswordStrengthResult } from '@/hooks/usePasswordStrength';
 import { sleep } from '@/utils/time';
 import { AuthCard, AuthMessage } from './AuthCard';
 import { PasswordStrengthIndicator } from './PasswordStrengthIndicator';
@@ -31,8 +24,7 @@ export function RegisterPage() {
   useEffect(() => {
     if (isAuthenticated) {
       const from =
-        (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ??
-        '/dashboard';
+        (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ?? '/dashboard';
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, navigate, location]);

@@ -2,17 +2,7 @@ import { useState } from 'react';
 import { IconShieldOff } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
-import {
-  Alert,
-  Anchor,
-  Box,
-  Button,
-  Center,
-  Group,
-  Text,
-  TextInput,
-  Title,
-} from '@mantine/core';
+import { Alert, Anchor, Box, Button, Center, Group, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { confirmEmergencyDisable, requestEmergencyDisable } from '@/api/twoFactor';
 import { toast } from '@/lib/toast';
@@ -112,12 +102,7 @@ export function Emergency2FADisablePage() {
 
         <AuthMessage message={error} />
 
-        <Alert
-          title="Warning"
-          color="yellow"
-          variant="light"
-          mb="md"
-        >
+        <Alert title="Warning" color="yellow" variant="light" mb="md">
           You are about to disable two-factor authentication on your account. This will make your
           account less secure.
         </Alert>
@@ -158,12 +143,7 @@ export function Emergency2FADisablePage() {
 
       <AuthMessage message={error} />
 
-      <Alert
-        title="Lost Access?"
-        color="blue"
-        variant="light"
-        mb="md"
-      >
+      <Alert title="Lost Access?" color="blue" variant="light" mb="md">
         If you've lost access to your authenticator app and cannot log in, we can help you disable
         two-factor authentication via email.
       </Alert>
