@@ -1,63 +1,65 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { http, HttpResponse } from 'msw';
 import { Button } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { BudgetPeriodSchedule } from '@/types/budget';
+import { createStoryDecorator } from '@/stories/storyUtils';
 import { ScheduleSettingsModal } from './ScheduleSettingsModal';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
-
-const activeSchedule: BudgetPeriodSchedule = {
-  id: 'schedule-1',
-  startDay: 1,
-  durationValue: 1,
-  durationUnit: 'months',
-  saturdayAdjustment: 'friday',
-  sundayAdjustment: 'monday',
-  namePattern: '{MONTH} {YEAR}',
-  generateAhead: 6,
-};
 
 const meta: Meta<typeof ScheduleSettingsModal> = {
   title: 'Components/Periods/ScheduleSettingsModal',
   component: ScheduleSettingsModal,
-  decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <Story />
-      </QueryClientProvider>
-    ),
-  ],
+  tags: ['autodocs'],
+  decorators: [createStoryDecorator()],
 };
 
 export default meta;
 type Story = StoryObj<typeof ScheduleSettingsModal>;
 
-const ModalWrapper = ({ withSchedule }: { withSchedule: boolean }) => {
-  const [opened, { open, close }] = useDisclosure(true);
-
-  return (
-    <>
-      <Button onClick={open}>Open</Button>
-      <ScheduleSettingsModal
-        opened={opened}
-        onClose={close}
-        schedule={withSchedule ? activeSchedule : null}
-      />
-    </>
-  );
+const mockSchedule = {
+  id: 'sched-1',
+  startDay: 1,
+  durationValue: 1,
+  durationUnit: 'months' as const,
+  saturdayAdjustment: 'keep' as const,
+  sundayAdjustment: 'keep' as const,
+  namePattern: '{MONTH} {YEAR}',
+  generateAhead: 6,
 };
 
-export const Configure: Story = {
-  render: () => <ModalWrapper withSchedule={false} />,
+const mutationHandlers = [
+  http.post('/api/v1/budget_period/schedule', () =>
+    HttpResponse.json(mockSchedule, { status: 201 })
+  ),
+  http.put('/api/v1/budget_period/schedule', () => HttpResponse.json(mockSchedule)),
+  http.delete('/api/v1/budget_period/schedule', () => new HttpResponse(null, { status: 204 })),
+];
+
+export const Create: Story = {
+  parameters: { msw: { handlers: mutationHandlers } },
+  render: () => {
+    const [opened, setOpened] = useState(true);
+    return (
+      <>
+        <Button onClick={() => setOpened(true)}>Configure Schedule</Button>
+        <ScheduleSettingsModal opened={opened} onClose={() => setOpened(false)} schedule={null} />
+      </>
+    );
+  },
 };
 
-export const EditActiveSchedule: Story = {
-  render: () => <ModalWrapper withSchedule />,
+export const Edit: Story = {
+  parameters: { msw: { handlers: mutationHandlers } },
+  render: () => {
+    const [opened, setOpened] = useState(true);
+    return (
+      <>
+        <Button onClick={() => setOpened(true)}>Edit Schedule</Button>
+        <ScheduleSettingsModal
+          opened={opened}
+          onClose={() => setOpened(false)}
+          schedule={mockSchedule}
+        />
+      </>
+    );
+  },
 };

@@ -1,49 +1,83 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { mockAccounts } from '@/mocks/budgetData';
+import {
+  mockAllowanceAccount,
+  mockBalanceHistory,
+  mockCheckingAccount,
+  mockCreditCardAccount,
+  mockSavingsAccount,
+} from '@/mocks/budgetData';
+import { createStoryDecorator } from '@/stories/storyUtils';
 import { AccountCard } from './AccountCard';
 
 const meta: Meta<typeof AccountCard> = {
   title: 'Components/Accounts/AccountCard',
   component: AccountCard,
   tags: ['autodocs'],
-  argTypes: {
-    onEdit: { action: 'edit' },
-    onDelete: { action: 'delete' },
-  },
+  decorators: [createStoryDecorator()],
 };
 
 export default meta;
 type Story = StoryObj<typeof AccountCard>;
 
-export const Default: Story = {
+const noop = () => {};
+
+export const Checking: Story = {
   args: {
-    account: mockAccounts[0],
-    balanceHistory: [
-      { date: '2026-01-01', balance: 145000 },
-      { date: '2026-01-05', balance: 147000 },
-      { date: '2026-01-10', balance: 148500 },
-      { date: '2026-01-15', balance: 150000 },
-    ],
-    monthlySpent: 12500,
+    account: mockCheckingAccount,
+    balanceHistory: mockBalanceHistory,
+    monthlySpent: 85000,
     transactionCount: 23,
+    onEdit: noop,
+    onDelete: noop,
+    onViewDetails: noop,
   },
 };
 
-export const WithSpendLimit: Story = {
+export const Savings: Story = {
   args: {
-    account: {
-      ...mockAccounts[0],
-      name: 'Spending Account',
-      color: 'orange',
-      spendLimit: 50000, // 500.00
-    },
-    balanceHistory: [
-      { date: '2026-01-01', balance: 145000 },
-      { date: '2026-01-05', balance: 147000 },
-      { date: '2026-01-10', balance: 148500 },
-      { date: '2026-01-15', balance: 150000 },
-    ],
-    monthlySpent: 12500,
-    transactionCount: 23,
+    account: mockSavingsAccount,
+    balanceHistory: mockBalanceHistory,
+    monthlySpent: 0,
+    transactionCount: 2,
+    onEdit: noop,
+    onDelete: noop,
+    onViewDetails: noop,
+  },
+};
+
+export const CreditCard: Story = {
+  args: {
+    account: mockCreditCardAccount,
+    balanceHistory: mockBalanceHistory,
+    monthlySpent: 75000,
+    transactionCount: 15,
+    onEdit: noop,
+    onDelete: noop,
+    onViewDetails: noop,
+  },
+};
+
+export const Allowance: Story = {
+  args: {
+    account: mockAllowanceAccount,
+    balanceHistory: mockBalanceHistory,
+    monthlySpent: 12000,
+    transactionCount: 8,
+    onEdit: noop,
+    onDelete: noop,
+    onViewDetails: noop,
+    onTransferOrPayBill: noop,
+  },
+};
+
+export const NegativeBalance: Story = {
+  args: {
+    account: { ...mockCreditCardAccount, balance: -180000 },
+    balanceHistory: mockBalanceHistory,
+    monthlySpent: 180000,
+    transactionCount: 22,
+    onEdit: noop,
+    onDelete: noop,
+    onViewDetails: noop,
   },
 };

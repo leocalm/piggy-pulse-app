@@ -1,77 +1,64 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stack } from '@mantine/core';
+import { mockActiveOverlay } from '@/mocks/budgetData';
+import { createStoryDecorator } from '@/stories/storyUtils';
 import { OverlayCard } from './OverlayCard';
 
 const meta: Meta<typeof OverlayCard> = {
   title: 'Components/Overlays/OverlayCard',
   component: OverlayCard,
-  decorators: [
-    (Story) => (
-      <Stack maw={760} p="md">
-        <Story />
-      </Stack>
-    ),
-  ],
+  tags: ['autodocs'],
+  decorators: [createStoryDecorator()],
 };
 
 export default meta;
 type Story = StoryObj<typeof OverlayCard>;
 
-const baseOverlay = {
-  id: 'overlay-1',
-  name: 'Italy Trip',
-  icon: '🏖️',
-  startDate: '2026-08-10',
-  endDate: '2026-08-20',
-  inclusionMode: 'rules' as const,
-  spentAmount: 68000,
-  totalCapAmount: 80000,
-  transactionCount: 23,
-  categoryCaps: [
-    { categoryId: 'cat-1', capAmount: 30000 },
-    { categoryId: 'cat-2', capAmount: 40000 },
-  ],
-};
-
 export const Active: Story = {
   args: {
-    overlay: baseOverlay,
+    overlay: mockActiveOverlay,
     status: 'active',
+    onEdit: () => {},
+    onDelete: () => {},
+    onView: () => {},
   },
 };
 
 export const Upcoming: Story = {
   args: {
-    overlay: {
-      ...baseOverlay,
-      name: 'Christmas Shopping',
-      icon: '🎄',
-      startDate: '2026-12-01',
-      endDate: '2026-12-25',
-      inclusionMode: 'manual',
-      spentAmount: 0,
-      totalCapAmount: 50000,
-      transactionCount: 0,
-      categoryCaps: [],
-    },
+    overlay: { ...mockActiveOverlay, startDate: '2026-03-01', endDate: '2026-03-31' },
     status: 'upcoming',
+    onEdit: () => {},
+    onDelete: () => {},
+    onView: () => {},
   },
 };
 
 export const Past: Story = {
   args: {
-    overlay: {
-      ...baseOverlay,
-      name: 'Birthday Week',
-      icon: '🎉',
-      startDate: '2026-07-10',
-      endDate: '2026-07-17',
-      inclusionMode: 'all',
-      spentAmount: 22000,
-      totalCapAmount: 20000,
-      transactionCount: 11,
-      categoryCaps: [],
-    },
+    overlay: { ...mockActiveOverlay, startDate: '2025-11-01', endDate: '2025-11-30' },
     status: 'past',
+    onEdit: () => {},
+    onDelete: () => {},
+    onView: () => {},
+  },
+};
+
+export const OverBudget: Story = {
+  args: {
+    overlay: { ...mockActiveOverlay, spentAmount: 180000 },
+    status: 'active',
+    onEdit: () => {},
+    onDelete: () => {},
+    onView: () => {},
+  },
+};
+
+export const NoCap: Story = {
+  args: {
+    overlay: { ...mockActiveOverlay, totalCapAmount: null },
+    status: 'active',
+    onEdit: () => {},
+    onDelete: () => {},
+    onView: () => {},
   },
 };

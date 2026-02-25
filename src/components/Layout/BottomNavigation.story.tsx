@@ -1,77 +1,36 @@
-import { useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { fireEvent } from '@testing-library/react';
-import { useNavigate } from 'react-router-dom';
+import { createStoryDecorator } from '@/stories/storyUtils';
 import { BottomNavigation } from './BottomNavigation';
 
 const meta: Meta<typeof BottomNavigation> = {
   title: 'Components/Layout/BottomNavigation',
   component: BottomNavigation,
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <div style={{ paddingTop: '500px', minHeight: '600px' }}>
-        <Story />
-      </div>
-    ),
-  ],
-  parameters: {
-    layout: 'fullscreen',
-    viewport: {
-      defaultViewport: 'mobile1',
-    },
-  },
+  decorators: [createStoryDecorator({ withBudgetProvider: false, padding: false })],
 };
 
 export default meta;
 type Story = StoryObj<typeof BottomNavigation>;
 
-const NavigationWrapper = ({ route }: { route: string }) => {
-  const navigate = useNavigate();
+/** Default — no active route (root path) */
+export const Default: Story = {};
 
-  useEffect(() => {
-    navigate(route);
-  }, [navigate, route]);
-
-  return <BottomNavigation />;
+/** Active route: Dashboard */
+export const ActiveDashboard: Story = {
+  parameters: { initialEntries: ['/dashboard'] },
 };
 
-const MorePopoverWrapper = ({ route }: { route: string }) => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate(route);
-  }, [navigate, route]);
-
-  useEffect(() => {
-    // Auto-open the More popover by simulating a click on the More button
-    const timeout = setTimeout(() => {
-      const buttons = document.querySelectorAll('button');
-      for (const btn of buttons) {
-        if (btn.textContent?.includes('More')) {
-          fireEvent.click(btn);
-          break;
-        }
-      }
-    }, 100);
-    return () => clearTimeout(timeout);
-  }, []);
-
-  return <BottomNavigation />;
+/** Active route: Transactions */
+export const ActiveTransactions: Story = {
+  parameters: { initialEntries: ['/transactions'] },
 };
 
-export const Default: Story = {
-  render: () => <NavigationWrapper route="/dashboard" />,
+/** Active route: Periods */
+export const ActivePeriods: Story = {
+  parameters: { initialEntries: ['/periods'] },
 };
 
-export const OnTransactions: Story = {
-  render: () => <NavigationWrapper route="/transactions" />,
-};
-
-export const OnPeriods: Story = {
-  render: () => <NavigationWrapper route="/periods" />,
-};
-
-export const MorePopoverOpen: Story = {
-  render: () => <MorePopoverWrapper route="/dashboard" />,
+/** Active route: Accounts (inside the More popover) */
+export const ActiveAccounts: Story = {
+  parameters: { initialEntries: ['/accounts'] },
 };

@@ -1,37 +1,39 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { mockAccounts } from '@/mocks/budgetData';
+import {
+  mockAllowanceAccount,
+  mockCheckingAccount,
+  mockCreditCardAccount,
+} from '@/mocks/budgetData';
+import { createStoryDecorator } from '@/stories/storyUtils';
 import { EditAccountForm } from './EditAccountForm';
-
-const queryClient = new QueryClient();
 
 const meta: Meta<typeof EditAccountForm> = {
   title: 'Components/Accounts/EditAccountForm',
   component: EditAccountForm,
-  argTypes: {
-    onUpdated: { action: 'updated' },
-  },
-  decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <Story />
-      </QueryClientProvider>
-    ),
-  ],
+  tags: ['autodocs'],
+  decorators: [createStoryDecorator()],
 };
 
 export default meta;
 type Story = StoryObj<typeof EditAccountForm>;
 
-export const Default: Story = {
+export const Checking: Story = {
   args: {
-    account: mockAccounts[0],
+    account: mockCheckingAccount,
+    onUpdated: () => {},
   },
 };
 
-export const WithSavings: Story = {
+export const CreditCard: Story = {
   args: {
-    account: mockAccounts[1],
+    account: mockCreditCardAccount,
+    onUpdated: () => {},
+  },
+};
+
+export const Allowance: Story = {
+  args: {
+    account: mockAllowanceAccount,
+    onUpdated: () => {},
   },
 };
