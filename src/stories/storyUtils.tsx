@@ -87,4 +87,27 @@ export const mswHandlers = {
   /** Returns null (for single-resource endpoints) */
   emptyNull: (path: string) =>
     http.get(path, () => HttpResponse.json(null)),
+
+  /** Returns data as JSON with a short realistic delay (POST) */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  post: (path: string, data: any, delayMs = 300) =>
+    http.post(path, async () => {
+      await delay(delayMs);
+      return HttpResponse.json(data);
+    }),
+
+  /** Returns an HTTP error for a POST endpoint */
+  postError: (path: string, status = 500, message?: string) =>
+    http.post(path, () =>
+      HttpResponse.json(message ? { message } : null, { status })
+    ),
+
+  /** Delays POST forever — shows loading state indefinitely */
+  loadingPost: (path: string) =>
+    http.post(path, async () => {
+      // delay('infinite') is the MSW-idiomatic way to hold a request open indefinitely.
+      // It participates in MSW's cleanup lifecycle, unlike new Promise(() => {}).
+      await delay('infinite');
+      return HttpResponse.json(null);
+    }),
 };

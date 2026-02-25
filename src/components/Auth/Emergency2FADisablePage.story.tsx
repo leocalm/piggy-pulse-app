@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
-import { createStoryDecorator } from '@/stories/storyUtils';
+import { createStoryDecorator, mswHandlers } from '@/stories/storyUtils';
 import { Emergency2FADisablePage } from './Emergency2FADisablePage';
 
 const meta: Meta<typeof Emergency2FADisablePage> = {
@@ -20,9 +20,7 @@ export const RequestLoading: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.post('/api/two-factor/emergency-disable-request', async () => {
-          await new Promise(() => {});
-        }),
+        mswHandlers.loadingPost('/api/two-factor/emergency-disable-request'),
       ],
     },
   },

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
-import { createStoryDecorator } from '@/stories/storyUtils';
+import { createStoryDecorator, mswHandlers } from '@/stories/storyUtils';
 import { LoginPage } from './LoginPage';
 
 const meta: Meta<typeof LoginPage> = {
@@ -32,9 +32,7 @@ export const LoginLoading: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.post('/api/users/login', async () => {
-          await new Promise(() => {});
-        }),
+        mswHandlers.loadingPost('/api/users/login'),
       ],
     },
   },

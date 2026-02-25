@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
-import { createStoryDecorator } from '@/stories/storyUtils';
+import { createStoryDecorator, mswHandlers } from '@/stories/storyUtils';
 import { ResetPasswordPage } from './ResetPasswordPage';
 
 const meta: Meta<typeof ResetPasswordPage> = {
@@ -32,9 +32,7 @@ export const SubmitLoading: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.post('/api/password-reset/confirm', async () => {
-          await new Promise(() => {});
-        }),
+        mswHandlers.loadingPost('/api/password-reset/confirm'),
       ],
     },
   },
