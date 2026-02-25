@@ -14,9 +14,9 @@ const meta: Meta<typeof TransactionFormFields> = {
 export default meta;
 type Story = StoryObj<typeof TransactionFormFields>;
 
-const accountsByName = Object.fromEntries(mockAccounts.map((a) => [a.name, a]));
-const categoriesByName = Object.fromEntries(mockCategories.map((c) => [c.name, c]));
-const vendorsByName = Object.fromEntries(initialVendors.map((v) => [v.name, v]));
+const accountsByName = new Map(mockAccounts.map((a) => [a.name, a]));
+const categoriesByName = new Map(mockCategories.map((c) => [c.name, c]));
+const vendorsByName = new Map(initialVendors.map((v) => [v.name, v]));
 
 function FormWrapper() {
   const form = useTransactionForm({

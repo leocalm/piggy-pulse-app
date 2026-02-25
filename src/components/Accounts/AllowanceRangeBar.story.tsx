@@ -19,7 +19,7 @@ export const Default: Story = {
 
 export const NoNextTransfer: Story = {
   args: {
-    account: { ...mockAllowanceAccount, nextTransferAmount: null },
+    account: { ...mockAllowanceAccount, nextTransferAmount: undefined },
   },
 };
 
