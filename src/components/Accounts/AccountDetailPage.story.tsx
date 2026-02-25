@@ -1,0 +1,56 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { http, HttpResponse } from 'msw';
+import { createStoryDecorator, mswHandlers } from '@/stories/storyUtils';
+import { mockCheckingAccount, mockAccountDetail, mockAccountContext, mockBalanceHistory } from '@/mocks/budgetData';
+import { AccountDetailPage } from './AccountDetailPage';
+
+const meta: Meta<typeof AccountDetailPage> = {
+  title: 'Pages/Accounts/AccountDetailPage',
+  component: AccountDetailPage,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'fullscreen',
+    reactRouter: {
+      routePath: '/accounts/:id',
+      routeParams: { id: 'acc-1' },
+    },
+  },
+  decorators: [createStoryDecorator({ padding: false })],
+};
+
+export default meta;
+type Story = StoryObj<typeof AccountDetailPage>;
+
+const defaultHandlers = [
+  http.get('/api/v1/accounts/:id', () => HttpResponse.json(mockCheckingAccount)),
+  http.get('/api/v1/accounts/:id/detail', () => HttpResponse.json(mockAccountDetail)),
+  http.get('/api/v1/accounts/:id/balance-history', () => HttpResponse.json(mockBalanceHistory)),
+  http.get('/api/v1/accounts/:id/context', () => HttpResponse.json(mockAccountContext)),
+];
+
+export const Default: Story = {
+  parameters: {
+    msw: { handlers: defaultHandlers },
+  },
+};
+
+export const Loading: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.loading('/api/v1/accounts/:id'),
+        mswHandlers.loading('/api/v1/accounts/:id/detail'),
+      ],
+    },
+  },
+};
+
+export const AccountNotFound: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/api/v1/accounts/:id', () => new HttpResponse(null, { status: 404 })),
+      ],
+    },
+  },
+};
