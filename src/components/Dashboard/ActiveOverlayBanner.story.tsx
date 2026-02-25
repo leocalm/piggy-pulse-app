@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
 import { createStoryDecorator, mswHandlers } from '@/stories/storyUtils';
+import { mockActiveOverlay } from '@/mocks/budgetData';
 import { ActiveOverlayBanner } from './ActiveOverlayBanner';
 
 const meta: Meta<typeof ActiveOverlayBanner> = {
@@ -12,18 +13,6 @@ const meta: Meta<typeof ActiveOverlayBanner> = {
 
 export default meta;
 type Story = StoryObj<typeof ActiveOverlayBanner>;
-
-const mockActiveOverlay = {
-  id: 'ovl-1',
-  name: 'Holiday Trip',
-  icon: '🏖️',
-  startDate: '2026-01-01',
-  endDate: '2026-12-31',
-  inclusionMode: 'all' as const,
-  totalCapAmount: 150000,
-  spentAmount: 62000,
-  transactionCount: 8,
-};
 
 export const Default: Story = {
   parameters: {

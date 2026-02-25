@@ -717,3 +717,17 @@ export const mockCategoryTargets: CategoryTargetsResponse = {
     },
   ],
 };
+
+// ─── OVERLAYS ────────────────────────────────────────────────────────────────
+
+export const mockActiveOverlay = {
+  id: 'ovl-1',
+  name: 'Holiday Trip',
+  icon: '🏖️',
+  startDate: '2026-01-01',
+  endDate: '2026-12-31',
+  inclusionMode: 'all' as const,
+  totalCapAmount: 150000,
+  spentAmount: 62000,
+  transactionCount: 8,
+};

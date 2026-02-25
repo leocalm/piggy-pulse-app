@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
+import { Route, Routes } from 'react-router-dom';
 import { createStoryDecorator, mswHandlers } from '@/stories/storyUtils';
 import { mockCheckingAccount, mockAccountDetail, mockAccountContext, mockBalanceHistory } from '@/mocks/budgetData';
 import { AccountDetailPage } from './AccountDetailPage';
@@ -10,12 +11,17 @@ const meta: Meta<typeof AccountDetailPage> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
-    reactRouter: {
-      routePath: '/accounts/:id',
-      routeParams: { id: 'acc-1' },
-    },
+    initialEntries: ['/accounts/acc-1'],
   },
-  decorators: [createStoryDecorator({ padding: false })],
+  decorators: [
+    // Routes decorator must be outermost to provide :id param to useParams()
+    (Story) => (
+      <Routes>
+        <Route path="/accounts/:id" element={<Story />} />
+      </Routes>
+    ),
+    createStoryDecorator({ padding: false }),
+  ],
 };
 
 export default meta;

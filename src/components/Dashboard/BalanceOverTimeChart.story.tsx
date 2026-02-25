@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { createStoryDecorator } from '@/stories/storyUtils';
+import { mockBalanceHistory } from '@/mocks/budgetData';
 import { BalanceOverTimeChart } from './BalanceOverTimeChart';
 
 const meta: Meta<typeof BalanceOverTimeChart> = {
@@ -12,18 +13,8 @@ const meta: Meta<typeof BalanceOverTimeChart> = {
 export default meta;
 type Story = StoryObj<typeof BalanceOverTimeChart>;
 
-const mockData = [
-  { date: '2025-08-01', balance: 95000 },
-  { date: '2025-09-01', balance: 108000 },
-  { date: '2025-10-01', balance: 121000 },
-  { date: '2025-11-01', balance: 115000 },
-  { date: '2025-12-01', balance: 138000 },
-  { date: '2026-01-01', balance: 140000 },
-  { date: '2026-01-10', balance: 145000 },
-];
-
 export const Default: Story = {
-  args: { data: mockData },
+  args: { data: mockBalanceHistory },
 };
 
 export const Declining: Story = {
