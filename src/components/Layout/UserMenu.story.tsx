@@ -6,7 +6,7 @@ const meta: Meta<typeof UserMenu> = {
   title: 'Components/Layout/UserMenu',
   component: UserMenu,
   tags: ['autodocs'],
-  decorators: [createStoryDecorator({ withBudgetProvider: false })],
+  decorators: [createStoryDecorator({ withBudgetProvider: false, withAuthProvider: true })],
 };
 
 export default meta;

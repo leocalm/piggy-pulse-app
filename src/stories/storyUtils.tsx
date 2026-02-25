@@ -3,11 +3,41 @@ import { Decorator } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http, HttpResponse, delay } from 'msw';
 import { BudgetProvider } from '@/context/BudgetContext';
+import { AuthContext } from '@/context/AuthContext';
+import type { User } from '@/api/auth';
 import { Box } from '@mantine/core';
+
+const MOCK_USER: User = { id: '1', email: 'designer@example.com', name: 'Design Team' };
+
+/**
+ * Provides AuthContext without any network calls or redirects.
+ * Use `user={null}` for unauthenticated stories (e.g. login/register pages).
+ */
+function MockAuthProvider({ children, user }: { children: React.ReactNode; user: User | null }) {
+  const value = React.useMemo(
+    () => ({
+      user,
+      isAuthenticated: user !== null,
+      isLoading: false,
+      login: () => {},
+      logout: () => {},
+      refreshUser: async () => true,
+    }),
+    [user]
+  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
 
 interface StoryDecoratorOptions {
   /** Include BudgetProvider (period selection context). Default: true */
   withBudgetProvider?: boolean;
+  /**
+   * Provide a mock AuthContext without network calls.
+   * - true / 'authenticated': injects a logged-in mock user
+   * - 'unauthenticated': injects user=null (for login/register pages)
+   * - false (default): no auth context
+   */
+  withAuthProvider?: boolean | 'authenticated' | 'unauthenticated';
   /** Wrap story in a padded Box. Default: true */
   padding?: boolean;
 }
@@ -23,7 +53,10 @@ interface StoryDecoratorOptions {
  *   decorators: [createStoryDecorator({ withBudgetProvider: false })],
  */
 export const createStoryDecorator = (options: StoryDecoratorOptions = {}): Decorator => {
-  const { withBudgetProvider = true, padding = true } = options;
+  const { withBudgetProvider = true, withAuthProvider = false, padding = true } = options;
+
+  const mockUser: User | null =
+    withAuthProvider === 'unauthenticated' ? null : withAuthProvider ? MOCK_USER : null;
 
   return (Story) => {
     const queryClient = React.useMemo(
@@ -37,15 +70,18 @@ export const createStoryDecorator = (options: StoryDecoratorOptions = {}): Decor
       []
     );
 
+    const inner = padding ? <Box p="xl"><Story /></Box> : <Story />;
+
+    const withAuth = (node: React.ReactNode) =>
+      withAuthProvider ? <MockAuthProvider user={mockUser}>{node}</MockAuthProvider> : <>{node}</>;
+
     const content = withBudgetProvider ? (
       <QueryClientProvider client={queryClient}>
-        <BudgetProvider>
-          {padding ? <Box p="xl"><Story /></Box> : <Story />}
-        </BudgetProvider>
+        {withAuth(<BudgetProvider>{inner}</BudgetProvider>)}
       </QueryClientProvider>
     ) : (
       <QueryClientProvider client={queryClient}>
-        {padding ? <Box p="xl"><Story /></Box> : <Story />}
+        {withAuth(inner)}
       </QueryClientProvider>
     );
 

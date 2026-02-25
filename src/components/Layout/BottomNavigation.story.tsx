@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { createStoryDecorator } from '@/stories/storyUtils';
 import { BottomNavigation } from './BottomNavigation';
 
@@ -18,44 +17,20 @@ export const Default: Story = {};
 
 /** Active route: Dashboard */
 export const ActiveDashboard: Story = {
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
+  parameters: { initialEntries: ['/dashboard'] },
 };
 
 /** Active route: Transactions */
 export const ActiveTransactions: Story = {
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/transactions']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
+  parameters: { initialEntries: ['/transactions'] },
 };
 
 /** Active route: Periods */
 export const ActivePeriods: Story = {
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/periods']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
+  parameters: { initialEntries: ['/periods'] },
 };
 
 /** Active route: Accounts (inside the More popover) */
 export const ActiveAccounts: Story = {
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/accounts']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
+  parameters: { initialEntries: ['/accounts'] },
 };

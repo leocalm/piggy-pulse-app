@@ -8,7 +8,7 @@ const meta: Meta<typeof RegisterPage> = {
   component: RegisterPage,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
-  decorators: [createStoryDecorator({ withBudgetProvider: false, padding: false })],
+  decorators: [createStoryDecorator({ withBudgetProvider: false, withAuthProvider: 'unauthenticated', padding: false })],
 };
 
 export default meta;

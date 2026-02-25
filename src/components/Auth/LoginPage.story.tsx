@@ -8,7 +8,7 @@ const meta: Meta<typeof LoginPage> = {
   component: LoginPage,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
-  decorators: [createStoryDecorator({ withBudgetProvider: false, padding: false })],
+  decorators: [createStoryDecorator({ withBudgetProvider: false, withAuthProvider: 'unauthenticated', padding: false })],
 };
 
 export default meta;
