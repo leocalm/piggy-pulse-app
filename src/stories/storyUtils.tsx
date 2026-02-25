@@ -26,12 +26,16 @@ export const createStoryDecorator = (options: StoryDecoratorOptions = {}): Decor
   const { withBudgetProvider = true, padding = true } = options;
 
   return (Story) => {
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: { retry: false, gcTime: 0 },
-        mutations: { retry: false },
-      },
-    });
+    const queryClient = React.useMemo(
+      () =>
+        new QueryClient({
+          defaultOptions: {
+            queries: { retry: false, gcTime: 0 },
+            mutations: { retry: false },
+          },
+        }),
+      []
+    );
 
     const content = withBudgetProvider ? (
       <QueryClientProvider client={queryClient}>

@@ -219,6 +219,14 @@ export const usdCurrency = {
   decimalPlaces: 2,
 };
 
+export const gbpCurrency = {
+  id: 'currency-gbp',
+  name: 'British Pound',
+  symbol: '£',
+  currency: 'GBP',
+  decimalPlaces: 2,
+};
+
 // ─── NAMED ACCOUNT VARIANTS ──────────────────────────────────────────────────
 
 export const mockCheckingAccount = mockAccounts[0];   // 'acc-1' Main Checking
