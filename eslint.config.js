@@ -8,7 +8,7 @@ export default defineConfig(
   ...mantine,
 
   {
-    ignores: ['**/*.{mjs,cjs,js,d.ts,d.mts}', 'vitest.storybook.config.ts', '.storybook/**'],
+    ignores: ['**/*.{mjs,cjs,js,d.ts,d.mts}', 'vitest.storybook.config.ts', '.storybook/**', '.claude/**'],
   },
 
   {
