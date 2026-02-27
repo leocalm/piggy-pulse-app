@@ -828,7 +828,7 @@
       "netPositionTooltip": "Sum of all account balances (all time)",
       "groups": {
         "liquid": "Liquid",
-        "savings": "Savings",
+        "savings": "Protected",
         "debt": "Debt",
         "allowance": "Allowance Accounts",
         "liquidSection": "Liquid Accounts",
@@ -836,28 +836,28 @@
         "debtSection": "Debt Accounts"
       },
       "allowanceCard": {
-        "netChangeThisPeriod": "Net change this period",
+        "netChangeThisPeriod": "This Period",
         "nextTransfer": "Next Transfer",
-        "balanceAfterNextTransfer": "Balance after next transfer",
+        "balanceAfterNextTransfer": "Projected After Transfer",
         "notSet": "Not set"
       },
       "standardBar": {
-        "rangeLabel": "30-day closing balance range",
+        "rangeLabel": "30d closing balance range",
         "low": "Low {{value}}",
         "high": "High {{value}}",
         "current": "Current {{value}}",
         "zero": "Zero",
-        "withinRange": "Current is within this account's 30-day closing range.",
+        "withinRange": "",
         "aboveHigh": "Current is above 30-day high by {{amount}}.",
         "belowLow": "Current is below 30-day low by {{amount}}.",
-        "netChangeThisPeriod": "Net change this period",
+        "netChangeThisPeriod": "This Period",
         "ariaLabel": "30-day closing range: low {{low}}, high {{high}}, current {{current}}. {{status}}",
         "ariaWithinRange": "Within range.",
         "ariaAboveHigh": "Above high by {{amount}}.",
         "ariaBelowLow": "Below low by {{amount}}."
       },
       "allowanceBar": {
-        "rangeLabel": "30-day closing balance range",
+        "rangeLabel": "30d closing balance range",
         "boundsNote": "Bounds include historical min/max plus zero and projected balance.",
         "low": "Low {{value}}",
         "high": "High {{value}}",

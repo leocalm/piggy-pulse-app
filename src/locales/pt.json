@@ -465,7 +465,7 @@
       "netPositionTooltip": "Soma de todos os saldos de conta (acumulado)",
       "groups": {
         "liquid": "Líquido",
-        "savings": "Poupança",
+        "savings": "Protegido",
         "debt": "Dívidas",
         "allowance": "Contas de Mesada",
         "liquidSection": "Contas Líquidas",
@@ -473,28 +473,28 @@
         "debtSection": "Contas de Dívida"
       },
       "allowanceCard": {
-        "netChangeThisPeriod": "Variação líquida neste período",
+        "netChangeThisPeriod": "Este Período",
         "nextTransfer": "Próxima Transferência",
-        "balanceAfterNextTransfer": "Saldo após próxima transferência",
+        "balanceAfterNextTransfer": "Projetado Após Transferência",
         "notSet": "Não definido"
       },
       "standardBar": {
-        "rangeLabel": "Faixa de saldo de fechamento de 30 dias",
+        "rangeLabel": "Faixa de fechamento de 30d",
         "low": "Mín. {{value}}",
         "high": "Máx. {{value}}",
         "current": "Atual {{value}}",
         "zero": "Zero",
-        "withinRange": "O saldo atual está dentro da faixa de fechamento de 30 dias desta conta.",
+        "withinRange": "",
         "aboveHigh": "O saldo atual está acima do máximo de 30 dias em {{amount}}.",
         "belowLow": "O saldo atual está abaixo do mínimo de 30 dias em {{amount}}.",
-        "netChangeThisPeriod": "Variação líquida neste período",
+        "netChangeThisPeriod": "Este Período",
         "ariaLabel": "Faixa de fechamento de 30 dias: mínimo {{low}}, máximo {{high}}, atual {{current}}. {{status}}",
         "ariaWithinRange": "Dentro da faixa.",
         "ariaAboveHigh": "Acima do máximo em {{amount}}.",
         "ariaBelowLow": "Abaixo do mínimo em {{amount}}."
       },
       "allowanceBar": {
-        "rangeLabel": "Faixa de saldo de fechamento de 30 dias",
+        "rangeLabel": "Faixa de fechamento de 30d",
         "boundsNote": "Os limites incluem mínimo/máximo histórico, zero e saldo projetado.",
         "low": "Mín. {{value}}",
         "high": "Máx. {{value}}",

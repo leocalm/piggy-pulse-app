@@ -27,6 +27,7 @@
 /* ── Mode switch (pill tabs) ── */
 .modeSwitch {
   margin-top: 12px;
+  margin-bottom: 8px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
