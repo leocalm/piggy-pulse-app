@@ -867,7 +867,7 @@
     },
     "management": {
       "title": "Accounts",
-      "subtitle": "Manage your account setup.",
+      "subtitle": "Define and manage your financial accounts",
       "addAccount": "Add Account",
       "columns": {
         "name": "Name",

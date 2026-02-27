@@ -504,7 +504,7 @@
     },
     "management": {
       "title": "Contas",
-      "subtitle": "Gerencie a configuração das suas contas.",
+      "subtitle": "Defina e gerencie suas contas financeiras",
       "addAccount": "Adicionar Conta",
       "columns": {
         "name": "Nome",
