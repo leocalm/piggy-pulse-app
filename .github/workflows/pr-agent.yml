@@ -5,6 +5,7 @@ on:
 <<<<<<< HEAD
     types: [opened, reopened, ready_for_review, synchronize]
   issue_comment:
+  workflow_dispatch:
 
 jobs:
   pr_agent:
