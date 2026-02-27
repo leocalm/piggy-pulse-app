@@ -15,14 +15,6 @@ interface CurrentPeriodCardProps {
   onRetry: () => void;
 }
 
-const formatPercentUsed = (spent: number, total: number): number => {
-  if (total <= 0) {
-    return 0;
-  }
-
-  return Math.max(0, Math.round((spent / total) * 100));
-};
-
 const getProjectedSpend = (spent: number, currentDay: number, daysInPeriod: number): number => {
   if (currentDay <= 0 || daysInPeriod <= 0) {
     return 0;
@@ -84,7 +76,6 @@ export const CurrentPeriodCard = ({
   const totalBudget = monthlyBurnIn.totalBudget;
   const actualSpend = monthlyBurnIn.spentBudget;
   const remaining = totalBudget - actualSpend;
-  const percentUsed = formatPercentUsed(actualSpend, totalBudget);
   const projectedSpend = getProjectedSpend(
     actualSpend,
     monthlyBurnIn.currentDay,
@@ -129,9 +120,6 @@ export const CurrentPeriodCard = ({
           percent: Math.round(periodElapsedPct),
         })}
       />
-      <div className={styles.progressBar} role="presentation" aria-hidden="true">
-        <div className={styles.progressFill} style={{ width: `${Math.min(percentUsed, 100)}%` }} />
-      </div>
       <Text className={styles.periodProjection}>
         {t('dashboard.currentPeriod.projectedSpend', { projectedSpendFormatted })}
       </Text>
