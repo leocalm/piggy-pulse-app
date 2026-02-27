@@ -46,6 +46,8 @@ export function formatCurrency(
  * @param cents - Amount in smallest currency unit
  * @param decimalPlaces - Number of decimal places (default: 2)
  * @param locale - Locale for formatting (default: 'en-US')
+ * @param options.clean - Strip trailing fractional zeros for whole amounts (default: false)
+ * @param options.showSign - Prepend '+' to positive values (default: false)
  * @returns Formatted number string (e.g., "12.34")
  */
 export function formatCurrencyValue(
@@ -61,8 +63,16 @@ export function formatCurrencyValue(
   });
 
   if (options?.clean) {
-    // Strip trailing decimal separator and zeros (e.g. ".00" or ",00")
-    formatted = formatted.replace(/[.,]0+$/, '');
+    // Use locale-aware decimal separator detection to safely strip trailing zeros.
+    // This handles all decimal-place counts and all locales correctly.
+    const decimalSeparator = (1.1).toLocaleString(locale).charAt(1);
+    const decimalIdx = formatted.lastIndexOf(decimalSeparator);
+    if (decimalIdx !== -1) {
+      const fraction = formatted.slice(decimalIdx + 1);
+      if (/^0+$/.test(fraction)) {
+        formatted = formatted.slice(0, decimalIdx);
+      }
+    }
   }
 
   if (options?.showSign && cents > 0) {

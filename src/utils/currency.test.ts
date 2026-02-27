@@ -166,6 +166,15 @@ describe('currency utilities', () => {
     it('still formats normally when clean is false', () => {
       expect(formatCurrencyValue(88400, 2, 'en-US', { clean: false })).toBe('884.00');
     });
+    it('correctly strips 3-decimal-place whole amounts (e.g. KWD)', () => {
+      expect(formatCurrencyValue(10000, 3, 'en-US', { clean: true })).toBe('10');
+    });
+    it('keeps non-zero fraction for 3-decimal-place currencies', () => {
+      expect(formatCurrencyValue(10001, 3, 'en-US', { clean: true })).toBe('10.001');
+    });
+    it('works correctly with de-DE locale (comma decimal separator)', () => {
+      expect(formatCurrencyValue(88400, 2, 'de-DE', { clean: true })).toBe('884');
+    });
   });
 
   describe('formatCurrencyValue with showSign option', () => {
@@ -177,6 +186,9 @@ describe('currency utilities', () => {
     });
     it('shows 0 without sign', () => {
       expect(formatCurrencyValue(0, 2, 'en-US', { showSign: true })).toBe('0.00');
+    });
+    it('combines clean and showSign correctly', () => {
+      expect(formatCurrencyValue(88400, 2, 'en-US', { clean: true, showSign: true })).toBe('+884');
     });
   });
 

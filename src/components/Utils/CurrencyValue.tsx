@@ -30,7 +30,9 @@ interface CurrencyValueProps {
    */
   forceGlobal?: boolean;
   /**
-   * Strip trailing .00 from whole amounts (default: true)
+   * Strip trailing .00 from whole amounts (default: true).
+   * Note: has no effect when compact mode is active, since compact
+   * formatting (e.g. "1.2K") never produces trailing zeros.
    */
   clean?: boolean;
 }
