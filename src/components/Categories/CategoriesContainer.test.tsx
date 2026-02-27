@@ -155,7 +155,7 @@ describe('CategoriesContainer diagnostics layout', () => {
 
     const unbudgetedRows = screen.getAllByTestId(/unbudgeted-row-/);
     expect(unbudgetedRows[0]).toHaveAttribute('data-testid', 'unbudgeted-row-category-gifts');
-    expect(screen.getByText('72.2%')).toBeInTheDocument();
+    expect(screen.getByText('(72.2%)')).toBeInTheDocument();
   });
 
   it('does not render edit action in budgeted rows', () => {

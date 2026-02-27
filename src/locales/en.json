@@ -108,13 +108,13 @@
     },
     "resetPassword": {
       "title": "Create new password",
-      "validating": "Verifying reset link\u2026",
+      "validating": "Verifying reset link…",
       "newPasswordLabel": "New password",
       "newPasswordPlaceholder": "Create password",
       "confirmPasswordLabel": "Confirm password",
       "confirmPasswordPlaceholder": "Repeat password",
       "resetPassword": "Update password",
-      "updating": "Updating\u2026",
+      "updating": "Updating…",
       "backToLogin": "Back to login",
       "requestNew": "Request new reset link",
       "hint": {
@@ -254,7 +254,7 @@
       "direction": "Direction",
       "accounts": "Accounts",
       "categories": "Categories",
-      "vendors": "Vendor (optional)",
+      "vendors": "Vendors",
       "dateFrom": "From",
       "dateTo": "To",
       "allAccounts": "All accounts",
@@ -675,9 +675,6 @@
     "logo": {
       "title": "PiggyPulse"
     },
-    "scope": {
-      "allAccounts": "All accounts"
-    },
     "topbar": {
       "pageTitle": {
         "dashboard": "Dashboard",
@@ -828,7 +825,7 @@
       "netPositionTooltip": "Sum of all account balances (all time)",
       "groups": {
         "liquid": "Liquid",
-        "savings": "Protected",
+        "savings": "Savings",
         "debt": "Debt",
         "allowance": "Allowance Accounts",
         "liquidSection": "Liquid Accounts",
@@ -836,28 +833,28 @@
         "debtSection": "Debt Accounts"
       },
       "allowanceCard": {
-        "netChangeThisPeriod": "This Period",
+        "netChangeThisPeriod": "Net change this period",
         "nextTransfer": "Next Transfer",
-        "balanceAfterNextTransfer": "Projected After Transfer",
+        "balanceAfterNextTransfer": "Balance after next transfer",
         "notSet": "Not set"
       },
       "standardBar": {
-        "rangeLabel": "30d closing balance range",
+        "rangeLabel": "30-day closing balance range",
         "low": "Low {{value}}",
         "high": "High {{value}}",
         "current": "Current {{value}}",
         "zero": "Zero",
-        "withinRange": "",
+        "withinRange": "Current is within this account's 30-day closing range.",
         "aboveHigh": "Current is above 30-day high by {{amount}}.",
         "belowLow": "Current is below 30-day low by {{amount}}.",
-        "netChangeThisPeriod": "This Period",
+        "netChangeThisPeriod": "Net change this period",
         "ariaLabel": "30-day closing range: low {{low}}, high {{high}}, current {{current}}. {{status}}",
         "ariaWithinRange": "Within range.",
         "ariaAboveHigh": "Above high by {{amount}}.",
         "ariaBelowLow": "Below low by {{amount}}."
       },
       "allowanceBar": {
-        "rangeLabel": "30d closing balance range",
+        "rangeLabel": "30-day closing balance range",
         "boundsNote": "Bounds include historical min/max plus zero and projected balance.",
         "low": "Low {{value}}",
         "high": "High {{value}}",
@@ -1110,8 +1107,6 @@
         "error": "Unable to load current period values."
       },
       "of": "of {{totalBudgetFormatted}}",
-      "noBudget": "No budget set",
-      "periodElapsedAria": "{{percent}}% of period elapsed",
       "remainingDays": "{{remainingDays}} days remaining. {{remainingFormatted}} remaining in this period.",
       "projectedSpend": "Projected spend at current pace: {{projectedSpendFormatted}}"
     },
@@ -1137,8 +1132,7 @@
       "error": "Could not load net position.",
       "retry": "Retry",
       "acrossAccounts": "Across {{count}} accounts",
-      "lastUpdated": "Last updated {{time}} ago",
-      "updatedAgo": "Updated {{time}}"
+      "lastUpdated": "Last updated {{time}} ago"
     },
     "stats": {
       "remainingBudget": {
@@ -1193,7 +1187,6 @@
       "withinRangeCount": "{{within}} of {{total}} periods within range",
       "lastClosedPeriodsLabel": "Last 6 closed periods",
       "empty": "No closed periods yet",
-      "insufficientData": "Needs 3+ closed periods for stability data",
       "error": "Could not load budget stability.",
       "retry": "Retry",
       "dots": {
@@ -1205,7 +1198,6 @@
     "subtitle": "Current position, deviation, and period trajectory."
   },
   "states": {
-    "done": "Done",
     "contract": {
       "emptyTitle": "No {{items}} yet.",
       "items": {
@@ -1565,7 +1557,7 @@
     "diagnostics": {
       "sections": {
         "budgeted": "Budgeted categories",
-        "budgetedSubtitle": "Budgeted, actual, and variance values by category.",
+        "budgetedSubtitle": "Stability (last 3 closed periods)",
         "unbudgeted": "Unbudgeted categories",
         "unbudgetedSubtitle": "Actual spend and share of total unbudgeted spend."
       },

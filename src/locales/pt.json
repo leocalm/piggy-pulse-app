@@ -92,13 +92,13 @@
     },
     "resetPassword": {
       "title": "Criar nova senha",
-      "validating": "Verificando link de redefinição\u2026",
+      "validating": "Verificando link de redefinição…",
       "newPasswordLabel": "Nova senha",
       "newPasswordPlaceholder": "Criar senha",
       "confirmPasswordLabel": "Confirmar senha",
       "confirmPasswordPlaceholder": "Repetir senha",
       "resetPassword": "Atualizar senha",
-      "updating": "Atualizando\u2026",
+      "updating": "Atualizando…",
       "backToLogin": "Voltar para o login",
       "requestNew": "Solicitar novo link de redefinição",
       "hint": {
@@ -228,18 +228,7 @@
       "dateRange": "Período",
       "accountAll": "Conta: Todas",
       "categoryAll": "Categoria: Todas",
-      "amountAll": "Valor: Todos",
-      "direction": "Direção",
-      "accounts": "Contas",
-      "categories": "Categorias",
-      "vendors": "Fornecedor (opcional)",
-      "dateFrom": "De",
-      "dateTo": "Até",
-      "allAccounts": "Todas as contas",
-      "allCategories": "Todas as categorias",
-      "allVendors": "Todos os fornecedores",
-      "clearAll": "Limpar filtros",
-      "title": "Filtros"
+      "amountAll": "Valor: Todos"
     },
     "section": {
       "showing": "Mostrando {{count}} transações em {{period}}",
@@ -334,9 +323,6 @@
   "layout": {
     "logo": {
       "title": "PiggyPulse"
-    },
-    "scope": {
-      "allAccounts": "Todas as contas"
     },
     "userMenu": {
       "userName": "João Silva",
@@ -476,7 +462,7 @@
       "netPositionTooltip": "Soma de todos os saldos de conta (acumulado)",
       "groups": {
         "liquid": "Líquido",
-        "savings": "Protegido",
+        "savings": "Poupança",
         "debt": "Dívidas",
         "allowance": "Contas de Mesada",
         "liquidSection": "Contas Líquidas",
@@ -484,28 +470,28 @@
         "debtSection": "Contas de Dívida"
       },
       "allowanceCard": {
-        "netChangeThisPeriod": "Este Período",
+        "netChangeThisPeriod": "Variação líquida neste período",
         "nextTransfer": "Próxima Transferência",
-        "balanceAfterNextTransfer": "Projetado Após Transferência",
+        "balanceAfterNextTransfer": "Saldo após próxima transferência",
         "notSet": "Não definido"
       },
       "standardBar": {
-        "rangeLabel": "Faixa de fechamento de 30d",
+        "rangeLabel": "Faixa de saldo de fechamento de 30 dias",
         "low": "Mín. {{value}}",
         "high": "Máx. {{value}}",
         "current": "Atual {{value}}",
         "zero": "Zero",
-        "withinRange": "",
+        "withinRange": "O saldo atual está dentro da faixa de fechamento de 30 dias desta conta.",
         "aboveHigh": "O saldo atual está acima do máximo de 30 dias em {{amount}}.",
         "belowLow": "O saldo atual está abaixo do mínimo de 30 dias em {{amount}}.",
-        "netChangeThisPeriod": "Este Período",
+        "netChangeThisPeriod": "Variação líquida neste período",
         "ariaLabel": "Faixa de fechamento de 30 dias: mínimo {{low}}, máximo {{high}}, atual {{current}}. {{status}}",
         "ariaWithinRange": "Dentro da faixa.",
         "ariaAboveHigh": "Acima do máximo em {{amount}}.",
         "ariaBelowLow": "Abaixo do mínimo em {{amount}}."
       },
       "allowanceBar": {
-        "rangeLabel": "Faixa de fechamento de 30d",
+        "rangeLabel": "Faixa de saldo de fechamento de 30 dias",
         "boundsNote": "Os limites incluem mínimo/máximo histórico, zero e saldo projetado.",
         "low": "Mín. {{value}}",
         "high": "Máx. {{value}}",
@@ -982,8 +968,6 @@
         "error": "Não foi possível carregar os valores do período atual."
       },
       "of": "de {{totalBudgetFormatted}}",
-      "noBudget": "Sem orçamento definido",
-      "periodElapsedAria": "{{percent}}% do período decorrido",
       "remainingDays": "{{remainingDays}} dias restando. {{remainingFormatted}} ainda neste período.",
       "projectedSpend": "Gasto projetado com o ritmo atual: {{projectedSpendFormatted}}"
     },
@@ -1009,8 +993,7 @@
       "error": "Não foi possível carregar a posição líquida.",
       "retry": "Tentar novamente",
       "acrossAccounts": "Em {{count}} contas",
-      "lastUpdated": "Atualizado há {{time}}",
-      "updatedAgo": "Atualizado {{time}}"
+      "lastUpdated": "Atualizado há {{time}}"
     },
     "stats": {
       "remainingBudget": {
@@ -1065,7 +1048,6 @@
       "withinRangeCount": "{{within}} de {{total}} períodos dentro da faixa",
       "lastClosedPeriodsLabel": "Últimos 6 períodos fechados",
       "empty": "Ainda não há períodos fechados",
-      "insufficientData": "Necessário 3+ períodos fechados para dados de estabilidade",
       "error": "Não foi possível carregar a estabilidade do orçamento.",
       "retry": "Tentar novamente",
       "dots": {
@@ -1156,7 +1138,6 @@
     }
   },
   "states": {
-    "done": "Concluído",
     "contract": {
       "emptyTitle": "Sem {{items}} ainda.",
       "items": {
@@ -1514,7 +1495,7 @@
     "diagnostics": {
       "sections": {
         "budgeted": "Categorias orçadas",
-        "budgetedSubtitle": "Valores orçados, realizados e variação por categoria.",
+        "budgetedSubtitle": "Estabilidade (últimos 3 períodos fechados)",
         "unbudgeted": "Categorias sem orçamento",
         "unbudgetedSubtitle": "Gasto realizado e participação no total sem orçamento."
       },

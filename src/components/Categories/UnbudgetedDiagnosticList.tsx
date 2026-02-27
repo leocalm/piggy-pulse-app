@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Text } from '@mantine/core';
-import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
-import { formatCurrency } from '@/utils/currency';
+import { Group, Text } from '@mantine/core';
+import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import styles from './Categories.module.css';
 
 export interface UnbudgetedDiagnosticItem {
@@ -18,8 +17,7 @@ interface UnbudgetedDiagnosticListProps {
 }
 
 export function UnbudgetedDiagnosticList({ rows }: UnbudgetedDiagnosticListProps) {
-  const { t, i18n } = useTranslation();
-  const currency = useDisplayCurrency();
+  const { t } = useTranslation();
 
   const sortedRows = [...rows].sort((left, right) => right.spentValue - left.spentValue);
 
@@ -31,8 +29,6 @@ export function UnbudgetedDiagnosticList({ rows }: UnbudgetedDiagnosticListProps
     );
   }
 
-  const format = (amountInCents: number) => formatCurrency(amountInCents, currency, i18n.language);
-
   return (
     <div className={styles.unbudgetedList}>
       {sortedRows.map((row) => (
@@ -41,13 +37,17 @@ export function UnbudgetedDiagnosticList({ rows }: UnbudgetedDiagnosticListProps
           className={styles.unbudgetedRow}
           data-testid={`unbudgeted-row-${row.id}`}
         >
-          <Text className={styles.unbudgetedName}>{row.name}</Text>
-          <div className={styles.unbudgetedValues}>
-            <Text className={styles.unbudgetedAmount} component="strong">
-              {format(row.spentValue)}
+          <Group gap={4} wrap="nowrap" className={styles.unbudgetedInline}>
+            <Text className={styles.unbudgetedName} component="span">
+              {row.name}
             </Text>
-            <Text className={styles.unbudgetedShare}>{`${row.sharePercentage.toFixed(1)}%`}</Text>
-          </div>
+            <Text className={styles.unbudgetedAmount} component="strong">
+              <CurrencyValue cents={row.spentValue} />
+            </Text>
+            <Text className={styles.unbudgetedShare} component="span">
+              {`(${row.sharePercentage.toFixed(1)}%)`}
+            </Text>
+          </Group>
         </article>
       ))}
     </div>

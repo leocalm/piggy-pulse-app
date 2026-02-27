@@ -350,6 +350,14 @@
   height: 100%;
 }
 
+.diagnosticProgressFillOverflow {
+  background: linear-gradient(
+    90deg,
+    var(--mantine-color-red-7) 0%,
+    var(--mantine-color-red-5) 100%
+  );
+}
+
 .diagnosticProjection {
   margin-top: 6px;
   font-size: 12px;
@@ -428,11 +436,12 @@
 
 .unbudgetedRow {
   border-bottom: 1px solid var(--border-medium);
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
   padding: 12px 0;
   font-size: 13px;
+}
+
+.unbudgetedInline {
+  align-items: baseline;
 }
 
 .unbudgetedName {
