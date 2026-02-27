@@ -29,6 +29,10 @@ interface CurrencyValueProps {
    * Useful for single-currency view modes.
    */
   forceGlobal?: boolean;
+  /**
+   * Strip trailing .00 from whole amounts (default: true)
+   */
+  clean?: boolean;
 }
 
 export const CurrencyValue = ({
@@ -38,6 +42,7 @@ export const CurrencyValue = ({
   compact = false,
   locale: customLocale,
   forceGlobal = true, // Defaulting to true as per "single currency" requirement
+  clean = true,
 }: CurrencyValueProps) => {
   const { i18n } = useTranslation();
   const globalCurrency = useDisplayCurrency();
@@ -52,7 +57,7 @@ export const CurrencyValue = ({
   const currencySymbol = currency?.symbol ?? '€';
   const decimalPlaces = currency?.decimalPlaces ?? 2;
 
-  const formattedValue = formatCurrencyValue(cents, decimalPlaces, locale);
+  const formattedValue = formatCurrencyValue(cents, decimalPlaces, locale, { clean });
 
   if (compact && Math.abs(cents) >= 1000000) {
     const displayValue = cents / 10 ** decimalPlaces;

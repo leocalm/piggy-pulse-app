@@ -51,13 +51,25 @@ export function formatCurrency(
 export function formatCurrencyValue(
   cents: number,
   decimalPlaces: number = 2,
-  locale: string = 'en-US'
+  locale: string = 'en-US',
+  options?: { clean?: boolean; showSign?: boolean }
 ): string {
   const displayValue = convertCentsToDisplay(cents, decimalPlaces);
-  return displayValue.toLocaleString(locale, {
+  let formatted = displayValue.toLocaleString(locale, {
     minimumFractionDigits: decimalPlaces,
     maximumFractionDigits: decimalPlaces,
   });
+
+  if (options?.clean) {
+    // Strip trailing decimal separator and zeros (e.g. ".00" or ",00")
+    formatted = formatted.replace(/[.,]0+$/, '');
+  }
+
+  if (options?.showSign && cents > 0) {
+    formatted = `+${formatted}`;
+  }
+
+  return formatted;
 }
 
 /**

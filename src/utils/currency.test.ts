@@ -156,6 +156,30 @@ describe('currency utilities', () => {
     });
   });
 
+  describe('formatCurrencyValue with clean option', () => {
+    it('removes trailing .00 for whole amounts', () => {
+      expect(formatCurrencyValue(88400, 2, 'en-US', { clean: true })).toBe('884');
+    });
+    it('keeps decimals when fractional', () => {
+      expect(formatCurrencyValue(88450, 2, 'en-US', { clean: true })).toBe('884.50');
+    });
+    it('still formats normally when clean is false', () => {
+      expect(formatCurrencyValue(88400, 2, 'en-US', { clean: false })).toBe('884.00');
+    });
+  });
+
+  describe('formatCurrencyValue with showSign option', () => {
+    it('adds + to positive values', () => {
+      expect(formatCurrencyValue(32000, 2, 'en-US', { showSign: true })).toBe('+320.00');
+    });
+    it('keeps - on negative values', () => {
+      expect(formatCurrencyValue(-2500, 2, 'en-US', { showSign: true })).toBe('-25.00');
+    });
+    it('shows 0 without sign', () => {
+      expect(formatCurrencyValue(0, 2, 'en-US', { showSign: true })).toBe('0.00');
+    });
+  });
+
   describe('formatCurrencyWithSymbol', () => {
     it('should format with symbol and value', () => {
       expect(formatCurrencyWithSymbol(1234, '€')).toBe('€ 12.34');
