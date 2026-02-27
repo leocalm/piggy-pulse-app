@@ -1719,6 +1719,11 @@
       "Outgoing": "Spending",
       "Incoming": "Income",
       "Transfer": "Transfer"
+    },
+    "errors": {
+      "archiveFailed": "Failed to archive category.",
+      "restoreFailed": "Failed to restore category.",
+      "deleteFailed": "Failed to delete category."
     }
   },
   "periodContext": {

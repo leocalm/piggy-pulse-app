@@ -1571,6 +1571,72 @@
       "Outgoing": "Gastos",
       "Incoming": "Entradas",
       "Transfer": "Transferências"
+    },
+    "management": {
+      "search": "Pesquisar categorias...",
+      "searchPlaceholder": "Pesquisar categorias...",
+      "emptySection": "Nenhuma categoria nesta seção.",
+      "noResults": "Nenhuma categoria corresponde à sua pesquisa.",
+      "emptyMessage": "Crie sua primeira categoria para organizar entradas e saídas.",
+      "transactionCount": "{{count}} transação",
+      "transactionCount_other": "{{count}} transações",
+      "typeLabel": "Tipo: {{type}}",
+      "sections": {
+        "incoming": "Entradas",
+        "outgoing": "Saídas",
+        "archived": "Arquivadas"
+      },
+      "status": {
+        "active": "Ativo",
+        "archived": "Arquivado"
+      },
+      "actions": {
+        "edit": "Editar",
+        "archive": "Arquivar",
+        "restore": "Restaurar",
+        "delete": "Excluir",
+        "subcategory": "Subcategoria"
+      },
+      "empty": {
+        "title": "Nenhuma categoria definida ainda.",
+        "message": "Adicione sua primeira categoria para começar.",
+        "cta": "Adicionar Categoria"
+      },
+      "error": {
+        "title": "Não foi possível carregar as categorias.",
+        "message": "Sua estrutura existente não foi alterada. Tente novamente para carregar as categorias."
+      }
+    },
+    "form": {
+      "createTitle": "Criar Categoria",
+      "editTitle": "Editar Categoria",
+      "subcategoryTitle": "Criar Subcategoria",
+      "nameLabel": "Nome da Categoria",
+      "namePlaceholder": "ex.: Aluguel, Supermercado",
+      "typeLabel": "Tipo",
+      "typeLocked": "O tipo não pode ser alterado após a primeira transação.",
+      "iconLabel": "Ícone (opcional)",
+      "iconPlaceholder": "Exemplo: casa",
+      "descriptionLabel": "Descrição (opcional)",
+      "descriptionPlaceholder": "Descrição estrutural curta",
+      "parentLabel": "Categoria pai",
+      "create": "Criar",
+      "errors": {
+        "nameMinLength": "O nome deve ter pelo menos 2 letras",
+        "submit": "Falha ao salvar categoria"
+      }
+    },
+    "success": {
+      "created": "Categoria criada com sucesso.",
+      "updated": "Categoria atualizada.",
+      "archived": "Categoria arquivada.",
+      "restored": "Categoria restaurada.",
+      "deleted": "Categoria excluída."
+    },
+    "errors": {
+      "archiveFailed": "Falha ao arquivar categoria.",
+      "restoreFailed": "Falha ao restaurar categoria.",
+      "deleteFailed": "Falha ao excluir categoria."
     }
   },
   "categoryTargets": {
