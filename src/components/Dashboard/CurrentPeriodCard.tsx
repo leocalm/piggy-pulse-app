@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Button, Group, Paper, Skeleton, Text } from '@mantine/core';
+import { Button, Group, Paper, Progress, Skeleton, Text } from '@mantine/core';
 import piggyLogo from '@/assets/icons/png/gradient/piggy-pulse.png';
 import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { MonthlyBurnIn, MonthProgress } from '@/types/dashboard';
@@ -14,14 +14,6 @@ interface CurrentPeriodCardProps {
   isError: boolean;
   onRetry: () => void;
 }
-
-const formatPercentUsed = (spent: number, total: number): number => {
-  if (total <= 0) {
-    return 0;
-  }
-
-  return Math.max(0, Math.round((spent / total) * 100));
-};
 
 const getProjectedSpend = (spent: number, currentDay: number, daysInPeriod: number): number => {
   if (currentDay <= 0 || daysInPeriod <= 0) {
@@ -84,7 +76,6 @@ export const CurrentPeriodCard = ({
   const totalBudget = monthlyBurnIn.totalBudget;
   const actualSpend = monthlyBurnIn.spentBudget;
   const remaining = totalBudget - actualSpend;
-  const percentUsed = formatPercentUsed(actualSpend, totalBudget);
   const projectedSpend = getProjectedSpend(
     actualSpend,
     monthlyBurnIn.currentDay,
@@ -96,23 +87,39 @@ export const CurrentPeriodCard = ({
   const remainingFormatted = new Money(remaining, currency).format(i18n.language);
   const projectedSpendFormatted = new Money(projectedSpend, currency).format(i18n.language);
 
+  const hasBudget = totalBudget > 0;
+  const periodElapsedPct = Math.min(monthProgress.daysPassedPercentage, 100);
+
   return (
     <Paper className={styles.card} p="xl" withBorder>
       <img src={piggyLogo} className={styles.pigMark} alt="" />
       <Text className={styles.label}>{t('dashboard.currentPeriod.title')}</Text>
       <Text className={styles.periodAmount}>{actualSpendFormatted}</Text>
-      <Text className={styles.periodMeta}>
-        {t('dashboard.currentPeriod.of', { totalBudgetFormatted })}
-      </Text>
+      {hasBudget ? (
+        <Text className={styles.periodMeta}>
+          {t('dashboard.currentPeriod.of', { totalBudgetFormatted })}
+        </Text>
+      ) : (
+        <Text className={styles.periodMeta} c="dimmed">
+          {t('dashboard.currentPeriod.noBudget')}
+        </Text>
+      )}
       <Text className={styles.periodRemaining}>
         {t('dashboard.currentPeriod.remainingDays', {
           remainingDays: monthProgress.remainingDays,
           remainingFormatted,
         })}
       </Text>
-      <div className={styles.progressBar} role="presentation" aria-hidden="true">
-        <div className={styles.progressFill} style={{ width: `${Math.min(percentUsed, 100)}%` }} />
-      </div>
+      <Progress
+        value={periodElapsedPct}
+        size="sm"
+        radius="xl"
+        mt="sm"
+        mb="sm"
+        aria-label={t('dashboard.currentPeriod.periodElapsedAria', {
+          percent: Math.round(periodElapsedPct),
+        })}
+      />
       <Text className={styles.periodProjection}>
         {t('dashboard.currentPeriod.projectedSpend', { projectedSpendFormatted })}
       </Text>

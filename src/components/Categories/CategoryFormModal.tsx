@@ -202,7 +202,7 @@ export function CategoryFormModal({
           maxLength={80}
         />
 
-        {(mode === 'create' || !category?.globalTransactionCount) && (
+        {mode !== 'subcategory' && (
           <Select
             label={t('categories.form.typeLabel')}
             value={categoryType}
@@ -215,17 +215,15 @@ export function CategoryFormModal({
               { value: 'Incoming', label: t('categories.types.Incoming') },
               { value: 'Outgoing', label: t('categories.types.Outgoing') },
             ]}
-            disabled={mode === 'subcategory'}
+            disabled={mode === 'edit' && (category?.globalTransactionCount ?? 0) > 0}
           />
         )}
 
-        {mode === 'edit' &&
-          category?.globalTransactionCount &&
-          category.globalTransactionCount > 0 && (
-            <Text size="xs" c="dimmed">
-              {t('categories.form.typeLocked')}
-            </Text>
-          )}
+        {mode === 'edit' && (category?.globalTransactionCount ?? 0) > 0 && (
+          <Text size="xs" c="dimmed">
+            {t('categories.form.typeLocked')}
+          </Text>
+        )}
 
         <TextInput
           label={t('categories.form.iconLabel')}

@@ -96,19 +96,6 @@ export function AllowanceRangeBar({ account }: { account: AccountResponse }) {
         )}
       </Box>
 
-      <Group justify="space-between">
-        <Text size="xs" c="dimmed">
-          {t('accounts.overview.allowanceBar.low', {
-            value: formatCurrency(low, account.currency),
-          })}
-        </Text>
-        <Text size="xs" c="dimmed">
-          {t('accounts.overview.allowanceBar.high', {
-            value: formatCurrency(high, account.currency),
-          })}
-        </Text>
-      </Group>
-
       <Group gap="md" wrap="wrap">
         <Group gap={6} align="center">
           <span className={styles.legendDotCurrent} />

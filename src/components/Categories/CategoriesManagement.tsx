@@ -5,17 +5,7 @@
 import { Fragment, useMemo, useState } from 'react';
 import { IconChevronDown, IconChevronRight, IconPlus, IconSearch } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
-import {
-  Badge,
-  Button,
-  Collapse,
-  Group,
-  Paper,
-  Skeleton,
-  Stack,
-  Text,
-  TextInput,
-} from '@mantine/core';
+import { Button, Collapse, Group, Paper, Skeleton, Stack, Text, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { CategoriesManagementListResponse, CategoryManagementRow } from '@/types/category';
 import styles from './Categories.module.css';
@@ -249,20 +239,6 @@ function CategoryRow({
       </div>
 
       <div className={styles.meta}>
-        {isArchived && (
-          <Badge variant="light" size="sm" className={styles.typeChip}>
-            {t('categories.management.typeLabel', {
-              type: t(`categories.types.${category.categoryType}`),
-            })}
-          </Badge>
-        )}
-        {!isArchived && !isChild && (
-          <Badge variant="light" size="sm" className={styles.typeChip}>
-            {t('categories.management.typeLabel', {
-              type: t(`categories.types.${category.categoryType}`),
-            })}
-          </Badge>
-        )}
         <Text className={styles.txCount}>
           {t('categories.management.transactionCount', { count: category.globalTransactionCount })}
         </Text>
@@ -349,6 +325,7 @@ interface CategoriesManagementProps {
   onRestore: (category: CategoryManagementRow) => void;
   onDelete: (category: CategoryManagementRow) => void;
   onAddSubcategory: (parent: CategoryManagementRow) => void;
+  onAdd: () => void;
 }
 
 export function CategoriesManagement({
@@ -361,6 +338,7 @@ export function CategoriesManagement({
   onRestore,
   onDelete,
   onAddSubcategory,
+  onAdd,
 }: CategoriesManagementProps) {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
@@ -398,6 +376,9 @@ export function CategoriesManagement({
         <Text c="dimmed" mb="md">
           {t('categories.management.empty.message')}
         </Text>
+        <Button leftSection={<IconPlus size={16} />} onClick={onAdd} mt="xs">
+          {t('categories.management.empty.cta')}
+        </Button>
       </Paper>
     );
   }

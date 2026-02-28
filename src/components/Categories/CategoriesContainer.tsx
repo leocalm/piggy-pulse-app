@@ -225,6 +225,7 @@ export function CategoriesContainer() {
             onRestore={handleRestoreCategory}
             onDelete={handleDeleteCategory}
             onAddSubcategory={handleCreateSubcategory}
+            onAdd={openCreate}
           />
         ) : (
           <CategoryTargets />

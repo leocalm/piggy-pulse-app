@@ -56,6 +56,13 @@ export function CategoriesOverview({ emptyAction }: CategoriesOverviewProps) {
     refetch: refetchDiagnostics,
   } = useCategoriesDiagnostic(selectedPeriodId);
 
+  const periodSummary = diagnostics?.periodSummary;
+  const daysElapsed =
+    periodSummary !== undefined
+      ? periodSummary.daysInPeriod - periodSummary.remainingDays
+      : undefined;
+  const totalDays = periodSummary?.daysInPeriod;
+
   const budgetedDiagnostics = useMemo(() => {
     return (diagnostics?.budgetedRows ?? []).map((row) => ({
       id: row.id,
@@ -135,6 +142,8 @@ export function CategoriesOverview({ emptyAction }: CategoriesOverviewProps) {
                     varianceValue={row.varianceValue}
                     progressPercentage={row.progressPercentage}
                     stabilityHistory={row.stabilityHistory}
+                    daysElapsed={daysElapsed}
+                    totalDays={totalDays}
                   />
                 ))}
               </Stack>

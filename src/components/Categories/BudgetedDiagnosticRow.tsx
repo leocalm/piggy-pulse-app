@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text } from '@mantine/core';
+import { Group, Text } from '@mantine/core';
+import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import { useDisplayCurrency } from '@/hooks/useDisplayCurrency';
 import { formatCurrency } from '@/utils/currency';
 import { CategoryStabilityDots } from './CategoryStabilityDots';
@@ -18,6 +19,8 @@ export interface BudgetedDiagnosticRowProps {
   varianceValue: number;
   progressPercentage: number;
   stabilityHistory: boolean[];
+  daysElapsed?: number;
+  totalDays?: number;
 }
 
 function normalizePercentage(value: number) {
@@ -38,11 +41,14 @@ export function BudgetedDiagnosticRow({
   varianceValue,
   progressPercentage,
   stabilityHistory,
+  daysElapsed,
+  totalDays,
 }: BudgetedDiagnosticRowProps) {
   const { t, i18n } = useTranslation();
   const currency = useDisplayCurrency();
 
   const normalizedProgress = normalizePercentage(progressPercentage);
+  const isOverBudget = normalizedProgress > 100;
   const baseProgressWidth = `${Math.min(normalizedProgress, 100)}%`;
   const overflowProgressWidth =
     normalizedProgress <= 100
@@ -51,6 +57,11 @@ export function BudgetedDiagnosticRow({
   const usagePercentageLabel = `${normalizedProgress.toFixed(1)}%`;
 
   const format = (amountInCents: number) => formatCurrency(amountInCents, currency, i18n.language);
+
+  const projectedAmount =
+    daysElapsed !== undefined && daysElapsed > 0 && totalDays !== undefined && totalDays > 0
+      ? Math.round((spentValue / daysElapsed) * totalDays)
+      : null;
 
   return (
     <article className={styles.diagnosticRow} data-testid={`budgeted-row-${id}`}>
@@ -62,13 +73,13 @@ export function BudgetedDiagnosticRow({
             <div className={styles.diagnosticProgressRail}>
               <div className={styles.diagnosticProgressTrack}>
                 <div
-                  className={styles.diagnosticProgressFill}
+                  className={`${styles.diagnosticProgressFill}${isOverBudget ? ` ${styles.diagnosticProgressFillOverflow}` : ''}`}
                   style={{ width: baseProgressWidth }}
                 />
               </div>
               <div className={styles.diagnosticProgressOverflow}>
                 <div
-                  className={styles.diagnosticProgressFill}
+                  className={`${styles.diagnosticProgressFill}${isOverBudget ? ` ${styles.diagnosticProgressFillOverflow}` : ''}`}
                   style={
                     {
                       width: overflowProgressWidth,
@@ -83,6 +94,16 @@ export function BudgetedDiagnosticRow({
           <Text className={styles.diagnosticProjection}>
             {t('categories.diagnostics.labels.actual')}: {format(spentValue)}
           </Text>
+
+          {projectedAmount !== null && (
+            <Text className={styles.diagnosticProjection}>
+              <Group gap={4} component="span">
+                <span>{t('categories.diagnostics.labels.projectedAtCurrentPace')}:</span>
+                <CurrencyValue cents={projectedAmount} />
+              </Group>
+            </Text>
+          )}
+
           <CategoryStabilityDots history={stabilityHistory} />
         </div>
 

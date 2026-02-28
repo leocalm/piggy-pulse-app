@@ -18,7 +18,11 @@ export function AccountsContainer() {
           <Title order={1} className={styles.accountsTitle}>
             {t('accounts.overview.title')}
           </Title>
-          <Text className={styles.accountsSubtitle}>{t('accounts.overview.subtitle')}</Text>
+          <Text className={styles.accountsSubtitle}>
+            {viewMode === 'management'
+              ? t('accounts.management.subtitle')
+              : t('accounts.overview.subtitle')}
+          </Text>
           <Box component="nav" className={styles.modeSwitch} aria-label="Accounts page mode">
             <UnstyledButton
               className={`${styles.modePill} ${viewMode === 'overview' ? styles.modePillActive : ''}`}

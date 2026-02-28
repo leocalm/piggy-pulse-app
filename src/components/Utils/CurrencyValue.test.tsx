@@ -37,6 +37,7 @@ describe('CurrencyValue', () => {
     const { container } = render(<CurrencyValue currency={undefined} cents={1000} locale="en" />);
 
     expect(container.textContent).toContain('€');
-    expect(container.textContent).toContain('10.00');
+    // clean=true by default strips trailing .00 for whole amounts
+    expect(container.textContent).toContain('10');
   });
 });

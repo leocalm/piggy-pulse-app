@@ -92,13 +92,13 @@
     },
     "resetPassword": {
       "title": "Criar nova senha",
-      "validating": "Verificando link de redefinição\u2026",
+      "validating": "Verificando link de redefinição…",
       "newPasswordLabel": "Nova senha",
       "newPasswordPlaceholder": "Criar senha",
       "confirmPasswordLabel": "Confirmar senha",
       "confirmPasswordPlaceholder": "Repetir senha",
       "resetPassword": "Atualizar senha",
-      "updating": "Atualizando\u2026",
+      "updating": "Atualizando…",
       "backToLogin": "Voltar para o login",
       "requestNew": "Solicitar novo link de redefinição",
       "hint": {
@@ -228,7 +228,18 @@
       "dateRange": "Período",
       "accountAll": "Conta: Todas",
       "categoryAll": "Categoria: Todas",
-      "amountAll": "Valor: Todos"
+      "amountAll": "Valor: Todos",
+      "title": "Filtros",
+      "direction": "Direção",
+      "accounts": "Contas",
+      "categories": "Categorias",
+      "vendors": "Fornecedor (opcional)",
+      "dateFrom": "De",
+      "dateTo": "Até",
+      "allAccounts": "Todas as contas",
+      "allCategories": "Todas as categorias",
+      "allVendors": "Todos os fornecedores",
+      "clearAll": "Limpar filtros"
     },
     "section": {
       "showing": "Mostrando {{count}} transações em {{period}}",
@@ -323,6 +334,9 @@
   "layout": {
     "logo": {
       "title": "PiggyPulse"
+    },
+    "scope": {
+      "allAccounts": "Todas as contas"
     },
     "userMenu": {
       "userName": "João Silva",
@@ -504,7 +518,7 @@
     },
     "management": {
       "title": "Contas",
-      "subtitle": "Gerencie a configuração das suas contas.",
+      "subtitle": "Defina e gerencie suas contas financeiras",
       "addAccount": "Adicionar Conta",
       "columns": {
         "name": "Nome",
@@ -597,7 +611,7 @@
       "context": {
         "toggle": "Contexto",
         "categoryImpact": "Impacto por Categoria",
-        "stability": "Estabilidade",
+        "stability": "CONTEXTO DE ESTABILIDADE",
         "closedPositive": "Fechou positivo em {{positive}} de {{total}} períodos",
         "avgClosingBalance": "Saldo médio de fechamento: {{value}}",
         "highestClosingBalance": "Maior saldo de fechamento: {{value}}",
@@ -616,6 +630,12 @@
         "colAmount": "Valor",
         "colBalance": "Saldo",
         "loadMore": "Carregar mais"
+      },
+      "typeLabels": {
+        "liquid": "CONTA LÍQUIDA",
+        "protected": "CONTA PROTEGIDA",
+        "debt": "CONTA DE DÍVIDA",
+        "default": "CONTA"
       }
     }
   },
@@ -641,8 +661,8 @@
   },
   "periods": {
     "page": {
-      "title": "Períodos de Orçamento",
-      "description": "Gerencie suas janelas de orçamento. Crie períodos manuais ou ative criação automática com agendamento."
+      "title": "Períodos",
+      "description": "Janelas de tempo que ajudam a acompanhar padrões"
     },
     "sections": {
       "current": "Período Atual",
@@ -661,6 +681,7 @@
       "upcoming": "Nenhum próximo período encontrado.",
       "past": "Ainda não há períodos passados."
     },
+    "upcomingDisclaimer": "Períodos futuros podem mudar. Transações com data futura aparecerão no período adequado com base na data.",
     "card": {
       "daysRemaining_one": "{{count}} dia restante",
       "daysRemaining_other": "{{count}} dias restantes",
@@ -968,8 +989,10 @@
         "error": "Não foi possível carregar os valores do período atual."
       },
       "of": "de {{totalBudgetFormatted}}",
+      "noBudget": "Nenhum orçamento definido para este período.",
       "remainingDays": "{{remainingDays}} dias restando. {{remainingFormatted}} ainda neste período.",
-      "projectedSpend": "Gasto projetado com o ritmo atual: {{projectedSpendFormatted}}"
+      "projectedSpend": "Gasto projetado com o ritmo atual: {{projectedSpendFormatted}}",
+      "periodElapsedAria": "{{percent}}% do período decorrido"
     },
     "noPeriod": {
       "title": "Você está em uma lacuna de período",
@@ -993,7 +1016,8 @@
       "error": "Não foi possível carregar a posição líquida.",
       "retry": "Tentar novamente",
       "acrossAccounts": "Em {{count}} contas",
-      "lastUpdated": "Atualizado há {{time}}"
+      "lastUpdated": "Atualizado há {{time}}",
+      "updatedAgo": "Atualizado {{time}}"
     },
     "stats": {
       "remainingBudget": {
@@ -1048,6 +1072,7 @@
       "withinRangeCount": "{{within}} de {{total}} períodos dentro da faixa",
       "lastClosedPeriodsLabel": "Últimos 6 períodos fechados",
       "empty": "Ainda não há períodos fechados",
+      "insufficientData": "São necessários pelo menos 3 períodos fechados para uma leitura de estabilidade confiável.",
       "error": "Não foi possível carregar a estabilidade do orçamento.",
       "retry": "Tentar novamente",
       "dots": {
@@ -1073,12 +1098,14 @@
     "lastUsed": "Último Uso",
     "never": "Nunca",
     "form": {
-      "nameLabel": "Nome do Fornecedor",
+      "nameLabel": "Nome",
       "namePlaceholder": "Digite o nome do fornecedor",
       "descriptionLabel": "Descrição (opcional)",
       "descriptionPlaceholder": "Nota de referência curta",
       "editNote": "Edições atualizam apenas o rótulo do fornecedor. O histórico financeiro não é alterado.",
-      "saveButton": "Salvar Fornecedor",
+      "saveButton": "Salvar",
+      "createButton": "Criar",
+      "addSubtitle": "Preencha os detalhes para criar um novo fornecedor.",
       "cancelButton": "Cancelar"
     },
     "delete": {
@@ -1103,7 +1130,7 @@
       "title": "Nenhum fornecedor ainda.",
       "message": "Crie fornecedores manualmente ou deixe-os aparecer a partir de transações."
     },
-    "activeSection": "Fornecedores Ativos ({{count}})",
+    "activeSection": "Todos os Fornecedores (ALFABÉTICO)",
     "archivedSection": "Arquivados ({{count}})",
     "noSearchResults": "Nenhum fornecedor corresponde sua pesquisa",
     "loadMore": "Carregar mais",
@@ -1122,12 +1149,13 @@
         "edit": "Editar Fornecedor",
         "delete": "Excluir Fornecedor"
       },
-      "transactionCount": "{{count}} transação",
-      "transactionCount_plural": "{{count}} transações",
+      "transactionCount": "{{count}} tx",
+      "transactionCount_plural": "{{count}} tx",
       "edit": "Editar",
       "archive": "Arquivar",
       "restore": "Restaurar",
-      "delete": "Excluir"
+      "delete": "Excluir",
+      "archived": "Arquivado"
     },
     "times": {
       "never": "Nunca",
@@ -1138,6 +1166,7 @@
     }
   },
   "states": {
+    "done": "Concluído",
     "contract": {
       "emptyTitle": "Sem {{items}} ainda.",
       "items": {
@@ -1438,7 +1467,9 @@
       "deleteConfirmPrompt": "Digite EXCLUIR para confirmar",
       "deleteConfirmPlaceholder": "EXCLUIR",
       "saveButton": "Confirmar",
-      "cancelButton": "Cancelar"
+      "cancelButton": "Cancelar",
+      "resetStructureNote": "As transações permanecem intactas.",
+      "deleteAccountNote": "Requer confirmação digitada: DELETE"
     },
     "notifications": {
       "profile": {
@@ -1495,7 +1526,7 @@
     "diagnostics": {
       "sections": {
         "budgeted": "Categorias orçadas",
-        "budgetedSubtitle": "Valores orçados, realizados e variação por categoria.",
+        "budgetedSubtitle": "Estabilidade (últimos 3 períodos fechados)",
         "unbudgeted": "Categorias sem orçamento",
         "unbudgetedSubtitle": "Gasto realizado e participação no total sem orçamento."
       },
@@ -1565,6 +1596,72 @@
       "Outgoing": "Gastos",
       "Incoming": "Entradas",
       "Transfer": "Transferências"
+    },
+    "management": {
+      "search": "Pesquisar categorias...",
+      "searchPlaceholder": "Pesquisar categorias...",
+      "emptySection": "Nenhuma categoria nesta seção.",
+      "noResults": "Nenhuma categoria corresponde à sua pesquisa.",
+      "emptyMessage": "Crie sua primeira categoria para organizar entradas e saídas.",
+      "transactionCount": "{{count}} transação",
+      "transactionCount_other": "{{count}} transações",
+      "typeLabel": "Tipo: {{type}}",
+      "sections": {
+        "incoming": "Entradas",
+        "outgoing": "Saídas",
+        "archived": "Arquivadas"
+      },
+      "status": {
+        "active": "Ativo",
+        "archived": "Arquivado"
+      },
+      "actions": {
+        "edit": "Editar",
+        "archive": "Arquivar",
+        "restore": "Restaurar",
+        "delete": "Excluir",
+        "subcategory": "Subcategoria"
+      },
+      "empty": {
+        "title": "Nenhuma categoria definida ainda.",
+        "message": "Adicione sua primeira categoria para começar.",
+        "cta": "Adicionar Categoria"
+      },
+      "error": {
+        "title": "Não foi possível carregar as categorias.",
+        "message": "Sua estrutura existente não foi alterada. Tente novamente para carregar as categorias."
+      }
+    },
+    "form": {
+      "createTitle": "Criar Categoria",
+      "editTitle": "Editar Categoria",
+      "subcategoryTitle": "Criar Subcategoria",
+      "nameLabel": "Nome da Categoria",
+      "namePlaceholder": "ex.: Aluguel, Supermercado",
+      "typeLabel": "Tipo",
+      "typeLocked": "O tipo não pode ser alterado após a primeira transação.",
+      "iconLabel": "Ícone (opcional)",
+      "iconPlaceholder": "Exemplo: casa",
+      "descriptionLabel": "Descrição (opcional)",
+      "descriptionPlaceholder": "Descrição estrutural curta",
+      "parentLabel": "Categoria pai",
+      "create": "Criar",
+      "errors": {
+        "nameMinLength": "O nome deve ter pelo menos 2 letras",
+        "submit": "Falha ao salvar categoria"
+      }
+    },
+    "success": {
+      "created": "Categoria criada com sucesso.",
+      "updated": "Categoria atualizada.",
+      "archived": "Categoria arquivada.",
+      "restored": "Categoria restaurada.",
+      "deleted": "Categoria excluída."
+    },
+    "errors": {
+      "archiveFailed": "Falha ao arquivar categoria.",
+      "restoreFailed": "Falha ao restaurar categoria.",
+      "deleteFailed": "Falha ao excluir categoria."
     }
   },
   "categoryTargets": {
@@ -1576,7 +1673,7 @@
       "categoriesWithTargets": "{{targeted}} de {{total}} categorias ativas",
       "periodProgress": "Progresso do Período",
       "elapsed": "decorrido",
-      "hint": "As metas são inicializadas a partir do período anterior. Os valores são inseridos como positivos. A direção é derivada do tipo de categoria."
+      "hint": "As metas são inicializadas a partir do período anterior. Os valores são inseridos como positivos. A direção é derivada do tipo de categoria"
     },
     "sections": {
       "outgoing": "Categorias de Gastos",

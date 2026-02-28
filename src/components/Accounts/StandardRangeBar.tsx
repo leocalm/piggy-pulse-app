@@ -114,19 +114,6 @@ export function StandardRangeBar({ account }: { account: AccountResponse }) {
         <span className={styles.currentMarker} style={{ left: `${currentPct}%` }} />
       </Box>
 
-      <Group justify="space-between">
-        <Text size="xs" c="dimmed">
-          {t('accounts.overview.standardBar.low', {
-            value: formatCurrency(low, account.currency),
-          })}
-        </Text>
-        <Text size="xs" c="dimmed">
-          {t('accounts.overview.standardBar.high', {
-            value: formatCurrency(high, account.currency),
-          })}
-        </Text>
-      </Group>
-
       <Group gap="md" wrap="wrap">
         <Group gap={6} align="center">
           <span className={styles.legendDotCurrent} />
@@ -144,9 +131,11 @@ export function StandardRangeBar({ account }: { account: AccountResponse }) {
         )}
       </Group>
 
-      <Text size="xs" c="dimmed">
-        {contextText}
-      </Text>
+      {contextText && (
+        <Text size="xs" c="dimmed">
+          {contextText}
+        </Text>
+      )}
 
       <Group justify="space-between" mt={8}>
         <Text size="sm" c="dimmed">

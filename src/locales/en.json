@@ -108,13 +108,13 @@
     },
     "resetPassword": {
       "title": "Create new password",
-      "validating": "Verifying reset link\u2026",
+      "validating": "Verifying reset link…",
       "newPasswordLabel": "New password",
       "newPasswordPlaceholder": "Create password",
       "confirmPasswordLabel": "Confirm password",
       "confirmPasswordPlaceholder": "Repeat password",
       "resetPassword": "Update password",
-      "updating": "Updating\u2026",
+      "updating": "Updating…",
       "backToLogin": "Back to login",
       "requestNew": "Request new reset link",
       "hint": {
@@ -390,8 +390,8 @@
   },
   "periods": {
     "page": {
-      "title": "Budget Periods",
-      "description": "Manage your budget windows. Create custom periods or enable auto-creation with a recurring schedule."
+      "title": "Periods",
+      "description": "Time windows that help you track patterns"
     },
     "sections": {
       "current": "Current Period",
@@ -410,6 +410,7 @@
       "upcoming": "No upcoming periods found.",
       "past": "No past periods yet."
     },
+    "upcomingDisclaimer": "Future periods may change. Future-dated transactions will appear in the appropriate period based on date.",
     "card": {
       "daysRemaining_one": "{{count}} day remaining",
       "daysRemaining_other": "{{count}} days remaining",
@@ -675,6 +676,9 @@
     "logo": {
       "title": "PiggyPulse"
     },
+    "scope": {
+      "allAccounts": "All accounts"
+    },
     "topbar": {
       "pageTitle": {
         "dashboard": "Dashboard",
@@ -867,7 +871,7 @@
     },
     "management": {
       "title": "Accounts",
-      "subtitle": "Manage your account setup.",
+      "subtitle": "Define and manage your financial accounts",
       "addAccount": "Add Account",
       "columns": {
         "name": "Name",
@@ -960,7 +964,7 @@
       "context": {
         "toggle": "Context",
         "categoryImpact": "Category Impact",
-        "stability": "Stability",
+        "stability": "STABILITY CONTEXT",
         "closedPositive": "Closed positive in {{positive}} of {{total}} periods",
         "avgClosingBalance": "Average closing balance: {{value}}",
         "highestClosingBalance": "Highest closing balance: {{value}}",
@@ -979,6 +983,12 @@
         "colAmount": "Amount",
         "colBalance": "Balance",
         "loadMore": "Load more"
+      },
+      "typeLabels": {
+        "liquid": "LIQUID ACCOUNT",
+        "protected": "PROTECTED ACCOUNT",
+        "debt": "DEBT ACCOUNT",
+        "default": "ACCOUNT"
       }
     }
   },
@@ -997,12 +1007,14 @@
     "lastUsed": "Last Used",
     "never": "Never",
     "form": {
-      "nameLabel": "Vendor Name",
+      "nameLabel": "Name",
       "namePlaceholder": "Enter vendor name",
       "descriptionLabel": "Description (optional)",
       "descriptionPlaceholder": "Short reference note",
       "editNote": "Edits update vendor labeling only. Financial history is unchanged.",
-      "saveButton": "Save Vendor",
+      "saveButton": "Save",
+      "createButton": "Create",
+      "addSubtitle": "Fill in the details to create a new vendor.",
       "cancelButton": "Cancel"
     },
     "delete": {
@@ -1027,7 +1039,7 @@
       "title": "No vendors yet.",
       "message": "Create vendors manually or let them appear from transactions."
     },
-    "activeSection": "Active Vendors ({{count}})",
+    "activeSection": "All Vendors (ALPHABETICAL)",
     "archivedSection": "Archived ({{count}})",
     "noSearchResults": "No vendors match your search",
     "loadMore": "Load more",
@@ -1050,8 +1062,9 @@
       "archive": "Archive",
       "restore": "Restore",
       "delete": "Delete",
-      "transactionCount": "{{count}} transaction",
-      "transactionCount_plural": "{{count}} transactions"
+      "transactionCount": "{{count}} tx",
+      "transactionCount_plural": "{{count}} tx",
+      "archived": "Archived"
     },
     "times": {
       "never": "Never",
@@ -1107,8 +1120,10 @@
         "error": "Unable to load current period values."
       },
       "of": "of {{totalBudgetFormatted}}",
+      "noBudget": "No budget set for this period.",
       "remainingDays": "{{remainingDays}} days remaining. {{remainingFormatted}} remaining in this period.",
-      "projectedSpend": "Projected spend at current pace: {{projectedSpendFormatted}}"
+      "projectedSpend": "Projected spend at current pace: {{projectedSpendFormatted}}",
+      "periodElapsedAria": "{{percent}}% of period elapsed"
     },
     "noPeriod": {
       "title": "You are in a period gap",
@@ -1132,7 +1147,8 @@
       "error": "Could not load net position.",
       "retry": "Retry",
       "acrossAccounts": "Across {{count}} accounts",
-      "lastUpdated": "Last updated {{time}} ago"
+      "lastUpdated": "Last updated {{time}} ago",
+      "updatedAgo": "Updated {{time}}"
     },
     "stats": {
       "remainingBudget": {
@@ -1187,6 +1203,7 @@
       "withinRangeCount": "{{within}} of {{total}} periods within range",
       "lastClosedPeriodsLabel": "Last 6 closed periods",
       "empty": "No closed periods yet",
+      "insufficientData": "Need at least 3 closed periods for a reliable stability reading.",
       "error": "Could not load budget stability.",
       "retry": "Retry",
       "dots": {
@@ -1198,6 +1215,7 @@
     "subtitle": "Current position, deviation, and period trajectory."
   },
   "states": {
+    "done": "Done",
     "contract": {
       "emptyTitle": "No {{items}} yet.",
       "items": {
@@ -1498,7 +1516,9 @@
       "deleteConfirmPrompt": "Type DELETE to confirm",
       "deleteConfirmPlaceholder": "DELETE",
       "saveButton": "Confirm",
-      "cancelButton": "Cancel"
+      "cancelButton": "Cancel",
+      "resetStructureNote": "Transactions remain intact.",
+      "deleteAccountNote": "Requires typed confirmation: DELETE"
     },
     "notifications": {
       "profile": {
@@ -1557,7 +1577,7 @@
     "diagnostics": {
       "sections": {
         "budgeted": "Budgeted categories",
-        "budgetedSubtitle": "Budgeted, actual, and variance values by category.",
+        "budgetedSubtitle": "Stability (last 3 closed periods)",
         "unbudgeted": "Unbudgeted categories",
         "unbudgetedSubtitle": "Actual spend and share of total unbudgeted spend."
       },
@@ -1713,6 +1733,11 @@
       "Outgoing": "Spending",
       "Incoming": "Income",
       "Transfer": "Transfer"
+    },
+    "errors": {
+      "archiveFailed": "Failed to archive category.",
+      "restoreFailed": "Failed to restore category.",
+      "deleteFailed": "Failed to delete category."
     }
   },
   "periodContext": {
@@ -1732,7 +1757,7 @@
       "categoriesWithTargets": "{{targeted}} of {{total}} active categories",
       "periodProgress": "Period Progress",
       "elapsed": "elapsed",
-      "hint": "Targets are initialized from the previous period. Amounts are entered as positive values. Direction is derived from category type."
+      "hint": "Targets are initialized from the previous period. Amounts are entered as positive values. Direction is derived from category type"
     },
     "sections": {
       "outgoing": "Outgoing Categories",

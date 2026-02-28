@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Alert, Box, Group, Loader, Progress, Stack, Text, Tooltip } from '@mantine/core';
+import { Alert, Box, Group, Loader, Progress, Stack, Text } from '@mantine/core';
 import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import { useInfiniteAccounts } from '@/hooks/useAccounts';
 import { AccountResponse, AccountType } from '@/types/account';
@@ -222,14 +222,9 @@ export function AccountsOverview() {
     <Stack gap="xl">
       {/* Net Position */}
       <Box className={styles.netPositionBlock}>
-        <Group gap={8} mb={4}>
+        <Box mb={4}>
           <Text className={styles.netPositionLabel}>{t('accounts.overview.netPosition')}</Text>
-          <Tooltip label={t('accounts.overview.netPositionTooltip')}>
-            <Text size="xs" c="dimmed" style={{ cursor: 'help' }}>
-              ⓘ
-            </Text>
-          </Tooltip>
-        </Group>
+        </Box>
         <Text className={styles.netPositionValue}>
           {primaryCurrency ? formatCurrency(netPosition, primaryCurrency) : '—'}
         </Text>
