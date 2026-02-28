@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import {
-  formatDateRange,
-  formatMonthYear,
-  formatShortDate,
-  formatUpperShortDate,
-} from './dateFormat';
+import { formatMonthYear } from './date';
+import { formatDateRange, formatShortDate, formatUpperShortDate } from './dateFormat';
 
 describe('formatShortDate', () => {
   it('formats as "Feb 15"', () => {

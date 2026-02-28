@@ -1086,7 +1086,7 @@
   "vendors": {
     "title": "Fornecedores",
     "subtitle": "Rastreie onde ocorrem as transações",
-    "addVendor": "+ Adicionar Fornecedor",
+    "addVendor": "Adicionar Fornecedor",
     "editVendor": "Editar Fornecedor",
     "deleteVendor": "Excluir Fornecedor",
     "viewTransactions": "Ver Transações",

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { IconPlus } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -150,7 +151,9 @@ export function VendorsContainer() {
             {t('vendors.subtitle')}
           </Text>
         </Box>
-        <Button onClick={handleAdd}>{t('vendors.addVendor')}</Button>
+        <Button onClick={handleAdd} leftSection={<IconPlus size={16} />}>
+          {t('vendors.addVendor')}
+        </Button>
       </Group>
 
       {/* Search */}
@@ -192,7 +195,9 @@ export function VendorsContainer() {
           <Text c="dimmed" mb="md">
             {t('vendors.empty.message')}
           </Text>
-          <Button onClick={handleAdd}>{t('vendors.addVendor')}</Button>
+          <Button onClick={handleAdd} leftSection={<IconPlus size={16} />}>
+            {t('vendors.addVendor')}
+          </Button>
         </Paper>
       )}
 

@@ -995,7 +995,7 @@
   "vendors": {
     "title": "Vendors",
     "subtitle": "Track where transactions occur",
-    "addVendor": "+ Add Vendor",
+    "addVendor": "Add Vendor",
     "editVendor": "Edit Vendor",
     "deleteVendor": "Delete Vendor",
     "viewTransactions": "View Transactions",

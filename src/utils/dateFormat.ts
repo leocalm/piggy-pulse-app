@@ -9,12 +9,6 @@ export function formatDateRange(start: string, end: string, locale = 'en-US'): s
   return `${formatShortDate(start, locale)} \u2013 ${formatShortDate(end, locale)}`;
 }
 
-/** Formats an ISO date string as a long month + year (e.g. "February 2026"). */
-export function formatMonthYear(isoDate: string, locale = 'en-US'): string {
-  const date = new Date(`${isoDate}T00:00:00`);
-  return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
-}
-
 /** Formats an ISO date string as an uppercased short date (e.g. "FEB 15"). */
 export function formatUpperShortDate(isoDate: string, locale = 'en-US'): string {
   return formatShortDate(isoDate, locale).toUpperCase();
