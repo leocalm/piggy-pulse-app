@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IconArrowDownLeft, IconArrowUpRight, IconPencil, IconTrash } from '@tabler/icons-react';
+import {
+  IconArrowDownLeft,
+  IconArrowUpRight,
+  IconDots,
+  IconPencil,
+  IconTrash,
+} from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import {
   ActionIcon,
@@ -7,6 +13,7 @@ import {
   Card,
   Drawer,
   Group,
+  Menu,
   Modal,
   SimpleGrid,
   Tabs,
@@ -112,27 +119,31 @@ export function CategoriesTable() {
             </div>
           </Group>
 
-          <Group gap="xs">
-            <ActionIcon
-              variant="subtle"
-              color="gray"
-              onClick={() => {
-                setSelected(category);
-                openEdit();
-              }}
-              size="sm"
-            >
-              <IconPencil size={16} />
-            </ActionIcon>
-            <ActionIcon
-              variant="subtle"
-              color="red"
-              onClick={() => deleteMutation.mutate(category.id)}
-              size="sm"
-            >
-              <IconTrash size={16} />
-            </ActionIcon>
-          </Group>
+          <Menu position="bottom-end" withinPortal>
+            <Menu.Target>
+              <ActionIcon variant="subtle" color="gray" size="sm">
+                <IconDots size={16} />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item
+                leftSection={<IconPencil size={14} />}
+                onClick={() => {
+                  setSelected(category);
+                  openEdit();
+                }}
+              >
+                {t('common.edit', 'Edit')}
+              </Menu.Item>
+              <Menu.Item
+                color="red"
+                leftSection={<IconTrash size={14} />}
+                onClick={() => deleteMutation.mutate(category.id)}
+              >
+                {t('common.delete', 'Delete')}
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
         </Group>
       </Card>
     );
