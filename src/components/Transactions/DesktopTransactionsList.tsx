@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { IconArrowRight, IconPencil, IconRepeat, IconTrash } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
-import { ActionIcon, Button, Group, Paper, ScrollArea, Stack, Text } from '@mantine/core';
+import { ActionIcon, Button, Group, Paper, ScrollArea, Stack, Table, Text } from '@mantine/core';
 import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import { AccountResponse } from '@/types/account';
 import { CategoryResponse } from '@/types/category';
@@ -71,16 +71,16 @@ export const DesktopTransactionsList = ({
             mb="xs"
             style={{ borderBottom: '1px solid var(--mantine-color-default-border)' }}
           >
-            <table style={{ width: '100%' }}>
-              <tbody>
+            <Table>
+              <Table.Tbody>
                 <BatchEntryRow
                   accounts={accounts}
                   categories={categories}
                   vendors={vendors}
                   onSave={onSaveBatch}
                 />
-              </tbody>
-            </table>
+              </Table.Tbody>
+            </Table>
           </Paper>
         )}
 
@@ -137,11 +137,14 @@ export const DesktopTransactionsList = ({
                 const amountColor = isIncoming ? 'teal' : undefined;
                 const amountPrefix = isIncoming ? '+' : '-';
 
-                const categoryColor = tx.category.color
-                  ? tx.category.color.startsWith('#')
-                    ? tx.category.color
-                    : `var(--mantine-color-${tx.category.color}-5)`
-                  : undefined;
+                // For the icon background, use the raw color as a CSS style
+                // since Mantine's color prop doesn't accept hex values
+                const categoryColor = tx.category.color || undefined;
+                const iconBgColor = categoryColor?.startsWith('#')
+                  ? categoryColor
+                  : categoryColor
+                    ? `var(--mantine-color-${categoryColor}-5)`
+                    : undefined;
 
                 return (
                   <Group
@@ -179,10 +182,15 @@ export const DesktopTransactionsList = ({
                   >
                     <ActionIcon
                       variant="light"
-                      color={isTransfer ? 'blue' : categoryColor}
+                      color={isTransfer ? 'blue' : undefined}
                       size="lg"
                       radius="md"
-                      style={{ flexShrink: 0 }}
+                      style={{
+                        flexShrink: 0,
+                        ...(iconBgColor && !isTransfer
+                          ? { backgroundColor: `${iconBgColor}20`, color: iconBgColor }
+                          : {}),
+                      }}
                     >
                       {isTransfer ? <IconRepeat size={20} /> : getIcon(tx.category.icon, 20)}
                     </ActionIcon>
