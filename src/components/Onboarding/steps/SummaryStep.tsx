@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Button, Group, Loader, Stack, Text, Title } from '@mantine/core';
+import {
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Group,
+  Loader,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
 import { fetchAccountsManagement } from '@/api/account';
 import { fetchCategoriesForManagement } from '@/api/category';
 import { fetchPeriodModel } from '@/api/settings';
@@ -81,56 +92,88 @@ export function SummaryStep({ onEnter, onBack }: Props) {
 
   return (
     <Stack gap="lg">
-      <Title order={3}>You&apos;re all set!</Title>
+      <Stack gap={4}>
+        <Title order={3}>You&apos;re all set</Title>
+        <Text size="sm" c="dimmed">
+          Here&apos;s what will be configured when you enter PiggyPulse.
+        </Text>
+      </Stack>
 
       {/* Period section */}
-      <Stack gap="xs">
-        <Text fw={600}>Period</Text>
-        {periodModel && <Text>{periodSummary(periodModel)}</Text>}
-      </Stack>
+      <Card withBorder radius="md" p="md">
+        <Stack gap="xs">
+          <Text size="xs" tt="uppercase" fw={600} c="dimmed" lts={0.5}>
+            Period
+          </Text>
+          {periodModel && <Text fw={500}>{periodSummary(periodModel)}</Text>}
+        </Stack>
+      </Card>
 
       {/* Accounts section */}
-      <Stack gap="xs">
-        <Text fw={600}>Accounts</Text>
-        {accounts.map((account) => (
-          <Group key={account.id} justify="space-between">
-            <Text>{account.name}</Text>
-            <Text c="dimmed" size="sm">
-              {account.accountType} &mdash;{' '}
-              {formatBalance(
-                account.balance,
-                account.currency.symbol,
-                account.currency.decimalPlaces
-              )}
-            </Text>
-          </Group>
-        ))}
-      </Stack>
+      <Card withBorder radius="md" p="md">
+        <Stack gap="sm">
+          <Text size="xs" tt="uppercase" fw={600} c="dimmed" lts={0.5}>
+            Accounts
+          </Text>
+          {accounts.map((account, i) => (
+            <Stack key={account.id} gap={0}>
+              {i > 0 && <Divider mb="sm" />}
+              <Group justify="space-between" wrap="nowrap">
+                <Stack gap={2}>
+                  <Text fw={500} size="sm">
+                    {account.name}
+                  </Text>
+                  <Text size="xs" c="dimmed">
+                    {account.accountType}
+                  </Text>
+                </Stack>
+                <Text fw={500} size="sm" style={{ whiteSpace: 'nowrap' }}>
+                  {formatBalance(
+                    account.balance,
+                    account.currency.symbol,
+                    account.currency.decimalPlaces
+                  )}
+                </Text>
+              </Group>
+            </Stack>
+          ))}
+        </Stack>
+      </Card>
 
       {/* Categories section */}
-      <Stack gap="xs">
-        <Text fw={600}>Categories</Text>
-        {incoming.length > 0 && (
-          <Stack gap={2}>
-            <Text size="sm" c="dimmed" tt="uppercase">
-              Incoming
-            </Text>
-            {incoming.map((c) => (
-              <Text key={c.id}>{c.name}</Text>
-            ))}
-          </Stack>
-        )}
-        {outgoing.length > 0 && (
-          <Stack gap={2}>
-            <Text size="sm" c="dimmed" tt="uppercase">
-              Outgoing
-            </Text>
-            {outgoing.map((c) => (
-              <Text key={c.id}>{c.name}</Text>
-            ))}
-          </Stack>
-        )}
-      </Stack>
+      <Card withBorder radius="md" p="md">
+        <Stack gap="sm">
+          <Text size="xs" tt="uppercase" fw={600} c="dimmed" lts={0.5}>
+            Categories
+          </Text>
+          <SimpleGrid cols={2} spacing="sm">
+            {incoming.length > 0 && (
+              <Stack gap="xs">
+                <Text size="xs" fw={600} c="teal">
+                  Incoming
+                </Text>
+                {incoming.map((c) => (
+                  <Badge key={c.id} variant="light" color="teal" size="sm" radius="sm">
+                    {c.name}
+                  </Badge>
+                ))}
+              </Stack>
+            )}
+            {outgoing.length > 0 && (
+              <Stack gap="xs">
+                <Text size="xs" fw={600} c="red">
+                  Outgoing
+                </Text>
+                {outgoing.map((c) => (
+                  <Badge key={c.id} variant="light" color="red" size="sm" radius="sm">
+                    {c.name}
+                  </Badge>
+                ))}
+              </Stack>
+            )}
+          </SimpleGrid>
+        </Stack>
+      </Card>
 
       <Group justify="space-between" mt="md">
         <Button variant="default" onClick={onBack}>
