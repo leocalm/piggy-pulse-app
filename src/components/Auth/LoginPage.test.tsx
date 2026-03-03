@@ -35,9 +35,10 @@ describe('LoginPage', () => {
     expect(screen.getByText('Welcome back')).toBeInTheDocument();
   });
 
-  it('does not render a remember me checkbox', () => {
+  it('renders a remember me checkbox checked by default', () => {
     wrap();
-    expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
+    expect(screen.getByRole('checkbox')).toBeInTheDocument();
+    expect(screen.getByRole('checkbox')).toBeChecked();
   });
 
   it('does not render "Don\'t have an account?" text', () => {
