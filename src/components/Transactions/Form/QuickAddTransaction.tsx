@@ -326,10 +326,10 @@ export const QuickAddTransaction = ({
           <UnstyledButton
             type="submit"
             disabled={isPending}
-            aria-label="plus"
+            aria-label={t('transactions.quickAddTransaction.submit')}
             className={styles.submitButton}
           >
-            <span>+</span>
+            <span>{t('transactions.quickAddTransaction.submit')}</span>
           </UnstyledButton>
         </Box>
       </form>

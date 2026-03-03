@@ -164,6 +164,7 @@
       "vendor": {
         "placeholder": "Vendor"
       },
+      "submit": "Add",
       "recent": "Recent",
       "success": "Transaction added successfully",
       "error": {

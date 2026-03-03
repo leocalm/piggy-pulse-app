@@ -148,6 +148,7 @@
       "vendor": {
         "placeholder": "Fornecedor"
       },
+      "submit": "Adicionar",
       "recent": "Recentes",
       "success": "Transação adicionada com sucesso",
       "error": {
