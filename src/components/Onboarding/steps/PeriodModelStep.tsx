@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   Button,
   Group,
-  NumberInput,
+  SegmentedControl,
   Select,
   SimpleGrid,
   Stack,
@@ -10,6 +10,7 @@ import {
   Text,
   UnstyledButton,
   useMantineColorScheme,
+  useMantineTheme,
 } from '@mantine/core';
 import { updatePeriodModel } from '@/api/settings';
 import type { PeriodModelRequest, WeekendAdjustment } from '@/types/settings';
@@ -24,11 +25,17 @@ const DEFAULT_SCHEDULE = {
   namePattern: '{MONTH} {YEAR}',
 };
 
+const DURATION_OPTIONS = Array.from({ length: 12 }, (_, i) => ({
+  value: String(i + 1),
+  label: i === 0 ? '1 month' : `${i + 1} months`,
+}));
+
 interface Props {
   onComplete: () => void;
 }
 
 export function PeriodModelStep({ onComplete }: Props) {
+  const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const [isCustom, setIsCustom] = useState(false);
@@ -55,6 +62,8 @@ export function PeriodModelStep({ onComplete }: Props) {
       setIsLoading(false);
     }
   }
+
+  const primaryColor = theme.colors[theme.primaryColor][6];
 
   return (
     <Stack mt="lg" gap="md">
@@ -85,7 +94,7 @@ export function PeriodModelStep({ onComplete }: Props) {
                 <UnstyledButton
                   key={day}
                   onClick={() => set('startDay', day)}
-                  style={(theme) => ({
+                  style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -95,7 +104,7 @@ export function PeriodModelStep({ onComplete }: Props) {
                     fontWeight: schedule.startDay === day ? 600 : 400,
                     background:
                       schedule.startDay === day
-                        ? theme.colors.cyan[6]
+                        ? primaryColor
                         : isDark
                           ? theme.colors.dark[5]
                           : theme.colors.gray[1],
@@ -106,7 +115,7 @@ export function PeriodModelStep({ onComplete }: Props) {
                           ? theme.colors.dark[0]
                           : theme.colors.dark[7],
                     cursor: 'pointer',
-                  })}
+                  }}
                 >
                   {day}
                 </UnstyledButton>
@@ -116,22 +125,33 @@ export function PeriodModelStep({ onComplete }: Props) {
 
           {/* Duration + Generate ahead */}
           <SimpleGrid cols={2} spacing="sm">
-            <NumberInput
-              label="Period length"
-              description="How many months each period spans. Most people use 1."
-              min={1}
-              max={12}
-              value={schedule.durationValue}
-              onChange={(v) => set('durationValue', Number(v))}
-            />
-            <NumberInput
-              label="Periods to prepare"
-              description="How many future periods to create in advance. 3 is a safe default."
-              min={1}
-              max={24}
-              value={schedule.generateAhead}
-              onChange={(v) => set('generateAhead', Number(v))}
-            />
+            <Stack gap={6}>
+              <Text size="sm" fw={500}>
+                Period length
+              </Text>
+              <Text size="xs" c="dimmed">
+                How many months each period spans. Most people use 1.
+              </Text>
+              <Select
+                data={DURATION_OPTIONS}
+                value={String(schedule.durationValue)}
+                onChange={(v) => set('durationValue', Number(v ?? 1))}
+                allowDeselect={false}
+              />
+            </Stack>
+            <Stack gap={6}>
+              <Text size="sm" fw={500}>
+                Periods to prepare
+              </Text>
+              <Text size="xs" c="dimmed">
+                How many future periods to create in advance.
+              </Text>
+              <SegmentedControl
+                data={['1', '3', '6']}
+                value={String(schedule.generateAhead)}
+                onChange={(v) => set('generateAhead', Number(v))}
+              />
+            </Stack>
           </SimpleGrid>
 
           {/* Weekend adjustments */}
