@@ -37,8 +37,6 @@
       "noAccount": "Não tem uma conta?",
       "signUp": "Registre-se",
       "signIn": "Entrar",
-      "noAccountYet": "Ainda não tem uma conta?",
-      "createAccount": "Criar conta",
       "validation": {
         "invalidEmail": "E-mail inválido",
         "passwordMinLength": "A senha deve ter pelo menos 6 caracteres"
@@ -1528,6 +1526,7 @@
     "actions": {
       "addCategory": "Adicionar Categoria"
     },
+    "editCategory": "Editar Categoria",
     "tabs": {
       "all": "Todas",
       "outgoing": "Gastos",

@@ -42,8 +42,6 @@
       "signUp": "Sign up",
       "signIn": "Log in",
       "signingIn": "Signing in…",
-      "noAccountYet": "Do not have an account yet?",
-      "createAccount": "Create account",
       "validation": {
         "invalidEmail": "Invalid email",
         "passwordMinLength": "Password should include at least 6 characters"
@@ -1579,6 +1577,7 @@
     "actions": {
       "addCategory": "Add Category"
     },
+    "editCategory": "Edit Category",
     "tabs": {
       "all": "All",
       "outgoing": "Spending",
