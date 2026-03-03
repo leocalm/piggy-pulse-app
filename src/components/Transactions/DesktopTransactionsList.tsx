@@ -179,7 +179,7 @@ export const DesktopTransactionsList = ({
                   }}
                 >
                   {/* Top row: description + amount */}
-                  <Group justify="space-between" align="baseline" gap="sm" mb="xs">
+                  <Group justify="space-between" align="baseline" gap="sm" mb="xs" px="md">
                     <Text size="sm" fw={600} style={{ flex: 1, minWidth: 0 }}>
                       {tx.description || '—'}
                     </Text>
@@ -198,7 +198,7 @@ export const DesktopTransactionsList = ({
                   </Group>
 
                   {/* Meta row: category + vendor + account */}
-                  <Group gap="xs" px="md">
+                  <Group gap="xs" px="md" justify="space-between" align="baseline">
                     {isTransfer ? (
                       <Text size="xs" c="dimmed">
                         {tx.fromAccount.name}{' '}
@@ -207,14 +207,20 @@ export const DesktopTransactionsList = ({
                       </Text>
                     ) : (
                       <>
-                        <Badge size="sm" variant="light" color={tx.category.color}>
-                          {tx.category.icon} {tx.category.name}
+                        <Group>
+                          <Badge size="sm" variant="light" color={tx.category.color}>
+                            {tx.category.icon} {tx.category.name}
+                          </Badge>
+                          {tx.vendor?.name && (
+                            <Text size="xs" c="dimmed">
+                              • {tx.vendor.name}
+                            </Text>
+                          )}
+                        </Group>
+
+                        <Badge size="sm" variant="light" color={tx.fromAccount.color}>
+                          {tx.fromAccount.name}
                         </Badge>
-                        {tx.vendor?.name && (
-                          <Text size="xs" c="dimmed">
-                            • {tx.vendor.name}
-                          </Text>
-                        )}
                       </>
                     )}
                   </Group>
@@ -227,10 +233,8 @@ export const DesktopTransactionsList = ({
                     data-actions
                     className="transaction-card-actions"
                     style={{ opacity: 0, transition: 'opacity 150ms ease' }}
+                    px="md"
                   >
-                    <Badge size="sm" variant="outline" color={tx.fromAccount.color}>
-                      {tx.fromAccount.name}
-                    </Badge>
                     <ActionIcon
                       size="sm"
                       variant="subtle"
