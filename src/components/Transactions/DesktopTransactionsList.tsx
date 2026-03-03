@@ -1,7 +1,17 @@
 import React, { useMemo, useState } from 'react';
 import { IconArrowRight, IconPencil, IconRepeat, IconTrash } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
-import { ActionIcon, Button, Group, Paper, ScrollArea, Stack, Table, Text } from '@mantine/core';
+import {
+  ActionIcon,
+  Badge,
+  Button,
+  Group,
+  Paper,
+  ScrollArea,
+  Stack,
+  Table,
+  Text,
+} from '@mantine/core';
 import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import { AccountResponse } from '@/types/account';
 import { CategoryResponse } from '@/types/category';
@@ -85,6 +95,11 @@ export const DesktopTransactionsList = ({
         )}
 
         <Stack gap={0}>
+          {groups.length === 0 && (
+            <Text size="sm" c="dimmed" ta="center" py="xl">
+              {t('states.empty.transactions.message')}
+            </Text>
+          )}
           {groups.map(({ date, items }, groupIndex) => (
             <React.Fragment key={date}>
               <Text
@@ -199,30 +214,43 @@ export const DesktopTransactionsList = ({
                       <Text size="sm" fw={600} truncate>
                         {tx.description || '—'}
                       </Text>
-                      <Text size="xs" c="dimmed" truncate>
+                      <Group gap="xs" mt={4}>
                         {isTransfer ? (
-                          <>
+                          <Text size="xs" c="dimmed">
                             {tx.fromAccount.name}{' '}
                             <IconArrowRight size={10} style={{ verticalAlign: 'middle' }} />{' '}
                             {tx.toAccount?.name ?? ''}
-                          </>
+                          </Text>
                         ) : (
                           <>
-                            {tx.category.name}
-                            {tx.fromAccount?.name ? ` · ${tx.fromAccount.name}` : ''}
-                            {tx.vendor?.name ? ` · ${tx.vendor.name}` : ''}
+                            <Badge size="sm" variant="light" color={tx.category.color}>
+                              {tx.category.icon} {tx.category.name}
+                            </Badge>
+                            {tx.vendor?.name && (
+                              <Text size="xs" c="dimmed">
+                                · {tx.vendor.name}
+                              </Text>
+                            )}
                           </>
                         )}
-                      </Text>
+                      </Group>
                     </div>
+
+                    {!isTransfer && (
+                      <Text size="xs" c="dimmed" style={{ whiteSpace: 'nowrap' }}>
+                        {tx.fromAccount.name}
+                      </Text>
+                    )}
 
                     <Text
                       size="sm"
-                      fw={600}
+                      fw={700}
                       c={amountColor}
                       style={{
                         whiteSpace: 'nowrap',
                         fontVariantNumeric: 'tabular-nums',
+                        minWidth: 90,
+                        textAlign: 'right',
                       }}
                     >
                       {amountPrefix}
