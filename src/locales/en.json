@@ -797,7 +797,8 @@
       "validation": {
         "nameMinLength": "Name must have at least 2 letters",
         "accountTypeRequired": "Account type is required",
-        "balanceRequired": "Balance is required"
+        "balanceRequired": "Balance is required",
+        "colorRequired": "Please select a color"
       },
       "errors": {
         "createFailed": "Failed to create account",

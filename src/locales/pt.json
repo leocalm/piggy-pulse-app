@@ -444,7 +444,8 @@
       "validation": {
         "nameMinLength": "O nome deve ter pelo menos 2 letras",
         "accountTypeRequired": "O tipo de conta é obrigatório",
-        "balanceRequired": "O saldo é obrigatório"
+        "balanceRequired": "O saldo é obrigatório",
+        "colorRequired": "Selecione uma cor"
       },
       "errors": {
         "createFailed": "Falha ao criar conta",
