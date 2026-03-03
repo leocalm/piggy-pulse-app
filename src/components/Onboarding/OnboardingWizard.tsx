@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { IconCheck, IconInfoCircle } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -13,6 +14,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { completeOnboarding } from '@/api/onboarding';
 import { useAuth } from '@/context/AuthContext';
 import { useOnboardingWizard } from '@/hooks/useOnboardingWizard';
+import { toast } from '@/lib/toast';
 import { FocusLayout } from './FocusLayout';
 import { AccountsStep } from './steps/AccountsStep';
 import { CategoriesStep } from './steps/CategoriesStep';
@@ -101,11 +103,18 @@ export function OnboardingWizard() {
   const { refreshUser } = useAuth();
   const { activeStep, isResuming, isLoading, goToStep, markStepComplete } = useOnboardingWizard();
   const isMobile = useMediaQuery('(max-width: 48em)');
+  const [isCompleting, setIsCompleting] = useState(false);
 
   async function handleComplete() {
-    await completeOnboarding();
-    await refreshUser();
-    void navigate('/dashboard', { replace: true });
+    setIsCompleting(true);
+    try {
+      await completeOnboarding();
+      await refreshUser();
+      void navigate('/dashboard', { replace: true });
+    } catch {
+      toast.error({ message: 'Failed to complete setup. Please try again.' });
+      setIsCompleting(false);
+    }
   }
 
   if (isLoading) {
@@ -130,7 +139,13 @@ export function OnboardingWizard() {
           {activeStep === 2 && (
             <CategoriesStep onComplete={() => markStepComplete(2)} onBack={() => goToStep(1)} />
           )}
-          {activeStep === 3 && <SummaryStep onEnter={handleComplete} onBack={() => goToStep(2)} />}
+          {activeStep === 3 && (
+            <SummaryStep
+              onEnter={handleComplete}
+              onBack={() => goToStep(2)}
+              isLoading={isCompleting}
+            />
+          )}
         </>
       ) : (
         <Stepper active={activeStep} onStepClick={goToStep}>
@@ -144,7 +159,11 @@ export function OnboardingWizard() {
             <CategoriesStep onComplete={() => markStepComplete(2)} onBack={() => goToStep(1)} />
           </Stepper.Step>
           <Stepper.Step label="Summary">
-            <SummaryStep onEnter={handleComplete} onBack={() => goToStep(2)} />
+            <SummaryStep
+              onEnter={handleComplete}
+              onBack={() => goToStep(2)}
+              isLoading={isCompleting}
+            />
           </Stepper.Step>
         </Stepper>
       )}
