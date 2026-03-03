@@ -87,8 +87,8 @@ export interface PeriodModelSchedule {
 }
 
 export interface PeriodModelResponse {
-  periodMode: PeriodMode;
-  periodSchedule: PeriodModelSchedule | null;
+  mode: PeriodMode;
+  schedule: PeriodModelSchedule | null;
 }
 
 export interface PeriodModelRequest {

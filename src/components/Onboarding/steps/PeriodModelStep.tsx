@@ -26,23 +26,23 @@ export function PeriodModelStep({ onComplete }: Props) {
   // Restore previously saved settings when navigating back to this step
   useEffect(() => {
     fetchPeriodModel()
-      .then(({ periodSchedule }) => {
-        if (periodSchedule) {
+      .then(({ schedule: saved }) => {
+        if (saved) {
           setSchedule({
-            startDay: periodSchedule.startDay,
-            durationValue: periodSchedule.durationValue,
-            durationUnit: periodSchedule.durationUnit,
-            generateAhead: periodSchedule.generateAhead,
-            saturdayAdjustment: periodSchedule.saturdayAdjustment,
-            sundayAdjustment: periodSchedule.sundayAdjustment,
-            namePattern: periodSchedule.namePattern,
+            startDay: saved.startDay,
+            durationValue: saved.durationValue,
+            durationUnit: saved.durationUnit,
+            generateAhead: saved.generateAhead,
+            saturdayAdjustment: saved.saturdayAdjustment,
+            sundayAdjustment: saved.sundayAdjustment,
+            namePattern: saved.namePattern,
           });
           const isNonDefault =
-            periodSchedule.startDay !== DEFAULT_SCHEDULE.startDay ||
-            periodSchedule.durationValue !== DEFAULT_SCHEDULE.durationValue ||
-            periodSchedule.generateAhead !== DEFAULT_SCHEDULE.generateAhead ||
-            periodSchedule.saturdayAdjustment !== DEFAULT_SCHEDULE.saturdayAdjustment ||
-            periodSchedule.sundayAdjustment !== DEFAULT_SCHEDULE.sundayAdjustment;
+            saved.startDay !== DEFAULT_SCHEDULE.startDay ||
+            saved.durationValue !== DEFAULT_SCHEDULE.durationValue ||
+            saved.generateAhead !== DEFAULT_SCHEDULE.generateAhead ||
+            saved.saturdayAdjustment !== DEFAULT_SCHEDULE.saturdayAdjustment ||
+            saved.sundayAdjustment !== DEFAULT_SCHEDULE.sundayAdjustment;
           if (isNonDefault) {
             setIsCustom(true);
           }

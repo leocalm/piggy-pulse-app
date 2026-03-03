@@ -32,10 +32,10 @@ const ADJECTIVAL_UNITS: Record<string, string> = {
 };
 
 function periodSummary(model: PeriodModelResponse): string {
-  if (model.periodMode === 'manual') {
+  if (model.mode === 'manual') {
     return 'Manual periods';
   }
-  const schedule = model.periodSchedule;
+  const schedule = model.schedule;
   if (!schedule) {
     return 'Automatic periods';
   }

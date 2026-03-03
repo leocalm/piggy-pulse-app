@@ -32,8 +32,8 @@ const mockCategoriesResponse = {
 };
 
 const mockPeriodModel = {
-  periodMode: 'automatic',
-  periodSchedule: {
+  mode: 'automatic',
+  schedule: {
     startDay: 1,
     durationValue: 1,
     durationUnit: 'months',
