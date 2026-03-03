@@ -21,44 +21,32 @@ function StepChips({ activeStep }: StepChipsProps) {
   const primary = theme.colors[theme.primaryColor][5];
 
   return (
-    <Group gap={8} align="center" mb="lg">
+    <Group gap={12} align="center" justify="center" mb="lg">
       {STEP_LABELS.map((label, i) => {
         const isActive = i === activeStep;
         const isDone = i < activeStep;
         return (
-          <Box
-            key={label}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-            }}
-          >
+          <Group key={label} gap={8} align="center" wrap="nowrap">
             <Box
               style={{
-                width: isActive ? undefined : 10,
-                height: 10,
+                width: 14,
+                height: 14,
                 borderRadius: 999,
-                padding: isActive ? '4px 12px' : 0,
+                flexShrink: 0,
                 background: isActive
                   ? primary
                   : isDone
                     ? primary
                     : 'var(--mantine-color-default-border)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 200ms ease',
-                whiteSpace: 'nowrap',
+                transition: 'background 200ms ease',
               }}
-            >
-              {isActive && (
-                <Text size="xs" fw={600} c="white" style={{ lineHeight: 1 }}>
-                  {label}
-                </Text>
-              )}
-            </Box>
-          </Box>
+            />
+            {isActive && (
+              <Text size="sm" fw={600} style={{ lineHeight: 1, whiteSpace: 'nowrap' }}>
+                {label}
+              </Text>
+            )}
+          </Group>
         );
       })}
     </Group>
