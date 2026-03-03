@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { IconArrowRight, IconPencil, IconRepeat, IconTrash } from '@tabler/icons-react';
+import { IconArrowRight, IconPencil, IconTrash } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import {
   ActionIcon,
@@ -18,7 +18,6 @@ import { CategoryResponse } from '@/types/category';
 import { TransactionRequest, TransactionResponse } from '@/types/transaction';
 import { Vendor } from '@/types/vendor';
 import { formatDisplayDate } from '@/utils/date';
-import { getIcon } from '@/utils/IconMap';
 import { BatchEntryRow } from './BatchEntryRow';
 
 interface DesktopTransactionsListProps {
@@ -152,15 +151,6 @@ export const DesktopTransactionsList = ({
                 const amountColor = isIncoming ? 'teal' : undefined;
                 const amountPrefix = isIncoming ? '+' : '-';
 
-                // For the icon background, use the raw color as a CSS style
-                // since Mantine's color prop doesn't accept hex values
-                const categoryColor = tx.category.color || undefined;
-                const iconBgColor = categoryColor?.startsWith('#')
-                  ? categoryColor
-                  : categoryColor
-                    ? `var(--mantine-color-${categoryColor}-5)`
-                    : undefined;
-
                 return (
                   <Group
                     key={tx.id}
@@ -195,21 +185,6 @@ export const DesktopTransactionsList = ({
                     }}
                     onClick={() => onEdit(tx)}
                   >
-                    <ActionIcon
-                      variant="light"
-                      color={isTransfer ? 'blue' : undefined}
-                      size="lg"
-                      radius="md"
-                      style={{
-                        flexShrink: 0,
-                        ...(iconBgColor && !isTransfer
-                          ? { backgroundColor: `${iconBgColor}20`, color: iconBgColor }
-                          : {}),
-                      }}
-                    >
-                      {isTransfer ? <IconRepeat size={20} /> : getIcon(tx.category.icon, 20)}
-                    </ActionIcon>
-
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <Text size="sm" fw={600} truncate>
                         {tx.description || '—'}
