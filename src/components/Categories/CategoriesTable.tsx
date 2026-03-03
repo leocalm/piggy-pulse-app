@@ -230,7 +230,13 @@ export function CategoriesTable() {
       )}
 
       {isMobile ? (
-        <Drawer opened={editOpened} onClose={closeEdit} title="Edit Category" position="bottom">
+        <Drawer
+          opened={editOpened}
+          onClose={closeEdit}
+          title="Edit Category"
+          position="bottom"
+          closeOnClickOutside={false}
+        >
           <div>
             {selected && (
               <EditCategoryForm
