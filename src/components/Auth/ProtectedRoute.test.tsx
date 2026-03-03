@@ -96,7 +96,12 @@ describe('ProtectedRoute', () => {
     mockUseAuth.mockReturnValue({
       isAuthenticated: true,
       isLoading: false,
-      user: { id: 'user-1', email: 'user@example.com', name: 'User' },
+      user: {
+        id: 'user-1',
+        email: 'user@example.com',
+        name: 'User',
+        onboardingStatus: 'completed',
+      },
       login: vi.fn(),
       logout: vi.fn(),
       refreshUser: vi.fn(),
