@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Center, Group, Select, SimpleGrid, Stack, Switch, Text } from '@mantine/core';
-import { updatePeriodModel } from '@/api/settings';
+import { fetchPeriodModel, updatePeriodModel } from '@/api/settings';
 import type { PeriodModelRequest, WeekendAdjustment } from '@/types/settings';
 import { DayPicker } from '../DayPicker';
 
@@ -22,6 +22,36 @@ export function PeriodModelStep({ onComplete }: Props) {
   const [isCustom, setIsCustom] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [schedule, setSchedule] = useState(DEFAULT_SCHEDULE);
+
+  // Restore previously saved settings when navigating back to this step
+  useEffect(() => {
+    fetchPeriodModel()
+      .then(({ periodSchedule }) => {
+        if (periodSchedule) {
+          setSchedule({
+            startDay: periodSchedule.startDay,
+            durationValue: periodSchedule.durationValue,
+            durationUnit: periodSchedule.durationUnit,
+            generateAhead: periodSchedule.generateAhead,
+            saturdayAdjustment: periodSchedule.saturdayAdjustment,
+            sundayAdjustment: periodSchedule.sundayAdjustment,
+            namePattern: periodSchedule.namePattern,
+          });
+          const isNonDefault =
+            periodSchedule.startDay !== DEFAULT_SCHEDULE.startDay ||
+            periodSchedule.durationValue !== DEFAULT_SCHEDULE.durationValue ||
+            periodSchedule.generateAhead !== DEFAULT_SCHEDULE.generateAhead ||
+            periodSchedule.saturdayAdjustment !== DEFAULT_SCHEDULE.saturdayAdjustment ||
+            periodSchedule.sundayAdjustment !== DEFAULT_SCHEDULE.sundayAdjustment;
+          if (isNonDefault) {
+            setIsCustom(true);
+          }
+        }
+      })
+      .catch(() => {
+        // No period model yet — keep defaults
+      });
+  }, []);
 
   function set<K extends keyof typeof DEFAULT_SCHEDULE>(
     key: K,

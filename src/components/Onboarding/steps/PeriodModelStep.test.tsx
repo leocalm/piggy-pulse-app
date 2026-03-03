@@ -1,10 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MantineProvider } from '@mantine/core';
-import { updatePeriodModel } from '@/api/settings';
+import { fetchPeriodModel, updatePeriodModel } from '@/api/settings';
 import { PeriodModelStep } from './PeriodModelStep';
 
 vi.mock('@/api/settings', () => ({
+  fetchPeriodModel: vi.fn(),
   updatePeriodModel: vi.fn(),
 }));
 
@@ -17,7 +18,13 @@ function renderStep(onComplete = vi.fn()) {
 }
 
 describe('PeriodModelStep', () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.mocked(fetchPeriodModel).mockResolvedValue({
+      periodMode: 'automatic',
+      periodSchedule: null,
+    } as any);
+  });
 
   it('renders without showing advanced fields by default', () => {
     renderStep();
