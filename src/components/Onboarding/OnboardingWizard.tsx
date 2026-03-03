@@ -11,6 +11,7 @@ import {
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { completeOnboarding } from '@/api/onboarding';
+import { useAuth } from '@/context/AuthContext';
 import { useOnboardingWizard } from '@/hooks/useOnboardingWizard';
 import { FocusLayout } from './FocusLayout';
 import { AccountsStep } from './steps/AccountsStep';
@@ -97,11 +98,13 @@ function StepChips({ activeStep }: StepChipsProps) {
 
 export function OnboardingWizard() {
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
   const { activeStep, isResuming, isLoading, goToStep, markStepComplete } = useOnboardingWizard();
   const isMobile = useMediaQuery('(max-width: 48em)');
 
   async function handleComplete() {
     await completeOnboarding();
+    await refreshUser();
     void navigate('/dashboard', { replace: true });
   }
 
