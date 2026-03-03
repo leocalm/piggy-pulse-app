@@ -21,13 +21,18 @@ describe('PeriodModelStep', () => {
 
   it('renders without showing advanced fields by default', () => {
     renderStep();
-    expect(screen.queryByLabelText(/start day/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/start day/i)).not.toBeInTheDocument();
   });
 
   it('shows advanced fields when Customize is toggled', () => {
     renderStep();
     fireEvent.click(screen.getByRole('switch', { name: /customize/i }));
-    expect(screen.getByLabelText(/start day/i)).toBeInTheDocument();
+    expect(screen.getByText(/start day/i)).toBeInTheDocument();
+    // Day grid should render 28 day buttons
+    const dayButtons = screen
+      .getAllByRole('button')
+      .filter((b) => /^\d+$/.test(b.textContent ?? ''));
+    expect(dayButtons).toHaveLength(28);
   });
 
   it('calls updatePeriodModel and onComplete on Continue', async () => {
