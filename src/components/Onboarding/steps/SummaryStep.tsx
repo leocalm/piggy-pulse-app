@@ -21,6 +21,7 @@ import type { PeriodModelResponse } from '@/types/settings';
 interface Props {
   onEnter: () => void;
   onBack: () => void;
+  isLoading?: boolean;
 }
 
 function ordinal(n: number): string {
@@ -61,7 +62,7 @@ function periodSummary(model: PeriodModelResponse): string {
   return `${label}, starting on the ${ordinal(schedule.startDay)}`;
 }
 
-export function SummaryStep({ onEnter, onBack }: Props) {
+export function SummaryStep({ onEnter, onBack, isLoading }: Props) {
   const [loading, setLoading] = useState(true);
   const [accounts, setAccounts] = useState<AccountManagementResponse[]>([]);
   const [incoming, setIncoming] = useState<CategoryManagementRow[]>([]);
@@ -179,7 +180,9 @@ export function SummaryStep({ onEnter, onBack }: Props) {
         <Button variant="default" onClick={onBack}>
           Back
         </Button>
-        <Button onClick={onEnter}>Enter PiggyPulse</Button>
+        <Button onClick={onEnter} loading={isLoading}>
+          Enter PiggyPulse
+        </Button>
       </Group>
     </Stack>
   );
