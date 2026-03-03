@@ -239,7 +239,7 @@ export const QuickAddTransaction = ({
             value={form.values.occurredAt}
             onChange={(value) => form.setFieldValue('occurredAt', value as Date | null)}
             error={form.errors.occurredAt}
-            valueFormat="YYYY-MM-DD"
+            valueFormat="MMMM D, YYYY"
             classNames={inputClassNames}
           />
 
