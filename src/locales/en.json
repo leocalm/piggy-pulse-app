@@ -38,6 +38,8 @@
       "passwordPlaceholder": "Your password",
       "rememberMe": "Remember me",
       "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
       "signIn": "Log in",
       "signingIn": "Signing in…",
       "noAccountYet": "Do not have an account yet?",

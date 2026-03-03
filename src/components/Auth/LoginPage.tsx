@@ -261,6 +261,12 @@ export function LoginPage() {
               {t('auth.login.forgotPassword', 'Forgot password?')}
             </Anchor>
           </Text>
+          <Text ta="center" size="sm">
+            {t('auth.login.noAccount', "Don't have an account?")}{' '}
+            <Anchor component={Link} to="/auth/register">
+              {t('auth.login.signUp', 'Sign up')}
+            </Anchor>
+          </Text>
         </Stack>
       </form>
     </AuthCard>

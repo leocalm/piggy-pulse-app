@@ -34,6 +34,8 @@
       "passwordPlaceholder": "Sua senha",
       "rememberMe": "Lembrar de mim",
       "forgotPassword": "Esqueceu a senha?",
+      "noAccount": "Não tem uma conta?",
+      "signUp": "Registre-se",
       "signIn": "Entrar",
       "noAccountYet": "Ainda não tem uma conta?",
       "createAccount": "Criar conta",

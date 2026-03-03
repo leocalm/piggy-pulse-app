@@ -41,9 +41,11 @@ describe('LoginPage', () => {
     expect(screen.getByRole('checkbox')).toBeChecked();
   });
 
-  it('does not render "Don\'t have an account?" text', () => {
+  it('renders "Don\'t have an account?" with sign-up link', () => {
     wrap();
-    expect(screen.queryByText(/don't have an account/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/don't have an account/i)).toBeInTheDocument();
+    const signUpLink = screen.getByRole('link', { name: /sign up/i });
+    expect(signUpLink).toHaveAttribute('href', '/auth/register');
   });
 
   it('shows neutral error message on credential failure', async () => {
