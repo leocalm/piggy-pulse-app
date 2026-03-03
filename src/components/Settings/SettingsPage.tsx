@@ -308,9 +308,9 @@ export function SettingsPage() {
 
   const handleSavePeriodModel = async () => {
     const payload: PeriodModelRequest = {
-      periodMode: editPeriodMode,
+      mode: editPeriodMode,
       ...(editPeriodMode === 'automatic' && {
-        periodSchedule: {
+        schedule: {
           startDay: editStartDay,
           durationValue: editDurationValue,
           durationUnit: editDurationUnit,

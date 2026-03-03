@@ -38,9 +38,7 @@ describe('PeriodModelStep', () => {
     renderStep(onComplete);
     fireEvent.click(screen.getByRole('button', { name: /continue/i }));
     await waitFor(() => expect(onComplete).toHaveBeenCalled());
-    expect(updatePeriodModel).toHaveBeenCalledWith(
-      expect.objectContaining({ periodMode: 'automatic' })
-    );
+    expect(updatePeriodModel).toHaveBeenCalledWith(expect.objectContaining({ mode: 'automatic' }));
   });
 
   it('Continue button shows loading state during API call', async () => {

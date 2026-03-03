@@ -92,6 +92,6 @@ export interface PeriodModelResponse {
 }
 
 export interface PeriodModelRequest {
-  periodMode: PeriodMode;
-  periodSchedule?: PeriodModelSchedule | null;
+  mode: PeriodMode;
+  schedule?: PeriodModelSchedule | null;
 }

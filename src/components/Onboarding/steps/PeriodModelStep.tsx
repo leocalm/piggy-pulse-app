@@ -34,8 +34,8 @@ export function PeriodModelStep({ onComplete }: Props) {
     setIsLoading(true);
     try {
       const payload: PeriodModelRequest = {
-        periodMode: 'automatic',
-        periodSchedule: schedule,
+        mode: 'automatic',
+        schedule,
       };
       await updatePeriodModel(payload);
       onComplete();
