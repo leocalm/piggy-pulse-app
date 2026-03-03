@@ -1,5 +1,5 @@
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
-import { ActionIcon, Box, Text, useMantineTheme } from '@mantine/core';
+import { Box, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
 
 interface DayPickerProps {
   value: number;
@@ -10,6 +10,8 @@ interface DayPickerProps {
 
 export function DayPicker({ value, min = 1, max = 28, onChange }: DayPickerProps) {
   const theme = useMantineTheme();
+  const primary = theme.colors[theme.primaryColor][4];
+  const primaryHover = theme.colors[theme.primaryColor][5];
 
   function increment() {
     onChange(value < max ? value + 1 : min);
@@ -19,6 +21,19 @@ export function DayPicker({ value, min = 1, max = 28, onChange }: DayPickerProps
     onChange(value > min ? value - 1 : max);
   }
 
+  const btnBase: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 28,
+    width: '100%',
+    background: primary,
+    color: theme.white,
+    cursor: 'pointer',
+    border: 'none',
+    transition: 'background 120ms ease',
+  };
+
   return (
     <Box
       style={{
@@ -26,24 +41,24 @@ export function DayPicker({ value, min = 1, max = 28, onChange }: DayPickerProps
         flexDirection: 'column',
         alignItems: 'stretch',
         borderRadius: theme.radius.md,
-        border: `1px solid var(--mantine-color-default-border)`,
+        border: `1px solid ${primary}`,
         overflow: 'hidden',
-        width: 72,
+        width: 100,
       }}
     >
-      <ActionIcon
-        variant="subtle"
-        size="lg"
+      <UnstyledButton
         onClick={increment}
         aria-label="Increase day"
-        style={{
-          borderRadius: 0,
-          borderBottom: `1px solid var(--mantine-color-default-border)`,
-          width: '100%',
+        style={btnBase}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.background = primaryHover;
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.background = primary;
         }}
       >
-        <IconChevronUp size={16} />
-      </ActionIcon>
+        <IconChevronUp size={14} />
+      </UnstyledButton>
 
       <Box
         style={{
@@ -54,7 +69,7 @@ export function DayPicker({ value, min = 1, max = 28, onChange }: DayPickerProps
       >
         <Text
           style={{
-            fontSize: 28,
+            fontSize: 32,
             fontWeight: 700,
             lineHeight: 1,
             fontFamily: theme.fontFamilyMonospace,
@@ -64,19 +79,19 @@ export function DayPicker({ value, min = 1, max = 28, onChange }: DayPickerProps
         </Text>
       </Box>
 
-      <ActionIcon
-        variant="subtle"
-        size="lg"
+      <UnstyledButton
         onClick={decrement}
         aria-label="Decrease day"
-        style={{
-          borderRadius: 0,
-          borderTop: `1px solid var(--mantine-color-default-border)`,
-          width: '100%',
+        style={btnBase}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.background = primaryHover;
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.background = primary;
         }}
       >
-        <IconChevronDown size={16} />
-      </ActionIcon>
+        <IconChevronDown size={14} />
+      </UnstyledButton>
     </Box>
   );
 }
