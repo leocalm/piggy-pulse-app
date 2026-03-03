@@ -23,11 +23,6 @@ const DEFAULT_SCHEDULE = {
   namePattern: '{MONTH} {YEAR}',
 };
 
-const DURATION_OPTIONS = Array.from({ length: 12 }, (_, i) => ({
-  value: String(i + 1),
-  label: i === 0 ? '1 month' : `${i + 1} months`,
-}));
-
 interface Props {
   onComplete: () => void;
 }
@@ -73,20 +68,20 @@ export function PeriodModelStep({ onComplete }: Props) {
 
       {isCustom && (
         <Stack gap="lg">
-          {/* Start day */}
-          <Stack gap={6}>
-            <Text size="sm" fw={500}>
-              Start day
-            </Text>
-            <Text size="xs" c="dimmed">
-              The day of the month your period begins. Values above 28 are avoided to ensure the day
-              exists in every month.
-            </Text>
-            <DayPicker value={schedule.startDay} onChange={(v) => set('startDay', v)} />
-          </Stack>
+          {/* Row 1: Start day · Duration · Generate ahead */}
+          <SimpleGrid cols={3} spacing="sm" style={{ alignItems: 'stretch' }}>
+            <Stack gap={6} justify="space-between">
+              <Stack gap={6}>
+                <Text size="sm" fw={500}>
+                  Start day
+                </Text>
+                <Text size="xs" c="dimmed">
+                  The day of the month your period begins. Capped at 28 so it exists every month.
+                </Text>
+              </Stack>
+              <DayPicker value={schedule.startDay} onChange={(v) => set('startDay', v)} />
+            </Stack>
 
-          {/* Duration + Generate ahead */}
-          <SimpleGrid cols={2} spacing="sm" style={{ alignItems: 'stretch' }}>
             <Stack gap={6} justify="space-between">
               <Stack gap={6}>
                 <Text size="sm" fw={500}>
@@ -96,13 +91,14 @@ export function PeriodModelStep({ onComplete }: Props) {
                   How many months each period spans. Most people use 1.
                 </Text>
               </Stack>
-              <Select
-                data={DURATION_OPTIONS}
-                value={String(schedule.durationValue)}
-                onChange={(v) => set('durationValue', Number(v ?? 1))}
-                allowDeselect={false}
+              <DayPicker
+                value={schedule.durationValue}
+                min={1}
+                max={12}
+                onChange={(v) => set('durationValue', v)}
               />
             </Stack>
+
             <Stack gap={6} justify="space-between">
               <Stack gap={6}>
                 <Text size="sm" fw={500}>
@@ -120,7 +116,7 @@ export function PeriodModelStep({ onComplete }: Props) {
             </Stack>
           </SimpleGrid>
 
-          {/* Weekend adjustments */}
+          {/* Row 2: Weekend adjustments */}
           <Stack gap={6}>
             <Text size="sm" fw={500}>
               Weekend shift
