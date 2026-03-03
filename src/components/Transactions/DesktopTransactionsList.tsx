@@ -158,8 +158,7 @@ export const DesktopTransactionsList = ({
                     role="button"
                     tabIndex={0}
                     style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr auto auto auto',
+                      display: 'flex',
                       alignItems: 'center',
                       gap: 'var(--mantine-spacing-md)',
                       padding: 'var(--mantine-spacing-sm) var(--mantine-spacing-md)',
@@ -192,9 +191,9 @@ export const DesktopTransactionsList = ({
                       }
                     }}
                   >
-                    {/* Col 1: description + category/vendor */}
-                    <div style={{ minWidth: 0 }}>
-                      <Text size="sm" fw={600} truncate>
+                    {/* Description + category/vendor */}
+                    <div>
+                      <Text size="sm" fw={600}>
                         {tx.description || '—'}
                       </Text>
                       <Group gap="xs" mt={4}>
@@ -219,16 +218,18 @@ export const DesktopTransactionsList = ({
                       </Group>
                     </div>
 
-                    {/* Col 2: account */}
-                    {!isTransfer ? (
-                      <Text size="xs" c="dimmed" style={{ whiteSpace: 'nowrap' }}>
+                    {/* Account — pushed right */}
+                    {!isTransfer && (
+                      <Text
+                        size="xs"
+                        c="dimmed"
+                        style={{ whiteSpace: 'nowrap', marginLeft: 'auto' }}
+                      >
                         {tx.fromAccount.name}
                       </Text>
-                    ) : (
-                      <span />
                     )}
 
-                    {/* Col 3: amount */}
+                    {/* Amount */}
                     <Text
                       size="sm"
                       fw={700}
@@ -238,13 +239,14 @@ export const DesktopTransactionsList = ({
                         fontVariantNumeric: 'tabular-nums',
                         minWidth: 90,
                         textAlign: 'right',
+                        ...(isTransfer ? { marginLeft: 'auto' } : {}),
                       }}
                     >
                       {amountPrefix}
                       <CurrencyValue cents={Math.abs(tx.amount)} />
                     </Text>
 
-                    {/* Col 4: hover actions */}
+                    {/* Hover actions */}
                     <Group
                       gap={4}
                       data-actions
