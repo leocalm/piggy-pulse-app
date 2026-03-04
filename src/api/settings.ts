@@ -10,7 +10,7 @@ import {
   SettingsRequest,
   SettingsResponse,
 } from '@/types/settings';
-import { apiDelete, apiGet, apiPost, apiPut } from './client';
+import { apiDelete, apiGet, apiPost, apiPut, resolveApiUrl } from './client';
 
 // Legacy settings (for language)
 export async function fetchSettings(): Promise<SettingsResponse> {
@@ -73,4 +73,29 @@ export async function deleteAccount(): Promise<void> {
   return apiPost<void, { confirmation: string }>('/api/settings/danger/delete-account', {
     confirmation: 'DELETE',
   });
+}
+
+// Export
+async function downloadExport(url: string, filename: string): Promise<void> {
+  const response = await fetch(resolveApiUrl(url), { credentials: 'include' });
+  if (!response.ok) {
+    throw new Error(`Export failed: ${response.status}`);
+  }
+  const blob = await response.blob();
+  const href = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(href);
+}
+
+export async function exportTransactionsCsv(): Promise<void> {
+  return downloadExport('/api/settings/export/transactions', 'transactions.csv');
+}
+
+export async function exportFullJson(): Promise<void> {
+  return downloadExport('/api/settings/export/full', 'piggy-pulse-export.json');
 }

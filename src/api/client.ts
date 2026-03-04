@@ -88,7 +88,7 @@ function hasVersionPathSegment(pathOrUrl: string): boolean {
   }
 }
 
-function resolveApiUrl(url: string): string {
+export function resolveApiUrl(url: string): string {
   if (isAbsoluteUrl(url) || !url.startsWith('/api')) {
     return url;
   }
