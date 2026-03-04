@@ -27,7 +27,7 @@ export function BasicAppShell({ children }: { children: ReactNode }) {
       padding="md"
     >
       <AppShell.Header>
-        <Group h="100%" px="md" justify="space-between" align="center">
+        <Group h="100%" px="md" justify="space-between" align="center" wrap="nowrap">
           {isMobile ? (
             <Logo />
           ) : (
@@ -35,7 +35,7 @@ export function BasicAppShell({ children }: { children: ReactNode }) {
               {pageTitle}
             </Text>
           )}
-          <Group gap="sm" align="center" wrap="nowrap" justify="flex-end">
+          <Group gap="sm" align="center" wrap="nowrap" justify="flex-end" style={{ minWidth: 0 }}>
             <PeriodHeaderControl />
             <UserMenu variant="topbar" />
           </Group>
