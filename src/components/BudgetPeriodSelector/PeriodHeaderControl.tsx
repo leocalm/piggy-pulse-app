@@ -3,12 +3,15 @@ import { useBudgetPeriods } from '@/hooks/useBudget';
 import { BudgetPeriodSelector } from './BudgetPeriodSelector';
 import classes from './BudgetPeriodSelector.module.css';
 
-export function PeriodHeaderControl() {
+export function PeriodHeaderControl({ fullWidth }: { fullWidth?: boolean }) {
   const { data: periods = [] } = useBudgetPeriods();
   const { selectedPeriodId, setSelectedPeriodId } = useBudgetPeriodSelection();
 
   return (
-    <div className={classes.headerControl}>
+    <div
+      className={classes.headerControl}
+      style={fullWidth ? { width: '100%', minWidth: 0 } : undefined}
+    >
       <BudgetPeriodSelector
         periods={periods}
         selectedPeriodId={selectedPeriodId}
