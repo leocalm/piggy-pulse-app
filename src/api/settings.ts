@@ -10,7 +10,7 @@ import {
   SettingsRequest,
   SettingsResponse,
 } from '@/types/settings';
-import { apiDelete, apiGet, apiPost, apiPut } from './client';
+import { apiDelete, apiGet, apiPost, apiPut, resolveApiUrl } from './client';
 
 // Legacy settings (for language)
 export async function fetchSettings(): Promise<SettingsResponse> {
@@ -77,7 +77,7 @@ export async function deleteAccount(): Promise<void> {
 
 // Export
 async function downloadExport(url: string, filename: string): Promise<void> {
-  const response = await fetch(url, { credentials: 'include' });
+  const response = await fetch(resolveApiUrl(url), { credentials: 'include' });
   if (!response.ok) {
     throw new Error(`Export failed: ${response.status}`);
   }
@@ -86,7 +86,9 @@ async function downloadExport(url: string, filename: string): Promise<void> {
   const a = document.createElement('a');
   a.href = href;
   a.download = filename;
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
   URL.revokeObjectURL(href);
 }
 
