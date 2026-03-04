@@ -14,6 +14,11 @@
   width: 280px;
 }
 
+.headerControlFullWidth {
+  width: 100%;
+  min-width: 0;
+}
+
 .desktopRoot {
   position: relative;
 }
@@ -36,7 +41,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 160px;
+  width: 100%;
 }
 
 .triggerMeta {
@@ -46,7 +51,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 190px;
+  width: 100%;
 }
 
 .dropdown {
@@ -187,7 +192,7 @@
 
   .triggerLabel,
   .triggerMeta {
-    max-width: 120px;
+    width: 100%;
   }
 }
 
