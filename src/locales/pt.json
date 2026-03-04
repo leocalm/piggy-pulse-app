@@ -1011,9 +1011,8 @@
     },
     "overlayBanner": {
       "spent": "de {{cap}}",
-      "remaining": "{{amount}} restante • {{days}} dias restantes",
-      "over": "{{amount}} acima do limite • {{days}} dias restantes",
-      "noCap": "Sem limite definido • {{days}} dias restantes",
+      "withCap": "{{percentage}}% • {{days}} dias restantes",
+      "noCap": "{{days}} dias restantes",
       "moreCount": "+{{count}}",
       "dismiss": "Dispensar banner de overlay"
     },

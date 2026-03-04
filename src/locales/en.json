@@ -1142,9 +1142,8 @@
     },
     "overlayBanner": {
       "spent": "of {{cap}}",
-      "remaining": "{{amount}} remaining • {{days}} days left",
-      "over": "{{amount}} over budget • {{days}} days left",
-      "noCap": "No cap configured • {{days}} days left",
+      "withCap": "{{percentage}}% • {{days}} days left",
+      "noCap": "{{days}} days left",
       "moreCount": "+{{count}}",
       "dismiss": "Dismiss overlay banner"
     },

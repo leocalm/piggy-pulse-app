@@ -42,12 +42,7 @@ export function ActiveOverlayBanner() {
 
   const statusMessage =
     totalCap && totalCap > 0
-      ? isOverCap
-        ? t('dashboard.overlayBanner.over', { amount: format(spent - totalCap), days: daysLeft })
-        : t('dashboard.overlayBanner.remaining', {
-            amount: format(totalCap - spent),
-            days: daysLeft,
-          })
+      ? t('dashboard.overlayBanner.withCap', { percentage: progressValue, days: daysLeft })
       : t('dashboard.overlayBanner.noCap', { days: daysLeft });
 
   return (
@@ -75,26 +70,27 @@ export function ActiveOverlayBanner() {
             )}
           </Group>
 
-          {totalCap && totalCap > 0 ? (
-            <>
-              <Group justify="space-between" align="baseline">
-                <Text fw={700} size="lg" className={classes.spentAmount}>
-                  {format(spent)}
-                </Text>
-                <Text size="xs" c="dimmed">
-                  {t('dashboard.overlayBanner.spent', { cap: format(totalCap) })}
-                </Text>
-              </Group>
-              <Progress
-                value={progressValue}
-                color={isOverCap ? 'red' : 'cyan'}
-                size="sm"
-                radius="xl"
-              />
-            </>
-          ) : null}
+          <Group justify="space-between" align="baseline">
+            <Text fw={700} size="lg" className={classes.spentAmount}>
+              {format(spent)}
+            </Text>
+            {totalCap && totalCap > 0 && (
+              <Text size="xs" c="dimmed">
+                {t('dashboard.overlayBanner.spent', { cap: format(totalCap) })}
+              </Text>
+            )}
+          </Group>
 
-          <Text size="sm" c={isOverCap ? 'red' : 'dimmed'}>
+          {totalCap && totalCap > 0 && (
+            <Progress
+              value={progressValue}
+              color={isOverCap ? 'red' : 'cyan'}
+              size="sm"
+              radius="xl"
+            />
+          )}
+
+          <Text size="sm" c="dimmed">
             {statusMessage}
           </Text>
         </Stack>
