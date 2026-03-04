@@ -862,6 +862,7 @@
       "startsIn_other": "Começa em {{count}} dias",
       "endedAgo_one": "Terminou há {{count}} dia",
       "endedAgo_other": "Terminou há {{count}} dias",
+      "of": "de {{cap}}",
       "remaining": "{{amount}} restante",
       "overBy": "{{amount}} acima do limite",
       "transactions_one": "{{count}} transação",
@@ -1009,9 +1010,9 @@
       "cta": "Gerenciar Períodos"
     },
     "overlayBanner": {
-      "remaining": "{{amount}} restante • {{days}} dias",
-      "over": "-{{amount}} • {{days}} dias",
-      "noCap": "Sem limite definido • {{days}} dias",
+      "spent": "de {{cap}}",
+      "withCap": "{{percentage}}% • {{days}} dias restantes",
+      "noCap": "{{days}} dias restantes",
       "moreCount": "+{{count}}",
       "dismiss": "Dispensar banner de overlay"
     },

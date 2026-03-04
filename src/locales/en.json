@@ -590,6 +590,7 @@
       "startsIn_other": "Starts in {{count}} days",
       "endedAgo_one": "Ended {{count}} day ago",
       "endedAgo_other": "Ended {{count}} days ago",
+      "of": "of {{cap}}",
       "remaining": "{{amount}} remaining",
       "overBy": "{{amount}} over cap",
       "transactions_one": "{{count}} transaction",
@@ -1140,9 +1141,9 @@
       "cta": "Manage Periods"
     },
     "overlayBanner": {
-      "remaining": "{{amount}} left • {{days}} days",
-      "over": "-{{amount}} • {{days}} days",
-      "noCap": "No cap configured • {{days}} days",
+      "spent": "of {{cap}}",
+      "withCap": "{{percentage}}% • {{days}} days left",
+      "noCap": "{{days}} days left",
       "moreCount": "+{{count}}",
       "dismiss": "Dismiss overlay banner"
     },
