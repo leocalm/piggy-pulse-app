@@ -862,6 +862,7 @@
       "startsIn_other": "Começa em {{count}} dias",
       "endedAgo_one": "Terminou há {{count}} dia",
       "endedAgo_other": "Terminou há {{count}} dias",
+      "of": "de {{cap}}",
       "remaining": "{{amount}} restante",
       "overBy": "{{amount}} acima do limite",
       "transactions_one": "{{count}} transação",
