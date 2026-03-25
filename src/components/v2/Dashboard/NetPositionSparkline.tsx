@@ -9,8 +9,8 @@ interface NetPositionSparklineProps {
 }
 
 /**
- * Minimal sparkline showing net position trend.
- * Generates synthetic data from (total - change) → total.
+ * Simplified sparkline — generates synthetic trend from period change.
+ * Will be replaced with real daily snapshots when the API supports it.
  */
 export function NetPositionSparkline({ total, change }: NetPositionSparklineProps) {
   const { accents } = useV2Theme();

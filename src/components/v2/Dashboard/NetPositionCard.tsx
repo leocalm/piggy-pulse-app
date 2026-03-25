@@ -52,7 +52,9 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
     );
   }
 
-  const changePrefix = data.differenceThisPeriod >= 0 ? '+' : '';
+  const changePrefix =
+    data.differenceThisPeriod > 0 ? '+' : data.differenceThisPeriod < 0 ? '-' : '';
+  const showBreakdown = data.liquidAmount + data.protectedAmount + data.debtAmount !== 0;
 
   return (
     <div className={classes.card} data-testid="net-position-card">
@@ -61,7 +63,7 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
         <Text fz="xs" fw={600} tt="uppercase" c="dimmed">
           Net Position
         </Text>
-        <Anchor component={Link} to="/v2/accounts" fz="xs" c={accents.tertiary}>
+        <Anchor component={Link} to="/v2/accounts" fz="xs" c="var(--v2-tertiary)">
           {data.numberOfAccounts} accounts
         </Anchor>
       </div>
@@ -73,8 +75,11 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
             <CurrencyValue cents={data.total} />
           </Text>
           <Text fz="sm" c="dimmed" mt={2}>
-            {changePrefix}
-            <CurrencyValue cents={data.differenceThisPeriod} /> this period
+            <span>
+              {changePrefix}
+              <CurrencyValue cents={Math.abs(data.differenceThisPeriod)} />
+            </span>{' '}
+            this period
           </Text>
         </div>
         <div className={classes.sparklineWrapper}>
@@ -82,21 +87,24 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
         </div>
       </div>
 
-      {/* Breakdown bar */}
-      <NetPositionBreakdownBar
-        liquid={data.liquidAmount}
-        protected={data.protectedAmount}
-        debt={data.debtAmount}
-      />
+      {/* Breakdown bar + detail boxes (hidden when all amounts are 0) */}
+      {showBreakdown && (
+        <>
+          <NetPositionBreakdownBar
+            liquid={data.liquidAmount}
+            protected={data.protectedAmount}
+            debt={data.debtAmount}
+          />
 
-      {/* Breakdown detail boxes */}
-      <div className={classes.breakdownGrid}>
-        <BreakdownItem label="Liquid" cents={data.liquidAmount} color={accents.secondary} />
-        <BreakdownItem label="Protected" cents={data.protectedAmount} color={accents.primary} />
-        {data.debtAmount > 0 && (
-          <BreakdownItem label="Debt" cents={data.debtAmount} color="var(--v2-border)" />
-        )}
-      </div>
+          <div className={classes.breakdownGrid}>
+            <BreakdownItem label="Liquid" cents={data.liquidAmount} color={accents.secondary} />
+            <BreakdownItem label="Protected" cents={data.protectedAmount} color={accents.primary} />
+            {data.debtAmount > 0 && (
+              <BreakdownItem label="Debt" cents={data.debtAmount} color="var(--v2-border)" />
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -104,10 +112,12 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
 function BreakdownItem({ label, cents, color }: { label: string; cents: number; color: string }) {
   return (
     <div className={classes.breakdownItem}>
-      <Text fz={9} fw={600} tt="uppercase" c="dimmed" mb={2}>
+      <div className={classes.breakdownLabel}>
         <span className={classes.breakdownDot} style={{ backgroundColor: color }} />
-        {label}
-      </Text>
+        <Text fz="xs" fw={600} tt="uppercase" c="dimmed">
+          {label}
+        </Text>
+      </div>
       <Text fz="md" fw={600} ff="var(--mantine-font-family-monospace)">
         <CurrencyValue cents={cents} />
       </Text>

@@ -14,19 +14,20 @@ export function NetPositionBreakdownBar({
   debt,
 }: NetPositionBreakdownBarProps) {
   const { accents } = useV2Theme();
-  const total = liquid + prot + debt;
+  const absDebt = Math.abs(debt);
+  const total = liquid + prot + absDebt;
   if (total === 0) {
     return null;
   }
 
-  const liquidPct = (liquid / total) * 100;
-  const protPct = (prot / total) * 100;
-  const debtPct = (debt / total) * 100;
+  const liquidPct = Math.min(Math.max((liquid / total) * 100, 0), 100);
+  const protPct = Math.min(Math.max((prot / total) * 100, 0), 100);
+  const debtPct = Math.min(Math.max((absDebt / total) * 100, 0), 100);
 
   const segments = [
     { pct: liquidPct, color: accents.secondary, label: 'Liquid' },
     { pct: protPct, color: accents.primary, label: 'Protected' },
-    ...(debt > 0 ? [{ pct: debtPct, color: 'var(--v2-border)', label: 'Debt' }] : []),
+    ...(absDebt > 0 ? [{ pct: debtPct, color: 'var(--v2-border)', label: 'Debt' }] : []),
   ];
 
   return (
@@ -44,7 +45,7 @@ export function NetPositionBreakdownBar({
         {segments.map((seg) => (
           <Text
             key={seg.label}
-            fz={9}
+            fz="xs"
             fw={600}
             tt="uppercase"
             c="dimmed"

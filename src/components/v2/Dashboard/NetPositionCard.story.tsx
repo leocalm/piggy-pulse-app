@@ -1,13 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
+import type { components } from '@/api/v2';
 import { createStoryDecorator } from '@/stories/storyUtils';
 import { V2ThemeProvider } from '@/theme/v2';
 import { NetPositionCard } from './NetPositionCard';
 
+type NetPosition = components['schemas']['NetPosition'];
+
 const PERIOD_ID = 'mock-period-1';
 const ENDPOINT = '*/v2/dashboard/net-position*';
 
-const mockPositive = {
+const mockPositive: NetPosition = {
   total: 1284000,
   differenceThisPeriod: 34000,
   numberOfAccounts: 3,
@@ -16,7 +19,7 @@ const mockPositive = {
   debtAmount: 120000,
 };
 
-const mockNegativeChange = {
+const mockNegativeChange: NetPosition = {
   total: 842000,
   differenceThisPeriod: -158000,
   numberOfAccounts: 4,
@@ -25,7 +28,7 @@ const mockNegativeChange = {
   debtAmount: 300000,
 };
 
-const mockNoDebt = {
+const mockNoDebt: NetPosition = {
   total: 1404000,
   differenceThisPeriod: 92000,
   numberOfAccounts: 2,
@@ -34,7 +37,7 @@ const mockNoDebt = {
   debtAmount: 0,
 };
 
-const mockEmpty = {
+const mockEmpty: NetPosition = {
   total: 0,
   differenceThisPeriod: 0,
   numberOfAccounts: 0,
@@ -43,9 +46,7 @@ const mockEmpty = {
   debtAmount: 0,
 };
 
-const successHandler = (data: typeof mockPositive) => [
-  http.get(ENDPOINT, () => HttpResponse.json(data)),
-];
+const successHandler = (data: NetPosition) => [http.get(ENDPOINT, () => HttpResponse.json(data))];
 
 const meta: Meta<typeof NetPositionCard> = {
   title: 'v2/Dashboard/NetPositionCard',

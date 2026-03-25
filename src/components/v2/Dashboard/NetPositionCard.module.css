@@ -64,14 +64,32 @@
   background-color: var(--v2-elevated);
 }
 
+/* Flex wrapper for dot + label */
+.breakdownLabel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
 /* Dot indicator before breakdown label */
 .breakdownDot {
-  display: inline-block;
+  display: block;
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  margin-right: 4px;
-  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Responsive: stack hero row on narrow screens */
+@media (max-width: 30em) {
+  .heroRow {
+    flex-direction: column;
+  }
+
+  .sparklineWrapper {
+    max-width: 100%;
+  }
 }
 
 /* Error/empty centered state */
