@@ -1,10 +1,24 @@
 /**
  * Navigation configuration for the v2 app shell.
- * Defines all nav groups and items with their emoji icons and routes.
+ * Uses Tabler icons for all nav items.
  */
 
+import type { ComponentType } from 'react';
+import {
+  IconBuildingBank,
+  IconCalendar,
+  IconCategory,
+  IconChartBar,
+  IconLink,
+  IconList,
+  IconReceipt2,
+  IconRepeat,
+  IconSettings,
+  IconTarget,
+} from '@tabler/icons-react';
+
 export interface NavItemConfig {
-  icon: string;
+  icon: ComponentType<{ size?: number | string; stroke?: number; color?: string }>;
   label: string;
   to: string;
   /** Show dot indicator when condition is true */
@@ -20,43 +34,43 @@ export const navGroups: NavGroupConfig[] = [
   {
     label: 'Overview',
     items: [
-      { icon: '📊', label: 'Dashboard', to: '/v2/dashboard' },
-      { icon: '📋', label: 'Transactions', to: '/v2/transactions' },
+      { icon: IconChartBar, label: 'Dashboard', to: '/v2/dashboard' },
+      { icon: IconReceipt2, label: 'Transactions', to: '/v2/transactions' },
     ],
   },
   {
     label: 'Planning',
     items: [
-      { icon: '📅', label: 'Periods', to: '/v2/periods' },
-      { icon: '📦', label: 'Categories', to: '/v2/categories' },
-      { icon: '✅', label: 'Targets', to: '/v2/targets' },
+      { icon: IconCalendar, label: 'Periods', to: '/v2/periods' },
+      { icon: IconCategory, label: 'Categories', to: '/v2/categories' },
+      { icon: IconTarget, label: 'Targets', to: '/v2/targets' },
     ],
   },
   {
     label: 'Tracking',
     items: [
-      { icon: '🏦', label: 'Accounts', to: '/v2/accounts' },
-      { icon: '🔄', label: 'Subscriptions', to: '/v2/subscriptions' },
-      { icon: '🏪', label: 'Vendors', to: '/v2/vendors' },
-      { icon: '🔗', label: 'Overlays', to: '/v2/overlays' },
+      { icon: IconBuildingBank, label: 'Accounts', to: '/v2/accounts' },
+      { icon: IconRepeat, label: 'Subscriptions', to: '/v2/subscriptions' },
+      { icon: IconList, label: 'Vendors', to: '/v2/vendors' },
+      { icon: IconLink, label: 'Overlays', to: '/v2/overlays' },
     ],
   },
 ];
 
 /** Items shown in the mobile bottom nav bar */
 export const bottomNavItems: NavItemConfig[] = [
-  { icon: '📊', label: 'Dashboard', to: '/v2/dashboard' },
-  { icon: '📋', label: 'Transactions', to: '/v2/transactions' },
-  { icon: '📅', label: 'Periods', to: '/v2/periods' },
-  { icon: '🏦', label: 'Accounts', to: '/v2/accounts' },
+  { icon: IconChartBar, label: 'Dashboard', to: '/v2/dashboard' },
+  { icon: IconReceipt2, label: 'Transactions', to: '/v2/transactions' },
+  { icon: IconCalendar, label: 'Periods', to: '/v2/periods' },
+  { icon: IconBuildingBank, label: 'Accounts', to: '/v2/accounts' },
 ];
 
 /** Items shown in the "More" drawer on mobile (everything not in bottomNavItems) */
 export const moreDrawerItems: NavItemConfig[] = [
-  { icon: '📦', label: 'Categories', to: '/v2/categories' },
-  { icon: '✅', label: 'Targets', to: '/v2/targets' },
-  { icon: '🔄', label: 'Subscriptions', to: '/v2/subscriptions' },
-  { icon: '🏪', label: 'Vendors', to: '/v2/vendors' },
-  { icon: '🔗', label: 'Overlays', to: '/v2/overlays' },
-  { icon: '⚙️', label: 'Settings', to: '/v2/settings' },
+  { icon: IconCategory, label: 'Categories', to: '/v2/categories' },
+  { icon: IconTarget, label: 'Targets', to: '/v2/targets' },
+  { icon: IconRepeat, label: 'Subscriptions', to: '/v2/subscriptions' },
+  { icon: IconList, label: 'Vendors', to: '/v2/vendors' },
+  { icon: IconLink, label: 'Overlays', to: '/v2/overlays' },
+  { icon: IconSettings, label: 'Settings', to: '/v2/settings' },
 ];

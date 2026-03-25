@@ -27,7 +27,7 @@ export function BottomNav() {
               data-testid={`bottom-nav-${item.label.toLowerCase()}`}
               aria-current={active ? 'page' : undefined}
             >
-              <Text fz="lg">{item.icon}</Text>
+              <item.icon size={20} stroke={1.5} color={active ? accents.primary : undefined} />
               <Text
                 fz={10}
                 fw={active ? 600 : 400}
@@ -73,7 +73,7 @@ export function BottomNav() {
                   closeDrawer();
                 }}
               >
-                <Text fz="md">{item.icon}</Text>
+                <item.icon size={18} stroke={1.5} color={active ? accents.primary : undefined} />
                 <Text
                   fz="sm"
                   fw={active ? 500 : 400}

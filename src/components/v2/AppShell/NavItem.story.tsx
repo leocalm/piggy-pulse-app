@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { IconChartBar, IconLink } from '@tabler/icons-react';
 import { createStoryDecorator } from '@/stories/storyUtils';
 import { V2ThemeProvider } from '@/theme/v2';
 import { NavItem } from './NavItem';
@@ -24,7 +25,7 @@ type Story = StoryObj<typeof NavItem>;
 
 export const Default: Story = {
   args: {
-    icon: '📊',
+    icon: IconChartBar,
     label: 'Dashboard',
     to: '/v2/dashboard',
   },
@@ -32,7 +33,7 @@ export const Default: Story = {
 
 export const WithDot: Story = {
   args: {
-    icon: '🔗',
+    icon: IconLink,
     label: 'Overlays',
     to: '/v2/overlays',
     dot: true,
@@ -41,7 +42,7 @@ export const WithDot: Story = {
 
 export const Collapsed: Story = {
   args: {
-    icon: '📊',
+    icon: IconChartBar,
     label: 'Dashboard',
     to: '/v2/dashboard',
     collapsed: true,

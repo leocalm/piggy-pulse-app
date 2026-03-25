@@ -1,11 +1,12 @@
+import type { ComponentType } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Group, Text, Tooltip } from '@mantine/core';
 import { useV2Theme } from '@/theme/v2';
 import classes from './AppShell.module.css';
 
 interface NavItemProps {
-  /** Emoji icon displayed before the label */
-  icon: string;
+  /** Tabler icon component */
+  icon: ComponentType<{ size?: number | string; stroke?: number; color?: string }>;
   /** Navigation label */
   label: string;
   /** Route path to navigate to */
@@ -16,7 +17,7 @@ interface NavItemProps {
   collapsed?: boolean;
 }
 
-export function NavItem({ icon, label, to, dot, collapsed }: NavItemProps) {
+export function NavItem({ icon: Icon, label, to, dot, collapsed }: NavItemProps) {
   const { accents } = useV2Theme();
 
   const link = (
@@ -32,9 +33,7 @@ export function NavItem({ icon, label, to, dot, collapsed }: NavItemProps) {
     >
       {({ isActive }) => (
         <Group gap="sm" wrap="nowrap" justify={collapsed ? 'center' : undefined}>
-          <Text component="span" fz="md">
-            {icon}
-          </Text>
+          <Icon size={18} stroke={1.5} color={isActive ? accents.primary : undefined} />
           {!collapsed && (
             <Text
               fz="sm"
