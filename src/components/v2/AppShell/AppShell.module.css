@@ -115,7 +115,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 10px 0;
+  padding: 14px 0;
   border-radius: var(--mantine-radius-sm);
   transition: background-color 150ms ease;
   text-decoration: none;
