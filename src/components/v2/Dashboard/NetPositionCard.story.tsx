@@ -46,7 +46,57 @@ const mockEmpty: NetPosition = {
   debtAmount: 0,
 };
 
-const successHandler = (data: NetPosition) => [http.get(ENDPOINT, () => HttpResponse.json(data))];
+const HISTORY_ENDPOINT = '*/v2/dashboard/net-position-history*';
+
+const mockHistory = [
+  {
+    date: '2026-03-01',
+    total: 1250000,
+    liquidAmount: 560000,
+    protectedAmount: 810000,
+    debtAmount: 120000,
+  },
+  {
+    date: '2026-03-05',
+    total: 1258000,
+    liquidAmount: 565000,
+    protectedAmount: 813000,
+    debtAmount: 120000,
+  },
+  {
+    date: '2026-03-10',
+    total: 1262000,
+    liquidAmount: 568000,
+    protectedAmount: 814000,
+    debtAmount: 120000,
+  },
+  {
+    date: '2026-03-15',
+    total: 1270000,
+    liquidAmount: 572000,
+    protectedAmount: 818000,
+    debtAmount: 120000,
+  },
+  {
+    date: '2026-03-20',
+    total: 1280000,
+    liquidAmount: 576000,
+    protectedAmount: 824000,
+    debtAmount: 120000,
+  },
+  {
+    date: '2026-03-25',
+    total: 1284000,
+    liquidAmount: 578000,
+    protectedAmount: 826000,
+    debtAmount: 120000,
+  },
+];
+
+const successHandler = (data: NetPosition) => [
+  http.get(ENDPOINT, () => HttpResponse.json(data)),
+  http.get(HISTORY_ENDPOINT, () => HttpResponse.json(mockHistory)),
+];
 
 const meta: Meta<typeof NetPositionCard> = {
   title: 'v2/Dashboard/NetPositionCard',

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Anchor, Button, Skeleton, Stack, Text } from '@mantine/core';
 import { CurrencyValue } from '@/components/Utils/CurrencyValue';
-import { useDashboardNetPosition } from '@/hooks/v2/useDashboard';
+import { useDashboardNetPosition, useDashboardNetPositionHistory } from '@/hooks/v2/useDashboard';
 import { useV2Theme } from '@/theme/v2';
 import { NetPositionBreakdownBar } from './NetPositionBreakdownBar';
 import { NetPositionSparkline } from './NetPositionSparkline';
@@ -13,6 +13,7 @@ interface NetPositionCardProps {
 
 export function NetPositionCard({ periodId }: NetPositionCardProps) {
   const { data, isLoading, isError, refetch } = useDashboardNetPosition(periodId);
+  const { data: history } = useDashboardNetPositionHistory(periodId);
   const { accents } = useV2Theme();
 
   if (isLoading) {
@@ -83,7 +84,11 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
           </Text>
         </div>
         <div className={classes.sparklineWrapper}>
-          <NetPositionSparkline total={data.total} change={data.differenceThisPeriod} />
+          <NetPositionSparkline
+            history={history ?? undefined}
+            total={data.total}
+            change={data.differenceThisPeriod}
+          />
         </div>
       </div>
 
