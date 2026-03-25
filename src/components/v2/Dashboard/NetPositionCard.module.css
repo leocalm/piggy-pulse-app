@@ -48,6 +48,19 @@
   min-width: 4px;
 }
 
+/* Labels aligned under each bar segment */
+.barLabels {
+  display: flex;
+  margin-top: 4px;
+  gap: 2px;
+}
+
+@media (max-width: 48em) {
+  .barLabels {
+    display: none;
+  }
+}
+
 /* Breakdown detail boxes */
 .breakdownGrid {
   display: flex;
@@ -81,14 +94,14 @@
   flex-shrink: 0;
 }
 
-/* Responsive: stack hero row on narrow screens */
-@media (max-width: 30em) {
-  .heroRow {
-    flex-direction: column;
+/* Responsive: adjust card for mobile */
+@media (max-width: 48em) {
+  .card {
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md) var(--mantine-spacing-md);
   }
 
   .sparklineWrapper {
-    max-width: 100%;
+    max-width: 100px;
   }
 }
 

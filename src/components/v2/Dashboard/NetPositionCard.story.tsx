@@ -8,7 +8,7 @@ import { NetPositionCard } from './NetPositionCard';
 type NetPosition = components['schemas']['NetPosition'];
 
 const PERIOD_ID = 'mock-period-1';
-const ENDPOINT = '*/v2/dashboard/net-position*';
+const ENDPOINT = '*/api/v2/dashboard/net-position*';
 
 const mockPositive: NetPosition = {
   total: 1284000,
@@ -46,7 +46,7 @@ const mockEmpty: NetPosition = {
   debtAmount: 0,
 };
 
-const HISTORY_ENDPOINT = '*/v2/dashboard/net-position-history*';
+const HISTORY_ENDPOINT = '*/api/v2/dashboard/net-position-history*';
 
 const mockHistory = [
   {
