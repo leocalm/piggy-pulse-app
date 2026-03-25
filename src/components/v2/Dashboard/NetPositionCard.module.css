@@ -55,6 +55,12 @@
   gap: 2px;
 }
 
+@media (max-width: 30em) {
+  .barLabels {
+    display: none;
+  }
+}
+
 /* Breakdown detail boxes */
 .breakdownGrid {
   display: flex;
