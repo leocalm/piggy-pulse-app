@@ -82,7 +82,7 @@ export function UserSection({ name, email, collapsed }: UserSectionProps) {
         onClick={toggleColorScheme}
         aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       >
-        {isDark ? <IconSun size={14} /> : <IconMoon size={14} />}
+        {isDark ? <IconSun size={18} /> : <IconMoon size={18} />}
       </ActionIcon>
     </Group>
   );

@@ -9,6 +9,7 @@ import {
   IconCalendar,
   IconCategory,
   IconChartBar,
+  IconLayoutDashboard,
   IconLink,
   IconList,
   IconReceipt2,
@@ -34,7 +35,7 @@ export const navGroups: NavGroupConfig[] = [
   {
     label: 'Overview',
     items: [
-      { icon: IconChartBar, label: 'Dashboard', to: '/v2/dashboard' },
+      { icon: IconLayoutDashboard, label: 'Dashboard', to: '/v2/dashboard' },
       { icon: IconReceipt2, label: 'Transactions', to: '/v2/transactions' },
     ],
   },

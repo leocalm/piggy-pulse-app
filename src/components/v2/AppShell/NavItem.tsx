@@ -33,7 +33,7 @@ export function NavItem({ icon: Icon, label, to, dot, collapsed }: NavItemProps)
     >
       {({ isActive }) => (
         <Group gap="sm" wrap="nowrap" justify={collapsed ? 'center' : undefined}>
-          <Icon size={18} stroke={1.5} color={isActive ? accents.primary : undefined} />
+          <Icon size={22} stroke={1.5} color={isActive ? accents.primary : undefined} />
           {!collapsed && (
             <Text
               fz="sm"
