@@ -144,6 +144,29 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /dashboard/spending-trend:
+    get:
+      tags:
+        - Dashboard
+      summary: Get spending trend for dashboard
+      operationId: getDashboardSpendingTrend
+      parameters:
+        - $ref: '#/components/parameters/PeriodId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpendingTrendResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /periods:
     get:
       tags:
@@ -2423,6 +2446,35 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/CurrentPeriodHistoryPoint'
+    SpendingTrendItem:
+      type: object
+      required:
+        - periodId
+        - periodName
+        - totalSpent
+      properties:
+        periodId:
+          type: string
+          format: uuid
+        periodName:
+          type: string
+          description: Short period label (e.g., "Mar", "Feb")
+        totalSpent:
+          type: integer
+          description: Total spending in cents for this period
+    SpendingTrendResponse:
+      type: object
+      required:
+        - periods
+        - periodAverage
+      properties:
+        periods:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpendingTrendItem'
+        periodAverage:
+          type: integer
+          description: Average spend across the included periods, in cents
     DurationBased:
       required:
         - duration
