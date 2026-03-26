@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Anchor, Button, Skeleton, Stack, Text } from '@mantine/core';
 import { CurrencyValue } from '@/components/Utils/CurrencyValue';
+import { useAccountsSummary } from '@/hooks/v2/useAccounts';
 import { useDashboardNetPosition, useDashboardNetPositionHistory } from '@/hooks/v2/useDashboard';
 import { useV2Theme } from '@/theme/v2';
 import { NetPositionBreakdownBar } from './NetPositionBreakdownBar';
@@ -14,7 +15,9 @@ interface NetPositionCardProps {
 export function NetPositionCard({ periodId }: NetPositionCardProps) {
   const { data, isLoading, isError, refetch } = useDashboardNetPosition(periodId);
   const { data: history } = useDashboardNetPositionHistory(periodId);
+  const { data: accountsSummary } = useAccountsSummary(periodId);
   const { accents } = useV2Theme();
+  const accounts = accountsSummary?.data ?? [];
 
   if (isLoading) {
     return <NetPositionCardSkeleton />;
@@ -109,6 +112,27 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
             )}
           </div>
         </>
+      )}
+
+      {/* Account list */}
+      {accounts.length > 0 && (
+        <div className={classes.accountList}>
+          {accounts.map((account) => (
+            <div key={account.id} className={classes.accountRow}>
+              <span className={classes.accountColor} style={{ backgroundColor: account.color }} />
+              <Text fz="sm" fw={500} className={classes.accountName}>
+                {account.name}
+              </Text>
+              <span className={classes.accountLeader} />
+              <Text fz="xs" c="dimmed" tt="capitalize" className={classes.accountType}>
+                {account.type.replace('CreditCard', 'Credit Card')}
+              </Text>
+              <Text fz="sm" fw={600} ff="var(--mantine-font-family-monospace)">
+                <CurrencyValue cents={account.currentBalance} />
+              </Text>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
