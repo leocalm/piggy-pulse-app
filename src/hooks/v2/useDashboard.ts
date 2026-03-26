@@ -65,6 +65,54 @@ export function useDashboardCurrentPeriodHistory(periodId: string) {
   });
 }
 
+export function useDashboardCashFlow(periodId: string) {
+  return useQuery({
+    queryKey: ['dashboard', 'cash-flow', periodId],
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET('/dashboard/cash-flow', {
+        params: { query: { periodId } },
+      });
+      if (error) {
+        throw error;
+      }
+      return data;
+    },
+    enabled: !!periodId,
+  });
+}
+
+export function useDashboardSpendingTrend(periodId: string) {
+  return useQuery({
+    queryKey: ['dashboard', 'spending-trend', periodId],
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET('/dashboard/spending-trend', {
+        params: { query: { periodId } },
+      });
+      if (error) {
+        throw error;
+      }
+      return data;
+    },
+    enabled: !!periodId,
+  });
+}
+
+export function useDashboardTopVendors(periodId: string) {
+  return useQuery({
+    queryKey: ['dashboard', 'top-vendors', periodId],
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET('/dashboard/top-vendors', {
+        params: { query: { periodId } },
+      });
+      if (error) {
+        throw error;
+      }
+      return data;
+    },
+    enabled: !!periodId,
+  });
+}
+
 export function useDashboardBudgetStability(periodId: string) {
   return useQuery({
     queryKey: ['dashboard', 'budget-stability', periodId],
