@@ -16,7 +16,7 @@ export function TopVendorsCard({ periodId }: TopVendorsCardProps) {
 
   if (isError) {
     return (
-      <div className={classes.card}>
+      <div className={classes.card} data-testid="top-vendors-card-error">
         <div className={classes.centeredState}>
           <Text fz="xs" fw={600} tt="uppercase" c="dimmed">
             Top Vendors
@@ -34,7 +34,7 @@ export function TopVendorsCard({ periodId }: TopVendorsCardProps) {
 
   if (!data || data.length === 0) {
     return (
-      <div className={classes.card}>
+      <div className={classes.card} data-testid="top-vendors-card-empty">
         <div className={classes.centeredState}>
           <Text fz="xs" fw={600} tt="uppercase" c="dimmed">
             Top Vendors
@@ -56,8 +56,17 @@ export function TopVendorsCard({ periodId }: TopVendorsCardProps) {
       </div>
 
       <div className={classes.vendorList}>
-        {data.map((vendor) => (
+        {data.map((vendor, index) => (
           <div key={vendor.vendorId} className={classes.vendorRow}>
+            <Text
+              fz="xs"
+              fw={700}
+              c="dimmed"
+              className={classes.vendorRank}
+              aria-label={`Rank ${index + 1}`}
+            >
+              {index + 1}
+            </Text>
             <div className={classes.vendorLeft}>
               <Text fz="sm" fw={500} truncate>
                 {vendor.vendorName}

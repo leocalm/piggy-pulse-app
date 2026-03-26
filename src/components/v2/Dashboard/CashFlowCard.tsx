@@ -18,7 +18,7 @@ export function CashFlowCard({ periodId }: CashFlowCardProps) {
 
   if (isError) {
     return (
-      <div className={classes.card}>
+      <div className={classes.card} data-testid="cash-flow-card-error">
         <div className={classes.centeredState}>
           <Text fz="xs" fw={600} tt="uppercase" c="dimmed">
             Cash Flow
@@ -36,7 +36,7 @@ export function CashFlowCard({ periodId }: CashFlowCardProps) {
 
   if (!data || (data.inflows === 0 && data.outflows === 0)) {
     return (
-      <div className={classes.card}>
+      <div className={classes.card} data-testid="cash-flow-card-empty">
         <div className={classes.centeredState}>
           <Text fz="xs" fw={600} tt="uppercase" c="dimmed">
             Cash Flow
@@ -72,6 +72,7 @@ export function CashFlowCard({ periodId }: CashFlowCardProps) {
             radius="xl"
             color={accents.primary}
             className={classes.bar}
+            aria-label={`Inflows: ${inflowPct}% of period maximum`}
           />
           <Text
             fz="sm"
@@ -92,6 +93,7 @@ export function CashFlowCard({ periodId }: CashFlowCardProps) {
             radius="xl"
             color={accents.secondary}
             className={classes.bar}
+            aria-label={`Outflows: ${outflowPct}% of period maximum`}
           />
           <Text
             fz="sm"
