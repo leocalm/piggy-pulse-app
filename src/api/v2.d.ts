@@ -106,6 +106,57 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/dashboard/cash-flow': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get cash flow for dashboard */
+    get: operations['getDashboardCashFlow'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/dashboard/spending-trend': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get spending trend for dashboard */
+    get: operations['getDashboardSpendingTrend'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/dashboard/top-vendors': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get top vendors by spend for dashboard */
+    get: operations['getDashboardTopVendors'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/periods': {
     parameters: {
       query?: never;
@@ -1363,6 +1414,73 @@ export interface components {
       dailySpent: number;
     };
     CurrentPeriodHistoryResponse: components['schemas']['CurrentPeriodHistoryPoint'][];
+    CashFlowResponse: {
+      /**
+       * @description Total inflows in cents for the period
+       * @example 500000
+       */
+      inflows: number;
+      /**
+       * @description Total outflows in cents for the period
+       * @example 350000
+       */
+      outflows: number;
+      /**
+       * @description Net cash flow (inflows - outflows) in cents
+       * @example 150000
+       */
+      net: number;
+    };
+    SpendingTrendItem: {
+      /**
+       * Format: uuid
+       * @description Period ID
+       * @example 123e4567-e89b-12d3-a456-426655440000
+       */
+      periodId: string;
+      /**
+       * @description Short period label
+       * @example Mar
+       */
+      periodName: string;
+      /**
+       * @description Total spending in cents for this period
+       * @example 435000
+       */
+      totalSpent: number;
+    };
+    SpendingTrendResponse: {
+      periods: components['schemas']['SpendingTrendItem'][];
+      /**
+       * @description Average spend across the included periods, in cents
+       * @example 435000
+       */
+      periodAverage: number;
+    };
+    TopVendorItem: {
+      /**
+       * Format: uuid
+       * @description Unique identifier of the vendor
+       * @example 123e4567-e89b-12d3-a456-426655440000
+       */
+      vendorId: string;
+      /**
+       * @description Name of the vendor
+       * @example Supermarket
+       */
+      vendorName: string;
+      /**
+       * @description Total spent at this vendor in cents for the period
+       * @example 15000
+       */
+      totalSpent: number;
+      /**
+       * @description Number of transactions at this vendor
+       * @example 12
+       */
+      transactionCount: number;
+    };
+    TopVendorsResponse: components['schemas']['TopVendorItem'][];
     DurationBased: {
       /** @enum {string} */
       periodType?: 'duration';
@@ -3029,6 +3147,87 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['CurrentPeriodHistoryResponse'];
+        };
+      };
+      400: components['responses']['BadRequest'];
+      401: components['responses']['Unauthorized'];
+      404: components['responses']['NotFound'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
+  getDashboardCashFlow: {
+    parameters: {
+      query: {
+        /** @description The ID of the period */
+        periodId: components['parameters']['PeriodId'];
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CashFlowResponse'];
+        };
+      };
+      400: components['responses']['BadRequest'];
+      401: components['responses']['Unauthorized'];
+      404: components['responses']['NotFound'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
+  getDashboardSpendingTrend: {
+    parameters: {
+      query: {
+        /** @description The ID of the period */
+        periodId: components['parameters']['PeriodId'];
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SpendingTrendResponse'];
+        };
+      };
+      400: components['responses']['BadRequest'];
+      401: components['responses']['Unauthorized'];
+      404: components['responses']['NotFound'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
+  getDashboardTopVendors: {
+    parameters: {
+      query: {
+        /** @description The ID of the period */
+        periodId: components['parameters']['PeriodId'];
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TopVendorsResponse'];
         };
       };
       400: components['responses']['BadRequest'];
