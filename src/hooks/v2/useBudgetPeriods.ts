@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useBudgetPeriods(params: { cursor?: string; limit?: number } = {}) {
   return useQuery({
-    queryKey: ['budget-periods', params],
+    queryKey: v2QueryKeys.budgetPeriods.list(params),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/periods', {
         params: { query: params },
@@ -19,7 +20,7 @@ export function useBudgetPeriods(params: { cursor?: string; limit?: number } = {
 
 export function useBudgetPeriod(id: string) {
   return useQuery({
-    queryKey: ['budget-periods', id],
+    queryKey: v2QueryKeys.budgetPeriods.detail(id),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/periods/{id}', {
         params: { path: { id } },
@@ -35,7 +36,7 @@ export function useBudgetPeriod(id: string) {
 
 export function useBudgetPeriodSchedule() {
   return useQuery({
-    queryKey: ['budget-periods', 'schedule'],
+    queryKey: v2QueryKeys.budgetPeriods.schedule(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/periods/schedule');
       if (error) {
@@ -57,7 +58,7 @@ export function useCreateBudgetPeriod() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budget-periods'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.budgetPeriods.all() });
     },
   });
 }
@@ -82,7 +83,7 @@ export function useUpdateBudgetPeriod() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budget-periods'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.budgetPeriods.all() });
     },
   });
 }
@@ -99,7 +100,7 @@ export function useDeleteBudgetPeriod() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budget-periods'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.budgetPeriods.all() });
     },
   });
 }
@@ -115,7 +116,7 @@ export function useCreatePeriodSchedule() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budget-periods'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.budgetPeriods.all() });
     },
   });
 }
@@ -131,7 +132,7 @@ export function useUpdatePeriodSchedule() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budget-periods'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.budgetPeriods.all() });
     },
   });
 }
@@ -146,7 +147,7 @@ export function useDeletePeriodSchedule() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budget-periods'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.budgetPeriods.all() });
     },
   });
 }

@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useCategoryTargets(periodId: string) {
   return useQuery({
-    queryKey: ['category-targets', periodId],
+    queryKey: v2QueryKeys.categoryTargets.list(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/targets', {
         params: { query: { periodId } },
@@ -29,8 +30,8 @@ export function useCreateCategoryTarget() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['category-targets'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
     },
   });
 }
@@ -55,8 +56,8 @@ export function useUpdateCategoryTarget() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['category-targets'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
     },
   });
 }
@@ -73,7 +74,7 @@ export function useExcludeCategoryTarget() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['category-targets'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
     },
   });
 }

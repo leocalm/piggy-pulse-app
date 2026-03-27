@@ -1,0 +1,235 @@
+/* ------------------------------------------------------------------ */
+/* Periods List Page                                                  */
+/* ------------------------------------------------------------------ */
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--mantine-spacing-md);
+}
+
+.headerActions {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Schedule status pill */
+.schedulePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--mantine-radius-xl);
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.schedulePill:hover {
+  background-color: var(--v2-elevated);
+}
+
+.scheduleDot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Period Card                                                        */
+/* ------------------------------------------------------------------ */
+
+.periodCard {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.periodCard:hover {
+  background-color: var(--v2-elevated);
+}
+
+.periodCardCurrent {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px solid var(--v2-primary);
+  background-color: var(--v2-card);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.periodCardCurrent:hover {
+  background-color: var(--v2-elevated);
+}
+
+.periodInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.periodNameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+}
+
+.periodStats {
+  display: flex;
+  gap: var(--mantine-spacing-lg);
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.periodStat {
+  text-align: right;
+  min-width: 70px;
+}
+
+.periodBadge {
+  flex-shrink: 0;
+  text-align: right;
+  min-width: 80px;
+}
+
+.kebabCell {
+  flex-shrink: 0;
+}
+
+/* Progress bar for current period */
+.progressBar {
+  margin-top: var(--mantine-spacing-xs);
+}
+
+/* ------------------------------------------------------------------ */
+/* Group header                                                       */
+/* ------------------------------------------------------------------ */
+
+.groupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Schedule Drawer                                                    */
+/* ------------------------------------------------------------------ */
+
+.recurrenceOption {
+  display: flex;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-sm);
+  border: 1px solid var(--v2-border);
+  border-radius: var(--mantine-radius-md);
+  background-color: var(--v2-card);
+  cursor: pointer;
+  transition: border-color 120ms ease;
+}
+
+.recurrenceOption:hover {
+  border-color: var(--v2-primary);
+}
+
+.recurrenceOptionActive {
+  display: flex;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-sm);
+  border: 1px solid var(--v2-primary);
+  border-radius: var(--mantine-radius-md);
+  background-color: var(--v2-elevated);
+  cursor: pointer;
+}
+
+.recurrenceInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.patternPreview {
+  padding: var(--mantine-spacing-sm);
+  border: 1px solid var(--v2-border);
+  border-radius: var(--mantine-radius-md);
+  background-color: var(--v2-elevated);
+}
+
+.weekendPolicies {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--mantine-spacing-sm);
+}
+
+/* ------------------------------------------------------------------ */
+/* Empty / Loading / Error states                                     */
+/* ------------------------------------------------------------------ */
+
+.centeredState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mantine-spacing-xl) var(--mantine-spacing-md);
+  gap: var(--mantine-spacing-sm);
+  border: 1px solid var(--v2-border);
+  border-radius: var(--mantine-radius-lg);
+  background-color: var(--v2-card);
+}
+
+.skeletonCard {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                         */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 48em) {
+  .periodCard,
+  .periodCardCurrent {
+    flex-wrap: wrap;
+    gap: var(--mantine-spacing-xs);
+    padding: var(--mantine-spacing-sm);
+  }
+
+  .periodStats {
+    gap: var(--mantine-spacing-sm);
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .periodStat {
+    min-width: unset;
+    text-align: left;
+  }
+
+  .periodBadge {
+    min-width: unset;
+  }
+
+  .weekendPolicies {
+    grid-template-columns: 1fr;
+  }
+
+  .headerActions {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}

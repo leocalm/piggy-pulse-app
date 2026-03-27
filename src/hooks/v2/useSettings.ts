@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useProfile() {
   return useQuery({
-    queryKey: ['settings', 'profile'],
+    queryKey: v2QueryKeys.settings.profile(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/settings/profile');
       if (error) {
@@ -26,15 +27,15 @@ export function useUpdateProfile() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['settings', 'profile'] });
-      queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.settings.profile() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.auth.me() });
     },
   });
 }
 
 export function usePreferences() {
   return useQuery({
-    queryKey: ['settings', 'preferences'],
+    queryKey: v2QueryKeys.settings.preferences(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/settings/preferences');
       if (error) {
@@ -56,7 +57,7 @@ export function useUpdatePreferences() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['settings', 'preferences'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.settings.preferences() });
     },
   });
 }
@@ -74,7 +75,7 @@ export function useChangePassword() {
 
 export function useSessions() {
   return useQuery({
-    queryKey: ['settings', 'sessions'],
+    queryKey: v2QueryKeys.settings.sessions(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/settings/sessions');
       if (error) {
@@ -97,7 +98,7 @@ export function useRevokeSession() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['settings', 'sessions'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.settings.sessions() });
     },
   });
 }

@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useTwoFactorStatus() {
   return useQuery({
-    queryKey: ['two-factor', 'status'],
+    queryKey: v2QueryKeys.twoFactor.status(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/auth/2fa/status');
       if (error) {
@@ -26,7 +27,7 @@ export function useEnableTwoFactor() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['two-factor'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.twoFactor.all() });
     },
   });
 }
@@ -41,7 +42,7 @@ export function useVerifyTwoFactor() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['two-factor'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.twoFactor.all() });
     },
   });
 }
@@ -56,7 +57,7 @@ export function useDisableTwoFactor() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['two-factor'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.twoFactor.all() });
     },
   });
 }
@@ -94,7 +95,7 @@ export function useEmergencyDisableConfirm() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['two-factor'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.twoFactor.all() });
     },
   });
 }

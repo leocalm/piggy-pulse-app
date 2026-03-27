@@ -1678,6 +1678,18 @@ export interface components {
        * @enum {string}
        */
       status?: 'active' | 'upcoming' | 'past';
+      /**
+       * Format: int64
+       * @description Total amount spent in the period, in cents
+       * @example 50000
+       */
+      totalSpent: number;
+      /**
+       * Format: int64
+       * @description Total budgeted amount for the period, in cents
+       * @example 100000
+       */
+      totalBudgeted: number;
     } & (components['schemas']['DurationBased'] | components['schemas']['ManualEndDate']);
     PeriodListResponse: components['schemas']['PaginatedResponse'] & {
       data?: components['schemas']['PeriodResponse'][];
@@ -1709,6 +1721,13 @@ export interface components {
        * @enum {string}
        */
       scheduleType: 'automatic';
+      /**
+       * @description How the period start date is determined
+       * @default dayOfMonth
+       * @example dayOfMonth
+       * @enum {string}
+       */
+      recurrenceMethod: 'dayOfMonth' | 'businessDay' | 'dayOfWeek';
       /**
        * @description Day of the month to start the schedule
        * @example 1

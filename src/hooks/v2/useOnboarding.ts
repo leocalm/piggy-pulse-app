@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useOnboardingStatus() {
   return useQuery({
-    queryKey: ['onboarding', 'status'],
+    queryKey: v2QueryKeys.onboarding.status(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/onboarding/status');
       if (error) {
@@ -24,8 +25,8 @@ export function useCompleteOnboarding() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['onboarding'] });
-      queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.onboarding.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.auth.me() });
     },
   });
 }

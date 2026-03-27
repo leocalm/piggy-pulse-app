@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components, operations } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 type VendorListParams = NonNullable<operations['listVendors']['parameters']['query']>;
 
 export function useVendors(params: VendorListParams = {}) {
   return useQuery({
-    queryKey: ['vendors', params],
+    queryKey: v2QueryKeys.vendors.list(params),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/vendors', {
         params: { query: params },
@@ -21,7 +22,7 @@ export function useVendors(params: VendorListParams = {}) {
 
 export function useVendorsOptions() {
   return useQuery({
-    queryKey: ['vendors', 'options'],
+    queryKey: v2QueryKeys.vendors.options(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/vendors/options');
       if (error) {
@@ -43,7 +44,7 @@ export function useCreateVendor() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['vendors'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.vendors.all() });
     },
   });
 }
@@ -68,7 +69,7 @@ export function useUpdateVendor() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['vendors'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.vendors.all() });
     },
   });
 }
@@ -85,7 +86,7 @@ export function useDeleteVendor() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['vendors'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.vendors.all() });
     },
   });
 }
@@ -102,7 +103,7 @@ export function useArchiveVendor() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['vendors'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.vendors.all() });
     },
   });
 }
@@ -119,7 +120,7 @@ export function useUnarchiveVendor() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['vendors'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.vendors.all() });
     },
   });
 }
