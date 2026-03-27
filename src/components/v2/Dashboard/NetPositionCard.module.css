@@ -145,8 +145,13 @@
 .accountLeader {
   flex: 1;
   align-self: flex-end;
-  margin-bottom: 4px;
+  /* 0.35em scales with font-size so the line sits near the text baseline */
+  margin-bottom: 0.35em;
   border-bottom: 1px dashed var(--v2-border);
+}
+
+.accountBalance {
+  flex-shrink: 0;
 }
 
 .accountType {

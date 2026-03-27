@@ -12,10 +12,18 @@ interface NetPositionCardProps {
   periodId: string;
 }
 
+const ACCOUNT_TYPE_LABELS: Record<string, string> = {
+  Checking: 'Checking',
+  Savings: 'Savings',
+  CreditCard: 'Credit Card',
+  Allowance: 'Allowance',
+  Wallet: 'Wallet',
+};
+
 export function NetPositionCard({ periodId }: NetPositionCardProps) {
   const { data, isLoading, isError, refetch } = useDashboardNetPosition(periodId);
   const { data: history } = useDashboardNetPositionHistory(periodId);
-  const { data: accountsSummary } = useAccountsSummary(periodId);
+  const { data: accountsSummary, isLoading: isAccountsLoading } = useAccountsSummary(periodId);
   const { accents } = useV2Theme();
   const accounts = accountsSummary?.data ?? [];
 
@@ -115,25 +123,41 @@ export function NetPositionCard({ periodId }: NetPositionCardProps) {
       )}
 
       {/* Account list */}
-      {accounts.length > 0 && (
-        <div className={classes.accountList}>
-          {accounts.map((account) => (
-            <div key={account.id} className={classes.accountRow}>
-              <span className={classes.accountColor} style={{ backgroundColor: account.color }} />
-              <Text fz="sm" fw={500} className={classes.accountName}>
-                {account.name}
-              </Text>
-              <span className={classes.accountLeader} />
-              <Text fz="xs" c="dimmed" tt="capitalize" className={classes.accountType}>
-                {account.type.replace('CreditCard', 'Credit Card')}
-              </Text>
-              <Text fz="sm" fw={600} ff="var(--mantine-font-family-monospace)">
-                <CurrencyValue cents={account.currentBalance} />
-              </Text>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className={classes.accountList}>
+        {isAccountsLoading
+          ? Array.from({ length: data.numberOfAccounts }).map((_, i) => (
+              <div key={i} className={classes.accountRow}>
+                <Skeleton width={8} height={8} radius="xl" />
+                <Skeleton width={120} height={12} />
+                <span className={classes.accountLeader} />
+                <Skeleton width={60} height={12} />
+                <Skeleton width={70} height={12} />
+              </div>
+            ))
+          : accounts.map((account) => (
+              <div key={account.id} className={classes.accountRow}>
+                <span
+                  className={classes.accountColor}
+                  style={{ backgroundColor: account.color || 'var(--v2-border)' }}
+                />
+                <Text fz="sm" fw={500} className={classes.accountName}>
+                  {account.name}
+                </Text>
+                <span className={classes.accountLeader} />
+                <Text fz="xs" c="dimmed" className={classes.accountType}>
+                  {ACCOUNT_TYPE_LABELS[account.type] ?? account.type}
+                </Text>
+                <Text
+                  fz="sm"
+                  fw={600}
+                  ff="var(--mantine-font-family-monospace)"
+                  className={classes.accountBalance}
+                >
+                  <CurrencyValue cents={account.currentBalance} />
+                </Text>
+              </div>
+            ))}
+      </div>
     </div>
   );
 }
