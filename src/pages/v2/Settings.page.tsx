@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useAuth } from '@/context/AuthContext';
+import { useAccounts } from '@/hooks/v2/useAccounts';
 import {
   useChangePassword,
   useDeleteUserAccount,
@@ -49,76 +50,71 @@ const WIDGET_DEFINITIONS = [
     emoji: '\u{1F4CA}',
     name: 'Current Period',
     desc: 'Budget progress for the active period',
+    defaultVisible: true,
   },
   {
     id: 'net_position',
     emoji: '\u{1F4B0}',
     name: 'Net Position',
     desc: 'Total across all accounts',
+    defaultVisible: true,
   },
   {
     id: 'variable_categories',
     emoji: '\u{1F4CB}',
     name: 'Variable Categories',
     desc: 'Discretionary spending tracker',
+    defaultVisible: true,
   },
   {
     id: 'recent_transactions',
     emoji: '\u{1F9FE}',
     name: 'Recent Transactions',
     desc: 'Latest activity',
+    defaultVisible: true,
   },
   {
     id: 'cash_flow',
     emoji: '\u{1F4B8}',
     name: 'Cash Flow',
     desc: 'Inflows vs outflows',
+    defaultVisible: true,
   },
   {
     id: 'spending_trend',
     emoji: '\u{1F4C8}',
     name: 'Spending Trend',
     desc: 'Spend over time',
+    defaultVisible: false,
   },
   {
     id: 'fixed_categories',
     emoji: '\u2705',
     name: 'Fixed Categories',
     desc: 'Predictable expenses checklist',
+    defaultVisible: false,
   },
   {
     id: 'subscriptions',
     emoji: '\u{1F504}',
     name: 'Subscriptions',
     desc: 'Recurring charges timeline',
+    defaultVisible: false,
   },
   {
     id: 'budget_stability',
     emoji: '\u{1F4CA}',
     name: 'Budget Stability',
     desc: 'Historical consistency',
+    defaultVisible: false,
   },
   {
     id: 'top_vendors',
     emoji: '\u{1F3EA}',
     name: 'Top Vendors',
     desc: 'Where money goes',
+    defaultVisible: false,
   },
-  {
-    id: 'uncategorized',
-    emoji: '\u26A0\uFE0F',
-    name: 'Uncategorized',
-    desc: 'Items needing review',
-  },
-];
-
-const DEFAULT_VISIBLE_WIDGETS = [
-  'current_period',
-  'net_position',
-  'variable_categories',
-  'recent_transactions',
-  'cash_flow',
-  'uncategorized',
 ];
 
 const SECTIONS: readonly { id: string; label: string; danger?: boolean }[] = [
@@ -158,6 +154,7 @@ export function SettingsV2Page() {
   // ── API hooks ──
   const profileQuery = useProfile();
   const preferencesQuery = usePreferences();
+  const accountsQuery = useAccounts();
   const twoFactorQuery = useTwoFactorStatus();
   const updateProfileMut = useUpdateProfile();
   const updatePrefsMut = useUpdatePreferences();
@@ -175,7 +172,7 @@ export function SettingsV2Page() {
 
   // ── Local state (appearance) ──
   const [scheme, setScheme] = useState<'dark' | 'light' | 'system'>(
-    (colorScheme as 'dark' | 'light') || 'dark'
+    colorScheme === 'auto' ? 'system' : (colorScheme as 'dark' | 'light') || 'dark'
   );
   const [language, setLanguage] = useState('en');
   const [dateFormat, setDateFormat] = useState<'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY-MM-DD'>(
@@ -188,6 +185,9 @@ export function SettingsV2Page() {
 
   // ── Local state (dashboard widgets) ──
   const [hiddenWidgets, setHiddenWidgets] = useState<string[]>([]);
+  const [widgetOrder, setWidgetOrder] = useState<string[]>([]);
+  // null = show all active accounts (default); string[] = show only these account IDs
+  const [visibleAccountIds, setVisibleAccountIds] = useState<string[] | null>(null);
 
   // ── Local state (security modals) ──
   const [passwordModalOpen, passwordModal] = useDisclosure(false);
@@ -239,7 +239,8 @@ export function SettingsV2Page() {
   useEffect(() => {
     if (preferencesQuery.data) {
       const prefs = preferencesQuery.data;
-      setScheme(prefs.theme ?? 'dark');
+      const themeVal = prefs.theme ?? 'dark';
+      setScheme(themeVal === 'system' ? 'system' : (themeVal as 'dark' | 'light'));
       setLanguage(prefs.language ?? 'en');
       setDateFormat(prefs.dateFormat ?? 'DD/MM/YYYY');
       setNumberFormat(prefs.numberFormat ?? '1,234.56');
@@ -249,6 +250,8 @@ export function SettingsV2Page() {
       }
       if (prefs.dashboardLayout) {
         setHiddenWidgets(prefs.dashboardLayout.hiddenWidgets ?? []);
+        setWidgetOrder(prefs.dashboardLayout.widgetOrder ?? []);
+        setVisibleAccountIds(prefs.dashboardLayout.visibleAccountIds ?? null);
       }
     }
   }, [preferencesQuery.data, setColorTheme]);
@@ -355,13 +358,58 @@ export function SettingsV2Page() {
           numberFormat,
           colorTheme,
           compactMode,
-          dashboardLayout: { widgetOrder: [], hiddenWidgets: next },
+          dashboardLayout: {
+            widgetOrder,
+            hiddenWidgets: next,
+            visibleAccountIds: visibleAccountIds ?? undefined,
+          },
         });
       } catch {
         toast.error({ message: 'Failed to update dashboard layout' });
       }
     },
     [
+      hiddenWidgets,
+      widgetOrder,
+      visibleAccountIds,
+      updatePrefsMut,
+      scheme,
+      language,
+      dateFormat,
+      numberFormat,
+      colorTheme,
+      compactMode,
+    ]
+  );
+
+  const handleAccountToggle = useCallback(
+    async (accountId: string) => {
+      const allAccountIds = (accountsQuery.data?.data ?? [])
+        .filter((a) => a.status === 'active')
+        .map((a) => a.id);
+      // If null (show all), start from all active accounts
+      const current = visibleAccountIds ?? allAccountIds;
+      const isVisible = current.includes(accountId);
+      const next = isVisible ? current.filter((id) => id !== accountId) : [...current, accountId];
+      setVisibleAccountIds(next);
+      try {
+        await updatePrefsMut.mutateAsync({
+          theme: scheme,
+          language,
+          dateFormat,
+          numberFormat,
+          colorTheme,
+          compactMode,
+          dashboardLayout: { widgetOrder, hiddenWidgets, visibleAccountIds: next },
+        });
+      } catch {
+        toast.error({ message: 'Failed to update account cards' });
+      }
+    },
+    [
+      visibleAccountIds,
+      accountsQuery.data,
+      widgetOrder,
       hiddenWidgets,
       updatePrefsMut,
       scheme,
@@ -374,10 +422,10 @@ export function SettingsV2Page() {
   );
 
   const handleResetDashboard = useCallback(async () => {
-    const defaultHidden = WIDGET_DEFINITIONS.filter(
-      (w) => !DEFAULT_VISIBLE_WIDGETS.includes(w.id)
-    ).map((w) => w.id);
+    const defaultHidden = WIDGET_DEFINITIONS.filter((w) => !w.defaultVisible).map((w) => w.id);
     setHiddenWidgets(defaultHidden);
+    setWidgetOrder([]);
+    setVisibleAccountIds(null);
     try {
       await updatePrefsMut.mutateAsync({
         theme: scheme,
@@ -464,14 +512,20 @@ export function SettingsV2Page() {
       if (!file) {
         return;
       }
+      let body: Record<string, unknown>;
       try {
         const text = await file.text();
-        const body = JSON.parse(text);
+        body = JSON.parse(text) as Record<string, unknown>;
+      } catch {
+        toast.error({ message: 'Invalid JSON file. Please check the file format.' });
+        return;
+      }
+      try {
         const { apiClient } = await import('@/api/v2client');
-        await apiClient.POST('/settings/import/data', { body });
+        await apiClient.POST('/settings/import/data', { body: body as any });
         toast.success({ message: 'Data imported successfully' });
       } catch {
-        toast.error({ message: 'Failed to import data' });
+        toast.error({ message: 'Failed to import data. Please try again.' });
       }
     };
     input.click();
@@ -808,6 +862,57 @@ export function SettingsV2Page() {
 
               <hr className={classes.divider} style={{ margin: '16px 0' }} />
 
+              {/* Account cards */}
+              <div className={classes.label} style={{ marginTop: 8 }}>
+                Account Cards
+              </div>
+              <p className={classes.hint} style={{ marginTop: 0, marginBottom: 12 }}>
+                Choose which accounts appear as individual cards on your dashboard.
+                {visibleAccountIds === null ? ' All active accounts are currently shown.' : ''}
+              </p>
+
+              {(accountsQuery.data?.data ?? [])
+                .filter((a) => a.status === 'active')
+                .map((account) => {
+                  const isShown =
+                    visibleAccountIds === null || visibleAccountIds.includes(account.id);
+                  return (
+                    <div key={account.id} className={classes.widgetRow}>
+                      <div className={classes.widgetInfo}>
+                        <div className={classes.widgetIcon}>
+                          {account.type === 'Checking'
+                            ? '\u{1F3E6}'
+                            : account.type === 'Savings'
+                              ? '\u{1F4B0}'
+                              : account.type === 'CreditCard'
+                                ? '\u{1F4B3}'
+                                : '\u{1F3E6}'}
+                        </div>
+                        <div className={classes.widgetMeta}>
+                          <span className={classes.widgetName}>{account.name}</span>
+                          <span className={classes.widgetDesc}>
+                            {account.type === 'Checking'
+                              ? 'Checking'
+                              : account.type === 'Savings'
+                                ? 'Savings'
+                                : account.type === 'CreditCard'
+                                  ? 'Credit Card'
+                                  : account.type}
+                          </span>
+                        </div>
+                      </div>
+                      <Switch
+                        checked={isShown}
+                        onChange={() => handleAccountToggle(account.id)}
+                        color="var(--v2-primary)"
+                        size="md"
+                      />
+                    </div>
+                  );
+                })}
+
+              <hr className={classes.divider} style={{ margin: '16px 0' }} />
+
               <div
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
               >
@@ -857,7 +962,7 @@ export function SettingsV2Page() {
                 <div className={classes.securityHeader}>
                   <span className={classes.securityTitle}>Password</span>
                 </div>
-                <div className={classes.securityMeta}>Last changed 45 days ago</div>
+                <div className={classes.securityMeta}>Manage your account password</div>
                 <div className={classes.securityActions}>
                   <Button
                     variant="default"
@@ -895,6 +1000,7 @@ export function SettingsV2Page() {
                         variant="default"
                         size="compact-xs"
                         radius={8}
+                        onClick={() => toast.info({ message: '2FA reconfiguration coming soon' })}
                         styles={{
                           root: {
                             border: '1px solid var(--v2-border)',

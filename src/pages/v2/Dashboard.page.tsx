@@ -24,13 +24,23 @@ export function DashboardV2Page() {
   const accounts = accountsData?.data ?? [];
   const activeAccounts = accounts.filter((a) => a.status === 'active');
 
-  const hiddenWidgets = useMemo(() => {
-    const prefs = prefsData as Record<string, unknown> | undefined;
-    const layout = prefs?.dashboardLayout as { hiddenWidgets?: string[] } | undefined;
-    return new Set(layout?.hiddenWidgets ?? []);
+  const dashboardLayout = useMemo(() => {
+    const layout = prefsData?.dashboardLayout;
+    return {
+      hiddenWidgets: new Set(layout?.hiddenWidgets ?? []),
+      visibleAccountIds: layout?.visibleAccountIds ?? null,
+    };
   }, [prefsData]);
 
-  const isVisible = (widgetId: string) => !hiddenWidgets.has(widgetId);
+  const isVisible = (widgetId: string) => !dashboardLayout.hiddenWidgets.has(widgetId);
+
+  const visibleAccounts = useMemo(() => {
+    if (dashboardLayout.visibleAccountIds === null) {
+      return activeAccounts;
+    }
+    const idSet = new Set(dashboardLayout.visibleAccountIds);
+    return activeAccounts.filter((a) => idSet.has(a.id));
+  }, [activeAccounts, dashboardLayout.visibleAccountIds]);
 
   if (!selectedPeriodId) {
     return (
@@ -90,13 +100,13 @@ export function DashboardV2Page() {
       )}
 
       {/* Individual account cards */}
-      {activeAccounts.length > 0 && (
+      {visibleAccounts.length > 0 && (
         <>
           <Text fz="xs" fw={600} tt="uppercase" c="dimmed" mt="md">
             Your Accounts
           </Text>
           <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-            {activeAccounts.map((account) => (
+            {visibleAccounts.map((account) => (
               <AccountCard key={account.id} accountId={account.id} periodId={selectedPeriodId} />
             ))}
           </SimpleGrid>

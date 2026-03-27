@@ -3044,6 +3044,8 @@ export interface components {
       widgetOrder?: string[];
       /** @example [] */
       hiddenWidgets?: string[];
+      /** @description Account IDs to display as individual cards on the dashboard. If omitted, all active accounts are shown. */
+      visibleAccountIds?: string[];
     };
     /**
      * @example nebula
