@@ -3511,6 +3511,7 @@ components:
             - fixed
             - variable
             - subscription
+            - null
           description: Category budget behavior
           example: variable
     CategoryResponse:
