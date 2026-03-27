@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useMe() {
   return useQuery({
-    queryKey: ['me'],
+    queryKey: v2QueryKeys.auth.me(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/auth/me');
       if (error) {
@@ -27,7 +28,7 @@ export function useLogin() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.auth.me() });
     },
   });
 }
@@ -70,7 +71,7 @@ export function useRefreshToken() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.auth.me() });
     },
   });
 }

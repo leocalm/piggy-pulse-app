@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components, operations } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 type TransactionListParams = operations['listTransactions']['parameters']['query'];
 
 export function useTransactions(filters: TransactionListParams) {
   return useQuery({
-    queryKey: ['transactions', filters],
+    queryKey: v2QueryKeys.transactions.list(filters),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/transactions', {
         params: { query: filters },
@@ -30,9 +31,9 @@ export function useCreateTransaction() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.transactions.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
     },
   });
 }
@@ -57,9 +58,9 @@ export function useUpdateTransaction() {
       return data;
     },
     onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      queryClient.invalidateQueries({ queryKey: ['transactions', id] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.transactions.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.transactions.detail(id) });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
     },
   });
 }
@@ -76,9 +77,9 @@ export function useDeleteTransaction() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.transactions.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
     },
   });
 }

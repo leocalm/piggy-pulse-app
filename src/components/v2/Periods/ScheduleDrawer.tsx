@@ -71,6 +71,7 @@ export function ScheduleDrawer({ opened, onClose }: ScheduleDrawerProps) {
       setEnabled(schedule.scheduleType === 'automatic');
       if (schedule.scheduleType === 'automatic') {
         const auto = schedule as components['schemas']['AutomaticSchedule'] & { id: string };
+        setRecurrenceMethod(auto.recurrenceMethod as RecurrenceMethod);
         setStartDay(auto.startDayOfTheMonth);
         setPeriodDuration(auto.periodDuration);
         setDurationUnit(auto.durationUnit);
@@ -128,6 +129,7 @@ export function ScheduleDrawer({ opened, onClose }: ScheduleDrawerProps) {
 
       const body: components['schemas']['CreatePeriodScheduleRequest'] = {
         scheduleType: 'automatic',
+        recurrenceMethod,
         startDayOfTheMonth: Number(startDay),
         periodDuration: Number(periodDuration),
         durationUnit,

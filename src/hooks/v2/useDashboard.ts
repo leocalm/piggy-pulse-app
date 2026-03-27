@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useDashboardCurrentPeriod(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'current-period', periodId],
+    queryKey: v2QueryKeys.dashboard.currentPeriod(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/current-period', {
         params: { query: { periodId } },
@@ -19,7 +20,7 @@ export function useDashboardCurrentPeriod(periodId: string) {
 
 export function useDashboardNetPosition(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'net-position', periodId],
+    queryKey: v2QueryKeys.dashboard.netPosition(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/net-position', {
         params: { query: { periodId } },
@@ -35,7 +36,7 @@ export function useDashboardNetPosition(periodId: string) {
 
 export function useDashboardNetPositionHistory(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'net-position-history', periodId],
+    queryKey: v2QueryKeys.dashboard.netPositionHistory(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/net-position-history', {
         params: { query: { periodId } },
@@ -51,7 +52,7 @@ export function useDashboardNetPositionHistory(periodId: string) {
 
 export function useDashboardCurrentPeriodHistory(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'current-period-history', periodId],
+    queryKey: v2QueryKeys.dashboard.currentPeriodHistory(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/current-period-history', {
         params: { query: { periodId } },
@@ -67,7 +68,7 @@ export function useDashboardCurrentPeriodHistory(periodId: string) {
 
 export function useDashboardCashFlow(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'cash-flow', periodId],
+    queryKey: v2QueryKeys.dashboard.cashFlow(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/cash-flow', {
         params: { query: { periodId } },
@@ -83,7 +84,7 @@ export function useDashboardCashFlow(periodId: string) {
 
 export function useDashboardSpendingTrend(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'spending-trend', periodId],
+    queryKey: v2QueryKeys.dashboard.spendingTrend(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/spending-trend', {
         params: { query: { periodId } },
@@ -99,7 +100,7 @@ export function useDashboardSpendingTrend(periodId: string) {
 
 export function useDashboardTopVendors(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'top-vendors', periodId],
+    queryKey: v2QueryKeys.dashboard.topVendors(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/top-vendors', {
         params: { query: { periodId } },
@@ -115,7 +116,7 @@ export function useDashboardTopVendors(periodId: string) {
 
 export function useDashboardBudgetStability(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'budget-stability', periodId],
+    queryKey: v2QueryKeys.dashboard.budgetStability(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/budget-stability', {
         params: { query: { periodId } },
@@ -131,7 +132,7 @@ export function useDashboardBudgetStability(periodId: string) {
 
 export function useDashboardFixedCategories(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'fixed-categories', periodId],
+    queryKey: v2QueryKeys.dashboard.fixedCategories(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/fixed-categories', {
         params: { query: { periodId } },
@@ -147,7 +148,7 @@ export function useDashboardFixedCategories(periodId: string) {
 
 export function useDashboardSubscriptions(periodId: string) {
   return useQuery({
-    queryKey: ['dashboard', 'subscriptions', periodId],
+    queryKey: v2QueryKeys.dashboard.subscriptions(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/dashboard/subscriptions', {
         params: { query: { periodId } },

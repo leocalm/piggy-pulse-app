@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useAccounts(params: { cursor?: string; limit?: number } = {}) {
   return useQuery({
-    queryKey: ['accounts', params],
+    queryKey: v2QueryKeys.accounts.list(params),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/accounts', {
         params: { query: params },
@@ -22,7 +23,7 @@ export function useAccountsSummary(
   params: { cursor?: string; limit?: number } = {}
 ) {
   return useQuery({
-    queryKey: ['accounts', 'summary', periodId, params],
+    queryKey: v2QueryKeys.accounts.summary(periodId, params),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/accounts/summary', {
         params: { query: { periodId, ...params } },
@@ -38,7 +39,7 @@ export function useAccountsSummary(
 
 export function useAccountsOptions() {
   return useQuery({
-    queryKey: ['accounts', 'options'],
+    queryKey: v2QueryKeys.accounts.options(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/accounts/options');
       if (error) {
@@ -51,7 +52,7 @@ export function useAccountsOptions() {
 
 export function useAccount(id: string) {
   return useQuery({
-    queryKey: ['accounts', id],
+    queryKey: v2QueryKeys.accounts.detail(id),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/accounts/{id}', {
         params: { path: { id } },
@@ -67,7 +68,7 @@ export function useAccount(id: string) {
 
 export function useAccountDetails(id: string, periodId: string) {
   return useQuery({
-    queryKey: ['accounts', id, 'details', periodId],
+    queryKey: v2QueryKeys.accounts.details(id, periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/accounts/{id}/details', {
         params: { path: { id }, query: { periodId } },
@@ -83,7 +84,7 @@ export function useAccountDetails(id: string, periodId: string) {
 
 export function useAccountBalanceHistory(id: string, periodId: string) {
   return useQuery({
-    queryKey: ['accounts', id, 'balance-history', periodId],
+    queryKey: v2QueryKeys.accounts.balanceHistory(id, periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/accounts/{id}/balance-history', {
         params: { path: { id }, query: { periodId } },
@@ -108,7 +109,7 @@ export function useCreateAccount() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
     },
   });
 }
@@ -133,8 +134,8 @@ export function useUpdateAccount() {
       return data;
     },
     onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
-      queryClient.invalidateQueries({ queryKey: ['accounts', id] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.detail(id) });
     },
   });
 }
@@ -151,8 +152,8 @@ export function useDeleteAccount() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
     },
   });
 }
@@ -169,7 +170,7 @@ export function useArchiveAccount() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
     },
   });
 }
@@ -186,7 +187,7 @@ export function useUnarchiveAccount() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
     },
   });
 }
@@ -211,9 +212,9 @@ export function useAdjustAccountBalance() {
       return data;
     },
     onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
-      queryClient.invalidateQueries({ queryKey: ['accounts', id] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.accounts.detail(id) });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
     },
   });
 }

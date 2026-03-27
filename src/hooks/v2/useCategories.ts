@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { v2QueryKeys } from './queryKeys';
 
 export function useCategories(params: { cursor?: string; limit?: number } = {}) {
   return useQuery({
-    queryKey: ['categories', params],
+    queryKey: v2QueryKeys.categories.list(params),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/categories', {
         params: { query: params },
@@ -19,7 +20,7 @@ export function useCategories(params: { cursor?: string; limit?: number } = {}) 
 
 export function useCategoriesOverview(periodId: string) {
   return useQuery({
-    queryKey: ['categories', 'overview', periodId],
+    queryKey: v2QueryKeys.categories.overview(periodId),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/categories/overview', {
         params: { query: { periodId } },
@@ -35,7 +36,7 @@ export function useCategoriesOverview(periodId: string) {
 
 export function useCategoriesOptions() {
   return useQuery({
-    queryKey: ['categories', 'options'],
+    queryKey: v2QueryKeys.categories.options(),
     queryFn: async () => {
       const { data, error } = await apiClient.GET('/categories/options');
       if (error) {
@@ -57,7 +58,7 @@ export function useCreateCategory() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
     },
   });
 }
@@ -82,7 +83,7 @@ export function useUpdateCategory() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
     },
   });
 }
@@ -99,7 +100,7 @@ export function useDeleteCategory() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
     },
   });
 }
@@ -116,7 +117,7 @@ export function useArchiveCategory() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
     },
   });
 }
@@ -133,7 +134,7 @@ export function useUnarchiveCategory() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
     },
   });
 }

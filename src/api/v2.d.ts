@@ -1722,6 +1722,13 @@ export interface components {
        */
       scheduleType: 'automatic';
       /**
+       * @description How the period start date is determined
+       * @default dayOfMonth
+       * @example dayOfMonth
+       * @enum {string}
+       */
+      recurrenceMethod: 'dayOfMonth' | 'businessDay' | 'dayOfWeek';
+      /**
        * @description Day of the month to start the schedule
        * @example 1
        */
