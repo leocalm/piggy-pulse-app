@@ -154,6 +154,11 @@ const AccountDetailV2Page = lazy(() =>
     default: module.AccountDetailV2Page,
   }))
 );
+const PeriodsV2Page = lazy(() =>
+  import('./pages/v2/Periods.page').then((module) => ({
+    default: module.PeriodsV2Page,
+  }))
+);
 
 const Layout = () => {
   const location = useLocation();
@@ -242,7 +247,7 @@ export function Router() {
         { path: 'accounts/:id', element: withPageLoader(<AccountDetailV2Page />) },
         { path: 'categories', element: withPageLoader(<PlaceholderPage />) },
         { path: 'targets', element: withPageLoader(<PlaceholderPage />) },
-        { path: 'periods', element: withPageLoader(<PlaceholderPage />) },
+        { path: 'periods', element: withPageLoader(<PeriodsV2Page />) },
         { path: 'vendors', element: withPageLoader(<PlaceholderPage />) },
         { path: 'subscriptions', element: withPageLoader(<PlaceholderPage />) },
         { path: 'overlays', element: withPageLoader(<PlaceholderPage />) },
