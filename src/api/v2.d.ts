@@ -3476,6 +3476,11 @@ export interface components {
      * @example 2024-01-31
      */
     ToDate: string;
+    /**
+     * @description Search transactions by description or amount. Partial match, case-insensitive.
+     * @example groceries
+     */
+    Search: string;
   };
   requestBodies: never;
   headers: never;
@@ -5035,6 +5040,11 @@ export interface operations {
          * @example 2024-01-31
          */
         toDate?: components['parameters']['ToDate'];
+        /**
+         * @description Search transactions by description or amount. Partial match, case-insensitive.
+         * @example groceries
+         */
+        search?: components['parameters']['Search'];
       };
       header?: never;
       path?: never;

@@ -1352,6 +1352,7 @@ paths:
         - $ref: '#/components/parameters/VendorId'
         - $ref: '#/components/parameters/FromDate'
         - $ref: '#/components/parameters/ToDate'
+        - $ref: '#/components/parameters/Search'
       responses:
         '200':
           description: OK
@@ -2518,6 +2519,14 @@ components:
         format: date
       description: Filter transactions up to this date (inclusive)
       example: '2024-01-31'
+    Search:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "Search transactions by description or amount. Partial match, case-insensitive."
+      example: groceries
   schemas:
     HealthResponse:
       type: object
