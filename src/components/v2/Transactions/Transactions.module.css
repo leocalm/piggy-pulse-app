@@ -1,0 +1,252 @@
+/* ------------------------------------------------------------------ */
+/* Transactions List Page                                             */
+/* ------------------------------------------------------------------ */
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--mantine-spacing-md);
+}
+
+/* Stats bar */
+.statsBar {
+  display: flex;
+  gap: 1px;
+  border: 1px solid var(--v2-border);
+  border-radius: var(--mantine-radius-md);
+  overflow: hidden;
+}
+
+.statItem {
+  flex: 1;
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  background-color: var(--v2-card);
+}
+
+/* Search + filters row */
+.filtersRow {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 200px;
+}
+
+.directionFilters {
+  display: flex;
+  gap: 2px;
+  border-radius: var(--mantine-radius-md);
+  overflow: hidden;
+}
+
+.directionButton {
+  padding: 4px 12px;
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.directionButton:hover {
+  background-color: var(--v2-elevated);
+}
+
+.directionButtonActive {
+  padding: 4px 12px;
+  border: 1px solid var(--v2-primary);
+  background-color: var(--v2-elevated);
+  cursor: pointer;
+}
+
+/* Applied filter pills */
+.filterPills {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  flex-wrap: wrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Quick Add Form                                                     */
+/* ------------------------------------------------------------------ */
+
+.quickAddCard {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+}
+
+.quickAddRow {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  align-items: flex-end;
+}
+
+.quickAddField {
+  flex: 1;
+  min-width: 0;
+}
+
+.quickAddSmall {
+  flex-shrink: 0;
+  width: 100px;
+}
+
+.quickAddButton {
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Date Group                                                         */
+/* ------------------------------------------------------------------ */
+
+.dateGroupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Transaction Row                                                    */
+/* ------------------------------------------------------------------ */
+
+.txnRow {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.txnRow:hover {
+  background-color: var(--v2-elevated);
+}
+
+.txnAccent {
+  width: 4px;
+  height: 32px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.txnInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.txnMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+}
+
+.txnAmountCell {
+  flex-shrink: 0;
+  text-align: right;
+  min-width: 80px;
+}
+
+.kebabCell {
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mobile transaction card                                            */
+/* ------------------------------------------------------------------ */
+
+.mobileTxnRow {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-xs) 0;
+}
+
+.mobileTxnIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.mobileTxnInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobileTxnAmount {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------ */
+/* Empty / Loading / Error                                            */
+/* ------------------------------------------------------------------ */
+
+.centeredState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mantine-spacing-xl) var(--mantine-spacing-md);
+  gap: var(--mantine-spacing-sm);
+  border: 1px solid var(--v2-border);
+  border-radius: var(--mantine-radius-lg);
+  background-color: var(--v2-card);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                         */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 48em) {
+  .statsBar {
+    flex-direction: column;
+  }
+
+  .quickAddRow {
+    flex-wrap: wrap;
+  }
+
+  .quickAddSmall {
+    width: auto;
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .filtersRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchInput {
+    min-width: unset;
+  }
+
+  /* Hide desktop row, show mobile card */
+  .txnRow {
+    display: none;
+  }
+
+  .mobileTxnRow {
+    display: flex;
+  }
+}
+
+@media (min-width: 48.0625em) {
+  .mobileTxnRow {
+    display: none;
+  }
+}
