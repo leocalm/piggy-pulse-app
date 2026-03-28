@@ -1,7 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ActionIcon, Anchor, Badge, Button, Menu, Skeleton, Stack, Text } from '@mantine/core';
+import {
+  ActionIcon,
+  Alert,
+  Anchor,
+  Badge,
+  Button,
+  Menu,
+  Skeleton,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import type { components } from '@/api/v2';
 import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import { useDeleteSubscription, useSubscription } from '@/hooks/v2/useSubscriptions';
 import { toast } from '@/lib/toast';
@@ -66,10 +75,7 @@ export function SubscriptionDetail({ subscriptionId }: SubscriptionDetailProps) 
 
   const sub = data;
   const isCancelled = sub.status === 'cancelled';
-  const billingHistory =
-    'billingHistory' in sub
-      ? (sub as components['schemas']['SubscriptionDetailResponse']).billingHistory
-      : [];
+  const billingHistory = sub.billingHistory ?? [];
   const allTimeTotal = billingHistory.reduce((sum, e) => sum + e.amount, 0);
   const thisYear = billingHistory
     .filter((e) => e.date.startsWith(String(new Date().getFullYear())))
@@ -135,15 +141,10 @@ export function SubscriptionDetail({ subscriptionId }: SubscriptionDetailProps) 
 
       {/* Post-cancellation alert */}
       {postCancellationEvents.length > 0 && (
-        <div className={classes.detailCard} style={{ borderColor: 'var(--v2-destructive)' }}>
-          <Text fz="sm" fw={600} c="var(--v2-destructive)">
-            ⚠ Unexpected charge after cancellation
-          </Text>
-          <Text fz="xs" c="dimmed" mt={4}>
-            {postCancellationEvents.length} charge(s) recorded after this subscription was
-            cancelled. Review below.
-          </Text>
-        </div>
+        <Alert variant="light" color="red" title="Unexpected charge after cancellation">
+          {postCancellationEvents.length} charge(s) recorded after this subscription was cancelled.
+          Review the billing history below.
+        </Alert>
       )}
 
       {/* Details card */}

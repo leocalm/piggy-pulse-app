@@ -43,40 +43,44 @@ export function SubscriptionsV2Page() {
     return map;
   }, [categories]);
 
-  const { activeSubs, cancelledSubs } = useMemo(() => {
+  const { activeSubs, pausedSubs, cancelledSubs } = useMemo(() => {
     const active: SubscriptionResponse[] = [];
+    const paused: SubscriptionResponse[] = [];
     const cancelled: SubscriptionResponse[] = [];
     for (const sub of subscriptions) {
       if (sub.status === 'cancelled') {
         cancelled.push(sub);
+      } else if (sub.status === 'paused') {
+        paused.push(sub);
       } else {
         active.push(sub);
       }
     }
-    return { activeSubs: active, cancelledSubs: cancelled };
+    return { activeSubs: active, pausedSubs: paused, cancelledSubs: cancelled };
   }, [subscriptions]);
 
-  // Compute monthly and yearly totals from active subs
+  // Compute monthly and yearly totals from active subs only
+  // Accumulate raw amounts first, then round once to avoid per-item drift
   const { monthlyCost, yearlyTotal } = useMemo(() => {
-    let monthly = 0;
-    let yearly = 0;
+    let monthlyRaw = 0;
+    let yearlyRaw = 0;
     for (const sub of activeSubs) {
       switch (sub.billingCycle) {
         case 'monthly':
-          monthly += sub.billingAmount;
-          yearly += sub.billingAmount * 12;
+          monthlyRaw += sub.billingAmount;
+          yearlyRaw += sub.billingAmount * 12;
           break;
         case 'quarterly':
-          monthly += Math.round(sub.billingAmount / 3);
-          yearly += sub.billingAmount * 4;
+          monthlyRaw += sub.billingAmount / 3;
+          yearlyRaw += sub.billingAmount * 4;
           break;
         case 'yearly':
-          monthly += Math.round(sub.billingAmount / 12);
-          yearly += sub.billingAmount;
+          monthlyRaw += sub.billingAmount / 12;
+          yearlyRaw += sub.billingAmount;
           break;
       }
     }
-    return { monthlyCost: monthly, yearlyTotal: yearly };
+    return { monthlyCost: Math.round(monthlyRaw), yearlyTotal: Math.round(yearlyRaw) };
   }, [activeSubs]);
 
   const nextCharge = upcomingData?.[0];
@@ -305,6 +309,30 @@ export function SubscriptionsV2Page() {
               );
             })}
           </Stack>
+
+          {/* Paused */}
+          {pausedSubs.length > 0 && (
+            <Stack gap="sm">
+              <Text fz="xs" fw={700} tt="uppercase" c="dimmed" style={{ letterSpacing: '0.88px' }}>
+                Paused
+              </Text>
+              {pausedSubs.map((sub) => {
+                const cat = categoryMap.get(sub.categoryId);
+                return (
+                  <SubscriptionRow
+                    key={sub.id}
+                    subscription={sub}
+                    categoryIcon={cat?.icon}
+                    categoryColor={cat?.color}
+                    onView={(id) => navigate(`/v2/subscriptions/${id}`)}
+                    onEdit={handleEdit}
+                    onCancel={handleCancel}
+                    onDelete={handleDelete}
+                  />
+                );
+              })}
+            </Stack>
+          )}
 
           {/* Cancelled */}
           {cancelledSubs.length > 0 && (
