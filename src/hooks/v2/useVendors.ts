@@ -124,3 +124,53 @@ export function useUnarchiveVendor() {
     },
   });
 }
+
+export function useVendorDetail(id: string, periodId: string) {
+  return useQuery({
+    queryKey: v2QueryKeys.vendors.detail(id, periodId),
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET('/vendors/{id}/detail', {
+        params: { path: { id }, query: { periodId } },
+      });
+      if (error) {
+        throw error;
+      }
+      return data;
+    },
+    enabled: Boolean(id) && Boolean(periodId),
+  });
+}
+
+export function useVendorStats(periodId: string) {
+  return useQuery({
+    queryKey: v2QueryKeys.vendors.stats(periodId),
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET('/vendors/stats', {
+        params: { query: { periodId } },
+      });
+      if (error) {
+        throw error;
+      }
+      return data;
+    },
+    enabled: Boolean(periodId),
+  });
+}
+
+export function useMergeVendor() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, targetVendorId }: { id: string; targetVendorId: string }) => {
+      const { error } = await apiClient.POST('/vendors/{id}/merge', {
+        params: { path: { id } },
+        body: { targetVendorId },
+      });
+      if (error) {
+        throw error;
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.vendors.all() });
+    },
+  });
+}

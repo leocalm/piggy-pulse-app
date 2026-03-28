@@ -774,6 +774,27 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /vendors/stats:
+    get:
+      tags:
+        - Vendors
+      summary: Get vendor stats for a period
+      operationId: getVendorStats
+      parameters:
+        - $ref: '#/components/parameters/PeriodId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorStatsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /vendors/options:
     get:
       tags:
@@ -886,6 +907,57 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /vendors/{id}/detail:
+    get:
+      tags:
+        - Vendors
+      summary: Get vendor detail for a period
+      operationId: getVendorDetail
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - $ref: '#/components/parameters/PeriodId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorDetailResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /vendors/{id}/merge:
+    post:
+      tags:
+        - Vendors
+      summary: Merge vendor into another vendor
+      operationId: mergeVendor
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeVendorRequest'
+      responses:
+        '204':
+          description: Vendor merged successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         '500':
           $ref: '#/components/responses/InternalServerError'
   /vendors/{id}/archive:
@@ -3424,12 +3496,19 @@ components:
         - type: object
           required:
             - numberOfTransactions
+            - totalSpend
           properties:
             numberOfTransactions:
               type: integer
+              format: int64
               description: Total number of transactions
               example: 10
               minimum: 0
+            totalSpend:
+              type: integer
+              format: int64
+              description: Total spend in cents
+              example: 5000
     VendorListResponse:
       allOf:
         - $ref: '#/components/schemas/PaginatedResponse'
@@ -3478,6 +3557,168 @@ components:
     UpdateVendorRequest:
       allOf:
         - $ref: '#/components/schemas/CreateVendorRequest'
+    MergeVendorRequest:
+      type: object
+      required:
+        - targetVendorId
+      properties:
+        targetVendorId:
+          type: string
+          format: uuid
+          description: ID of the vendor to merge into (the target that survives)
+          example: 123e4567-e89b-12d3-a456-426655440000
+    VendorTrendItem:
+      type: object
+      required:
+        - periodId
+        - periodName
+        - totalSpend
+      properties:
+        periodId:
+          type: string
+          format: uuid
+          description: Period ID
+          example: 123e4567-e89b-12d3-a456-426655440000
+        periodName:
+          type: string
+          description: Period name
+          example: March 2026
+        totalSpend:
+          type: integer
+          format: int64
+          description: Total spend in cents for this period
+          example: 12000
+    VendorTopCategoryItem:
+      type: object
+      required:
+        - categoryId
+        - categoryName
+        - totalSpend
+        - percentage
+      properties:
+        categoryId:
+          type: string
+          format: uuid
+          description: Category ID
+          example: 123e4567-e89b-12d3-a456-426655440000
+        categoryName:
+          type: string
+          description: Category name
+          example: Groceries
+        totalSpend:
+          type: integer
+          format: int64
+          description: Total spend in cents for this category
+          example: 8000
+        percentage:
+          type: number
+          format: double
+          description: Percentage of total vendor spend
+          example: 66.7
+    VendorTransactionItem:
+      type: object
+      required:
+        - id
+        - date
+        - amount
+        - description
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Transaction ID
+          example: 123e4567-e89b-12d3-a456-426655440000
+        date:
+          type: string
+          format: date
+          description: Transaction date
+          example: '2026-03-15'
+        amount:
+          type: integer
+          format: int64
+          description: Transaction amount in cents
+          example: 2500
+        description:
+          type: string
+          description: Transaction description
+          example: Weekly groceries
+        categoryId:
+          type:
+            - string
+            - 'null'
+          format: uuid
+          description: Category ID
+          example: 123e4567-e89b-12d3-a456-426655440000
+        categoryName:
+          type:
+            - string
+            - 'null'
+          description: Category name
+          example: Groceries
+    VendorDetailResponse:
+      allOf:
+        - $ref: '#/components/schemas/VendorResponse'
+        - type: object
+          required:
+            - periodSpend
+            - transactionCount
+            - averageTransactionAmount
+            - trend
+            - topCategories
+            - recentTransactions
+          properties:
+            periodSpend:
+              type: integer
+              format: int64
+              description: Total spend in cents for the requested period
+              example: 12000
+            transactionCount:
+              type: integer
+              format: int64
+              description: Number of transactions in the requested period
+              example: 5
+            averageTransactionAmount:
+              type: integer
+              format: int64
+              description: Average transaction amount in cents
+              example: 2400
+            trend:
+              type: array
+              description: Spending trend across periods
+              items:
+                $ref: '#/components/schemas/VendorTrendItem'
+            topCategories:
+              type: array
+              description: Top categories by spend at this vendor
+              items:
+                $ref: '#/components/schemas/VendorTopCategoryItem'
+            recentTransactions:
+              type: array
+              description: Recent transactions at this vendor
+              items:
+                $ref: '#/components/schemas/VendorTransactionItem'
+    VendorStatsResponse:
+      type: object
+      required:
+        - totalVendors
+        - totalSpendThisPeriod
+        - avgSpendPerVendor
+      properties:
+        totalVendors:
+          type: integer
+          format: int64
+          description: Total number of vendors
+          example: 20
+        totalSpendThisPeriod:
+          type: integer
+          format: int64
+          description: Total spend across all vendors in cents for this period
+          example: 150000
+        avgSpendPerVendor:
+          type: integer
+          format: int64
+          description: Average spend per vendor in cents for this period
+          example: 7500
     CategoryBase:
       type: object
       required:
