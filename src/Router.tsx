@@ -159,6 +159,16 @@ const PeriodsV2Page = lazy(() =>
     default: module.PeriodsV2Page,
   }))
 );
+const VendorsV2Page = lazy(() =>
+  import('./pages/v2/Vendors.page').then((module) => ({
+    default: module.VendorsV2Page,
+  }))
+);
+const VendorDetailV2Page = lazy(() =>
+  import('./pages/v2/VendorDetail.page').then((module) => ({
+    default: module.VendorDetailV2Page,
+  }))
+);
 
 const Layout = () => {
   const location = useLocation();
@@ -248,7 +258,8 @@ export function Router() {
         { path: 'categories', element: withPageLoader(<PlaceholderPage />) },
         { path: 'targets', element: withPageLoader(<PlaceholderPage />) },
         { path: 'periods', element: withPageLoader(<PeriodsV2Page />) },
-        { path: 'vendors', element: withPageLoader(<PlaceholderPage />) },
+        { path: 'vendors', element: withPageLoader(<VendorsV2Page />) },
+        { path: 'vendors/:id', element: withPageLoader(<VendorDetailV2Page />) },
         { path: 'subscriptions', element: withPageLoader(<PlaceholderPage />) },
         { path: 'overlays', element: withPageLoader(<PlaceholderPage />) },
         { path: 'settings', element: withPageLoader(<SettingsV2Page />) },

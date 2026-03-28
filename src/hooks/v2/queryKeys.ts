@@ -104,5 +104,7 @@ export const v2QueryKeys = {
     all: () => ['vendors'] as const,
     list: (params?: Record<string, unknown>) => ['vendors', params] as const,
     options: () => ['vendors', 'options'] as const,
+    detail: (id: string, periodId: string) => ['vendors', id, 'detail', periodId] as const,
+    stats: (periodId: string) => ['vendors', 'stats', periodId] as const,
   },
 };

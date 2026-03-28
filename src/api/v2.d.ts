@@ -425,6 +425,23 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/vendors/stats': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get vendor stats for a period */
+    get: operations['getVendorStats'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/vendors/options': {
     parameters: {
       query?: never;
@@ -473,6 +490,40 @@ export interface paths {
     post?: never;
     /** Delete vendor */
     delete: operations['deleteVendor'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/vendors/{id}/detail': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get vendor detail for a period */
+    get: operations['getVendorDetail'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/vendors/{id}/merge': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Merge vendor into another vendor */
+    post: operations['mergeVendor'];
+    delete?: never;
     options?: never;
     head?: never;
     patch?: never;
@@ -2017,10 +2068,17 @@ export interface components {
     };
     VendorSummaryResponse: components['schemas']['VendorResponse'] & {
       /**
+       * Format: int64
        * @description Total number of transactions
        * @example 10
        */
       numberOfTransactions: number;
+      /**
+       * Format: int64
+       * @description Total spend in cents
+       * @example 5000
+       */
+      totalSpend: number;
     };
     VendorListResponse: components['schemas']['PaginatedResponse'] & {
       data?: components['schemas']['VendorSummaryResponse'][];
@@ -2052,6 +2110,140 @@ export interface components {
       description?: string | null;
     };
     UpdateVendorRequest: components['schemas']['CreateVendorRequest'];
+    MergeVendorRequest: {
+      /**
+       * Format: uuid
+       * @description ID of the vendor to merge into (the target that survives)
+       * @example 123e4567-e89b-12d3-a456-426655440000
+       */
+      targetVendorId: string;
+    };
+    VendorTrendItem: {
+      /**
+       * Format: uuid
+       * @description Period ID
+       * @example 123e4567-e89b-12d3-a456-426655440000
+       */
+      periodId: string;
+      /**
+       * @description Period name
+       * @example March 2026
+       */
+      periodName: string;
+      /**
+       * Format: int64
+       * @description Total spend in cents for this period
+       * @example 12000
+       */
+      totalSpend: number;
+    };
+    VendorTopCategoryItem: {
+      /**
+       * Format: uuid
+       * @description Category ID
+       * @example 123e4567-e89b-12d3-a456-426655440000
+       */
+      categoryId: string;
+      /**
+       * @description Category name
+       * @example Groceries
+       */
+      categoryName: string;
+      /**
+       * Format: int64
+       * @description Total spend in cents for this category
+       * @example 8000
+       */
+      totalSpend: number;
+      /**
+       * Format: double
+       * @description Percentage of total vendor spend
+       * @example 66.7
+       */
+      percentage: number;
+    };
+    VendorTransactionItem: {
+      /**
+       * Format: uuid
+       * @description Transaction ID
+       * @example 123e4567-e89b-12d3-a456-426655440000
+       */
+      id: string;
+      /**
+       * Format: date
+       * @description Transaction date
+       * @example 2026-03-15
+       */
+      date: string;
+      /**
+       * Format: int64
+       * @description Transaction amount in cents
+       * @example 2500
+       */
+      amount: number;
+      /**
+       * @description Transaction description
+       * @example Weekly groceries
+       */
+      description: string;
+      /**
+       * Format: uuid
+       * @description Category ID
+       * @example 123e4567-e89b-12d3-a456-426655440000
+       */
+      categoryId?: string | null;
+      /**
+       * @description Category name
+       * @example Groceries
+       */
+      categoryName?: string | null;
+    };
+    VendorDetailResponse: components['schemas']['VendorResponse'] & {
+      /**
+       * Format: int64
+       * @description Total spend in cents for the requested period
+       * @example 12000
+       */
+      periodSpend: number;
+      /**
+       * Format: int64
+       * @description Number of transactions in the requested period
+       * @example 5
+       */
+      transactionCount: number;
+      /**
+       * Format: int64
+       * @description Average transaction amount in cents
+       * @example 2400
+       */
+      averageTransactionAmount: number;
+      /** @description Spending trend across periods */
+      trend: components['schemas']['VendorTrendItem'][];
+      /** @description Top categories by spend at this vendor */
+      topCategories: components['schemas']['VendorTopCategoryItem'][];
+      /** @description Recent transactions at this vendor */
+      recentTransactions: components['schemas']['VendorTransactionItem'][];
+    };
+    VendorStatsResponse: {
+      /**
+       * Format: int64
+       * @description Total number of vendors
+       * @example 20
+       */
+      totalVendors: number;
+      /**
+       * Format: int64
+       * @description Total spend across all vendors in cents for this period
+       * @example 150000
+       */
+      totalSpendThisPeriod: number;
+      /**
+       * Format: int64
+       * @description Average spend per vendor in cents for this period
+       * @example 7500
+       */
+      avgSpendPerVendor: number;
+    };
     CategoryBase: {
       /**
        * Format: uuid
@@ -4062,6 +4254,32 @@ export interface operations {
       500: components['responses']['InternalServerError'];
     };
   };
+  getVendorStats: {
+    parameters: {
+      query: {
+        /** @description The ID of the period */
+        periodId: components['parameters']['PeriodId'];
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['VendorStatsResponse'];
+        };
+      };
+      400: components['responses']['BadRequest'];
+      401: components['responses']['Unauthorized'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
   listVendorOptions: {
     parameters: {
       query?: never;
@@ -4194,6 +4412,66 @@ export interface operations {
       400: components['responses']['BadRequest'];
       401: components['responses']['Unauthorized'];
       404: components['responses']['NotFound'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
+  getVendorDetail: {
+    parameters: {
+      query: {
+        /** @description The ID of the period */
+        periodId: components['parameters']['PeriodId'];
+      };
+      header?: never;
+      path: {
+        /** @description Entity id */
+        id: components['parameters']['Id'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['VendorDetailResponse'];
+        };
+      };
+      400: components['responses']['BadRequest'];
+      401: components['responses']['Unauthorized'];
+      404: components['responses']['NotFound'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
+  mergeVendor: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Entity id */
+        id: components['parameters']['Id'];
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['MergeVendorRequest'];
+      };
+    };
+    responses: {
+      /** @description Vendor merged successfully */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      400: components['responses']['BadRequest'];
+      401: components['responses']['Unauthorized'];
+      404: components['responses']['NotFound'];
+      422: components['responses']['UnprocessableEntity'];
       500: components['responses']['InternalServerError'];
     };
   };
