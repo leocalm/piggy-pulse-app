@@ -199,14 +199,16 @@ export function CategoryDetail({ categoryId, periodId }: CategoryDetailProps) {
             {cat.transactionCount}
           </Text>
         </div>
-        <div className={classes.metricBox}>
-          <Text fz="xs" fw={600} tt="uppercase" c="dimmed" mb={4}>
-            Projected
-          </Text>
-          <Text fz="lg" fw={600} ff="var(--mantine-font-family-monospace)">
-            <CurrencyValue cents={cat.periodSpend} />
-          </Text>
-        </div>
+        {hasBudget && (
+          <div className={classes.metricBox}>
+            <Text fz="xs" fw={600} tt="uppercase" c="dimmed" mb={4}>
+              Remaining
+            </Text>
+            <Text fz="lg" fw={600} ff="var(--mantine-font-family-monospace)">
+              <CurrencyValue cents={Math.max(cat.budgeted! - cat.periodSpend, 0)} />
+            </Text>
+          </div>
+        )}
       </div>
 
       {/* Spending trend chart */}

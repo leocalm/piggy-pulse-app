@@ -27,13 +27,19 @@ export function TargetRow({ target }: TargetRowProps) {
       ? Math.min(Math.round((target.spentInPeriod / target.currentTarget!) * 100), 100)
       : 0;
 
+  const [saving, setSaving] = useState(false);
+
   const handleSave = async () => {
+    if (saving) {
+      return;
+    }
     const cents = Math.round(Number(editValue) * 100);
     if (cents <= 0) {
       setEditing(false);
       return;
     }
 
+    setSaving(true);
     try {
       await updateMutation.mutateAsync({
         id: target.id,
@@ -42,6 +48,8 @@ export function TargetRow({ target }: TargetRowProps) {
       setEditing(false);
     } catch {
       toast.error({ message: 'Failed to update target' });
+    } finally {
+      setSaving(false);
     }
   };
 
