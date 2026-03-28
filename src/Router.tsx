@@ -184,6 +184,11 @@ const TargetsV2Page = lazy(() =>
     default: module.TargetsV2Page,
   }))
 );
+const TransactionsV2Page = lazy(() =>
+  import('./pages/v2/Transactions.page').then((module) => ({
+    default: module.TransactionsV2Page,
+  }))
+);
 
 const Layout = () => {
   const location = useLocation();
@@ -267,7 +272,7 @@ export function Router() {
       children: [
         { index: true, element: <Navigate to="/v2/dashboard" replace /> },
         { path: 'dashboard', element: withPageLoader(<DashboardV2Page />) },
-        { path: 'transactions', element: withPageLoader(<PlaceholderPage />) },
+        { path: 'transactions', element: withPageLoader(<TransactionsV2Page />) },
         { path: 'accounts', element: withPageLoader(<AccountsV2Page />) },
         { path: 'accounts/:id', element: withPageLoader(<AccountDetailV2Page />) },
         { path: 'categories', element: withPageLoader(<CategoriesV2Page />) },

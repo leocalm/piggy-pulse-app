@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components, operations } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
 import { v2QueryKeys } from './queryKeys';
@@ -17,6 +17,28 @@ export function useTransactions(filters: TransactionListParams) {
       }
       return data;
     },
+  });
+}
+
+export function useInfiniteTransactions(
+  filters: Omit<TransactionListParams, 'cursor'>,
+  pageSize = 30
+) {
+  return useInfiniteQuery({
+    queryKey: [...v2QueryKeys.transactions.list(filters), 'infinite', pageSize],
+    queryFn: async ({ pageParam }) => {
+      const { data, error } = await apiClient.GET('/transactions', {
+        params: { query: { ...filters, limit: pageSize, cursor: pageParam || undefined } },
+      });
+      if (error) {
+        throw error;
+      }
+      return data!;
+    },
+    initialPageParam: '' as string,
+    getNextPageParam: (lastPage) =>
+      lastPage.hasMore ? (lastPage.nextCursor ?? undefined) : undefined,
+    enabled: !!filters.periodId,
   });
 }
 
