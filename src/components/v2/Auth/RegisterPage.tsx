@@ -114,7 +114,7 @@ export function V2RegisterPage() {
 
       <Button
         onClick={handleSubmit}
-        loading={registerMutation.isPending}
+        loading={registerMutation.isPending || !currencies}
         fullWidth
         size="md"
         disabled={!isValid}

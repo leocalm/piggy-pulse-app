@@ -21,7 +21,7 @@ export function PasswordStrengthBar({ score }: PasswordStrengthBarProps) {
         ))}
       </div>
       <Text fz={11} c="dimmed" mt={2}>
-        Score {score} of 4 — {LABELS[score]}
+        {LABELS[score]}
       </Text>
     </>
   );

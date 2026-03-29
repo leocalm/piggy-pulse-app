@@ -41,7 +41,15 @@ export function V2LoginPage() {
       navigate(redirectPath, { replace: true });
     } catch (err) {
       if (err instanceof ApiError) {
-        toast.error({ message: err.message || 'Invalid email or password' });
+        if (err.status === 401) {
+          toast.error({ message: 'Invalid email or password' });
+        } else if (err.status === 429) {
+          toast.error({ message: 'Too many attempts. Please wait and try again.' });
+        } else if (err.status === 423) {
+          toast.error({ message: 'Account locked. Check your email for an unlock link.' });
+        } else {
+          toast.error({ message: 'Unable to sign in. Please try again.' });
+        }
       } else {
         toast.error({ message: 'Something went wrong' });
       }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Button, Loader, Text } from '@mantine/core';
-import { unlockAccount } from '@/api/auth';
+import { apiClient } from '@/api/v2client';
 import classes from './Auth.module.css';
 
 type Status = 'loading' | 'success' | 'error';
@@ -21,8 +21,11 @@ export function V2UnlockAccountPage() {
     // Remove params from URL for security
     window.history.replaceState({}, '', '/v2/auth/unlock');
 
-    unlockAccount(token, userId)
-      .then(() => setStatus('success'))
+    apiClient
+      .GET('/unlock', { params: { query: { token, user: userId } } })
+      .then(({ error }) => {
+        setStatus(error ? 'error' : 'success');
+      })
       .catch(() => setStatus('error'));
   }, [token, userId]);
 

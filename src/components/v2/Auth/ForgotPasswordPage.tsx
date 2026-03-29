@@ -9,7 +9,11 @@ export function V2ForgotPasswordPage() {
   const [sent, setSent] = useState(false);
 
   const handleSubmit = async () => {
-    await forgotMutation.mutateAsync({ email });
+    try {
+      await forgotMutation.mutateAsync({ email });
+    } catch {
+      // Always show sent state to prevent email enumeration
+    }
     setSent(true);
   };
 
