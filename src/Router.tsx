@@ -199,6 +199,11 @@ const SubscriptionDetailV2Page = lazy(() =>
     default: module.SubscriptionDetailV2Page,
   }))
 );
+const OnboardingV2Page = lazy(() =>
+  import('./pages/v2/Onboarding.page').then((module) => ({
+    default: module.OnboardingV2Page,
+  }))
+);
 
 const Layout = () => {
   const location = useLocation();
@@ -302,6 +307,12 @@ export function Router() {
       path: '/onboarding',
       element: (
         <ProtectedRoute skipOnboardingGuard>{withPageLoader(<OnboardingPage />)}</ProtectedRoute>
+      ),
+    },
+    {
+      path: '/v2/onboarding',
+      element: (
+        <ProtectedRoute skipOnboardingGuard>{withPageLoader(<OnboardingV2Page />)}</ProtectedRoute>
       ),
     },
     {
