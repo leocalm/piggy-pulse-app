@@ -1300,6 +1300,40 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/onboarding/category-templates': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List category templates */
+    get: operations['listCategoryTemplates'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/onboarding/apply-template': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Apply a category template */
+    post: operations['applyTemplate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/unlock': {
     parameters: {
       query?: never;
@@ -3201,6 +3235,35 @@ export interface components {
     OnboardingStatusResponse: {
       status: components['schemas']['OnboardingStatus'];
       currentStep?: components['schemas']['OnboardingStep'] | null;
+    };
+    CategoryTemplateCategory: {
+      /** @example Groceries */
+      name: string;
+      /**
+       * @example expense
+       * @enum {string}
+       */
+      type: 'income' | 'expense' | 'transfer';
+      /**
+       * @example variable
+       * @enum {string|null}
+       */
+      behavior?: 'fixed' | 'variable' | 'subscription' | null;
+      /** @example 🛒 */
+      icon: string;
+    };
+    CategoryTemplateResponse: {
+      /** @example essentials */
+      id: string;
+      /** @example Essentials */
+      name: string;
+      /** @example Core household expenses */
+      description: string;
+      categories: components['schemas']['CategoryTemplateCategory'][];
+    };
+    ApplyTemplateRequest: {
+      /** @example essentials */
+      templateId: string;
     };
     UnlockResponse: {
       /** @example Account unlocked successfully */
@@ -6353,6 +6416,55 @@ export interface operations {
           [name: string]: unknown;
         };
         content?: never;
+      };
+      400: components['responses']['BadRequest'];
+      401: components['responses']['Unauthorized'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
+  listCategoryTemplates: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CategoryTemplateResponse'][];
+        };
+      };
+      401: components['responses']['Unauthorized'];
+      500: components['responses']['InternalServerError'];
+    };
+  };
+  applyTemplate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ApplyTemplateRequest'];
+      };
+    };
+    responses: {
+      /** @description Template applied; returns created categories */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CategoryResponse'][];
+        };
       };
       400: components['responses']['BadRequest'];
       401: components['responses']['Unauthorized'];

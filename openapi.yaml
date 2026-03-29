@@ -2247,6 +2247,52 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /onboarding/category-templates:
+    get:
+      tags:
+        - Onboarding
+      summary: List category templates
+      operationId: listCategoryTemplates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryTemplateResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /onboarding/apply-template:
+    post:
+      tags:
+        - Onboarding
+      summary: Apply a category template
+      operationId: applyTemplate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyTemplateRequest'
+      responses:
+        '201':
+          description: Template applied; returns created categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /unlock:
     get:
       tags:
@@ -5226,6 +5272,65 @@ components:
           oneOf:
             - $ref: '#/components/schemas/OnboardingStep'
             - type: 'null'
+    CategoryTemplateCategory:
+      type: object
+      required:
+        - name
+        - type
+        - icon
+      properties:
+        name:
+          type: string
+          example: Groceries
+        type:
+          type: string
+          enum:
+            - income
+            - expense
+            - transfer
+          example: expense
+        behavior:
+          type:
+            - string
+            - 'null'
+          enum:
+            - fixed
+            - variable
+            - subscription
+            - null
+          example: variable
+        icon:
+          type: string
+          example: "\U0001F6D2"
+    CategoryTemplateResponse:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - categories
+      properties:
+        id:
+          type: string
+          example: essentials
+        name:
+          type: string
+          example: Essentials
+        description:
+          type: string
+          example: Core household expenses
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryTemplateCategory'
+    ApplyTemplateRequest:
+      type: object
+      required:
+        - templateId
+      properties:
+        templateId:
+          type: string
+          example: essentials
     UnlockResponse:
       type: object
       required:
