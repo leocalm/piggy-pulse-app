@@ -71,6 +71,7 @@ export const v2QueryKeys = {
   onboarding: {
     all: () => ['onboarding'] as const,
     status: () => ['onboarding', 'status'] as const,
+    templates: () => ['onboarding', 'templates'] as const,
   },
 
   // Overlays

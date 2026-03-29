@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Group, NumberInput, Select, Stack, Text, TextInput } from '@mantine/core';
 import piggyCloud from '@/assets/icons/png/gradient/piggy-pulse-cloud.svg';
@@ -6,7 +6,11 @@ import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import { useAuth } from '@/context/AuthContext';
 import { useCreateAccount } from '@/hooks/v2/useAccounts';
 import { useCurrencies } from '@/hooks/v2/useCurrencies';
-import { useCompleteOnboarding } from '@/hooks/v2/useOnboarding';
+import {
+  useApplyTemplate,
+  useCategoryTemplates,
+  useCompleteOnboarding,
+} from '@/hooks/v2/useOnboarding';
 import { useProfile, useUpdateProfile } from '@/hooks/v2/useSettings';
 import { toast } from '@/lib/toast';
 import classes from './Onboarding.module.css';
@@ -20,13 +24,6 @@ interface AccountEntry {
   balance: number | string;
 }
 
-interface CategoryTemplate {
-  id: string;
-  name: string;
-  description: string;
-  categories: { name: string; type: string; behavior: string | null; icon: string }[];
-}
-
 const STEPS = ['Welcome', 'Currency', 'Periods', 'Accounts', 'Categories'];
 
 export function OnboardingWizard() {
@@ -37,30 +34,17 @@ export function OnboardingWizard() {
   const updateProfile = useUpdateProfile();
   const createAccount = useCreateAccount();
   const completeOnboarding = useCompleteOnboarding();
+  const { data: templates } = useCategoryTemplates();
+  const applyTemplate = useApplyTemplate();
 
   const [step, setStep] = useState(0);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [currencySearch, setCurrencySearch] = useState('');
   const [accounts, setAccounts] = useState<AccountEntry[]>([]);
-  const [templates, setTemplates] = useState<CategoryTemplate[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [appliedCategories, setAppliedCategories] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const accountIdCounter = useRef(0);
-
-  const apiBase = import.meta.env.DEV ? '/api/v2' : 'https://api.piggy-pulse.com/v2';
-
-  // Fetch templates when entering categories step
-  const templatesFetched = useRef(false);
-  useEffect(() => {
-    if (step === 4 && !templatesFetched.current) {
-      templatesFetched.current = true;
-      fetch(`${apiBase}/onboarding/category-templates`, { credentials: 'include' })
-        .then((res) => (res.ok ? res.json() : []))
-        .then((data) => setTemplates(data))
-        .catch(() => {});
-    }
-  }, [step, apiBase]);
 
   const handleNext = async () => {
     if (step === 1) {
@@ -108,16 +92,8 @@ export function OnboardingWizard() {
     if (step === 4 && selectedTemplate) {
       // Apply template
       try {
-        const res = await fetch(`${apiBase}/onboarding/apply-template`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ templateId: selectedTemplate }),
-        });
-        if (res.ok) {
-          const cats = await res.json();
-          setAppliedCategories(cats.map((c: { name: string }) => c.name));
-        }
+        const cats = await applyTemplate.mutateAsync(selectedTemplate);
+        setAppliedCategories((cats ?? []).map((c) => c.name));
       } catch {
         toast.error({ message: 'Failed to apply template' });
       }
@@ -165,7 +141,7 @@ export function OnboardingWizard() {
   );
 
   const selectedCurrencyData = currencies?.find((c) => c.code === selectedCurrency);
-  const selectedTemplateData = templates.find((t) => t.id === selectedTemplate);
+  const selectedTemplateData = (templates ?? []).find((t) => t.id === selectedTemplate);
 
   return (
     <div className={classes.wrapper}>
@@ -436,7 +412,7 @@ export function OnboardingWizard() {
             Pick a starting template — you can add, remove, or change categories anytime.
           </Text>
           <div className={classes.templateGrid}>
-            {templates.map((t) => (
+            {(templates ?? []).map((t) => (
               <div
                 key={t.id}
                 className={
