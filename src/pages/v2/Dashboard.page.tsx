@@ -104,7 +104,11 @@ export function DashboardV2Page() {
       order = [...DEFAULT_WIDGET_ORDER, ...activeAccounts.map((a) => `${ACCOUNT_PREFIX}${a.id}`)];
     }
 
-    const activeItems = order.filter((id) => !hidden.has(id));
+    // Filter: not hidden, and must be a known widget or account item
+    const knownWidgetIds = new Set(WIDGET_DEFINITIONS.map((w) => w.id));
+    const activeItems = order.filter(
+      (id) => !hidden.has(id) && (isAccountItem(id) || knownWidgetIds.has(id))
+    );
     return { order, hidden, activeItems };
   }, [prefsData, activeAccounts]);
 
@@ -190,16 +194,31 @@ export function DashboardV2Page() {
     [visibleItems]
   );
 
-  // Heroes always span full width (2 columns). Everything else flows
-  // naturally into the 2-column grid.
+  // Heroes always span full width. Non-hero items that would be alone
+  // in their row (odd one out in a run between heroes) also go full-width.
   const fullWidthIds = useMemo(() => {
     const full = new Set<string>();
+
+    // Split into runs of non-hero items separated by heroes
+    const runs: string[][] = [[]];
     for (const id of visibleItems) {
       const def = WIDGET_DEFINITIONS.find((w) => w.id === id);
-      if (def?.isHero && !isAccountItem(id)) {
+      const isHero = def?.isHero && !isAccountItem(id);
+      if (isHero) {
         full.add(id);
+        runs.push([]);
+      } else {
+        runs[runs.length - 1].push(id);
       }
     }
+
+    // In each run, if odd count the last item spans full width
+    for (const run of runs) {
+      if (run.length % 2 === 1) {
+        full.add(run[run.length - 1]);
+      }
+    }
+
     return full;
   }, [visibleItems]);
 
