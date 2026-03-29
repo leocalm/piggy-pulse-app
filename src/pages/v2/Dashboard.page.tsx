@@ -190,6 +190,38 @@ export function DashboardV2Page() {
     [visibleItems]
   );
 
+  // Group items into render rows respecting user order.
+  // Hero widgets get their own full-width row. Non-hero widgets are
+  // paired into 2-column rows. A trailing single non-hero gets full width.
+  const renderRows = useMemo(() => {
+    const result: Array<{ type: 'full'; id: string } | { type: 'pair'; ids: string[] }> = [];
+    let pendingHalf: string | null = null;
+
+    for (const id of visibleItems) {
+      const def = WIDGET_DEFINITIONS.find((w) => w.id === id);
+      const isHero = def?.isHero && !isAccountItem(id);
+
+      if (isHero) {
+        if (pendingHalf) {
+          result.push({ type: 'full', id: pendingHalf });
+          pendingHalf = null;
+        }
+        result.push({ type: 'full', id });
+      } else if (pendingHalf) {
+        result.push({ type: 'pair', ids: [pendingHalf, id] });
+        pendingHalf = null;
+      } else {
+        pendingHalf = id;
+      }
+    }
+
+    if (pendingHalf) {
+      result.push({ type: 'full', id: pendingHalf });
+    }
+
+    return result;
+  }, [visibleItems]);
+
   if (!selectedPeriodId) {
     return (
       <Stack gap="lg" p="md" style={{ background: 'var(--v2-bg)', minHeight: '100%' }}>
@@ -204,40 +236,6 @@ export function DashboardV2Page() {
       </Stack>
     );
   }
-
-  // Group items into render rows respecting user order.
-  // Hero widgets get their own full-width row. Non-hero widgets are
-  // paired into 2-column rows. A trailing single non-hero gets full width.
-  const renderRows = useMemo(() => {
-    const result: Array<{ type: 'full'; id: string } | { type: 'pair'; ids: string[] }> = [];
-    let pendingHalf: string | null = null;
-
-    for (const id of visibleItems) {
-      const def = WIDGET_DEFINITIONS.find((w) => w.id === id);
-      const isHero = def?.isHero && !isAccountItem(id);
-
-      if (isHero) {
-        // Flush any pending half-width item as full width
-        if (pendingHalf) {
-          result.push({ type: 'full', id: pendingHalf });
-          pendingHalf = null;
-        }
-        result.push({ type: 'full', id });
-      } else if (pendingHalf) {
-        result.push({ type: 'pair', ids: [pendingHalf, id] });
-        pendingHalf = null;
-      } else {
-        pendingHalf = id;
-      }
-    }
-
-    // Trailing single item → full width
-    if (pendingHalf) {
-      result.push({ type: 'full', id: pendingHalf });
-    }
-
-    return result;
-  }, [visibleItems]);
 
   return (
     <Stack gap="lg" p="md" style={{ background: 'var(--v2-bg)', minHeight: '100%' }}>
