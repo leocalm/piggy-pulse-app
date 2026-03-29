@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
+import { IconLogout, IconSettings } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Group, Image, Text } from '@mantine/core';
+import { Avatar, Group, Image, Menu, Text } from '@mantine/core';
+import { useAuth } from '@/context/AuthContext';
 import { useV2Theme } from '@/theme/v2';
 import classes from './AppShell.module.css';
 
@@ -20,6 +22,7 @@ interface MobileHeaderProps {
 
 export function MobileHeader({ userName, periodSelector }: MobileHeaderProps) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const { colorTheme } = useV2Theme();
   const logoSrc = LOGO_PATHS[colorTheme] ?? LOGO_PATHS.nebula;
 
@@ -29,6 +32,11 @@ export function MobileHeader({ userName, periodSelector }: MobileHeaderProps) {
     .join('')
     .slice(0, 2)
     .toUpperCase();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/v2/auth/login');
+  };
 
   return (
     <div className={classes.mobileHeader} data-testid="mobile-header">
@@ -44,17 +52,32 @@ export function MobileHeader({ userName, periodSelector }: MobileHeaderProps) {
             PiggyPulse
           </Text>
         </Group>
-        <Avatar
-          component="button"
-          size="sm"
-          radius="xl"
-          style={{ cursor: 'pointer' }}
-          onClick={() => navigate('/v2/settings')}
-          data-testid="mobile-user-avatar"
-          aria-label="Go to settings"
-        >
-          {initials}
-        </Avatar>
+        <Menu position="bottom-end" withinPortal>
+          <Menu.Target>
+            <Avatar
+              component="button"
+              size="sm"
+              radius="xl"
+              style={{ cursor: 'pointer' }}
+              data-testid="mobile-user-avatar"
+              aria-label="User menu"
+            >
+              {initials}
+            </Avatar>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item
+              leftSection={<IconSettings size={14} />}
+              onClick={() => navigate('/v2/settings')}
+            >
+              Settings
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item leftSection={<IconLogout size={14} />} color="red" onClick={handleLogout}>
+              Log out
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </Group>
       {periodSelector}
     </div>

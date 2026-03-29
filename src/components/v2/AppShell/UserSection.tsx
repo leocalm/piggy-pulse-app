@@ -1,14 +1,7 @@
-import { IconMoon, IconSun } from '@tabler/icons-react';
+import { IconLogout, IconMoon, IconSettings, IconSun } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import {
-  ActionIcon,
-  Avatar,
-  Group,
-  Stack,
-  Text,
-  UnstyledButton,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { ActionIcon, Avatar, Group, Menu, Stack, Text, useMantineColorScheme } from '@mantine/core';
+import { useAuth } from '@/context/AuthContext';
 import classes from './AppShell.module.css';
 
 interface UserSectionProps {
@@ -22,6 +15,7 @@ interface UserSectionProps {
 
 export function UserSection({ name, email, collapsed }: UserSectionProps) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -33,20 +27,40 @@ export function UserSection({ name, email, collapsed }: UserSectionProps) {
     .slice(0, 2)
     .toUpperCase();
 
+  const handleLogout = () => {
+    logout();
+    navigate('/v2/auth/login');
+  };
+
   if (collapsed) {
     return (
       <Stack align="center" gap="xs" className={classes.userSection}>
-        <Avatar
-          component="button"
-          size="sm"
-          radius="xl"
-          data-testid="user-avatar"
-          onClick={() => navigate('/v2/settings')}
-          style={{ cursor: 'pointer' }}
-          aria-label="Go to settings"
-        >
-          {initials}
-        </Avatar>
+        <Menu position="right-end" withinPortal>
+          <Menu.Target>
+            <Avatar
+              component="button"
+              size="sm"
+              radius="xl"
+              data-testid="user-avatar"
+              style={{ cursor: 'pointer' }}
+              aria-label="User menu"
+            >
+              {initials}
+            </Avatar>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item
+              leftSection={<IconSettings size={14} />}
+              onClick={() => navigate('/v2/settings')}
+            >
+              Settings
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item leftSection={<IconLogout size={14} />} color="red" onClick={handleLogout}>
+              Log out
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </Stack>
     );
   }
@@ -58,24 +72,35 @@ export function UserSection({ name, email, collapsed }: UserSectionProps) {
       justify="space-between"
       data-testid="user-section"
     >
-      <UnstyledButton
-        onClick={() => navigate('/v2/settings')}
-        style={{ overflow: 'hidden', flex: 1 }}
-      >
-        <Group gap="sm" wrap="nowrap">
-          <Avatar size="sm" radius="xl">
-            {initials}
-          </Avatar>
-          <Stack gap={0} style={{ overflow: 'hidden' }}>
-            <Text fz="sm" fw={500} truncate>
-              {name}
-            </Text>
-            <Text fz="xs" c="dimmed" truncate>
-              {email}
-            </Text>
-          </Stack>
-        </Group>
-      </UnstyledButton>
+      <Menu position="top-start" withinPortal>
+        <Menu.Target>
+          <Group gap="sm" wrap="nowrap" style={{ overflow: 'hidden', flex: 1, cursor: 'pointer' }}>
+            <Avatar size="sm" radius="xl">
+              {initials}
+            </Avatar>
+            <Stack gap={0} style={{ overflow: 'hidden' }}>
+              <Text fz="sm" fw={500} truncate>
+                {name}
+              </Text>
+              <Text fz="xs" c="dimmed" truncate>
+                {email}
+              </Text>
+            </Stack>
+          </Group>
+        </Menu.Target>
+        <Menu.Dropdown>
+          <Menu.Item
+            leftSection={<IconSettings size={14} />}
+            onClick={() => navigate('/v2/settings')}
+          >
+            Settings
+          </Menu.Item>
+          <Menu.Divider />
+          <Menu.Item leftSection={<IconLogout size={14} />} color="red" onClick={handleLogout}>
+            Log out
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
       <ActionIcon
         variant="subtle"
         size="sm"
