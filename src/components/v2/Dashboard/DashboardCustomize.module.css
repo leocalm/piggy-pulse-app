@@ -1,0 +1,154 @@
+/* ------------------------------------------------------------------ */
+/* Edit mode placeholder card                                         */
+/* ------------------------------------------------------------------ */
+
+.placeholderCard {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px dashed var(--v2-border);
+  background-color: var(--v2-card);
+  cursor: grab;
+  user-select: none;
+  transition: border-color 120ms ease;
+}
+
+.placeholderCard:hover {
+  border-color: var(--v2-primary);
+}
+
+.placeholderCard:active {
+  cursor: grabbing;
+}
+
+.dragHandle {
+  display: flex;
+  align-items: center;
+  color: var(--v2-border);
+  flex-shrink: 0;
+}
+
+.placeholderInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.removeButton {
+  flex-shrink: 0;
+}
+
+/* Dragging state */
+.dragging {
+  opacity: 0.5;
+  border-color: var(--v2-primary);
+}
+
+/* ------------------------------------------------------------------ */
+/* Add widget button (bottom of grid)                                 */
+/* ------------------------------------------------------------------ */
+
+.addWidgetButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mantine-spacing-xs);
+  padding: var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-lg);
+  border: 1px dashed var(--v2-border);
+  background-color: transparent;
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+  width: 100%;
+}
+
+.addWidgetButton:hover {
+  border-color: var(--v2-primary);
+  background-color: var(--v2-card);
+}
+
+/* ------------------------------------------------------------------ */
+/* Add Widget Modal                                                   */
+/* ------------------------------------------------------------------ */
+
+.widgetGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--mantine-spacing-sm);
+}
+
+.widgetOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  padding: var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 120ms ease;
+}
+
+.widgetOption:hover {
+  border-color: var(--v2-primary);
+}
+
+.widgetOptionDisabled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  padding: var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--v2-border);
+  background-color: var(--v2-card);
+  text-align: center;
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Dashboard view grid                                                */
+/* ------------------------------------------------------------------ */
+
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--mantine-spacing-lg);
+  align-items: stretch;
+}
+
+.gridCell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.gridCell > * {
+  flex: 1;
+}
+
+@media (max-width: 48em) {
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .gridCell {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                         */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 48em) {
+  .widgetGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
