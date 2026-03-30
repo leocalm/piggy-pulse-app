@@ -194,7 +194,7 @@
       "namePlaceholder": "Leonardo",
       "password": "Palavra-passe",
       "passwordLabel": "Palavra-passe",
-      "passwordPlaceholder": "MinhaS3nha!F0rte",
+      "passwordPlaceholder": "Introduza uma palavra-passe forte",
       "passwordsDoNotMatch": "As palavras-passe não coincidem",
       "passwordsMismatch": "As palavras-passe não coincidem",
       "privacyPolicy": "Política de Privacidade",

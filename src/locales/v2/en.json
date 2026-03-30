@@ -194,7 +194,7 @@
       "namePlaceholder": "Leonardo",
       "password": "Password",
       "passwordLabel": "Password",
-      "passwordPlaceholder": "MyStr0ngP@ss!",
+      "passwordPlaceholder": "Enter a strong password",
       "passwordsDoNotMatch": "Passwords do not match",
       "passwordsMismatch": "Passwords do not match",
       "privacyPolicy": "Privacy Policy",
