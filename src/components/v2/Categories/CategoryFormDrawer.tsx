@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   Button,
-  ColorInput,
   Drawer,
   Group,
   NumberInput,
@@ -63,7 +62,6 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
   const [type, setType] = useState<CategoryType>('expense');
   const [behavior, setBehavior] = useState<Behavior | null>('variable');
   const [icon, setIcon] = useState('🛒');
-  const [color, setColor] = useState('#8B7EC8');
   const [description, setDescription] = useState('');
   const [target, setTarget] = useState<number | string>('');
 
@@ -73,7 +71,6 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
       setType(editCategory.type);
       setBehavior(editCategory.behavior ?? null);
       setIcon(editCategory.icon);
-      setColor(editCategory.color);
       setDescription(editCategory.description ?? '');
       setTarget(editCategory.target != null ? editCategory.target / 100 : '');
     }
@@ -84,7 +81,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
       name: name.trim(),
       type,
       icon,
-      color,
+      color: '#000000',
       description: description.trim() || undefined,
       behavior: type === 'expense' ? behavior : undefined,
       target: target !== '' && Number(target) > 0 ? Math.round(Number(target) * 100) : undefined,
@@ -105,7 +102,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
   };
 
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
-  const isValid = name.trim().length >= 1 && icon && color;
+  const isValid = name.trim().length >= 1 && icon;
 
   return (
     <Drawer
@@ -191,26 +188,6 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
             ))}
           </div>
         </div>
-
-        {/* Color */}
-        <ColorInput
-          label="Color"
-          value={color}
-          onChange={setColor}
-          format="hex"
-          swatches={[
-            '#8B7EC8',
-            '#C48BA0',
-            '#6B8FD4',
-            '#5BA8A0',
-            '#D4A0B6',
-            '#9AA0CC',
-            '#7CA8C4',
-            '#B088A0',
-            '#E8A87C',
-            '#95B8D1',
-          ]}
-        />
 
         {/* Description */}
         <Textarea
