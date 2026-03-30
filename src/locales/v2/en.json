@@ -659,7 +659,9 @@
       "progress": "Progress",
       "spentBudget": "Spent / Budget",
       "title": "Variable Categories"
-    }
+    },
+    "addWidgetHint": "Choose a widget to add to your dashboard.",
+    "alreadyAdded": "Already added"
   },
   "onboarding": {
     "accounts": {

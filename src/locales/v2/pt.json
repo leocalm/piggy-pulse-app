@@ -667,7 +667,9 @@
       "progress": "Progresso",
       "spentBudget": "Gasto / Orçamento",
       "title": "Categorias Variáveis"
-    }
+    },
+    "addWidgetHint": "Escolha um widget para adicionar ao seu painel.",
+    "alreadyAdded": "Já adicionado"
   },
   "onboarding": {
     "accounts": {

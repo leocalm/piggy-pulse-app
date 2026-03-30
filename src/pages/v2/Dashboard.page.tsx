@@ -370,8 +370,8 @@ function SortableItemPlaceholder({
   } else {
     const def = WIDGET_DEFINITIONS.find((w) => w.id === id);
     emoji = def?.emoji ?? '📦';
-    name = def?.name ?? id;
-    desc = def?.desc ?? '';
+    name = def ? t(def.nameKey) : id;
+    desc = def ? t(def.descKey) : '';
   }
 
   return (
