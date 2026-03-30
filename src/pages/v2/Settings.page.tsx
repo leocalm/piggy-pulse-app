@@ -36,102 +36,56 @@ import classes from './Settings.module.css';
 // ---------------------------------------------------------------------------
 
 const AVATAR_OPTIONS = [
-  { emoji: '\u{1F437}', label: 'Pig' },
-  { emoji: '\u{1F60E}', label: 'Cool' },
-  { emoji: '\u{1F4DA}', label: 'Books' },
-  { emoji: '\u{1F634}', label: 'Sleepy' },
-  { emoji: '\u{1F9E3}', label: 'Scarf' },
-  { emoji: '\u{1F3A7}', label: 'Headphones' },
-  { emoji: '\u{1F609}', label: 'Wink' },
-  { emoji: '\u{1F3A9}', label: 'Top Hat' },
+  { emoji: '\u{1F437}', key: 'pig' },
+  { emoji: '\u{1F60E}', key: 'cool' },
+  { emoji: '\u{1F4DA}', key: 'books' },
+  { emoji: '\u{1F634}', key: 'sleepy' },
+  { emoji: '\u{1F9E3}', key: 'scarf' },
+  { emoji: '\u{1F3A7}', key: 'headphones' },
+  { emoji: '\u{1F609}', key: 'wink' },
+  { emoji: '\u{1F3A9}', key: 'topHat' },
 ];
+
+// Widget ID → translation key mapping
+const WIDGET_KEY_MAP: Record<string, string> = {
+  current_period: 'currentPeriod',
+  net_position: 'netPosition',
+  variable_categories: 'variableCategories',
+  recent_transactions: 'recentTransactions',
+  cash_flow: 'cashFlow',
+  spending_trend: 'spendingTrend',
+  fixed_categories: 'fixedCategories',
+  subscriptions: 'subscriptions',
+  budget_stability: 'budgetStability',
+  top_vendors: 'topVendors',
+};
 
 const WIDGET_DEFINITIONS = [
-  {
-    id: 'current_period',
-    emoji: '\u{1F4CA}',
-    name: 'Current Period',
-    desc: 'Budget progress for the active period',
-    defaultVisible: true,
-  },
-  {
-    id: 'net_position',
-    emoji: '\u{1F4B0}',
-    name: 'Net Position',
-    desc: 'Total across all accounts',
-    defaultVisible: true,
-  },
-  {
-    id: 'variable_categories',
-    emoji: '\u{1F4CB}',
-    name: 'Variable Categories',
-    desc: 'Discretionary spending tracker',
-    defaultVisible: true,
-  },
-  {
-    id: 'recent_transactions',
-    emoji: '\u{1F9FE}',
-    name: 'Recent Transactions',
-    desc: 'Latest activity',
-    defaultVisible: true,
-  },
-  {
-    id: 'cash_flow',
-    emoji: '\u{1F4B8}',
-    name: 'Cash Flow',
-    desc: 'Inflows vs outflows',
-    defaultVisible: true,
-  },
-  {
-    id: 'spending_trend',
-    emoji: '\u{1F4C8}',
-    name: 'Spending Trend',
-    desc: 'Spend over time',
-    defaultVisible: false,
-  },
-  {
-    id: 'fixed_categories',
-    emoji: '\u2705',
-    name: 'Fixed Categories',
-    desc: 'Predictable expenses checklist',
-    defaultVisible: false,
-  },
-  {
-    id: 'subscriptions',
-    emoji: '\u{1F504}',
-    name: 'Subscriptions',
-    desc: 'Recurring charges timeline',
-    defaultVisible: false,
-  },
-  {
-    id: 'budget_stability',
-    emoji: '\u{1F4CA}',
-    name: 'Budget Stability',
-    desc: 'Historical consistency',
-    defaultVisible: false,
-  },
-  {
-    id: 'top_vendors',
-    emoji: '\u{1F3EA}',
-    name: 'Top Vendors',
-    desc: 'Where money goes',
-    defaultVisible: false,
-  },
+  { id: 'current_period', emoji: '\u{1F4CA}', defaultVisible: true },
+  { id: 'net_position', emoji: '\u{1F4B0}', defaultVisible: true },
+  { id: 'variable_categories', emoji: '\u{1F4CB}', defaultVisible: true },
+  { id: 'recent_transactions', emoji: '\u{1F9FE}', defaultVisible: true },
+  { id: 'cash_flow', emoji: '\u{1F4B8}', defaultVisible: true },
+  { id: 'spending_trend', emoji: '\u{1F4C8}', defaultVisible: false },
+  { id: 'fixed_categories', emoji: '\u2705', defaultVisible: false },
+  { id: 'subscriptions', emoji: '\u{1F504}', defaultVisible: false },
+  { id: 'budget_stability', emoji: '\u{1F4CA}', defaultVisible: false },
+  { id: 'top_vendors', emoji: '\u{1F3EA}', defaultVisible: false },
 ];
 
-const SECTIONS: readonly { id: string; label: string; danger?: boolean }[] = [
-  { id: 'profile', label: 'Profile' },
-  { id: 'appearance', label: 'Appearance' },
-  { id: 'dashboard', label: 'Dashboard' },
-  { id: 'security', label: 'Security' },
-  { id: 'data', label: 'Data' },
-  { id: 'danger', label: 'Danger Zone', danger: true },
+const SECTIONS: readonly { id: string; tabKey: string; danger?: boolean }[] = [
+  { id: 'profile', tabKey: 'settings.tabs.profile' },
+  { id: 'appearance', tabKey: 'settings.tabs.appearance' },
+  { id: 'dashboard', tabKey: 'settings.tabs.dashboard' },
+  { id: 'security', tabKey: 'settings.tabs.security' },
+  { id: 'data', tabKey: 'settings.tabs.data' },
+  { id: 'danger', tabKey: 'settings.tabs.dangerZone', danger: true },
 ];
 
 const COLOR_SCHEMES = [
-  { value: 'dark' as const, emoji: '\u{1F319}', label: 'Dark' },
-  { value: 'light' as const, emoji: '\u2600\uFE0F', label: 'Light' },
-  { value: 'system' as const, emoji: '\u{1F4BB}', label: 'System' },
+  { value: 'dark' as const, emoji: '\u{1F319}', key: 'dark' },
+  { value: 'light' as const, emoji: '\u2600\uFE0F', key: 'light' },
+  { value: 'system' as const, emoji: '\u{1F4BB}', key: 'system' },
 ];
 
 const THEME_ORDER: ColorTheme[] = [
@@ -571,7 +525,7 @@ export function SettingsV2Page() {
                 className={`${classes.navItem} ${activeSection === section.id ? classes.navItemActive : ''} ${section.danger ? classes.navItemDanger : ''}`}
                 onClick={() => scrollToSection(section.id)}
               >
-                {section.label}
+                {t(section.tabKey)}
               </button>
             ))}
           </nav>
@@ -595,14 +549,16 @@ export function SettingsV2Page() {
               <div className={classes.avatarDisplay}>
                 <div className={classes.avatarCircle}>{avatar}</div>
                 <div>
-                  <div className={classes.avatarName}>{displayName || user?.name || 'User'}</div>
+                  <div className={classes.avatarName}>
+                    {displayName || user?.name || t('settings.profile.userFallback')}
+                  </div>
                   <div className={classes.avatarEmail}>{emailDisplay}</div>
                 </div>
               </div>
 
               {/* Avatar picker */}
               <div style={{ marginTop: 16 }}>
-                <div className={classes.label}>Avatar</div>
+                <div className={classes.label}>{t('settings.profile.avatarLabel')}</div>
                 <div className={classes.avatarGrid}>
                   {AVATAR_OPTIONS.map((opt) => (
                     <button
@@ -612,16 +568,13 @@ export function SettingsV2Page() {
                         setAvatar(opt.emoji);
                         setProfileDirty(true);
                       }}
-                      title={opt.label}
+                      title={t(`settings.avatars.${opt.key}`)}
                     >
                       {opt.emoji}
                     </button>
                   ))}
                 </div>
-                <p className={classes.hint}>
-                  Piggy-themed avatars — pick your personality. Custom illustrations coming from
-                  Figma.
-                </p>
+                <p className={classes.hint}>{t('settings.profile.avatarHint')}</p>
               </div>
 
               <hr className={classes.divider} style={{ margin: '20px 0' }} />
@@ -629,7 +582,7 @@ export function SettingsV2Page() {
               {/* Name + email */}
               <div className={classes.fieldRow}>
                 <div>
-                  <div className={classes.label}>Display name</div>
+                  <div className={classes.label}>{t('settings.profile.displayName')}</div>
                   <TextInput
                     value={displayName}
                     onChange={(e) => {
@@ -647,7 +600,7 @@ export function SettingsV2Page() {
                   />
                 </div>
                 <div>
-                  <div className={classes.label}>Email</div>
+                  <div className={classes.label}>{t('settings.profile.email')}</div>
                   <TextInput
                     value={emailDisplay}
                     readOnly
@@ -660,13 +613,13 @@ export function SettingsV2Page() {
                       },
                     }}
                   />
-                  <p className={classes.hint}>Changing email requires verification</p>
+                  <p className={classes.hint}>{t('settings.profile.emailHint')}</p>
                 </div>
               </div>
 
               {/* Currency */}
               <div style={{ marginTop: 12 }}>
-                <div className={classes.label}>Currency</div>
+                <div className={classes.label}>{t('settings.profile.currency')}</div>
                 <Select
                   value={currency}
                   onChange={(val) => {
@@ -676,10 +629,10 @@ export function SettingsV2Page() {
                     }
                   }}
                   data={[
-                    { value: 'EUR', label: 'EUR — Euro' },
-                    { value: 'USD', label: 'USD — US Dollar' },
-                    { value: 'GBP', label: 'GBP — British Pound' },
-                    { value: 'BRL', label: 'BRL — Brazilian Real' },
+                    { value: 'EUR', label: t('settings.profile.currencyEur') },
+                    { value: 'USD', label: t('settings.profile.currencyUsd') },
+                    { value: 'GBP', label: t('settings.profile.currencyGbp') },
+                    { value: 'BRL', label: t('settings.profile.currencyBrl') },
                   ]}
                   styles={{
                     input: {
@@ -690,9 +643,7 @@ export function SettingsV2Page() {
                     },
                   }}
                 />
-                <p className={classes.hint}>
-                  Set during onboarding. Changing currency affects all displayed amounts.
-                </p>
+                <p className={classes.hint}>{t('settings.profile.currencyHint')}</p>
               </div>
 
               {/* Save */}
@@ -724,7 +675,7 @@ export function SettingsV2Page() {
 
             <div className={classes.card}>
               {/* Color scheme */}
-              <div className={classes.label}>Color Scheme</div>
+              <div className={classes.label}>{t('settings.appearance.colorSchemeLabel')}</div>
               <div className={classes.schemeGrid}>
                 {COLOR_SCHEMES.map((s) => (
                   <button
@@ -733,7 +684,9 @@ export function SettingsV2Page() {
                     onClick={() => handleSchemeChange(s.value)}
                   >
                     <span className={classes.schemeEmoji}>{s.emoji}</span>
-                    <span className={classes.schemeLabel}>{s.label}</span>
+                    <span className={classes.schemeLabel}>
+                      {t(`settings.colorScheme.${s.key}`)}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -741,7 +694,7 @@ export function SettingsV2Page() {
               <hr className={classes.divider} style={{ margin: '20px 0' }} />
 
               {/* Theme */}
-              <div className={classes.label}>Theme</div>
+              <div className={classes.label}>{t('settings.appearance.themeLabel')}</div>
               <div className={classes.themeGrid}>
                 {THEME_ORDER.map((key) => {
                   const t = themes[key];
@@ -768,7 +721,7 @@ export function SettingsV2Page() {
               {/* Language + Date format */}
               <div className={classes.fieldRow}>
                 <div>
-                  <div className={classes.label}>Language</div>
+                  <div className={classes.label}>{t('settings.appearance.languageLabel')}</div>
                   <Select
                     value={language}
                     onChange={(val) => val && handlePreferenceChange({ language: val })}
@@ -787,7 +740,7 @@ export function SettingsV2Page() {
                   />
                 </div>
                 <div>
-                  <div className={classes.label}>Date format</div>
+                  <div className={classes.label}>{t('settings.appearance.dateFormatLabel')}</div>
                   <Select
                     value={dateFormat}
                     onChange={(val) =>
@@ -815,9 +768,11 @@ export function SettingsV2Page() {
               {/* Compact mode */}
               <div className={classes.toggleRow}>
                 <div className={classes.toggleInfo}>
-                  <span className={classes.toggleLabel}>Compact mode</span>
+                  <span className={classes.toggleLabel}>
+                    {t('settings.appearance.compactMode')}
+                  </span>
                   <span className={classes.toggleDescription}>
-                    Use condensed layout for lists with many items (categories, transactions)
+                    {t('settings.appearance.compactModeDesc')}
                   </span>
                 </div>
                 <Switch
@@ -842,10 +797,9 @@ export function SettingsV2Page() {
             <p className={classes.sectionDescription}>{t('settings.dashboard.description')}</p>
 
             <div className={classes.card}>
-              <div className={classes.label}>Default widgets</div>
+              <div className={classes.label}>{t('settings.dashboard.defaultWidgets')}</div>
               <p className={classes.hint} style={{ marginTop: 0, marginBottom: 16 }}>
-                These widgets appear when you first open the dashboard. You can always customize
-                from the dashboard itself.
+                {t('settings.dashboard.defaultWidgetsHint')}
               </p>
 
               {WIDGET_DEFINITIONS.map((widget) => (
@@ -853,8 +807,12 @@ export function SettingsV2Page() {
                   <div className={classes.widgetInfo}>
                     <div className={classes.widgetIcon}>{widget.emoji}</div>
                     <div className={classes.widgetMeta}>
-                      <span className={classes.widgetName}>{widget.name}</span>
-                      <span className={classes.widgetDesc}>{widget.desc}</span>
+                      <span className={classes.widgetName}>
+                        {t(`settings.widgets.${WIDGET_KEY_MAP[widget.id]}.name`)}
+                      </span>
+                      <span className={classes.widgetDesc}>
+                        {t(`settings.widgets.${WIDGET_KEY_MAP[widget.id]}.description`)}
+                      </span>
                     </div>
                   </div>
                   <Switch
@@ -870,11 +828,11 @@ export function SettingsV2Page() {
 
               {/* Account cards */}
               <div className={classes.label} style={{ marginTop: 8 }}>
-                Account Cards
+                {t('settings.dashboard.accountCards')}
               </div>
               <p className={classes.hint} style={{ marginTop: 0, marginBottom: 12 }}>
-                Choose which accounts appear as individual cards on your dashboard.
-                {visibleAccountIds === null ? ' All active accounts are currently shown.' : ''}
+                {t('settings.dashboard.accountCardsHint')}
+                {visibleAccountIds === null ? ` ${t('settings.dashboard.allAccountsShown')}` : ''}
               </p>
 
               {(accountsQuery.data?.data ?? [])
@@ -898,11 +856,11 @@ export function SettingsV2Page() {
                           <span className={classes.widgetName}>{account.name}</span>
                           <span className={classes.widgetDesc}>
                             {account.type === 'Checking'
-                              ? 'Checking'
+                              ? t('settings.dashboard.accountTypeChecking')
                               : account.type === 'Savings'
-                                ? 'Savings'
+                                ? t('settings.dashboard.accountTypeSavings')
                                 : account.type === 'CreditCard'
-                                  ? 'Credit Card'
+                                  ? t('settings.dashboard.accountTypeCreditCard')
                                   : account.type}
                           </span>
                         </div>
@@ -923,10 +881,10 @@ export function SettingsV2Page() {
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
               >
                 <div>
-                  <span className={classes.widgetName}>Reset dashboard layout</span>
+                  <span className={classes.widgetName}>{t('settings.dashboard.resetLayout')}</span>
                   <br />
                   <span className={classes.toggleDescription}>
-                    Restore default widget positions and selection
+                    {t('settings.dashboard.resetLayoutDesc')}
                   </span>
                 </div>
                 <Button

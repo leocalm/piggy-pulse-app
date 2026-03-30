@@ -1035,7 +1035,13 @@
       "prefsFailed": "Falha ao atualizar preferências",
       "schemeFailed": "Falha ao atualizar esquema de cores",
       "themeFailed": "Falha ao atualizar tema",
-      "title": "Aparência"
+      "title": "Aparência",
+      "colorSchemeLabel": "Esquema de Cores",
+      "themeLabel": "Tema",
+      "languageLabel": "Idioma",
+      "dateFormatLabel": "Formato de data",
+      "compactMode": "Modo compacto",
+      "compactModeDesc": "Utilizar disposição condensada para listas com muitos itens (categorias, transações)"
     },
     "danger": {
       "deleteAccount": "Eliminar Conta",
@@ -1057,7 +1063,17 @@
       "layoutFailed": "Falha ao atualizar layout do painel",
       "resetFailed": "Falha ao repor painel",
       "resetSuccess": "Painel reposto",
-      "title": "Painel"
+      "title": "Painel",
+      "defaultWidgets": "Widgets predefinidos",
+      "defaultWidgetsHint": "Estes widgets aparecem ao abrir o painel pela primeira vez. Pode sempre personalizar a partir do próprio painel.",
+      "accountCards": "Cartões de Conta",
+      "accountCardsHint": "Escolha quais contas aparecem como cartões individuais no seu painel.",
+      "allAccountsShown": "Todas as contas ativas estão atualmente visíveis.",
+      "resetLayout": "Repor disposição do painel",
+      "resetLayoutDesc": "Restaurar posições e seleção predefinidas dos widgets",
+      "accountTypeChecking": "Conta à Ordem",
+      "accountTypeSavings": "Poupança",
+      "accountTypeCreditCard": "Cartão de Crédito"
     },
     "data": {
       "description": "Importar e exportar os seus dados",
@@ -1080,7 +1096,19 @@
       "description": "As suas informações pessoais",
       "saveFailed": "Falha ao guardar perfil",
       "saved": "Perfil guardado",
-      "title": "Perfil"
+      "title": "Perfil",
+      "avatarLabel": "Avatar",
+      "avatarHint": "Avatares temáticos — escolha a sua personalidade. Ilustrações personalizadas em breve.",
+      "displayName": "Nome de exibição",
+      "email": "E-mail",
+      "emailHint": "Alterar o e-mail requer verificação",
+      "currency": "Moeda",
+      "currencyHint": "Definido durante o registo. Alterar a moeda afeta todos os valores apresentados.",
+      "userFallback": "Utilizador",
+      "currencyEur": "EUR — Euro",
+      "currencyUsd": "USD — Dólar Americano",
+      "currencyGbp": "GBP — Libra Esterlina",
+      "currencyBrl": "BRL — Real Brasileiro"
     },
     "security": {
       "changePassword": "Alterar Palavra-passe",

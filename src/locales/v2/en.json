@@ -939,7 +939,13 @@
       "prefsFailed": "Failed to update preferences",
       "schemeFailed": "Failed to update color scheme",
       "themeFailed": "Failed to update theme",
-      "title": "Appearance"
+      "title": "Appearance",
+      "colorSchemeLabel": "Color Scheme",
+      "themeLabel": "Theme",
+      "languageLabel": "Language",
+      "dateFormatLabel": "Date format",
+      "compactMode": "Compact mode",
+      "compactModeDesc": "Use condensed layout for lists with many items (categories, transactions)"
     },
     "avatars": {
       "books": "Books",
@@ -976,7 +982,17 @@
       "layoutFailed": "Failed to update dashboard layout",
       "resetFailed": "Failed to reset dashboard",
       "resetSuccess": "Dashboard reset to default",
-      "title": "Dashboard"
+      "title": "Dashboard",
+      "defaultWidgets": "Default widgets",
+      "defaultWidgetsHint": "These widgets appear when you first open the dashboard. You can always customize from the dashboard itself.",
+      "accountCards": "Account Cards",
+      "accountCardsHint": "Choose which accounts appear as individual cards on your dashboard.",
+      "allAccountsShown": "All active accounts are currently shown.",
+      "resetLayout": "Reset dashboard layout",
+      "resetLayoutDesc": "Restore default widget positions and selection",
+      "accountTypeChecking": "Checking",
+      "accountTypeSavings": "Savings",
+      "accountTypeCreditCard": "Credit Card"
     },
     "data": {
       "description": "Import and export your data",
@@ -999,7 +1015,19 @@
       "description": "Your personal information",
       "saveFailed": "Failed to save profile",
       "saved": "Profile saved",
-      "title": "Profile"
+      "title": "Profile",
+      "avatarLabel": "Avatar",
+      "avatarHint": "Piggy-themed avatars — pick your personality. Custom illustrations coming from Figma.",
+      "displayName": "Display name",
+      "email": "Email",
+      "emailHint": "Changing email requires verification",
+      "currency": "Currency",
+      "currencyHint": "Set during onboarding. Changing currency affects all displayed amounts.",
+      "userFallback": "User",
+      "currencyEur": "EUR — Euro",
+      "currencyUsd": "USD — US Dollar",
+      "currencyGbp": "GBP — British Pound",
+      "currencyBrl": "BRL — Brazilian Real"
     },
     "security": {
       "changePassword": "Change Password",
