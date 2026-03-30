@@ -23,7 +23,7 @@
       "balanceHistory": "Histórico de Saldo",
       "checking": {
         "avgDailyBalance": "Saldo Médio Diário",
-        "title": "Detalhes da Conta à Ordem"
+        "title": "Detalhes da Conta Corrente"
       },
       "creditCard": {
         "creditLimit": "Limite de crédito",
@@ -39,7 +39,7 @@
       "transactions": "Transações"
     },
     "empty": {
-      "message": "Adicione a sua primeira conta para começar a acompanhar saldos. Pode adicionar contas à ordem, poupança, cartões de crédito, carteiras ou mesadas.",
+      "message": "Adicione a sua primeira conta para começar a acompanhar saldos. Pode adicionar conta corrente, poupança, cartões de crédito, carteiras ou mesadas.",
       "title": "Sem contas ainda"
     },
     "form": {
@@ -95,11 +95,11 @@
     "txnsThisPeriod": "{{count}} trans. este período",
     "types": {
       "Allowance": "Mesada",
-      "Checking": "Conta à Ordem",
+      "Checking": "Conta Corrente",
       "CreditCard": "Cartões de Crédito",
       "Savings": "Poupança",
       "Wallet": "Carteiras",
-      "checking": "Conta à Ordem",
+      "checking": "Conta Corrente",
       "savings": "Poupança",
       "creditCard": "Cartão de Crédito",
       "wallet": "Carteira",
@@ -120,7 +120,7 @@
     "balanceHistoryFor": "Histórico de saldo de {{name}}",
     "balanceHistoryLabel": "Histórico de saldo",
     "breadcrumb": "← Contas",
-    "checkingDetails": "Detalhes da Conta à Ordem",
+    "checkingDetails": "Detalhes da Conta Corrente",
     "created": "Conta criada",
     "creditCardDetails": "Detalhes do Cartão de Crédito",
     "creditLimit": "Limite de crédito",
@@ -360,7 +360,7 @@
     "archivedToggle": "Arquivadas",
     "behaviors": {
       "fixed": "Fixo",
-      "subscription": "Subscrição",
+      "subscription": "Assinatura",
       "variable": "Variável"
     },
     "budgeted": "orçamentado",
@@ -598,7 +598,7 @@
     "netPosition": {
       "accountTypes": {
         "Allowance": "Mesada",
-        "Checking": "Conta à Ordem",
+        "Checking": "Conta Corrente",
         "CreditCard": "Cartão de Crédito",
         "Savings": "Poupança",
         "Wallet": "Carteira"
@@ -635,8 +635,8 @@
       "active": "{{count}} ativas",
       "activeCount": "{{count}} ativas",
       "charged": "COBRADO",
-      "empty": "Sem subscrições previstas neste período.",
-      "error": "Algo correu mal ao carregar as subscrições.",
+      "empty": "Sem assinaturas previstas neste período.",
+      "error": "Algo correu mal ao carregar as assinaturas.",
       "inDays": "EM {{count}} DIAS",
       "inMonths": "EM {{count}} MESES",
       "inOneDay": "EM 1 DIA",
@@ -646,7 +646,7 @@
       "perMonth": "/mês",
       "perQuarter": "/trim",
       "perYear": "/ano",
-      "title": "Subscrições",
+      "title": "Assinaturas",
       "today": "HOJE"
     },
     "subtitle": "O seu pulso financeiro, num relance",
@@ -694,7 +694,7 @@
       "skip": "Avançar por agora",
       "title": "Adicione as suas contas",
       "types": {
-        "Checking": "Conta à ordem",
+        "Checking": "Conta Corrente",
         "Savings": "Poupança",
         "Wallet": "Carteira"
       },
@@ -1034,7 +1034,7 @@
       },
       "subscriptions": {
         "description": "Cronograma de cobranças recorrentes",
-        "name": "Subscrições"
+        "name": "Assinaturas"
       },
       "topVendors": {
         "description": "Para onde vai o dinheiro",
@@ -1086,7 +1086,7 @@
       "allAccountsShown": "Todas as contas ativas estão atualmente visíveis.",
       "resetLayout": "Repor disposição do painel",
       "resetLayoutDesc": "Restaurar posições e seleção predefinidas dos widgets",
-      "accountTypeChecking": "Conta à Ordem",
+      "accountTypeChecking": "Conta Corrente",
       "accountTypeSavings": "Poupança",
       "accountTypeCreditCard": "Cartão de Crédito"
     },
@@ -1171,19 +1171,19 @@
     }
   },
   "subscriptions": {
-    "activeSubscriptions": "Subscrições Ativas",
-    "addFirst": "+ Adicione a Sua Primeira Subscrição",
-    "addSubscription": "+ Adicionar Subscrição",
+    "activeSubscriptions": "Assinaturas Ativas",
+    "addFirst": "+ Adicione a Sua Primeira Assinatura",
+    "addSubscription": "+ Adicionar Assinatura",
     "cancelModal": {
       "amount": "Valor:",
       "dateDescription": "Quando cancelou (ou planeia cancelar) com o fornecedor",
       "dateLabel": "Data de cancelamento",
       "description": "Marcar \"{{name}}\" como cancelada no PiggyPulse.",
-      "disclaimer": "Isto apenas marca a subscrição como cancelada no PiggyPulse. Ainda precisa de cancelar diretamente com o fornecedor. Se surgir uma cobrança após o cancelamento, o PiggyPulse irá sinalizá-la.",
+      "disclaimer": "Isto apenas marca a assinatura como cancelada no PiggyPulse. Ainda precisa de cancelar diretamente com o fornecedor. Se surgir uma cobrança após o cancelamento, o PiggyPulse irá sinalizá-la.",
       "keepActive": "Manter Ativa",
-      "submit": "Cancelar Subscrição",
-      "subscription": "Subscrição:",
-      "title": "Cancelar Subscrição"
+      "submit": "Cancelar Assinatura",
+      "subscription": "Assinatura:",
+      "title": "Cancelar Assinatura"
     },
     "cancelledToggle": "Canceladas",
     "cycleSuffix": {
@@ -1196,7 +1196,7 @@
       "allTime": "Todo o tempo",
       "amount": "Valor",
       "autoDetected": "Detetada automaticamente",
-      "backLink": "← Subscrições",
+      "backLink": "← Assinaturas",
       "billingDay": "Dia de cobrança",
       "billingHistory": "Histórico de Cobranças",
       "cancel": "Cancelar",
@@ -1216,8 +1216,8 @@
       "year": "ano"
     },
     "empty": {
-      "message": "Crie uma categoria com comportamento 'Subscrição' para começar a acompanhar cobranças recorrentes. Verá datas de cobrança, custos e histórico de pagamentos.",
-      "title": "Sem subscrições ainda"
+      "message": "Crie uma categoria com comportamento 'Assinatura' para começar a acompanhar cobranças recorrentes. Verá datas de cobrança, custos e histórico de pagamentos.",
+      "title": "Sem assinaturas ainda"
     },
     "paused": "Pausada",
     "row": {
@@ -1231,41 +1231,41 @@
       "yearlyTotal": "Total Anual"
     },
     "subtitle": "Acompanhe as suas cobranças recorrentes",
-    "title": "Subscrições",
+    "title": "Assinaturas",
     "upcomingCharges": "Cobranças Futuras",
     "activeCount": "{{count}} ativas",
     "activeSince": "Ativa Desde",
-    "addFirstSubscription": "+ Adicione a Sua Primeira Subscrição",
+    "addFirstSubscription": "+ Adicione a Sua Primeira Assinatura",
     "allTime": "Todo o tempo",
     "amount": "Valor",
     "autoDetected": "Detetada automaticamente",
     "billingDay": "Dia de cobrança",
     "billingHistory": "Histórico de Cobranças",
-    "breadcrumb": "← Subscrições",
+    "breadcrumb": "← Assinaturas",
     "cancel": {
       "amount": "Valor:",
       "cancellationDate": "Data de cancelamento",
       "cancellationDateDesc": "Quando cancelou com o fornecedor",
-      "confirmCancel": "Cancelar Subscrição",
+      "confirmCancel": "Cancelar Assinatura",
       "description": "Marcar \"{{name}}\" como cancelada no PiggyPulse.",
-      "failed": "Falha ao cancelar subscrição",
+      "failed": "Falha ao cancelar assinatura",
       "keepActive": "Manter Ativa",
-      "subscription": "Subscrição:",
-      "success": "Subscrição cancelada",
-      "title": "Cancelar Subscrição",
+      "subscription": "Assinatura:",
+      "success": "Assinatura cancelada",
+      "title": "Cancelar Assinatura",
       "warning": "Isto apenas marca como cancelada no PiggyPulse."
     },
     "cancelledCount": "Canceladas ({{count}})",
-    "deleteFailed": "Falha ao eliminar subscrição",
-    "deleted": "Subscrição eliminada",
-    "emptyDescription": "Crie uma categoria com comportamento 'Subscrição'.",
-    "emptyTitle": "Sem subscrições ainda",
-    "loadError": "Algo correu mal ao carregar as subscrições.",
+    "deleteFailed": "Falha ao eliminar assinatura",
+    "deleted": "Assinatura eliminada",
+    "emptyDescription": "Crie uma categoria com comportamento 'Assinatura'.",
+    "emptyTitle": "Sem assinaturas ainda",
+    "loadError": "Algo correu mal ao carregar as assinaturas.",
     "monthlyCost": "Custo Mensal",
     "monthlyCount": "{{count}} ativas",
     "nextCharge": "Próxima Cobrança",
     "nextChargeDate": "Próxima cobrança",
-    "notFound": "Subscrição não encontrada.",
+    "notFound": "Assinatura não encontrada.",
     "postCancellation": "Pós-cancelamento",
     "status": "Estado",
     "thisYear": "Este Ano",
@@ -1273,12 +1273,12 @@
     "unexpectedChargeDesc": "{{count}} cobranças detetadas desde o cancelamento.",
     "yearlyTotal": "Total Anual",
     "form": {
-      "editTitle": "Editar Subscrição",
-      "createTitle": "Adicionar Subscrição",
-      "name": "Nome da Subscrição",
+      "editTitle": "Editar Assinatura",
+      "createTitle": "Adicionar Assinatura",
+      "name": "Nome da Assinatura",
       "namePlaceholder": "ex. Netflix",
       "category": "Categoria",
-      "categoryDesc": "Associar a uma categoria com comportamento de subscrição",
+      "categoryDesc": "Associar a uma categoria com comportamento de assinatura",
       "vendor": "Fornecedor",
       "billing": "Cobrança",
       "amount": "Valor",
@@ -1286,10 +1286,10 @@
       "billingDay": "Dia de Cobrança",
       "billingDayDesc": "Dia do mês (1-31)",
       "nextCharge": "Próxima Cobrança Prevista",
-      "createButton": "Criar Subscrição",
-      "updated": "Subscrição atualizada",
-      "created": "Subscrição criada",
-      "error": "Falha ao {{action}} subscrição",
+      "createButton": "Criar Assinatura",
+      "updated": "Assinatura atualizada",
+      "created": "Assinatura criada",
+      "error": "Falha ao {{action}} assinatura",
       "cycles": {
         "monthly": "Mensal",
         "quarterly": "Trimestral",
@@ -1554,7 +1554,7 @@
     "categories": "Categorias",
     "targets": "Objetivos",
     "accounts": "Contas",
-    "subscriptions": "Subscrições",
+    "subscriptions": "Assinaturas",
     "vendors": "Fornecedores",
     "settings": "Definições"
   }
