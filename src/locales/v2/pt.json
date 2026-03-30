@@ -72,13 +72,17 @@
       "topUpCycle": "Ciclo de Carregamento",
       "topUpDay": "Dia do Carregamento",
       "topUpDayMonth": "Dia do mês (1-31)",
-      "topUpDayWeek": "Dia da semana (0=Dom, 6=Sáb)"
+      "topUpDayWeek": "Dia da semana (0=Dom, 6=Sáb)",
+      "accountName": "Nome da Conta",
+      "accountNamePlaceholder": "ex. Conta Principal",
+      "createButton": "Criar Conta"
     },
     "netPosition": {
       "debt": "Dívida",
       "liquid": "Líquido",
       "protected": "Protegido",
-      "title": "Posição Líquida"
+      "title": "Posição Líquida",
+      "loadError": "Algo correu mal ao carregar a posição."
     },
     "subtitle": "As suas contas financeiras num relance",
     "title": "Contas",
@@ -95,7 +99,47 @@
       "CreditCard": "Cartões de Crédito",
       "Savings": "Poupança",
       "Wallet": "Carteiras"
-    }
+    },
+    "addFirstAccount": "+ Adicione a Sua Primeira Conta",
+    "afterTopUp": "Após carregamento",
+    "afterTopUpLabel": "Após carregamento:",
+    "allowanceDetails": "Detalhes da Mesada",
+    "archiveFailed": "Falha ao arquivar conta",
+    "archived": "Conta arquivada",
+    "archivedAccounts": "Contas arquivadas ({{count}})",
+    "archivedNamed": "{{name}} arquivada",
+    "available": "Disponível",
+    "availableLabel": "Disponível:",
+    "avgDailyBalance": "Saldo Médio Diário",
+    "balanceHistory": "Histórico de Saldo",
+    "balanceHistoryFor": "Histórico de saldo de {{name}}",
+    "balanceHistoryLabel": "Histórico de saldo",
+    "breadcrumb": "← Contas",
+    "checkingDetails": "Detalhes da Conta à Ordem",
+    "created": "Conta criada",
+    "creditCardDetails": "Detalhes do Cartão de Crédito",
+    "creditLimit": "Limite de crédito",
+    "currentBalance": "Saldo atual",
+    "emptyDescription": "Adicione a sua primeira conta para começar a acompanhar saldos.",
+    "emptyTitle": "Sem contas ainda",
+    "inflows": "Entradas",
+    "loadError": "Algo correu mal ao carregar as suas contas.",
+    "nextTopUp": "Próximo carregamento:",
+    "nextTopUpLabel": "Próximo carregamento",
+    "noPeriodDescription": "Selecione um período para ver as suas contas.",
+    "notEnoughData": "Dados insuficientes para mostrar um gráfico.",
+    "notFound": "Conta não encontrada.",
+    "outflows": "Saídas",
+    "paymentDue": "Pagamento até",
+    "saveFailed": "Save failed",
+    "spentThisCycle": "Gasto este ciclo",
+    "statementCloses": "Fecho do extrato",
+    "topUpAmount": "Valor do carregamento",
+    "transactions": "Transações",
+    "unarchiveFailed": "Falha ao desarquivar conta",
+    "unarchived": "Conta desarquivada",
+    "unarchivedNamed": "Unarchived named",
+    "updated": "Conta atualizada"
   },
   "appShell": {
     "brand": "PiggyPulse",
@@ -339,7 +383,10 @@
         "error": "Falha ao {{action}} categoria",
         "updated": "Categoria atualizada"
       },
-      "type": "Tipo"
+      "type": "Tipo",
+      "categoryName": "Nome da Categoria",
+      "categoryNamePlaceholder": "ex. Mercearia",
+      "createButton": "Criar Categoria"
     },
     "incoming": "Receitas",
     "outgoing": "Despesas",
@@ -365,7 +412,36 @@
       "expense": "Despesa",
       "income": "Receita",
       "transfer": "Transferência"
-    }
+    },
+    "addFirstCategory": "+ Adicione a Sua Primeira Categoria",
+    "archiveFailed": "Falha ao arquivar categoria",
+    "archived": "Categoria arquivada",
+    "archivedCount": "Archived count",
+    "archivedNamed": "Archived named",
+    "breadcrumb": "← Categorias",
+    "budget": "Orçamento",
+    "categoriesCount": "Categorias",
+    "created": "Categoria criada",
+    "deleteFailed": "Falha ao eliminar categoria",
+    "deleted": "Categoria eliminada",
+    "detailLoadError": "Algo correu mal ao carregar esta categoria.",
+    "emptyDescription": "Crie a sua primeira categoria para começar a categorizar transações.",
+    "emptyTitle": "Sem categorias ainda",
+    "expenseBudget": "Orçamento de Despesas",
+    "incomeTarget": "Objetivo de Receitas",
+    "loadError": "Algo correu mal ao carregar as suas categorias.",
+    "notFound": "Categoria não encontrada.",
+    "recentTransactions": "Transações Recentes",
+    "remaining": "Restante",
+    "saveFailed": "Save failed",
+    "spendingTrend": "Spending trend",
+    "spent": "Gasto",
+    "totalSpent": "Total Gasto",
+    "unarchiveFailed": "Falha ao desarquivar categoria",
+    "unarchived": "Categoria desarquivada",
+    "unarchivedNamed": "Unarchived named",
+    "unbudgeted": "Sem Orçamento",
+    "updated": "Categoria atualizada"
   },
   "common": {
     "account": "Conta",
@@ -402,10 +478,59 @@
     "today": "Hoje",
     "tomorrow": "Amanhã",
     "txns": "{{count}} trans.",
-    "userMenu": "Menu do utilizador"
+    "userMenu": "Menu do utilizador",
+    "archive": "Arquivar",
+    "budgeted": "orçamentado",
+    "cancelled": "Cancelado",
+    "continue": "Continuar",
+    "enabled": "Ativado",
+    "export": "Exportar",
+    "import": "Importar",
+    "inMonths": "In months",
+    "incoming": "Receita",
+    "merge": "Fundir",
+    "next": "Seguinte",
+    "noPeriodSelectedShort": "Nenhum período selecionado.",
+    "outgoing": "Despesa",
+    "paused": "Pausado",
+    "previous": "Anterior:",
+    "reset": "Repor",
+    "saveChanges": "Guardar",
+    "skipForNow": "Avançar por agora",
+    "transfer": "Transferência",
+    "txnsThisPeriod": "Txns this period",
+    "unarchive": "Desarquivar",
+    "viewDetails": "Ver detalhes"
   },
   "dashboard": {
-    "account": "Conta",
+    "account": {
+      "archived": "This account has been archived.",
+      "available": "available",
+      "availableToSpend": "Available to spend",
+      "avgDailyBalance": "Avg Daily Balance",
+      "balance": "Balance",
+      "balanceAfterTopUp": "Balance after top-up",
+      "creditUsed": "Credit used: {{pct}}% of limit",
+      "currentBalance": "current balance",
+      "error": "Something went wrong loading this account.",
+      "inDays": "In {{count}} days",
+      "inDaysParens": "(in {{count}} days)",
+      "inflows": "Inflows",
+      "limit": "limit",
+      "nextTopUp": "Next top-up",
+      "noTransactions": "No transactions yet this period.",
+      "outflows": "Outflows",
+      "overspent": "Overspent",
+      "paymentDue": "Payment due",
+      "periodChange": "Period Change",
+      "spentThisCycle": "Spent this cycle",
+      "statementCloses": "Statement closes",
+      "title": "Account",
+      "today": "Today",
+      "todayParens": "(Today)",
+      "tomorrow": "Tomorrow",
+      "transactions": "Transactions"
+    },
     "accountCard": {
       "archived": "Esta conta foi arquivada.",
       "error": "Algo correu mal ao carregar esta conta.",
@@ -564,7 +689,13 @@
         "Checking": "Conta à ordem",
         "Savings": "Poupança",
         "Wallet": "Carteira"
-      }
+      },
+      "accountNamePlaceholder": "Nome da conta",
+      "balanceDesc": "O seu saldo real neste momento",
+      "createFailed": "Create failed",
+      "currentBalance": "Saldo atual",
+      "description1": "Onde está o seu dinheiro? As contas representam as suas contas reais.",
+      "description2": "Adicione quantas quiser — ou avance e adicione mais tarde."
     },
     "categories": {
       "colorNote": "Cores atribuídas automaticamente por direção + comportamento. Pode personalizar categorias a qualquer momento.",
@@ -573,7 +704,11 @@
       "error": "Falha ao aplicar modelo",
       "skip": "Avançar por agora",
       "templateHint": "Escolha um modelo inicial — pode adicionar, remover ou alterar categorias a qualquer momento.",
-      "title": "Configure categorias"
+      "title": "Configure categorias",
+      "applyFailed": "Falha ao aplicar modelo",
+      "colorHint": "Cores atribuídas automaticamente.",
+      "description1": "As categorias ajudam a organizar as suas transações.",
+      "description2": "Escolha um modelo inicial."
     },
     "currency": {
       "continue": "Continuar",
@@ -581,7 +716,9 @@
       "multiCurrencyNote": "Atualmente, o PiggyPulse não suporta múltiplas moedas. Esta funcionalidade estará disponível em breve.",
       "required": "Este é o único passo obrigatório.",
       "searchPlaceholder": "Pesquisar moedas...",
-      "title": "Escolha a sua moeda"
+      "title": "Escolha a sua moeda",
+      "requiredStep": "Este é o único passo obrigatório.",
+      "saveFailed": "Falha ao guardar moeda"
     },
     "errors": {
       "complete": "Falha ao concluir a configuração",
@@ -596,7 +733,13 @@
       "description": "Os períodos são janelas de tempo que organizam as suas transações. Pense neles como capítulos da sua história financeira — cada um tem uma data de início e uma data de fim.",
       "monthlyStart": "Períodos mensais, começando no dia 1",
       "threeAhead": "3 períodos preparados com antecedência",
-      "title": "Como o PiggyPulse organiza o tempo"
+      "title": "Como o PiggyPulse organiza o tempo",
+      "changeHint": "Pode alterar mais tarde em Períodos → Calendário.",
+      "defaultAhead": "3 períodos preparados com antecedência",
+      "defaultMonthly": "Períodos mensais, começando no dia 1",
+      "description1": "Os períodos organizam as suas transações.",
+      "description2": "As transações são atribuídas automaticamente.",
+      "setupFailed": "Falha ao configurar períodos"
     },
     "steps": {
       "accounts": "Contas",
@@ -628,6 +771,17 @@
       "title": "Bem-vindo ao PiggyPulse",
       "yourRules": "As suas regras",
       "yourRulesDesc": "você decide o que os seus números significam"
+    },
+    "appName": "PiggyPulse",
+    "complete": {
+      "addFirstTransaction": "Adicionar a primeira transação",
+      "completeFailed": "Falha ao concluir configuração",
+      "currency": "Moeda",
+      "goToDashboard": "Ir para o Painel",
+      "periods": "Períodos",
+      "periodsDefault": "Mensal, começando no dia 1",
+      "subtitle": "O seu painel está pronto.",
+      "title": "Está tudo pronto!"
     }
   },
   "periodSelector": {
@@ -638,7 +792,11 @@
     "noActivePeriod": "Sem período ativo",
     "noPeriods": "Nenhum período encontrado",
     "period": "Período",
-    "selectPeriod": "Selecionar Período"
+    "selectPeriod": "Selecionar Período",
+    "daysLeftLong": "Days left long",
+    "ended": "terminado",
+    "noPeriodsFound": "Nenhum período encontrado",
+    "title": "Selecionar Período"
   },
   "periods": {
     "addFirst": "+ Criar Primeiro Período",
@@ -678,7 +836,16 @@
         "days": "Dias",
         "months": "Meses",
         "weeks": "Semanas"
-      }
+      },
+      "createButton": "Criar Período",
+      "days": "Dias",
+      "months": "Meses",
+      "pastPeriodMessage": "Alterar datas irá mover transações entre períodos.",
+      "pastPeriodWarning": "Período passado",
+      "periodName": "Nome do Período",
+      "periodNamePlaceholder": "ex. Abril 2026",
+      "periodType": "Tipo de Período",
+      "weeks": "Semanas"
     },
     "schedule": {
       "active": "Geração automática ativa",
@@ -735,14 +902,39 @@
         "tuesday": "Terça-feira",
         "wednesday": "Quarta-feira"
       },
-      "weekendHandling": "Tratamento de Fins de Semana"
+      "weekendHandling": "Tratamento de Fins de Semana",
+      "availableVars": "Variáveis disponíveis:",
+      "enableDesc": "Configure regras para criar períodos automaticamente",
+      "enableLabel": "Geração automática",
+      "enabled": "Geração automática ativada",
+      "periodsToPrep": "Períodos a Preparar com Antecedência",
+      "periodsToPrepDesc": "Número de períodos futuros a pré-gerar",
+      "saturdayLabel": "Se início cair ao sábado",
+      "scheduleFailed": "Falha ao guardar configuração",
+      "scheduleSaved": "Calendário atualizado",
+      "sundayLabel": "Se início cair ao domingo"
     },
     "subtitle": "Gerir os seus períodos de orçamento",
     "title": "Períodos",
     "toast": {
       "deleteError": "Falha ao eliminar período",
       "deleted": "Período eliminado"
-    }
+    },
+    "budget": "Orçamento",
+    "createFirstPeriod": "+ Criar Primeiro Período",
+    "created": "Período criado",
+    "days": "Days",
+    "deleteConfirm": "Delete confirm",
+    "deleteFailed": "Falha ao eliminar período",
+    "deleted": "Período eliminado",
+    "emptyDescription": "Crie o seu primeiro período de orçamento.",
+    "emptyTitle": "Sem períodos ainda",
+    "newPeriod": "+ Novo Período",
+    "periodActions": "Ações do período",
+    "saveFailed": "Save failed",
+    "spend": "Gasto",
+    "txns": "Trans.",
+    "updated": "Período atualizado"
   },
   "settings": {
     "avatars": {
@@ -835,6 +1027,102 @@
         "description": "Acompanhamento de gastos discricionários",
         "name": "Categorias Variáveis"
       }
+    },
+    "appearance": {
+      "description": "Personalize o aspeto do PiggyPulse",
+      "prefsFailed": "Falha ao atualizar preferências",
+      "schemeFailed": "Falha ao atualizar esquema de cores",
+      "themeFailed": "Falha ao atualizar tema",
+      "title": "Aparência"
+    },
+    "danger": {
+      "deleteAccount": "Eliminar Conta",
+      "deleteAccountDesc": "Eliminar permanentemente a sua conta e dados",
+      "deleteAccountWarning": "Esta ação não pode ser desfeita.",
+      "deleteConfirmDesc": "Isto irá eliminar permanentemente a sua conta e todos os dados.",
+      "deleteConfirmTitle": "Tem a certeza?",
+      "deleteFailed": "Falha ao eliminar conta",
+      "deleteMyAccount": "Eliminar a Minha Conta",
+      "deleteSuccess": "Conta eliminada",
+      "description": "Ações irreversíveis",
+      "passwordLabel": "Introduza a sua palavra-passe para confirmar",
+      "permanentlyDelete": "Eliminar Permanentemente",
+      "title": "Zona de Perigo"
+    },
+    "dashboard": {
+      "accountCardsFailed": "Falha ao atualizar cartões de conta",
+      "description": "Personalizar widgets do painel",
+      "layoutFailed": "Falha ao atualizar layout do painel",
+      "resetFailed": "Falha ao repor painel",
+      "resetSuccess": "Painel reposto",
+      "title": "Painel"
+    },
+    "data": {
+      "description": "Importar e exportar os seus dados",
+      "export": "Exportar",
+      "exportAll": "Exportar Todos os Dados",
+      "exportAllDesc": "Transferir todos os dados como JSON",
+      "exportAllFailed": "Falha ao exportar dados",
+      "exportFailed": "Falha ao exportar dados",
+      "exportTransactions": "Exportar Transações",
+      "exportTransactionsDesc": "Transferir transações como CSV",
+      "import": "Importar",
+      "importData": "Importar Dados",
+      "importDataDesc": "Restaurar de uma cópia JSON",
+      "importFailed": "Falha ao importar dados",
+      "importInvalidJson": "Ficheiro JSON inválido",
+      "importSuccess": "Dados importados com sucesso",
+      "title": "Dados"
+    },
+    "profile": {
+      "description": "As suas informações pessoais",
+      "saveFailed": "Falha ao guardar perfil",
+      "saved": "Perfil guardado",
+      "title": "Perfil"
+    },
+    "security": {
+      "changePassword": "Alterar Palavra-passe",
+      "confirmNewPassword": "Confirmar Nova Palavra-passe",
+      "currentPassword": "Palavra-passe Atual",
+      "description": "Palavra-passe e autenticação de dois fatores",
+      "disable2fa": "Desativar 2FA",
+      "disable2faDesc": "Introduza a sua palavra-passe para desativar",
+      "disable2faFailed": "Falha ao desativar 2FA",
+      "disable2faTitle": "Desativar Autenticação de Dois Fatores",
+      "enable2fa": "Ativar 2FA",
+      "newPassword": "Nova Palavra-passe",
+      "password": "Palavra-passe",
+      "passwordChanged": "Palavra-passe alterada",
+      "passwordDesc": "Alterar a palavra-passe da conta",
+      "passwordFailed": "Falha ao alterar palavra-passe",
+      "passwordMismatch": "As palavras-passe não coincidem",
+      "reconfigure": "Reconfigurar",
+      "reconfigureHint": "Configurar novo dispositivo autenticador",
+      "title": "Segurança",
+      "twoFactor": "Autenticação de Dois Fatores",
+      "twoFactorDisabled": "2FA está desativada",
+      "twoFactorDisabledSuccess": "2FA desativada",
+      "twoFactorEnabled": "2FA está ativada"
+    },
+    "subtitle": "Gerir a sua conta e preferências",
+    "twoFactorSetup": {
+      "cantScan": "Não consegue digitalizar? Introduza este código manualmente:",
+      "codesFailedFallback": "Os códigos não puderam ser gerados.",
+      "codesTitle": "Guarde os seus códigos de recuperação",
+      "copied": "Copiado",
+      "copy": "Copiar",
+      "copyAll": "Copiar Todos",
+      "download": "Transferir",
+      "enabled": "2FA ativada",
+      "enterCode": "Introduza o código de 6 dígitos para confirmar.",
+      "invalidCode": "Código inválido",
+      "loading": "A preparar configuração 2FA...",
+      "saveCodesAlert": "Guarde estes códigos num local seguro.",
+      "savedCodes": "Guardei os meus códigos de recuperação",
+      "scanQr": "Digitalize este código QR com a sua aplicação autenticadora",
+      "setupFailed": "Falha ao configurar 2FA",
+      "setupTitle": "Configurar autenticação de dois fatores",
+      "verifyAndEnable": "Verificar e Ativar 2FA"
     }
   },
   "subscriptions": {
@@ -899,7 +1187,46 @@
     },
     "subtitle": "Acompanhe as suas cobranças recorrentes",
     "title": "Subscrições",
-    "upcomingCharges": "Cobranças Futuras"
+    "upcomingCharges": "Cobranças Futuras",
+    "activeCount": "{{count}} ativas",
+    "activeSince": "Ativa Desde",
+    "addFirstSubscription": "+ Adicione a Sua Primeira Subscrição",
+    "allTime": "Todo o tempo",
+    "amount": "Valor",
+    "autoDetected": "Detetada automaticamente",
+    "billingDay": "Dia de cobrança",
+    "billingHistory": "Histórico de Cobranças",
+    "breadcrumb": "← Subscrições",
+    "cancel": {
+      "amount": "Valor:",
+      "cancellationDate": "Data de cancelamento",
+      "cancellationDateDesc": "Quando cancelou com o fornecedor",
+      "confirmCancel": "Cancelar Subscrição",
+      "description": "Description",
+      "failed": "Falha ao cancelar subscrição",
+      "keepActive": "Manter Ativa",
+      "subscription": "Subscription",
+      "success": "Success",
+      "title": "Cancelar Subscrição",
+      "warning": "Isto apenas marca como cancelada no PiggyPulse."
+    },
+    "cancelledCount": "Cancelled count",
+    "deleteFailed": "Falha ao eliminar subscrição",
+    "deleted": "Subscrição eliminada",
+    "emptyDescription": "Crie uma categoria com comportamento 'Subscrição'.",
+    "emptyTitle": "Sem subscrições ainda",
+    "loadError": "Algo correu mal ao carregar as subscrições.",
+    "monthlyCost": "Custo Mensal",
+    "monthlyCount": "Monthly count",
+    "nextCharge": "Próxima Cobrança",
+    "nextChargeDate": "Próxima cobrança",
+    "notFound": "Subscrição não encontrada.",
+    "postCancellation": "Pós-cancelamento",
+    "status": "Estado",
+    "thisYear": "Este Ano",
+    "unexpectedCharge": "Cobrança inesperada após cancelamento",
+    "unexpectedChargeDesc": "Unexpected charge desc",
+    "yearlyTotal": "Total Anual"
   },
   "targets": {
     "empty": {
@@ -925,7 +1252,20 @@
     "toast": {
       "excludeError": "Falha ao excluir categoria",
       "excluded": "{{name}} excluído dos objetivos"
-    }
+    },
+    "actual": "Real",
+    "category": "Categoria",
+    "emptyDescription": "Defina objetivos ao criar ou editar categorias.",
+    "emptyTitle": "Sem objetivos definidos",
+    "excludeFailed": "Falha ao excluir categoria",
+    "excluded": "Excluded",
+    "expenseBudget": "Orçamento de Despesas",
+    "incomeTarget": "Objetivo de Receitas",
+    "loadError": "Algo correu mal ao carregar os seus objetivos.",
+    "period": "Período",
+    "progress": "Progresso",
+    "target": "Objetivo",
+    "withTargets": "Com Objetivos"
   },
   "transactions": {
     "addFirst": "+ Adicione a Sua Primeira Transação",
@@ -967,7 +1307,17 @@
       "transferHint": "será subtraído da origem e adicionado ao destino",
       "transferNote": "Categoria e fornecedor não se aplicam a transferências",
       "transferToggle": "Ative para mover dinheiro entre as suas contas",
-      "vendor": "Fornecedor (opcional)"
+      "vendor": "Fornecedor (opcional)",
+      "addTitle": "Adicionar Transação",
+      "addTransactionButton": "Adicionar Transação",
+      "addTransferButton": "Adicionar Transferência",
+      "addTransferTitle": "Adicionar Transferência",
+      "descriptionPlaceholder": "ex. Compras no supermercado",
+      "descriptionTransferPlaceholder": "ex. Carregamento mesada",
+      "transferOffDesc": "Ative para mover dinheiro entre contas",
+      "transferOnDesc": "Categoria e fornecedor não se aplicam",
+      "transferSummaryFull": "será subtraído da origem e adicionado ao destino",
+      "vendorOptional": "Fornecedor (opcional)"
     },
     "quickAdd": {
       "account": "Conta",
@@ -977,7 +1327,14 @@
       "description": "Descrição",
       "hint": "Prima Enter para adicionar e continuar. Categoria e conta são mantidas para entradas consecutivas.",
       "title": "Adição Rápida",
-      "vendor": "Fornecedor"
+      "vendor": "Fornecedor",
+      "accountPlaceholder": "Conta",
+      "amountPlaceholder": "Valor",
+      "categoryPlaceholder": "Categoria",
+      "descriptionPlaceholder": "Descrição",
+      "failed": "Falha ao adicionar transação",
+      "success": "Transação adicionada",
+      "vendorPlaceholder": "Fornecedor"
     },
     "searchPlaceholder": "Pesquisar por descrição ou valor...",
     "stats": {
@@ -990,7 +1347,29 @@
     "toast": {
       "deleteError": "Falha ao eliminar transação",
       "deleted": "Transação eliminada"
-    }
+    },
+    "addFirstTransaction": "+ Adicione a Sua Primeira Transação",
+    "created": "Transação adicionada",
+    "dateGroupCount": "Date group count",
+    "deleteConfirm": "Eliminar esta transação?",
+    "deleteFailed": "Falha ao eliminar transação",
+    "deleted": "Transação eliminada",
+    "directionAll": "Todas",
+    "directionIn": "Entrada",
+    "directionOut": "Saída",
+    "directionTransfer": "Transferência",
+    "emptyDescription": "Adicione a sua primeira transação.",
+    "emptyFilterDescription": "Nenhuma transação corresponde aos filtros.",
+    "emptyTitle": "Sem transações ainda",
+    "inflows": "Entradas",
+    "loadError": "Algo correu mal ao carregar as transações.",
+    "net": "Líquido",
+    "outflows": "Saídas",
+    "saveFailed": "Save failed",
+    "subtitle": "Subtitle",
+    "transactionsCount": "transações",
+    "transferAdded": "Transferência adicionada",
+    "updated": "Transação atualizada"
   },
   "vendors": {
     "actions": {
@@ -1026,7 +1405,10 @@
         "created": "Fornecedor criado",
         "error": "Falha ao {{action}} fornecedor",
         "updated": "Fornecedor atualizado"
-      }
+      },
+      "createButton": "Criar Fornecedor",
+      "vendorName": "Nome do Fornecedor",
+      "vendorNamePlaceholder": "ex. Continente"
     },
     "merge": {
       "description": "Todas as transações de \"{{source}}\" serão transferidas para o fornecedor destino. O fornecedor de origem será eliminado.",
@@ -1038,7 +1420,10 @@
       "toast": {
         "error": "Falha ao fundir fornecedor",
         "success": "\"{{source}}\" fundido com o fornecedor destino"
-      }
+      },
+      "failed": "Falha ao fundir fornecedor",
+      "mergeAndDelete": "Fundir e Eliminar Origem",
+      "success": "Success"
     },
     "searchPlaceholder": "Pesquisar fornecedores...",
     "stats": {
@@ -1055,6 +1440,53 @@
       "deleted": "Fornecedor eliminado",
       "unarchiveError": "Falha ao desarquivar fornecedor",
       "unarchived": "Fornecedor desarquivado"
-    }
+    },
+    "active": "Ativos",
+    "addFirstVendor": "+ Adicione o Seu Primeiro Fornecedor",
+    "archiveFailed": "Falha ao arquivar fornecedor",
+    "archived": "Fornecedor arquivado",
+    "archivedNamed": "Archived named",
+    "archivedVendors": "Archived vendors",
+    "avgPerTxn": "Média / Trans.",
+    "avgPerVendor": "Média / Fornecedor",
+    "breadcrumb": "← Fornecedores",
+    "created": "Fornecedor criado",
+    "deleteFailed": "Não é possível eliminar — arquive ou funda",
+    "deleteFailedShort": "Não é possível eliminar fornecedor",
+    "deleted": "Fornecedor eliminado",
+    "detailLoadError": "Algo correu mal ao carregar este fornecedor.",
+    "emptyDescription": "Os fornecedores ajudam a acompanhar para onde vai o seu dinheiro.",
+    "emptyTitle": "Sem fornecedores ainda",
+    "loadError": "Algo correu mal ao carregar os fornecedores.",
+    "noMatch": "No match",
+    "notFound": "Fornecedor não encontrado.",
+    "recentTransactions": "Recent transactions",
+    "saveFailed": "Save failed",
+    "spendingTrend": "Spending trend",
+    "spent": "Gasto",
+    "topCategories": "Principais Categorias Neste Fornecedor",
+    "totalSpent": "Total Gasto",
+    "transactions": "Transações",
+    "unarchiveFailed": "Falha ao desarquivar fornecedor",
+    "unarchived": "Fornecedor desarquivado",
+    "unarchivedNamed": "Unarchived named",
+    "updated": "Fornecedor atualizado"
+  },
+  "placeholder": {
+    "comingSoon": "Esta página estará disponível em breve"
+  },
+  "nav": {
+    "overview": "Visão Geral",
+    "planning": "Planeamento",
+    "tracking": "Acompanhamento",
+    "dashboard": "Painel",
+    "transactions": "Transações",
+    "periods": "Períodos",
+    "categories": "Categorias",
+    "targets": "Objetivos",
+    "accounts": "Contas",
+    "subscriptions": "Subscrições",
+    "vendors": "Fornecedores",
+    "settings": "Definições"
   }
 }

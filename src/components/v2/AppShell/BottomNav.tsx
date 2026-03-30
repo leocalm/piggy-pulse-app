@@ -30,7 +30,7 @@ export function BottomNav() {
               key={item.to}
               className={classes.bottomNavItem}
               onClick={() => navigate(item.to)}
-              data-testid={`bottom-nav-${item.label.toLowerCase()}`}
+              data-testid={`bottom-nav-${item.labelKey.split('.').pop()}`}
               aria-current={active ? 'page' : undefined}
             >
               <item.icon size={20} stroke={1.5} color={active ? accents.primary : undefined} />
@@ -39,7 +39,7 @@ export function BottomNav() {
                 fw={active ? 600 : 400}
                 style={{ color: active ? accents.primary : undefined }}
               >
-                {item.label}
+                {t(item.labelKey)}
               </Text>
             </UnstyledButton>
           );
@@ -85,7 +85,7 @@ export function BottomNav() {
                   fw={active ? 500 : 400}
                   style={{ color: active ? accents.primary : undefined }}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Text>
               </UnstyledButton>
             );

@@ -92,12 +92,12 @@ export function Sidebar({ collapsed, onToggleCollapse, periodSelector, user }: S
       <AppShell.Section grow component={ScrollArea} p={collapsed ? 'md' : 'xs'}>
         <Stack gap={0} align={collapsed ? 'center' : undefined}>
           {navGroups.map((group) => (
-            <NavGroup key={group.label} label={group.label} collapsed={collapsed}>
+            <NavGroup key={group.labelKey} label={t(group.labelKey)} collapsed={collapsed}>
               {group.items.map((item) => (
                 <NavItem
                   key={item.to}
                   icon={item.icon}
-                  label={item.label}
+                  label={t(item.labelKey)}
                   to={item.to}
                   collapsed={collapsed}
                   dot={item.dot}
