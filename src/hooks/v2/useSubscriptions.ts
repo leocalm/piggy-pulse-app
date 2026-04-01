@@ -53,6 +53,22 @@ export function useUpcomingCharges(limit?: number) {
   });
 }
 
+export function useSubscriptionsByCategory(categoryId: string | null) {
+  return useQuery({
+    queryKey: v2QueryKeys.subscriptions.byCategory(categoryId ?? ''),
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET('/subscriptions', {
+        params: { query: { categoryId: categoryId! } },
+      });
+      if (error) {
+        throw error;
+      }
+      return data ?? [];
+    },
+    enabled: Boolean(categoryId),
+  });
+}
+
 export function useCreateSubscription() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -65,6 +81,8 @@ export function useCreateSubscription() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.subscriptions.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
     },
   });
 }
@@ -90,6 +108,8 @@ export function useUpdateSubscription() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.subscriptions.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
     },
   });
 }
@@ -107,6 +127,8 @@ export function useDeleteSubscription() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.subscriptions.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
     },
   });
 }
@@ -125,6 +147,8 @@ export function useCancelSubscription() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.subscriptions.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
+      queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
     },
   });
 }

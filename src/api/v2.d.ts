@@ -2429,6 +2429,10 @@ export interface components {
        * @example 15000
        */
       target?: number | null;
+      /**
+       * @description Whether the target is auto-computed from active subscriptions
+       */
+      autoComputedTarget?: boolean;
     };
     CategoryManagementListItem: components['schemas']['CategoryBase'] & {
       /**
@@ -6654,6 +6658,8 @@ export interface operations {
       query?: {
         /** @description Filter by subscription status */
         status?: components['schemas']['SubscriptionStatus'];
+        /** @description Filter by category ID */
+        categoryId?: string;
       };
       header?: never;
       path?: never;

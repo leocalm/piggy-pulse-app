@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { Button, Skeleton, Stack, Text, TextInput, UnstyledButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import type { components } from '@/api/v2';
@@ -20,6 +21,7 @@ type CategorySummary = components['schemas']['CategorySummaryItem'];
 
 export function CategoriesV2Page() {
   const { t } = useTranslation('v2');
+  const [searchParams, setSearchParams] = useSearchParams();
   const { selectedPeriodId } = useBudgetPeriodSelection();
   const {
     data: overviewData,
@@ -37,6 +39,27 @@ export function CategoriesV2Page() {
   const [showArchived, setShowArchived] = useState(false);
 
   const categories = overviewData?.categories ?? [];
+
+  // Auto-open edit drawer when ?edit=<categoryId> is present in the URL
+  useEffect(() => {
+    const editId = searchParams.get('edit');
+    if (!editId || isLoading || !overviewData) {
+      return;
+    }
+    const cat = categories.find((c) => c.id === editId);
+    if (cat) {
+      setEditCategory(cat);
+      openForm();
+    }
+    // Issue 4: always clear the param once loading is done, whether the category was found or not,
+    // to prevent an infinite loop when the ID does not match any category.
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete('edit');
+      return next;
+    });
+  }, [searchParams, isLoading, overviewData, categories, openForm, setSearchParams]);
+
   const summary = overviewData?.summary;
 
   const { incomeCategories, expenseCategories, archivedCategories } = useMemo(() => {

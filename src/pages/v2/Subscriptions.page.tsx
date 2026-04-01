@@ -8,11 +8,7 @@ import { CurrencyValue } from '@/components/Utils/CurrencyValue';
 import { EmptyState } from '@/components/Utils/EmptyState/EmptyState';
 import { NoPeriodState } from '@/components/v2/NoPeriodState';
 import { PageHint } from '@/components/v2/PageHint';
-import {
-  CancelSubscriptionModal,
-  SubscriptionFormDrawer,
-  SubscriptionRow,
-} from '@/components/v2/Subscriptions';
+import { CancelSubscriptionModal, SubscriptionRow } from '@/components/v2/Subscriptions';
 import classes from '@/components/v2/Subscriptions/Subscriptions.module.css';
 import { useBudgetPeriodSelection } from '@/context/BudgetContext';
 import { useCategoriesOptions } from '@/hooks/v2/useCategories';
@@ -34,9 +30,7 @@ export function SubscriptionsV2Page() {
   const { data: categories } = useCategoriesOptions();
   const deleteMutation = useDeleteSubscription();
 
-  const [formOpened, { open: openForm, close: closeForm }] = useDisclosure(false);
   const [cancelOpened, { open: openCancel, close: closeCancel }] = useDisclosure(false);
-  const [editSubId, setEditSubId] = useState<string | null>(null);
   const [cancelSub, setCancelSub] = useState<SubscriptionResponse | null>(null);
   const [showCancelled, setShowCancelled] = useState(false);
 
@@ -92,14 +86,8 @@ export function SubscriptionsV2Page() {
 
   const nextCharge = upcomingData?.[0];
 
-  const handleCreate = () => {
-    setEditSubId(null);
-    openForm();
-  };
-
-  const handleEdit = (id: string) => {
-    setEditSubId(id);
-    openForm();
+  const handleManage = (categoryId: string) => {
+    navigate(`/v2/categories?edit=${categoryId}`);
   };
 
   const handleCancel = (sub: SubscriptionResponse) => {
@@ -167,9 +155,6 @@ export function SubscriptionsV2Page() {
             {t('subscriptions.subtitle')}
           </Text>
         </div>
-        <Button size="sm" onClick={handleCreate}>
-          {t('subscriptions.addSubscription')}
-        </Button>
       </div>
 
       {/* Page hint */}
@@ -181,7 +166,6 @@ export function SubscriptionsV2Page() {
           icon="🔄"
           title={t('subscriptions.emptyTitle')}
           message={t('subscriptions.emptyDescription')}
-          primaryAction={{ label: t('subscriptions.addFirstSubscription'), onClick: handleCreate }}
           tips={[
             t('subscriptions.emptyTips.recurring'),
             t('subscriptions.emptyTips.upcoming'),
@@ -331,7 +315,7 @@ export function SubscriptionsV2Page() {
                   categoryIcon={cat?.icon}
                   categoryColor={cat?.color}
                   onView={(id) => navigate(`/v2/subscriptions/${id}`)}
-                  onEdit={handleEdit}
+                  onManage={handleManage}
                   onCancel={handleCancel}
                   onDelete={handleDelete}
                 />
@@ -354,7 +338,7 @@ export function SubscriptionsV2Page() {
                     categoryIcon={cat?.icon}
                     categoryColor={cat?.color}
                     onView={(id) => navigate(`/v2/subscriptions/${id}`)}
-                    onEdit={handleEdit}
+                    onManage={handleManage}
                     onCancel={handleCancel}
                     onDelete={handleDelete}
                   />
@@ -382,7 +366,7 @@ export function SubscriptionsV2Page() {
                       categoryIcon={cat?.icon}
                       categoryColor={cat?.color}
                       onView={(id) => navigate(`/v2/subscriptions/${id}`)}
-                      onEdit={handleEdit}
+                      onManage={handleManage}
                       onCancel={handleCancel}
                       onDelete={handleDelete}
                     />
@@ -393,12 +377,6 @@ export function SubscriptionsV2Page() {
         </>
       )}
 
-      <SubscriptionFormDrawer
-        key={editSubId ?? 'create'}
-        opened={formOpened}
-        onClose={closeForm}
-        editSubscriptionId={editSubId}
-      />
       {cancelSub && (
         <CancelSubscriptionModal
           opened={cancelOpened}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Alert,
   Button,
   Drawer,
   Group,
@@ -9,17 +10,25 @@ import {
   Text,
   Textarea,
   TextInput,
+  Tooltip,
   UnstyledButton,
 } from '@mantine/core';
 import type { components } from '@/api/v2';
 import { useCreateCategory, useUpdateCategory } from '@/hooks/v2/useCategories';
+import { useSubscriptionsByCategory } from '@/hooks/v2/useSubscriptions';
 import { toast } from '@/lib/toast';
+import { CategorySubscriptionSection } from './CategorySubscriptionSection';
 import classes from './Categories.module.css';
 
 type CategoryType = 'income' | 'expense' | 'transfer';
 type Behavior = 'fixed' | 'variable' | 'subscription';
 type CategoryBase = components['schemas']['CategoryBase'];
-type EditableCategory = CategoryBase & { description?: string | null; target?: number | null };
+type EditableCategory = CategoryBase & {
+  description?: string | null;
+  target?: number | null;
+  /** When true the target is auto-computed from active subscriptions (from CategoryResponse). */
+  autoComputedTarget?: boolean;
+};
 
 const CATEGORY_ICONS = [
   '🏠',
@@ -59,6 +68,15 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
   const isEdit = !!editCategory;
   const createMutation = useCreateCategory();
   const updateMutation = useUpdateCategory();
+
+  // Issue 7: Only fetch subscriptions when editing a subscription-behavior category
+  const { data: categorySubs } = useSubscriptionsByCategory(
+    isEdit && editCategory?.behavior === 'subscription' ? (editCategory?.id ?? null) : null
+  );
+  const hasActiveSubs =
+    isEdit &&
+    editCategory?.behavior === 'subscription' &&
+    (categorySubs ?? []).some((s) => s.status !== 'cancelled');
 
   const [name, setName] = useState('');
   const [type, setType] = useState<CategoryType>('expense');
@@ -152,18 +170,36 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
               {t('categories.form.behavior')}
             </Text>
             <div className={classes.behaviorSelector}>
-              {(['fixed', 'variable', 'subscription'] as const).map((b) => (
-                <UnstyledButton
-                  key={b}
-                  className={behavior === b ? classes.selectorButtonActive : classes.selectorButton}
-                  onClick={() => setBehavior(b)}
-                >
-                  <Text fz="lg">{b === 'fixed' ? '📌' : b === 'variable' ? '📊' : '🔄'}</Text>
-                  <Text fz="xs" fw={500}>
-                    {t(`categories.behaviors.${b}`)}
-                  </Text>
-                </UnstyledButton>
-              ))}
+              {(['fixed', 'variable', 'subscription'] as const).map((b) => {
+                const isDisabled = hasActiveSubs && b !== 'subscription';
+                const btn = (
+                  <UnstyledButton
+                    key={b}
+                    className={
+                      behavior === b ? classes.selectorButtonActive : classes.selectorButton
+                    }
+                    onClick={() => !isDisabled && setBehavior(b)}
+                    style={isDisabled ? { opacity: 0.45, cursor: 'not-allowed' } : undefined}
+                  >
+                    <Text fz="lg">{b === 'fixed' ? '📌' : b === 'variable' ? '📊' : '🔄'}</Text>
+                    <Text fz="xs" fw={500}>
+                      {t(`categories.behaviors.${b}`)}
+                    </Text>
+                  </UnstyledButton>
+                );
+                return isDisabled ? (
+                  <Tooltip
+                    key={b}
+                    label={t('categories.form.behaviorLockedSubs')}
+                    withArrow
+                    position="top"
+                  >
+                    <span>{btn}</span>
+                  </Tooltip>
+                ) : (
+                  btn
+                );
+              })}
             </div>
           </div>
         )}
@@ -206,17 +242,37 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
           minRows={2}
         />
 
-        {/* Budget Target */}
-        <NumberInput
-          label={t('categories.form.budgetTarget')}
-          description={t('categories.form.budgetTargetDesc')}
-          placeholder="0.00"
-          value={target}
-          onChange={setTarget}
-          decimalScale={2}
-          fixedDecimalScale
-          min={0}
-        />
+        {/* Issue 8: Budget Target — hidden for subscription categories.
+            Also hides when autoComputedTarget is true (target is derived from active subs). */}
+        {behavior !== 'subscription' && !editCategory?.autoComputedTarget && (
+          <NumberInput
+            label={t('categories.form.budgetTarget')}
+            description={t('categories.form.budgetTargetDesc')}
+            placeholder="0.00"
+            value={target}
+            onChange={setTarget}
+            decimalScale={2}
+            fixedDecimalScale
+            min={0}
+          />
+        )}
+
+        {/* Subscription section — shown when editing a subscription category */}
+        {behavior === 'subscription' && isEdit && editCategory?.id && (
+          <Stack gap="xs">
+            <Text fz="xs" fw={600} tt="uppercase" c="dimmed">
+              {t('categories.subscriptionSection.title')}
+            </Text>
+            <CategorySubscriptionSection categoryId={editCategory.id} />
+          </Stack>
+        )}
+
+        {/* Info text — shown when creating a subscription category */}
+        {behavior === 'subscription' && !isEdit && (
+          <Alert variant="light" color="blue">
+            {t('categories.subscriptionSection.createHint')}
+          </Alert>
+        )}
 
         {/* Submit */}
         <Group justify="flex-end" mt="md">
