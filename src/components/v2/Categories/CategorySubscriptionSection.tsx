@@ -32,6 +32,7 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
   const deleteMutation = useDeleteSubscription();
 
   const [formOpened, { open: openForm, close: closeForm }] = useDisclosure(false);
+  const [editSubId, setEditSubId] = useState<string | null>(null);
   const [cancelOpened, { open: openCancel, close: closeCancel }] = useDisclosure(false);
   const [cancelSub, setCancelSub] = useState<SubscriptionResponse | null>(null);
 
@@ -63,6 +64,16 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
     }
     return Math.round(raw);
   }, [activeSubs]);
+
+  const handleEdit = (sub: SubscriptionResponse) => {
+    setEditSubId(sub.id);
+    openForm();
+  };
+
+  const handleCloseForm = () => {
+    setEditSubId(null);
+    closeForm();
+  };
 
   const handleCancel = (sub: SubscriptionResponse) => {
     setCancelSub(sub);
@@ -221,6 +232,7 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
                     </ActionIcon>
                   </Menu.Target>
                   <Menu.Dropdown>
+                    <Menu.Item onClick={() => handleEdit(sub)}>{t('common.edit')}</Menu.Item>
                     {!isCancelled && (
                       <Menu.Item color="orange" onClick={() => handleCancel(sub)}>
                         {t('common.cancel')}
@@ -248,10 +260,11 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
       </Button>
 
       <SubscriptionFormDrawer
-        key="category-section-create"
+        key={editSubId ?? 'category-section-create'}
         opened={formOpened}
-        onClose={closeForm}
+        onClose={handleCloseForm}
         fixedCategoryId={categoryId}
+        editSubscriptionId={editSubId}
       />
 
       {cancelSub && (
