@@ -17,12 +17,15 @@ interface SubscriptionFormDrawerProps {
   opened: boolean;
   onClose: () => void;
   editSubscriptionId?: string | null;
+  /** When set, pre-selects and locks the category picker to this category ID. */
+  fixedCategoryId?: string;
 }
 
 export function SubscriptionFormDrawer({
   opened,
   onClose,
   editSubscriptionId,
+  fixedCategoryId,
 }: SubscriptionFormDrawerProps) {
   const { t } = useTranslation('v2');
   const isEdit = !!editSubscriptionId;
@@ -33,7 +36,7 @@ export function SubscriptionFormDrawer({
   const { data: vendors } = useVendorsOptions();
 
   const [name, setName] = useState('');
-  const [categoryId, setCategoryId] = useState<string | null>(null);
+  const [categoryId, setCategoryId] = useState<string | null>(fixedCategoryId ?? null);
   const [vendorId, setVendorId] = useState<string | null>(null);
   const [billingAmount, setBillingAmount] = useState<number | string>('');
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
@@ -123,11 +126,16 @@ export function SubscriptionFormDrawer({
 
         <Select
           label={t('subscriptions.form.category')}
-          description={t('subscriptions.form.categoryDesc')}
+          description={
+            fixedCategoryId
+              ? t('subscriptions.form.categoryFixed')
+              : t('subscriptions.form.categoryDesc')
+          }
           data={categoryOptions}
           value={categoryId}
-          onChange={setCategoryId}
-          searchable
+          onChange={fixedCategoryId ? undefined : setCategoryId}
+          disabled={Boolean(fixedCategoryId)}
+          searchable={!fixedCategoryId}
           required
         />
 

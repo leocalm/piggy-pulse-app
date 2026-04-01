@@ -105,6 +105,7 @@ export const v2QueryKeys = {
   subscriptions: {
     all: () => ['subscriptions'] as const,
     list: (status?: string) => ['subscriptions', status] as const,
+    byCategory: (categoryId: string) => ['subscriptions', 'category', categoryId] as const,
     detail: (id: string) => ['subscriptions', id] as const,
     upcoming: (limit?: number) => ['subscriptions', 'upcoming', limit] as const,
   },

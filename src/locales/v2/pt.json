@@ -415,7 +415,8 @@
       "type": "Tipo",
       "categoryName": "Nome da Categoria",
       "categoryNamePlaceholder": "ex. Mercearia",
-      "createButton": "Criar Categoria"
+      "createButton": "Criar Categoria",
+      "behaviorLockedSubs": "O comportamento não pode ser alterado enquanto houver assinaturas ativas"
     },
     "incoming": "Receitas",
     "outgoing": "Despesas",
@@ -470,7 +471,13 @@
     "unarchived": "Categoria desarquivada",
     "unarchivedNamed": "{{name}} desarquivada",
     "unbudgeted": "Sem Orçamento",
-    "updated": "Categoria atualizada"
+    "updated": "Categoria atualizada",
+    "subscriptionSection": {
+      "title": "Assinaturas",
+      "monthlyTotal": "Total Mensal",
+      "empty": "Nenhuma assinatura ainda. Adicione uma abaixo.",
+      "createHint": "Após criar esta categoria, você pode adicionar assinaturas diretamente nas configurações da categoria."
+    }
   },
   "common": {
     "account": "Conta",
@@ -1338,7 +1345,8 @@
         "monthly": "Mensal",
         "quarterly": "Trimestral",
         "yearly": "Anual"
-      }
+      },
+      "categoryFixed": "Categoria pré-selecionada e não pode ser alterada"
     },
     "emptyTips": {
       "recurring": "Assinaturas são separadas das transações regulares — representam compromissos recorrentes.",
@@ -1358,7 +1366,8 @@
         "title": "Monitorar custos futuros",
         "description": "A seção de cobranças futuras mostra o que vence e quando."
       }
-    }
+    },
+    "manage": "Gerenciar"
   },
   "targets": {
     "empty": {

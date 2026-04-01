@@ -12,7 +12,7 @@ interface SubscriptionRowProps {
   categoryIcon?: string;
   categoryColor?: string;
   onView: (id: string) => void;
-  onEdit: (id: string) => void;
+  onManage: (categoryId: string) => void;
   onCancel: (sub: SubscriptionResponse) => void;
   onDelete: (id: string) => void;
 }
@@ -22,7 +22,7 @@ export function SubscriptionRow({
   categoryIcon,
   categoryColor,
   onView,
-  onEdit,
+  onManage,
   onCancel,
   onDelete,
 }: SubscriptionRowProps) {
@@ -113,7 +113,9 @@ export function SubscriptionRow({
             </ActionIcon>
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Item onClick={() => onEdit(subscription.id)}>{t('common.edit')}</Menu.Item>
+            <Menu.Item onClick={() => onManage(subscription.categoryId)}>
+              {t('subscriptions.manage')}
+            </Menu.Item>
             {!isCancelled && (
               <Menu.Item color="orange" onClick={() => onCancel(subscription)}>
                 {t('common.cancel')}
