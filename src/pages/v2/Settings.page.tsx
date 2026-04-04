@@ -88,14 +88,7 @@ const COLOR_SCHEMES = [
   { value: 'system' as const, emoji: '\u{1F4BB}', key: 'system' },
 ];
 
-const THEME_ORDER: ColorTheme[] = [
-  'nebula',
-  'sunrise',
-  'sage_stone',
-  'deep_ocean',
-  'warm_rose',
-  'moonlit',
-];
+const THEME_ORDER: ColorTheme[] = ['nebula', 'sunrise', 'neon', 'tropical', 'candy_pop', 'moonlit'];
 
 // ---------------------------------------------------------------------------
 // Page component
