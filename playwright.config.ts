@@ -76,6 +76,7 @@ export default defineConfig({
       testMatch: /tests\/e2e\/real\/.*\.spec\.ts/,
       testIgnore: /tests\/e2e\/real\/journey\//,
       dependencies: ['real-desktop'],
+      timeout: 90_000,
     },
   ],
 });

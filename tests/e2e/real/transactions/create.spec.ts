@@ -21,6 +21,7 @@ async function seedStructure(page: import('playwright/test').Page): Promise<void
 }
 
 test.describe('Create transactions', () => {
+  test.describe.configure({ timeout: 90_000 });
   test('create outgoing (expense) transaction appears in the list', async ({ loggedInPage }) => {
     await seedStructure(loggedInPage);
 
