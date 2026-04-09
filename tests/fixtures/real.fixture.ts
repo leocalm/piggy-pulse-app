@@ -34,6 +34,8 @@ export const test = base.extend<RealFixtures>({
 
   loggedInPage: async ({ page, realUser }, use) => {
     await page.goto('/auth/login');
+    // Wait for login form to be ready
+    await expect(page.getByTestId('login-email')).toBeVisible();
     // Dismiss cookie banner if visible (covers submit on mobile)
     await page
       .getByRole('region', { name: 'Cookie consent' })
