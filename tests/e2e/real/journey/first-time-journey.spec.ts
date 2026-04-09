@@ -30,7 +30,7 @@ test('first-time user journey: register → setup → transact → verify → ex
     await authPage.register(realUser.name, realUser.email, realUser.password);
 
     // Dismiss cookie banner if visible
-    const cookieBanner = page.getByTestId('cookie-banner-accept');
+    const cookieBanner = page.getByTestId('cookie-accept');
     if (await cookieBanner.isVisible({ timeout: 2000 }).catch(() => false)) {
       await cookieBanner.click();
     }

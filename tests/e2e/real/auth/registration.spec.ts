@@ -10,7 +10,7 @@ test.describe('Registration', () => {
     await authPage.register(credentials.name, credentials.email, credentials.password);
 
     // Dismiss cookie banner if visible
-    const cookieBanner = page.getByTestId('cookie-banner-accept');
+    const cookieBanner = page.getByTestId('cookie-accept');
     if (await cookieBanner.isVisible({ timeout: 2000 }).catch(() => false)) {
       await cookieBanner.click();
     }

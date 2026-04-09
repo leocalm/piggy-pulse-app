@@ -34,9 +34,9 @@ export const test = base.extend<RealFixtures>({
 
   loggedInPage: async ({ page, realUser }, use) => {
     await page.goto('/auth/login');
-    await page.getByLabel('Email').fill(realUser.email);
-    await page.getByLabel('Password').fill(realUser.password);
-    await page.getByLabel('Log in').click();
+    await page.getByTestId('login-email').fill(realUser.email);
+    await page.getByTestId('login-password').fill(realUser.password);
+    await page.getByTestId('login-submit').click();
     await expect(page).toHaveURL(/\/(dashboard|onboarding)/);
     await use(page);
   },
