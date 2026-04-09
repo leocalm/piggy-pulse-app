@@ -78,6 +78,7 @@ export default defineConfig({
       testIgnore: /tests\/e2e\/real\/journey\//,
       timeout: 90_000,
       fullyParallel: false,
+      dependencies: ['real-desktop'],
     },
   ],
 });
