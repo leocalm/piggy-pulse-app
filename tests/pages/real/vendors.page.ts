@@ -9,12 +9,7 @@ export class RealVendorsPage {
   }
 
   async createVendor(name: string): Promise<void> {
-    const addButton = this.page.getByTestId('vendors-add-button');
-    const fallback = this.page.getByRole('button', { name: /add.*vendor/i }).first();
-    const target = (await addButton.isVisible({ timeout: 2000 }).catch(() => false))
-      ? addButton
-      : fallback;
-    await target.dispatchEvent('click');
+    await this.page.getByTestId('vendors-add-button').dispatchEvent('click');
 
     await expect(this.page.getByTestId('vendor-name-input')).toBeVisible();
     await this.page.getByTestId('vendor-name-input').fill(name);

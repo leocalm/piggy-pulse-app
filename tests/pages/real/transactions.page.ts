@@ -34,12 +34,7 @@ export class RealTransactionsPage {
     }
 
     // Open the transaction form drawer
-    const addButton = this.page.getByTestId('transactions-add-button');
-    const fallback = this.page.getByRole('button', { name: /add.*transaction/i }).first();
-    const target = (await addButton.isVisible({ timeout: 2000 }).catch(() => false))
-      ? addButton
-      : fallback;
-    await target.dispatchEvent('click');
+    await this.page.getByTestId('transactions-add-button').dispatchEvent('click');
 
     await expect(amountInput).toBeVisible();
 

@@ -15,12 +15,7 @@ export class RealCategoriesPage {
   }
 
   async createCategory(name: string, type: 'income' | 'expense' | 'transfer'): Promise<void> {
-    const addButton = this.page.getByTestId('categories-add-button');
-    const fallback = this.page.getByRole('button', { name: /add.*category/i }).first();
-    const target = (await addButton.isVisible({ timeout: 2000 }).catch(() => false))
-      ? addButton
-      : fallback;
-    await target.dispatchEvent('click');
+    await this.page.getByTestId('categories-add-button').dispatchEvent('click');
 
     await expect(this.page.getByTestId('category-name-input')).toBeVisible();
     await this.page.getByTestId('category-name-input').fill(name);
