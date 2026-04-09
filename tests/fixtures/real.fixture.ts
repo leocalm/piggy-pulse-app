@@ -34,6 +34,12 @@ export const test = base.extend<RealFixtures>({
 
   loggedInPage: async ({ page, realUser }, use) => {
     await page.goto('/auth/login');
+    // Dismiss cookie banner if visible (covers submit on mobile)
+    await page
+      .getByRole('region', { name: 'Cookie consent' })
+      .getByRole('button', { name: 'Accept' })
+      .click({ timeout: 2000 })
+      .catch(() => {});
     await page.getByTestId('login-email').fill(realUser.email);
     await page.getByTestId('login-password').fill(realUser.password);
     await page.getByTestId('login-submit').click();

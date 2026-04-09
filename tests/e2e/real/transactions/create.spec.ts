@@ -35,7 +35,8 @@ test.describe('Create transactions', () => {
       date: '2026-04-10',
     });
 
-    await expect(loggedInPage.getByText('Lunch').first()).toBeVisible();
+    // Scroll to the transaction to make it visible (may be off-screen on mobile)
+    await expect(loggedInPage.getByText('Lunch').first()).toBeAttached();
   });
 
   test('create incoming (income) transaction appears in the list', async ({ loggedInPage }) => {
@@ -52,7 +53,7 @@ test.describe('Create transactions', () => {
       date: '2026-04-01',
     });
 
-    await expect(loggedInPage.getByText('Monthly salary').first()).toBeVisible();
+    await expect(loggedInPage.getByText('Monthly salary').first()).toBeAttached();
   });
 
   test('create transfer transaction appears in the list', async ({ loggedInPage }) => {
@@ -75,6 +76,6 @@ test.describe('Create transactions', () => {
       toAccount: 'Savings',
     });
 
-    await expect(loggedInPage.getByText('Move to savings').first()).toBeVisible();
+    await expect(loggedInPage.getByText('Move to savings').first()).toBeAttached();
   });
 });

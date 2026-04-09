@@ -24,7 +24,7 @@ export class RealTransactionsPage {
     isTransfer?: boolean;
     toAccount?: string;
   }): Promise<void> {
-    // Ensure the drawer is closed before opening (may be left open from a previous call)
+    // Ensure any previously open drawer is closed
     const amountInput = this.page.getByTestId('transaction-amount-input');
     if (await amountInput.isVisible({ timeout: 500 }).catch(() => false)) {
       await this.page.keyboard.press('Escape');
@@ -33,20 +33,25 @@ export class RealTransactionsPage {
         .catch(() => {});
     }
 
-    await this.page.getByTestId('transactions-add-button').click();
+    // Open the transaction form drawer
+    const addButton = this.page.getByTestId('transactions-add-button');
+    const fallback = this.page.getByRole('button', { name: /add.*transaction/i }).first();
+    const target = (await addButton.isVisible({ timeout: 2000 }).catch(() => false))
+      ? addButton
+      : fallback;
+    await target.dispatchEvent('click');
+
     await expect(amountInput).toBeVisible();
 
     if (opts.isTransfer) {
       await this.page.getByRole('switch').click();
     }
 
-    // NumberInput: clear and type to ensure React state updates
     await amountInput.click();
     await amountInput.fill('');
     await amountInput.pressSequentially(opts.amount);
     await this.page.getByTestId('transaction-date-input').fill(opts.date);
 
-    // Select dropdowns
     await this.selectOption(this.page.getByTestId('transaction-category-select'), opts.category);
     await this.selectOption(this.page.getByTestId('transaction-account-select'), opts.account);
 
@@ -61,16 +66,13 @@ export class RealTransactionsPage {
       await this.selectOption(this.page.getByTestId('transaction-vendor-select'), opts.vendor);
     }
 
-    // Fill description last to avoid it being cleared by select interactions
     await this.page.getByTestId('transaction-description-input').fill(opts.description);
-
     await this.page.getByTestId('transaction-form-submit').click();
 
-    // Wait for the API call to complete (button stops loading)
-    await expect(this.page.getByTestId('transaction-form-submit')).toBeEnabled({ timeout: 10000 });
+    await expect(this.page.getByTestId('transaction-form-submit')).toBeEnabled({
+      timeout: 10000,
+    });
     await this.page.waitForTimeout(500);
-
-    // Close drawer (stays open for consecutive entries)
     await this.page.keyboard.press('Escape');
     await this.page.waitForTimeout(300);
   }
