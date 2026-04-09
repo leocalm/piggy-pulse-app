@@ -57,7 +57,13 @@ export function AccountsNetPosition({ periodId }: AccountsNetPositionProps) {
 
       <div className={classes.netPositionHero}>
         <Stack gap={2}>
-          <Text fz={36} fw={700} lh={1} ff="var(--mantine-font-family-monospace)">
+          <Text
+            data-testid="account-net-position-value"
+            fz={36}
+            fw={700}
+            lh={1}
+            ff="var(--mantine-font-family-monospace)"
+          >
             <CurrencyValue cents={data.total} />
           </Text>
           <Text fz="sm" c="dimmed" ff="var(--mantine-font-family-monospace)">

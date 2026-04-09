@@ -23,8 +23,8 @@ export class RealAuthPage {
   }
 
   async logout(): Promise<void> {
-    await this.page.getByTestId('user-menu-trigger').click();
-    await this.page.getByTestId('user-menu-logout').click();
+    await this.page.getByTestId('user-section').click();
+    await this.page.getByTestId('user-logout-button').click();
   }
 
   async expectOnDashboardOrOnboarding(): Promise<void> {

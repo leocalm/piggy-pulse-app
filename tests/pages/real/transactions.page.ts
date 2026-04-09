@@ -24,17 +24,23 @@ export class RealTransactionsPage {
     isTransfer?: boolean;
     toAccount?: string;
   }): Promise<void> {
-    await this.page.getByTestId('transactions-add-button').click();
+    // Ensure the drawer is closed before opening (may be left open from a previous call)
+    const amountInput = this.page.getByTestId('transaction-amount-input');
+    if (await amountInput.isVisible({ timeout: 500 }).catch(() => false)) {
+      await this.page.keyboard.press('Escape');
+      await expect(amountInput)
+        .not.toBeVisible({ timeout: 3000 })
+        .catch(() => {});
+    }
 
-    // Wait for drawer content to appear
-    await expect(this.page.getByTestId('transaction-amount-input')).toBeVisible();
+    await this.page.getByTestId('transactions-add-button').click();
+    await expect(amountInput).toBeVisible();
 
     if (opts.isTransfer) {
       await this.page.getByRole('switch').click();
     }
 
     // NumberInput: clear and type to ensure React state updates
-    const amountInput = this.page.getByTestId('transaction-amount-input');
     await amountInput.click();
     await amountInput.fill('');
     await amountInput.pressSequentially(opts.amount);
@@ -60,12 +66,13 @@ export class RealTransactionsPage {
 
     await this.page.getByTestId('transaction-form-submit').click();
 
-    // Wait briefly for the API call to complete, then close the drawer
-    // (the form stays open for consecutive entries after successful creation)
-    await this.page.waitForTimeout(1000);
+    // Wait for the API call to complete (button stops loading)
+    await expect(this.page.getByTestId('transaction-form-submit')).toBeEnabled({ timeout: 10000 });
+    await this.page.waitForTimeout(500);
 
-    // Close drawer via the X button or Escape
+    // Close drawer (stays open for consecutive entries)
     await this.page.keyboard.press('Escape');
+    await this.page.waitForTimeout(300);
   }
 
   async filterByType(type: 'all' | 'incoming' | 'outgoing' | 'transfer'): Promise<void> {

@@ -6,33 +6,39 @@ export class RealOnboardingPage {
   async skipToEnd(): Promise<void> {
     await expect(this.page).toHaveURL(/\/onboarding/);
 
-    // Keep clicking Next/Skip until we reach the dashboard or the final step
-    const maxSteps = 10;
-    for (let i = 0; i < maxSteps; i++) {
-      const skipButton = this.page.getByTestId('onboarding-skip');
-      const nextButton = this.page.getByTestId('onboarding-next');
-      const goToDashboard = this.page.getByTestId('onboarding-go-to-dashboard');
+    // Dismiss cookie banner if it's blocking
+    await this.page
+      .getByRole('region', { name: 'Cookie consent' })
+      .getByRole('button', { name: 'Accept' })
+      .click({ timeout: 3000 })
+      .catch(() => {});
+    await this.page.waitForTimeout(300);
 
-      if (await goToDashboard.isVisible({ timeout: 500 }).catch(() => false)) {
-        await goToDashboard.click();
+    // Click through onboarding steps until we reach the dashboard.
+    for (let i = 0; i < 10; i++) {
+      if (!this.page.url().includes('/onboarding')) {
         break;
       }
 
-      if (await skipButton.isVisible({ timeout: 500 }).catch(() => false)) {
-        await skipButton.click();
-        continue;
+      // Currency step: select Euro if the currency list is visible
+      const euroOption = this.page.getByText('Euro', { exact: true });
+      if (await euroOption.isVisible({ timeout: 500 }).catch(() => false)) {
+        await euroOption.click();
       }
 
-      if (await nextButton.isVisible({ timeout: 500 }).catch(() => false)) {
-        await nextButton.click();
-        continue;
+      // Try each button in priority order
+      for (const testId of ['onboarding-go-to-dashboard', 'onboarding-skip', 'onboarding-next']) {
+        const btn = this.page.getByTestId(testId);
+        if (await btn.isVisible({ timeout: 500 }).catch(() => false)) {
+          await btn.click();
+          break;
+        }
       }
-
-      break;
+      await this.page.waitForTimeout(500);
     }
   }
 
   async expectOnDashboard(): Promise<void> {
-    await expect(this.page).toHaveURL(/\/dashboard/);
+    await expect(this.page).toHaveURL(/\/dashboard/, { timeout: 15000 });
   }
 }
