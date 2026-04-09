@@ -1,6 +1,12 @@
 # Docker Compose for E2E real-mode tests (API + DB only).
 # Frontend is served by Playwright's webServer (Vite dev server).
-# Usage: docker compose -f docker-compose.api.yml up -d --wait
+#
+# Usage:
+#   docker-compose -f docker-compose.api.yml up -d --wait
+#
+# The backend uses the published GHCR image by default.
+# To build from a local checkout instead, set PIGGY_PULSE_API_IMAGE:
+#   PIGGY_PULSE_API_IMAGE=piggy-pulse-api-local docker-compose -f docker-compose.api.yml up -d --build
 
 services:
   db-e2e:
@@ -20,9 +26,7 @@ services:
       - e2e-network
 
   backend-e2e:
-    build:
-      context: ../piggy-pulse-api
-      dockerfile: ../piggy-pulse-app/Dockerfile.backend
+    image: ${PIGGY_PULSE_API_IMAGE:-ghcr.io/leocalm/piggy-pulse-api:latest}
     depends_on:
       db-e2e:
         condition: service_healthy
