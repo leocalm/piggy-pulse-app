@@ -35,17 +35,17 @@ export default defineConfig({
     {
       name: 'desktop-chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: /tests\/e2e\/mobile\//,
+      testIgnore: [/tests\/e2e\/mobile\//, /tests\/e2e\/real\//],
     },
     {
       name: 'desktop-firefox',
       use: { ...devices['Desktop Firefox'] },
-      testIgnore: /tests\/e2e\/mobile\//,
+      testIgnore: [/tests\/e2e\/mobile\//, /tests\/e2e\/real\//],
     },
     {
       name: 'desktop-webkit',
       use: { ...devices['Desktop Safari'] },
-      testIgnore: /tests\/e2e\/mobile\//,
+      testIgnore: [/tests\/e2e\/mobile\//, /tests\/e2e\/real\//],
     },
     {
       name: 'mobile-chromium',
@@ -64,6 +64,25 @@ export default defineConfig({
         /screenshots\.spec\.ts/,
         /screenshots-features\.spec\.ts/,
       ],
+    },
+    {
+      name: 'real-desktop',
+      // Real-mode tests must run with --workers=1 (set in e2e:real script)
+      // to avoid API rate limiting from parallel user registrations
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: /tests\/e2e\/real\/.*\.spec\.ts/,
+      fullyParallel: false,
+    },
+    {
+      name: 'real-mobile',
+      // Real-mode tests must run with --workers=1 (set in e2e:real script)
+      // to avoid API rate limiting from parallel user registrations
+      use: { ...devices['Pixel 7'] },
+      testMatch: /tests\/e2e\/real\/.*\.spec\.ts/,
+      testIgnore: /tests\/e2e\/real\/journey\//,
+      timeout: 90_000,
+      fullyParallel: false,
+      dependencies: ['real-desktop'],
     },
   ],
 });
