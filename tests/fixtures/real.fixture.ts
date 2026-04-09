@@ -16,20 +16,35 @@ export const test = base.extend<RealFixtures>({
   realUser: async ({ request }, use, testInfo) => {
     const credentials = createTestUserCredentials(testInfo.title);
 
-    const response = await request.post(`${e2eEnv.apiUrl}/v2/auth/register`, {
-      data: {
-        name: credentials.name,
-        email: credentials.email,
-        password: credentials.password,
-      },
-    });
+    // Retry registration in case of rate limiting from parallel tests
+    let lastError = '';
+    for (let attempt = 0; attempt < 3; attempt++) {
+      if (attempt > 0) {
+        await new Promise((r) => setTimeout(r, 2000 * attempt));
+      }
 
-    if (!response.ok()) {
-      const body = await response.text();
-      throw new Error(`Failed to register real user: ${response.status()} ${body}`);
+      const response = await request.post(`${e2eEnv.apiUrl}/v2/auth/register`, {
+        data: {
+          name: credentials.name,
+          email: credentials.email,
+          password: credentials.password,
+        },
+      });
+
+      if (response.ok()) {
+        await use(credentials);
+        return;
+      }
+
+      lastError = `${response.status()} ${await response.text()}`;
+      if (response.status() === 409) {
+        // Already registered (duplicate) — that's fine, use the credentials
+        await use(credentials);
+        return;
+      }
     }
 
-    await use(credentials);
+    throw new Error(`Failed to register real user after 3 attempts: ${lastError}`);
   },
 
   loggedInPage: async ({ page, realUser }, use) => {
