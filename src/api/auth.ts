@@ -98,10 +98,23 @@ export async function login(credentials: LoginRequest): Promise<void> {
  */
 export async function fetchCurrentUser(): Promise<User> {
   const response = await apiGet<User | { user: User }>('/api/auth/me');
-  if (response && typeof response === 'object' && 'user' in response) {
-    return response.user;
+  const user =
+    response && typeof response === 'object' && 'user' in response
+      ? response.user
+      : (response as User);
+
+  // v2 /auth/me doesn't include onboardingStatus — fetch it separately
+  if (!user.onboardingStatus) {
+    try {
+      const status = await apiGet<{ status: string }>('/api/onboarding/status');
+      user.onboardingStatus = status.status;
+    } catch {
+      // Default to completed to avoid redirect loops
+      user.onboardingStatus = 'completed';
+    }
   }
-  return response as User;
+
+  return user;
 }
 
 /**
