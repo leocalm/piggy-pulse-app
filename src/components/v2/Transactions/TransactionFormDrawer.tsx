@@ -83,14 +83,14 @@ export function TransactionFormDrawer({
 
     try {
       if (isTransfer) {
-        if (!toAccountId) {
+        if (!toAccountId || !transferCategoryId) {
           return;
         }
         const body: components['schemas']['CreateTransactionRequest'] = {
           description: description.trim(),
           amount: cents,
           date,
-          categoryId: (transferCategoryId ?? categoryId) as string,
+          categoryId: transferCategoryId,
           fromAccountId,
           toAccountId,
           // API requires PascalCase despite OpenAPI spec declaring lowercase

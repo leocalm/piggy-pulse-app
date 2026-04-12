@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
-import { apiClient } from '@/api/v2client';
+import { apiClient, v2BaseUrl } from '@/api/v2client';
 import { v2QueryKeys } from './queryKeys';
 
 export function useProfile() {
@@ -135,7 +135,7 @@ export function useDeleteUserAccount() {
 }
 
 // Exports — bypass apiClient since responses are CSV/JSON files, not JSON API responses
-const exportBaseUrl = import.meta.env.DEV ? '/api/v2' : 'https://api.piggy-pulse.com/v2';
+const exportBaseUrl = v2BaseUrl;
 
 async function downloadExport(path: string, filename: string): Promise<void> {
   const response = await fetch(`${exportBaseUrl}${path}`, { credentials: 'include' });

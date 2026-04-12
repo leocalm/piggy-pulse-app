@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components, operations } from '@/api/v2';
-import { apiClient } from '@/api/v2client';
+import { apiClient, v2BaseUrl } from '@/api/v2client';
 import { v2QueryKeys } from './queryKeys';
 
 type TransactionListParams = operations['listTransactions']['parameters']['query'];
@@ -16,7 +16,7 @@ export function useHasAnyTransactions() {
   return useQuery({
     queryKey: [...v2QueryKeys.transactions.all(), 'has-any'],
     queryFn: async () => {
-      const baseUrl = import.meta.env.DEV ? '/api/v2' : 'https://api.piggy-pulse.com/v2';
+      const baseUrl = v2BaseUrl;
       const response = await fetch(`${baseUrl}/transactions/has-any`, {
         credentials: 'include',
       });

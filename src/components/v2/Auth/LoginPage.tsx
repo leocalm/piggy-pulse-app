@@ -37,7 +37,7 @@ export function V2LoginPage() {
         }
       };
     }
-  }, [rateLimitSeconds > 0]);
+  }, [rateLimitSeconds]);
 
   const isSessionExpired = location.state?.sessionExpired === true;
 
@@ -85,7 +85,7 @@ export function V2LoginPage() {
     try {
       // Omit credentials to avoid hitting the authenticated setup-verify
       // route (rank 1). The login 2FA verify is unauthenticated (rank 2).
-      const baseUrl = import.meta.env.DEV ? '/api/v2' : 'https://api.piggy-pulse.com/v2';
+      const { v2BaseUrl: baseUrl } = await import('@/api/v2client');
       const response = await fetch(`${baseUrl}/auth/2fa/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
