@@ -42,7 +42,7 @@ function normalizeBasePath(basePath: string): string {
 }
 
 // Allow configuration via env: VITE_API_BASE_PATH (full path) or VITE_API_VERSION (e.g. "v1" or "1").
-function resolveApiBasePath(): string {
+export function resolveApiBasePath(): string {
   const env = import.meta.env;
   const rawVersion = env?.VITE_API_VERSION;
   const version = typeof rawVersion === 'string' ? rawVersion.trim() : undefined;

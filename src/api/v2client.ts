@@ -1,7 +1,8 @@
 import createClient from 'openapi-fetch';
+import { resolveApiBasePath } from './client';
 import type { paths } from './v2';
 
-export const v2BaseUrl = import.meta.env.DEV ? '/api/v2' : 'https://api.piggy-pulse.com/v2';
+export const v2BaseUrl = import.meta.env.DEV ? '/v2' : resolveApiBasePath();
 
 export const apiClient = createClient<paths>({
   baseUrl: v2BaseUrl,
