@@ -9,9 +9,9 @@ type CurrentPeriod = components['schemas']['CurrentPeriod'];
 type CurrentPeriodHistoryPoint = components['schemas']['CurrentPeriodHistoryPoint'];
 
 const PERIOD_ID = 'mock-period-1';
-const CP_ENDPOINT = '*/api/v2/dashboard/current-period*';
-const CP_HISTORY_ENDPOINT = '*/api/v2/dashboard/current-period-history*';
-const PERIODS_ENDPOINT = '*/api/v2/periods*';
+const CP_ENDPOINT = '*/v2/dashboard/current-period*';
+const CP_HISTORY_ENDPOINT = '*/v2/dashboard/current-period-history*';
+const PERIODS_ENDPOINT = '*/v2/periods*';
 
 const mockPeriod = {
   data: [

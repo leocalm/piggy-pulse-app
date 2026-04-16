@@ -6,9 +6,9 @@ import { AccountCard } from './AccountCard';
 
 const ACCOUNT_ID = 'mock-account-1';
 const PERIOD_ID = 'mock-period-1';
-const DETAILS_EP = '*/api/v2/accounts/*/details*';
-const HISTORY_EP = '*/api/v2/accounts/*/balance-history*';
-const ACCOUNTS_EP = '*/api/v2/accounts*';
+const DETAILS_EP = '*/v2/accounts/*/details*';
+const HISTORY_EP = '*/v2/accounts/*/balance-history*';
+const ACCOUNTS_EP = '*/v2/accounts*';
 
 const baseAccount = {
   id: ACCOUNT_ID,

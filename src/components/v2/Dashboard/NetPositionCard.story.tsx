@@ -9,8 +9,8 @@ type NetPosition = components['schemas']['NetPosition'];
 type AccountSummaryResponse = components['schemas']['AccountSummaryResponse'];
 
 const PERIOD_ID = 'mock-period-1';
-const ENDPOINT = '*/api/v2/dashboard/net-position*';
-const ACCOUNTS_ENDPOINT = '*/api/v2/accounts/summary*';
+const ENDPOINT = '*/v2/dashboard/net-position*';
+const ACCOUNTS_ENDPOINT = '*/v2/accounts/summary*';
 
 const mockPositive: NetPosition = {
   total: 1284000,
@@ -99,7 +99,7 @@ const mockAccounts: AccountSummaryResponse[] = [
   },
 ];
 
-const HISTORY_ENDPOINT = '*/api/v2/dashboard/net-position-history*';
+const HISTORY_ENDPOINT = '*/v2/dashboard/net-position-history*';
 
 const mockHistory = [
   {
