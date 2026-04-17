@@ -6,6 +6,7 @@
   "scripts": {
     "api:generate": "openapi-typescript ./openapi.yaml -o src/api/v2.d.ts",
     "dev": "vite",
+    "dev:https": "VITE_DEV_HTTPS=1 vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
@@ -80,6 +81,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.1",
     "@types/react-is": "^19",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/browser": "^4.1.4",
     "@vitest/browser-playwright": "^4.1.2",
