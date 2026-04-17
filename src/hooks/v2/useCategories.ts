@@ -1,7 +1,10 @@
+import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
+import { buildCategoryDetail, buildCategoryOverview } from './categoriesAdapter';
 import { v2QueryKeys } from './queryKeys';
+import { useEncryptedStore } from './useEncryptedStore';
 
 export function useCategories(params: { cursor?: string; limit?: number } = {}) {
   return useQuery({
@@ -19,19 +22,22 @@ export function useCategories(params: { cursor?: string; limit?: number } = {}) 
 }
 
 export function useCategoriesOverview(periodId: string | null) {
-  return useQuery({
-    queryKey: v2QueryKeys.categories.overview(periodId ?? ''),
-    queryFn: async () => {
-      const { data, error } = await apiClient.GET('/categories/overview', {
-        params: { query: { periodId: periodId! } },
-      });
-      if (error) {
-        throw error;
-      }
-      return data;
-    },
-    enabled: !!periodId,
-  });
+  // Retired in Phase 2c — compose locally from the decrypted store.
+  const store = useEncryptedStore(periodId);
+  const data = useMemo(() => {
+    if (!store.data) {
+      return undefined;
+    }
+    return buildCategoryOverview(store.data);
+  }, [store.data]);
+
+  return {
+    data,
+    isLoading: store.isLoading,
+    isError: store.isError,
+    error: store.error,
+    refetch: store.refetch,
+  };
 }
 
 export function useCategoriesOptions() {
@@ -61,6 +67,7 @@ export function useCreateCategory() {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
+      queryClient.invalidateQueries({ queryKey: ['encryptedStore'] });
     },
   });
 }
@@ -88,6 +95,7 @@ export function useUpdateCategory() {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.categoryTargets.all() });
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.dashboard.all() });
+      queryClient.invalidateQueries({ queryKey: ['encryptedStore'] });
     },
   });
 }
@@ -105,24 +113,29 @@ export function useDeleteCategory() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
+      queryClient.invalidateQueries({ queryKey: ['encryptedStore'] });
     },
   });
 }
 
 export function useCategoryDetail(id: string, periodId: string) {
-  return useQuery({
-    queryKey: v2QueryKeys.categories.detail(id, periodId),
-    queryFn: async () => {
-      const { data, error } = await apiClient.GET('/categories/{id}/detail', {
-        params: { path: { id }, query: { periodId } },
-      });
-      if (error) {
-        throw error;
-      }
-      return data;
-    },
-    enabled: Boolean(id) && Boolean(periodId),
-  });
+  // Retired in Phase 2c — compose the rich detail locally. Cross-period
+  // trend is a future enhancement (requires fetching prior periods).
+  const store = useEncryptedStore(periodId);
+  const data = useMemo(() => {
+    if (!store.data) {
+      return undefined;
+    }
+    return buildCategoryDetail(id, store.data);
+  }, [id, store.data]);
+
+  return {
+    data,
+    isLoading: store.isLoading,
+    isError: store.isError,
+    error: store.error,
+    refetch: store.refetch,
+  };
 }
 
 export function useArchiveCategory() {
@@ -138,6 +151,7 @@ export function useArchiveCategory() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
+      queryClient.invalidateQueries({ queryKey: ['encryptedStore'] });
     },
   });
 }
@@ -155,6 +169,7 @@ export function useUnarchiveCategory() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: v2QueryKeys.categories.all() });
+      queryClient.invalidateQueries({ queryKey: ['encryptedStore'] });
     },
   });
 }
