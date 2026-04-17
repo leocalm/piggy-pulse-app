@@ -78,35 +78,41 @@ export function monthlyBillingAmount(sub: DecryptedSubscription): number {
   }
 }
 
+// Fetch every entity the app needs. Transactions are scoped to the supplied
+// period; all other lists are period-agnostic so we can serve period-less
+// consumers (e.g. the subscription drawer) without requiring a selection.
 export function useEncryptedStore(periodId: string | null) {
   return useQuery<DecryptedStore>({
     queryKey: ['encryptedStore', periodId],
-    enabled: hasDek() && !!periodId,
+    enabled: hasDek(),
     queryFn: async () => {
-      if (!periodId) {
-        throw new Error('useEncryptedStore requires a periodId');
-      }
-      const [accountsRes, categoriesRes, vendorsRes, subscriptionsRes, targetsRes, txRes] =
-        await Promise.all([
-          apiClient.GET('/accounts', { params: { query: {} } }),
-          apiClient.GET('/categories', { params: { query: {} } }),
-          apiClient.GET('/vendors', { params: { query: {} } }),
-          apiClient.GET('/subscriptions', { params: { query: {} } }),
-          apiClient.GET('/targets', { params: { query: { periodId } } }),
-          apiClient.GET('/transactions', { params: { query: { periodId } } }),
-        ]);
+      const coreRequests = [
+        apiClient.GET('/accounts', { params: { query: {} } }),
+        apiClient.GET('/categories', { params: { query: {} } }),
+        apiClient.GET('/vendors', { params: { query: {} } }),
+        apiClient.GET('/subscriptions', { params: { query: {} } }),
+        // The openapi types still model /targets as requiring periodId, but
+        // the encrypted server ignores it and returns every target. Send a
+        // dummy value so the typed client is happy.
+        apiClient.GET('/targets', {
+          params: { query: { periodId: periodId ?? '00000000-0000-0000-0000-000000000000' } },
+        }),
+      ] as const;
 
-      for (const res of [
-        accountsRes,
-        categoriesRes,
-        vendorsRes,
-        subscriptionsRes,
-        targetsRes,
-        txRes,
-      ]) {
+      const [accountsRes, categoriesRes, vendorsRes, subscriptionsRes, targetsRes] =
+        await Promise.all(coreRequests);
+
+      const txRes = periodId
+        ? await apiClient.GET('/transactions', { params: { query: { periodId } } })
+        : null;
+
+      for (const res of [accountsRes, categoriesRes, vendorsRes, subscriptionsRes, targetsRes]) {
         if (res.error) {
           throw res.error;
         }
+      }
+      if (txRes?.error) {
+        throw txRes.error;
       }
 
       const accountsRaw =
@@ -116,7 +122,7 @@ export function useEncryptedStore(periodId: string | null) {
       const vendorsRaw = (vendorsRes.data as unknown as RawPaginated<EncryptedVendor>)?.data ?? [];
       const subscriptionsRaw = (subscriptionsRes.data as unknown as EncryptedSubscription[]) ?? [];
       const targetsRaw = (targetsRes.data as unknown as EncryptedTarget[]) ?? [];
-      const transactionsRaw = (txRes.data as unknown as EncryptedTransaction[]) ?? [];
+      const transactionsRaw = (txRes?.data as unknown as EncryptedTransaction[] | undefined) ?? [];
 
       const [accounts, categories, vendors, subscriptions, targets, transactions] =
         await Promise.all([
