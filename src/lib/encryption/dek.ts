@@ -1,4 +1,4 @@
-import { aesGcmDecryptEnvelope, aesGcmEncryptEnvelope } from './aesGcm';
+import { aesGcmDecryptRaw, aesGcmEncryptRaw } from './aesGcm';
 import { DEFAULT_ARGON2_PARAMS, deriveKEK, type DekWrapParams } from './argon2';
 import {
   base64Decode,
@@ -14,6 +14,13 @@ export interface WrappedDekMaterial {
   params: DekWrapParams;
 }
 
+// The wrapped-DEK blob is NOT stored in the standard envelope layout. iOS
+// (and therefore the on-the-wire contract) stores the AES-GCM nonce
+// separately inside `dek_wrap_params.wrapNonce`, and the `wrapped_dek`
+// bytes contain only `ciphertext ‖ 16-byte GCM tag` (48 bytes for a
+// 32-byte DEK). Keep the raw AES-GCM helpers here so both platforms can
+// interop.
+
 // Generates a fresh DEK and wraps it with a KEK derived from the user's
 // password. Returns the 32-byte DEK (to be cached + sent to /auth/unlock) and
 // the wrapped blob + params the server needs to persist.
@@ -25,17 +32,17 @@ export async function createWrappedDek(password: string): Promise<{
   const salt = randomBytes(WRAP_SALT_LEN);
   const wrapNonce = randomBytes(NONCE_LEN);
   const kek = await deriveKEK(password, salt);
-  const envelope = await aesGcmEncryptEnvelope(kek, dek, wrapNonce);
+  const body = await aesGcmEncryptRaw(kek, wrapNonce, dek);
   return {
     dek,
     wrapped: {
-      wrappedDekBase64: base64Encode(envelope),
+      wrappedDekBase64: base64Encode(body),
       params: {
         salt: base64Encode(salt),
         m: DEFAULT_ARGON2_PARAMS.memoryCostKiB,
         t: DEFAULT_ARGON2_PARAMS.timeCost,
         p: DEFAULT_ARGON2_PARAMS.parallelism,
-        wrap_nonce: base64Encode(wrapNonce),
+        wrapNonce: base64Encode(wrapNonce),
       },
     },
   };
@@ -49,9 +56,10 @@ export async function unwrapDek(
   params: DekWrapParams
 ): Promise<Uint8Array> {
   const salt = base64Decode(params.salt);
+  const wrapNonce = base64Decode(params.wrapNonce);
   const kek = await deriveKEK(password, salt, { m: params.m, t: params.t, p: params.p });
-  const envelope = base64Decode(wrappedDekBase64);
-  const dek = await aesGcmDecryptEnvelope(kek, envelope);
+  const body = base64Decode(wrappedDekBase64);
+  const dek = await aesGcmDecryptRaw(kek, wrapNonce, body);
   if (dek.length !== DEK_LEN) {
     throw new Error(`unwrapped DEK has wrong length: ${dek.length}`);
   }
@@ -66,15 +74,15 @@ export async function rewrapDek(password: string, dek: Uint8Array): Promise<Wrap
   const salt = randomBytes(WRAP_SALT_LEN);
   const wrapNonce = randomBytes(NONCE_LEN);
   const kek = await deriveKEK(password, salt);
-  const envelope = await aesGcmEncryptEnvelope(kek, dek, wrapNonce);
+  const body = await aesGcmEncryptRaw(kek, wrapNonce, dek);
   return {
-    wrappedDekBase64: base64Encode(envelope),
+    wrappedDekBase64: base64Encode(body),
     params: {
       salt: base64Encode(salt),
       m: DEFAULT_ARGON2_PARAMS.memoryCostKiB,
       t: DEFAULT_ARGON2_PARAMS.timeCost,
       p: DEFAULT_ARGON2_PARAMS.parallelism,
-      wrap_nonce: base64Encode(wrapNonce),
+      wrapNonce: base64Encode(wrapNonce),
     },
   };
 }
