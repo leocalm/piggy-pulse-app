@@ -1,6 +1,9 @@
+import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/v2client';
+import { buildNetPosition } from './accountsAdapter';
 import { v2QueryKeys } from './queryKeys';
+import { useEncryptedStore } from './useEncryptedStore';
 
 export function useDashboardCurrentPeriod(periodId: string) {
   return useQuery({
@@ -19,19 +22,23 @@ export function useDashboardCurrentPeriod(periodId: string) {
 }
 
 export function useDashboardNetPosition(periodId: string) {
-  return useQuery({
-    queryKey: v2QueryKeys.dashboard.netPosition(periodId),
-    queryFn: async () => {
-      const { data, error } = await apiClient.GET('/dashboard/net-position', {
-        params: { query: { periodId } },
-      });
-      if (error) {
-        throw error;
-      }
-      return data;
-    },
-    enabled: !!periodId,
-  });
+  // The `/dashboard/net-position` endpoint was retired in Phase 2c. The
+  // equivalent figures are derived locally from the decrypted store.
+  const store = useEncryptedStore(periodId);
+  const data = useMemo(() => {
+    if (!store.data) {
+      return undefined;
+    }
+    return buildNetPosition(store.data);
+  }, [store.data]);
+
+  return {
+    data,
+    isLoading: store.isLoading,
+    isError: store.isError,
+    error: store.error,
+    refetch: store.refetch,
+  };
 }
 
 export function useDashboardNetPositionHistory(periodId: string) {
