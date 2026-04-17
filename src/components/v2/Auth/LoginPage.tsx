@@ -68,11 +68,12 @@ export function V2LoginPage() {
         await unlockWithPassword(password);
       } catch (unlockError) {
         console.error('Failed to unlock encryption after login', unlockError);
+        const detail = (unlockError as Error)?.message ?? String(unlockError);
         setLoginError(
           t(
             'auth.unlock.errorOnLogin',
-            "Signed in, but we couldn't decrypt your data. Please try again."
-          )
+            "Signed in, but we couldn't decrypt your data: {{detail}}"
+          ).replace('{{detail}}', detail)
         );
         return;
       }
