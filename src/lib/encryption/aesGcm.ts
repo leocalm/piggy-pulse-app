@@ -49,3 +49,47 @@ export async function aesGcmDecryptEnvelope(
   );
   return new Uint8Array(pt);
 }
+
+// Low-level AES-GCM encrypt for callers that carry the nonce in a separate
+// field (e.g. the wrapped-DEK blob, where the nonce lives in `dek_wrap_params`
+// rather than being prepended to the ciphertext).
+export async function aesGcmEncryptRaw(
+  keyBytes: Uint8Array,
+  nonce: Uint8Array,
+  plaintext: Uint8Array
+): Promise<Uint8Array> {
+  if (nonce.length !== NONCE_LEN) {
+    throw new Error(`AES-GCM nonce must be ${NONCE_LEN} bytes, got ${nonce.length}`);
+  }
+  const key = await importAesKey(keyBytes);
+  const ct = new Uint8Array(
+    await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv: nonce as BufferSource, tagLength: TAG_LEN * 8 },
+      key,
+      plaintext as BufferSource
+    )
+  );
+  return ct;
+}
+
+// Inverse of `aesGcmEncryptRaw`: nonce and ciphertext (with tag appended) are
+// supplied separately.
+export async function aesGcmDecryptRaw(
+  keyBytes: Uint8Array,
+  nonce: Uint8Array,
+  ciphertextAndTag: Uint8Array
+): Promise<Uint8Array> {
+  if (nonce.length !== NONCE_LEN) {
+    throw new Error(`AES-GCM nonce must be ${NONCE_LEN} bytes, got ${nonce.length}`);
+  }
+  if (ciphertextAndTag.length < TAG_LEN) {
+    throw new Error(`AES-GCM body too short (${ciphertextAndTag.length} bytes)`);
+  }
+  const key = await importAesKey(keyBytes);
+  const pt = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: nonce as BufferSource, tagLength: TAG_LEN * 8 },
+    key,
+    ciphertextAndTag as BufferSource
+  );
+  return new Uint8Array(pt);
+}
