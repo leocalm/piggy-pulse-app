@@ -11,7 +11,8 @@ export type LegacyTransaction = components['schemas']['TransactionResponse'];
 export type LegacyTransactionListResponse = components['schemas']['TransactionListResponse'];
 
 export interface TransactionListFilters {
-  direction?: 'incoming' | 'outgoing' | 'transfer';
+  // Matches the legacy openapi `Direction` parameter: the category's type.
+  direction?: 'income' | 'expense' | 'transfer';
   accountId?: string;
   categoryId?: string;
   vendorId?: string;
@@ -80,16 +81,8 @@ function enrichTransaction(
 // vendorId / fromDate / toDate / search on the encrypted endpoint, so apply
 // them client-side after decryption.
 function matchesFilters(tx: LegacyTransaction, filters: TransactionListFilters): boolean {
-  if (filters.direction) {
-    if (filters.direction === 'incoming' && tx.category.type !== 'income') {
-      return false;
-    }
-    if (filters.direction === 'outgoing' && tx.category.type !== 'expense') {
-      return false;
-    }
-    if (filters.direction === 'transfer' && tx.category.type !== 'transfer') {
-      return false;
-    }
+  if (filters.direction && tx.category.type !== filters.direction) {
+    return false;
   }
   if (filters.accountId) {
     const matches =

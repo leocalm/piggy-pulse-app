@@ -41,16 +41,30 @@ export function useCategoriesOverview(periodId: string | null) {
 }
 
 export function useCategoriesOptions() {
-  return useQuery({
-    queryKey: v2QueryKeys.categories.options(),
-    queryFn: async () => {
-      const { data, error } = await apiClient.GET('/categories/options');
-      if (error) {
-        throw error;
-      }
-      return data;
-    },
-  });
+  // `/categories/options` returns encrypted names/colors/icons. Serve the
+  // decrypted form from the store so selectors render plaintext labels.
+  const store = useEncryptedStore(null);
+  const data = useMemo(() => {
+    if (!store.data) {
+      return undefined;
+    }
+    return store.data.categories
+      .filter((c) => c.status === 'active')
+      .map((c) => ({
+        id: c.id,
+        name: c.name,
+        type: c.type,
+        behavior: c.behavior ?? null,
+        color: c.color ?? '#868E96',
+        icon: c.icon ?? '📂',
+      }));
+  }, [store.data]);
+  return {
+    data,
+    isLoading: store.isLoading,
+    isError: store.isError,
+    refetch: store.refetch,
+  };
 }
 
 export function useCreateCategory() {
