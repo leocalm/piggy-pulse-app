@@ -22,8 +22,12 @@ type VendorListParams = NonNullable<operations['listVendors']['parameters']['que
 // come back plaintext.
 // ─────────────────────────────────────────────────────────────────────
 
-export function useVendors(_params: VendorListParams = {}) {
-  const store = useEncryptedStore(null);
+// `numberOfTransactions` + `totalSpend` in the summary shape need period
+// transactions to be meaningful. Accept an optional `periodId` from the
+// caller so the list page renders real counts; omitting it falls back to
+// empty transaction data and the rows just show 0s.
+export function useVendors(_params: VendorListParams = {}, periodId: string | null = null) {
+  const store = useEncryptedStore(periodId);
   const data = useMemo(() => {
     if (!store.data) {
       return undefined;
@@ -46,8 +50,8 @@ export function useVendors(_params: VendorListParams = {}) {
   };
 }
 
-export function useInfiniteVendors(_pageSize = 50) {
-  const store = useEncryptedStore(null);
+export function useInfiniteVendors(periodId: string | null = null, _pageSize = 50) {
+  const store = useEncryptedStore(periodId);
   const data = useMemo(() => {
     if (!store.data) {
       return undefined;
