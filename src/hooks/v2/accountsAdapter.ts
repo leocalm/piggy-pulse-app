@@ -71,6 +71,105 @@ export function buildAccountSummaries(store: DecryptedStore): LegacyAccountSumma
   return store.accounts.map((a) => buildAccountSummary(a, stats));
 }
 
+// ─────────────────────────────────────────────────────────────────────
+// Account detail — extends AccountSummary with per-account aggregates
+// (inflow/outflow, spentThisCycle for allowance, avgDailyBalance for
+// checking, plus the credit-card + allowance-specific structural fields
+// the dashboard card reads off the account record).
+// ─────────────────────────────────────────────────────────────────────
+
+export interface AccountDetailView extends LegacyAccountSummary {
+  inflow: number;
+  outflow: number;
+  spentThisCycle: number;
+  avgDailyBalance: number;
+  spendLimit: number | null;
+  statementCloseDay: number | null;
+  paymentDueDay: number | null;
+  topUpAmount: number | null;
+  topUpCycle: string | null;
+  topUpDay: number | null;
+}
+
+interface AccountFlow {
+  inflow: number;
+  outflow: number;
+}
+
+function classifyFlows(account: DecryptedAccount, store: DecryptedStore): AccountFlow {
+  const categoriesById = new Map(store.categories.map((c) => [c.id, c]));
+  let inflow = 0;
+  let outflow = 0;
+  for (const tx of store.transactions) {
+    const catType = tx.categoryId ? categoriesById.get(tx.categoryId)?.type : undefined;
+    const amount = Math.abs(tx.amount);
+    if (catType === 'transfer') {
+      if (tx.fromAccountId === account.id) {
+        outflow += amount;
+      }
+      if (tx.toAccountId === account.id) {
+        inflow += amount;
+      }
+    } else if (catType === 'income') {
+      if (tx.fromAccountId === account.id) {
+        inflow += amount;
+      }
+    } else if (catType === 'expense') {
+      if (tx.fromAccountId === account.id) {
+        outflow += amount;
+      }
+    }
+  }
+  return { inflow, outflow };
+}
+
+// Average daily balance across the period: reconstruct the day-by-day
+// running balance from the balance history (same series the sparkline
+// renders), then average the point values. Falls back to the current
+// balance if the account has no transactions this period.
+function averageDailyBalance(accountId: string, store: DecryptedStore): number {
+  const account = store.accounts.find((a) => a.id === accountId);
+  if (!account) {
+    return 0;
+  }
+  const history = buildBalanceHistory(accountId, store);
+  if (history.length === 0) {
+    return account.currentBalance;
+  }
+  const sum = history.reduce((acc, p) => acc + p.balance, 0);
+  return Math.round(sum / history.length);
+}
+
+export function buildAccountDetail(
+  accountId: string,
+  store: DecryptedStore
+): AccountDetailView | null {
+  const account = store.accounts.find((a) => a.id === accountId);
+  if (!account) {
+    return null;
+  }
+  const stats = aggregateTransactions(store.transactions);
+  const summary = buildAccountSummary(account, stats);
+  const { inflow, outflow } = classifyFlows(account, store);
+  const spentThisCycle = account.accountType === 'allowance' ? outflow : 0;
+  const avgDailyBalance =
+    account.accountType === 'checking' ? averageDailyBalance(accountId, store) : 0;
+
+  return {
+    ...summary,
+    inflow,
+    outflow,
+    spentThisCycle,
+    avgDailyBalance,
+    spendLimit: account.spendLimit ?? null,
+    statementCloseDay: account.statementCloseDay ?? null,
+    paymentDueDay: account.paymentDueDay ?? null,
+    topUpAmount: account.topUpAmount ?? null,
+    topUpCycle: account.topUpCycle ?? null,
+    topUpDay: account.topUpDay ?? null,
+  };
+}
+
 // Net-position aggregate used by the accounts header card + dashboard.
 export interface NetPositionView {
   total: number;
