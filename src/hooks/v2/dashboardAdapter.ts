@@ -42,19 +42,31 @@ export function buildCurrentPeriod(
   store: DecryptedStore,
   period: PeriodResponse | null | undefined
 ): LegacyCurrentPeriod {
-  const categories = buildCategorySummaries(store);
+  // `spent` uses the raw iOS rule: sum of transactions that count as
+  // budget expense (allowance rule applied). Going through the category
+  // summaries would miss transfer-to-allowance amounts, which are
+  // indexed under the transfer-type category and get filtered out there.
+  const categoriesById = new Map(store.categories.map((c) => [c.id, c]));
+  const accountsById = new Map(store.accounts.map((a) => [a.id, a]));
   let spent = 0;
+  for (const tx of store.transactions) {
+    if (countsAsBudgetExpense(tx, categoriesById, accountsById)) {
+      spent += Math.abs(tx.amount);
+    }
+  }
+
+  // Target = sum of budgeted amounts (manual targets + subscription-auto
+  // budgets) for active expense categories. Income target = same for
+  // income categories.
+  const categories = buildCategorySummaries(store);
   let target = 0;
   let incomeTarget = 0;
   for (const cat of categories) {
     if (cat.status !== 'active') {
       continue;
     }
-    if (cat.type === 'expense') {
-      spent += cat.actual;
-      if (cat.budgeted != null) {
-        target += cat.budgeted;
-      }
+    if (cat.type === 'expense' && cat.budgeted != null) {
+      target += cat.budgeted;
     } else if (cat.type === 'income' && cat.budgeted != null) {
       incomeTarget += cat.budgeted;
     }
