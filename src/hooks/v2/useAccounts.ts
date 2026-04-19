@@ -2,11 +2,7 @@ import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { components } from '@/api/v2';
 import { apiClient } from '@/api/v2client';
-import {
-  buildAccountSummaries,
-  buildBalanceHistory,
-  type LegacyAccountSummary,
-} from './accountsAdapter';
+import { buildAccountDetail, buildAccountSummaries, buildBalanceHistory } from './accountsAdapter';
 import { v2QueryKeys } from './queryKeys';
 import { useEncryptedStore } from './useEncryptedStore';
 
@@ -117,16 +113,11 @@ export function useAccount(id: string) {
 
 export function useAccountDetails(id: string, periodId: string) {
   const store = useEncryptedStore(periodId);
-  const data = useMemo<LegacyAccountSummary | null>(() => {
+  const data = useMemo(() => {
     if (!store.data) {
       return null;
     }
-    const account = store.data.accounts.find((a) => a.id === id);
-    if (!account) {
-      return null;
-    }
-    const [summary] = buildAccountSummaries({ ...store.data, accounts: [account] });
-    return summary ?? null;
+    return buildAccountDetail(id, store.data);
   }, [id, store.data]);
 
   return {
