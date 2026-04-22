@@ -166,7 +166,8 @@ export interface DecryptedTransaction {
 // ─────────────────────────────────────────────────────────────────────
 
 function logDecryptFailure(entity: string, id: string, reason: unknown): void {
-  console.error(`[encryption] skipping ${entity} ${id}: failed to decrypt`, reason);
+  // Safe logging: pass variables as separate arguments to avoid format string injection
+  console.error('[encryption] skipping', entity, id, ': failed to decrypt', reason);
 }
 
 // Map each entity with a fault-tolerant decoder — a single bad row shouldn't
