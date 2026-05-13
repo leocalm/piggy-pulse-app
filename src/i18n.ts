@@ -1,22 +1,29 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import en from './locales/en.json';
-import pt from './locales/pt.json';
-import v2En from './locales/v2/en.json';
-import v2Pt from './locales/v2/pt.json';
+import { applyDayjsLocale } from '@/lib/locale';
+import en from './locales/v2/en.json';
+import ptPT from './locales/v2/pt-pt.json';
+import pt from './locales/v2/pt.json';
 
 void i18n.use(initReactI18next).init({
   resources: {
-    en: { translation: en, v2: v2En },
-    pt: { translation: pt, v2: v2Pt },
+    en: { v2: en },
+    pt: { v2: pt },
+    'pt-pt': { v2: ptPT },
   },
-  ns: ['translation', 'v2'],
-  defaultNS: 'translation',
+  ns: ['v2'],
+  defaultNS: 'v2',
   lng: 'en',
-  fallbackLng: 'en',
+  fallbackLng: {
+    'pt-pt': ['pt', 'en'],
+    default: ['en'],
+  },
   interpolation: {
     escapeValue: false,
   },
 });
+
+applyDayjsLocale(i18n.language);
+i18n.on('languageChanged', applyDayjsLocale);
 
 export default i18n;

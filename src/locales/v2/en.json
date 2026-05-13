@@ -385,6 +385,9 @@
       "disabledTitle": "2FA Disabled",
       "disabledMessage": "Two-factor authentication has been disabled. You can now sign in with just your password.",
       "goToSignIn": "Go to Sign In"
+    },
+    "session": {
+      "refreshFailed": "Could not restore your session. Please log in again."
     }
   },
   "categories": {
@@ -563,7 +566,9 @@
     "userMenu": "User menu",
     "viewDetails": "View details",
     "noPeriodStateDescription": "Select or create a budget period to view this page. Periods define the time window for your transactions and targets.",
-    "goToPeriods": "Go to Periods"
+    "goToPeriods": "Go to Periods",
+    "close": "Close",
+    "error": "Error"
   },
   "dashboard": {
     "account": {
@@ -650,7 +655,7 @@
       "categoryCount": "{{count}} {{label}}",
       "count_one": "{{count}} category",
       "count_other": "{{count}} categories",
-      "empty": "No fixed categories configured yet. Set a category as \u201cfixed\u201d and assign a budget to track it here.",
+      "empty": "No fixed categories configured yet. Set a category as “fixed” and assign a budget to track it here.",
       "error": "Something went wrong loading your fixed expenses.",
       "ofPaid": "of <currency /> paid",
       "overallAria": "Overall fixed expenses paid: {{pct}}%",
@@ -1737,6 +1742,71 @@
       "addTransaction": {
         "title": "Add your first transaction",
         "description": "Record a transaction to start tracking your spending"
+      }
+    }
+  },
+  "states": {
+    "contract": {
+      "emptyTitle": "No {{items}} yet.",
+      "items": {
+        "data": "items"
+      }
+    },
+    "empty": {
+      "filter": {
+        "removeTag": "Remove {{tag}} filter"
+      },
+      "search": {
+        "noResults": "We couldn't find any results matching"
+      },
+      "tips": {
+        "title": "Quick Tips"
+      }
+    },
+    "locked": {
+      "message": {
+        "periodRequired": "A budget period is required before this content can be shown."
+      },
+      "status": {
+        "notConfigured": "Not configured"
+      }
+    },
+    "error": {
+      "403": {
+        "title": "Access Denied",
+        "message": "You don't have permission to access this resource. If you believe this is a mistake, please contact your administrator."
+      },
+      "404": {
+        "title": "Page Not Found",
+        "message": "The page you're looking for doesn't exist or has been moved. Let's get you back on track."
+      },
+      "500": {
+        "title": "Something Went Wrong",
+        "message": "We're experiencing technical difficulties. Our team has been notified and is working on a fix. Please try again later."
+      },
+      "503": {
+        "title": "Service Unavailable",
+        "message": "The service is temporarily unavailable. Please try again in a few minutes."
+      },
+      "retry": "Retry",
+      "loadFailed": {
+        "message": "We couldn't load your data. This might be a temporary issue with our servers."
+      },
+      "generic": {
+        "title": "Something Went Wrong",
+        "message": "An unexpected error occurred. Please try again."
+      },
+      "details": {
+        "title": "Error Details",
+        "code": "Error Code",
+        "requestId": "Request ID",
+        "timestamp": "Timestamp"
+      },
+      "actions": {
+        "refresh": "Refresh Page",
+        "goHome": "Go to Dashboard",
+        "goBack": "Go Back",
+        "requestAccess": "Request Access"
       }
     }
   }

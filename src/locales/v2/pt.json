@@ -39,7 +39,7 @@
       "transactions": "Transações"
     },
     "empty": {
-      "message": "Adicione a sua primeira conta para começar a acompanhar saldos. Pode adicionar conta corrente, poupança, cartões de crédito, carteiras ou mesadas.",
+      "message": "Adicione sua primeira conta para começar a acompanhar saldos. Você pode adicionar conta corrente, poupança, cartões de crédito, carteiras ou mesadas.",
       "title": "Sem contas ainda"
     },
     "form": {
@@ -82,9 +82,9 @@
       "liquid": "Líquido",
       "protected": "Protegido",
       "title": "Posição Líquida",
-      "loadError": "Algo correu mal ao carregar a posição."
+      "loadError": "Algo deu errado ao carregar a posição."
     },
-    "subtitle": "As suas contas financeiras num relance",
+    "subtitle": "Suas contas financeiras num relance",
     "title": "Contas",
     "toast": {
       "archiveError": "Falha ao arquivar conta",
@@ -128,18 +128,18 @@
     "creditCardDetails": "Detalhes do Cartão de Crédito",
     "creditLimit": "Limite de crédito",
     "currentBalance": "Saldo atual",
-    "emptyDescription": "Adicione a sua primeira conta para começar a acompanhar saldos.",
+    "emptyDescription": "Adicione sua primeira conta para começar a acompanhar saldos.",
     "emptyTitle": "Sem contas ainda",
     "inflows": "Entradas",
-    "loadError": "Algo correu mal ao carregar as suas contas.",
+    "loadError": "Algo deu errado ao carregar suas contas.",
     "nextTopUp": "Próximo carregamento:",
     "nextTopUpLabel": "Próximo carregamento",
-    "noPeriodDescription": "Selecione um período para ver as suas contas.",
+    "noPeriodDescription": "Selecione um período para ver suas contas.",
     "notEnoughData": "Dados insuficientes para mostrar um gráfico.",
     "notFound": "Conta não encontrada.",
     "outflows": "Saídas",
     "paymentDue": "Pagamento até",
-    "saveFailed": "Falha ao guardar conta",
+    "saveFailed": "Falha ao salvar conta",
     "spentThisCycle": "Gasto este ciclo",
     "statementCloses": "Fecho do extrato",
     "topUpAmount": "Valor do carregamento",
@@ -181,68 +181,68 @@
     "more": "Mais",
     "switchToDarkMode": "Mudar para modo escuro",
     "switchToLightMode": "Mudar para modo claro",
-    "userMenu": "Menu do utilizador"
+    "userMenu": "Menu do usuário"
   },
   "auth": {
-    "defaultTagline": "O seu pulso financeiro — calmo, claro e inteiramente seu.",
+    "defaultTagline": "Seu pulso financeiro — calmo, claro e inteiramente seu.",
     "forgotPassword": {
       "backToSignIn": "Voltar ao Início de Sessão",
       "didNotReceive": "Não recebeu? Verifique o spam ou",
       "email": "Email",
       "emailLabel": "Email",
       "emailPlaceholder": "voce@exemplo.com",
-      "hasPassword": "Lembra-se da palavra-passe?",
-      "rememberPassword": "Lembra-se da palavra-passe?",
+      "hasPassword": "Lembra-se da senha?",
+      "rememberPassword": "Lembra-se da senha?",
       "resendLink": "reenviar o link",
       "sent": {
         "backToSignIn": "Voltar ao Início de Sessão",
         "didntReceive": "Não recebeu? Verifique o spam ou",
-        "instruction": "Clique no link no email para repor a sua palavra-passe.",
+        "instruction": "Clique no link no email para redefinir sua senha.",
         "message": "Enviámos um link de recuperação para {{email}}.",
         "resend": "reenviar o link",
-        "title": "Verifique o seu email"
+        "title": "Verifique seu email"
       },
-      "sentInstruction": "Clique no link no email para repor a sua palavra-passe.",
+      "sentInstruction": "Clique no link no email para redefinir sua senha.",
       "sentSubtitle": "Enviámos um link de recuperação para {{email}}.",
-      "sentTitle": "Verifique o seu email",
-      "signIn": "Iniciar sessão",
+      "sentTitle": "Verifique seu email",
+      "signIn": "Entrar",
       "submit": "Enviar Link de Recuperação",
       "submitButton": "Enviar Link de Recuperação",
-      "subtitle": "Introduza o seu email e enviaremos um link para repor.",
-      "title": "Esqueceu a sua palavra-passe?"
+      "subtitle": "Digite seu email e enviaremos um link para redefinir.",
+      "title": "Esqueceu sua senha?"
     },
     "login": {
       "createOne": "Crie uma",
       "email": "Email",
       "emailLabel": "Email",
       "emailPlaceholder": "voce@exemplo.com",
-      "errorAccountLocked": "Conta bloqueada. Verifique o seu email para um link de desbloqueio.",
-      "errorGeneric": "Não foi possível iniciar sessão. Tente novamente.",
-      "errorInvalidCredentials": "Email ou palavra-passe inválidos",
-      "errorTooManyAttempts": "Demasiadas tentativas. Aguarde e tente novamente.",
-      "errorUnknown": "Algo correu mal",
+      "errorAccountLocked": "Conta bloqueada. Verifique seu email para um link de desbloqueio.",
+      "errorGeneric": "Não foi possível entrar. Tente novamente.",
+      "errorInvalidCredentials": "Email ou senha inválidos",
+      "errorTooManyAttempts": "Muitas tentativas. Aguarde e tente novamente.",
+      "errorUnknown": "Algo deu errado",
       "errors": {
-        "accountLocked": "Conta bloqueada. Verifique o seu email para um link de desbloqueio.",
-        "generic": "Não foi possível iniciar sessão. Tente novamente.",
-        "invalidCredentials": "Email ou palavra-passe inválidos",
-        "somethingWentWrong": "Algo correu mal",
-        "tooManyAttempts": "Demasiadas tentativas. Aguarde e tente novamente."
+        "accountLocked": "Conta bloqueada. Verifique seu email para um link de desbloqueio.",
+        "generic": "Não foi possível entrar. Tente novamente.",
+        "invalidCredentials": "Email ou senha inválidos",
+        "somethingWentWrong": "Algo deu errado",
+        "tooManyAttempts": "Muitas tentativas. Aguarde e tente novamente."
       },
-      "forgotPassword": "Esqueceu a palavra-passe?",
+      "forgotPassword": "Esqueceu a senha?",
       "noAccount": "Não tem uma conta?",
-      "password": "Palavra-passe",
-      "passwordLabel": "Palavra-passe",
-      "passwordPlaceholder": "Introduza a sua palavra-passe",
+      "password": "Senha",
+      "passwordLabel": "Senha",
+      "passwordPlaceholder": "Digite sua senha",
       "rememberMe": "Lembrar-me",
-      "sessionExpired": "A sua sessão expirou. Inicie sessão novamente.",
-      "submit": "Iniciar Sessão",
-      "submitButton": "Iniciar Sessão",
+      "sessionExpired": "Sua sessão expirou. Faça login novamente.",
+      "submit": "Entrar",
+      "submitButton": "Entrar",
       "subtitle": "Aceda ao seu pulso financeiro.",
-      "title": "Iniciar sessão",
+      "title": "Entrar",
       "twoFactor": {
         "codePlaceholder": "000000",
-        "enterCode": "Introduza o código de 6 dígitos da sua aplicação autenticadora.",
-        "enterRecovery": "Introduza um dos seus códigos de recuperação.",
+        "enterCode": "Digite o código de 6 dígitos do seu aplicativo autenticador.",
+        "enterRecovery": "Digite um dos seus códigos de recuperação.",
         "invalidCode": "Código inválido. Tente novamente.",
         "recoveryCode": "Código de recuperação",
         "recoveryPlaceholder": "XXXX-XXXX",
@@ -251,17 +251,17 @@
         "verify": "Verificar"
       },
       "waitSeconds": "Aguarde {{seconds}}s",
-      "accountLockedAlert": "A sua conta foi temporariamente bloqueada devido a demasiadas tentativas falhadas. Verifique o seu email para instruções de desbloqueio.",
-      "tooManyAttemptsAlert": "Demasiadas tentativas falhadas. Aguarde {{seconds}} segundos antes de tentar novamente."
+      "accountLockedAlert": "Sua conta foi temporariamente bloqueada devido a muitas tentativas malsucedidas. Verifique seu email para instruções de desbloqueio.",
+      "tooManyAttemptsAlert": "Muitas tentativas malsucedidas. Aguarde {{seconds}} segundos antes de tentar novamente."
     },
     "register": {
       "agreeToTermsPrefix": "Concordo com os",
       "alreadyHaveAccount": "Já tem uma conta?",
       "and": "e",
-      "confirmPassword": "Confirmar palavra-passe",
-      "confirmPasswordLabel": "Confirmar palavra-passe",
-      "confirmPasswordPlaceholder": "Repita a sua palavra-passe",
-      "confirmPlaceholder": "Repita a sua palavra-passe",
+      "confirmPassword": "Confirmar senha",
+      "confirmPasswordLabel": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Repita sua senha",
+      "confirmPlaceholder": "Repita sua senha",
       "email": "Email",
       "emailLabel": "Email",
       "emailPlaceholder": "leo@exemplo.com",
@@ -271,23 +271,23 @@
       "name": "Nome",
       "nameLabel": "Nome",
       "namePlaceholder": "Leonardo",
-      "password": "Palavra-passe",
-      "passwordLabel": "Palavra-passe",
-      "passwordPlaceholder": "Introduza uma palavra-passe forte",
-      "passwordsDoNotMatch": "As palavras-passe não coincidem",
-      "passwordsMismatch": "As palavras-passe não coincidem",
+      "password": "Senha",
+      "passwordLabel": "Senha",
+      "passwordPlaceholder": "Digite uma senha forte",
+      "passwordsDoNotMatch": "As senhas não coincidem",
+      "passwordsMismatch": "As senhas não coincidem",
       "privacyPolicy": "Política de Privacidade",
-      "signIn": "Iniciar sessão",
+      "signIn": "Entrar",
       "submit": "Criar Conta",
       "submitButton": "Criar Conta",
-      "subtitle": "Comece a sua jornada de orçamento tranquilo.",
+      "subtitle": "Comece sua jornada de orçamento tranquilo.",
       "terms": "Concordo com os",
       "termsOfService": "Termos de Serviço",
-      "title": "Crie a sua conta"
+      "title": "Crie sua conta"
     },
     "resetPassword": {
-      "confirmPassword": "Confirmar palavra-passe",
-      "confirmPasswordLabel": "Confirmar palavra-passe",
+      "confirmPassword": "Confirmar senha",
+      "confirmPasswordLabel": "Confirmar senha",
       "errorExpired": "O link de recuperação expirou. Solicite um novo.",
       "goToSignIn": "Ir para Início de Sessão",
       "invalidLink": {
@@ -297,63 +297,55 @@
       },
       "invalidLinkMessage": "Este link expirou ou é inválido.",
       "invalidLinkTitle": "Link de recuperação inválido",
-      "invalidSubtitle": "Este link expirou ou é inválido.",
-      "invalidTitle": "Link de recuperação inválido",
-      "newPassword": "Nova palavra-passe",
-      "newPasswordLabel": "Nova palavra-passe",
-      "passwordsDoNotMatch": "As palavras-passe não coincidem",
-      "passwordsMismatch": "As palavras-passe não coincidem",
+      "newPassword": "Nova senha",
+      "newPasswordLabel": "Nova senha",
+      "passwordsDoNotMatch": "As senhas não coincidem",
+      "passwordsMismatch": "As senhas não coincidem",
       "requestNewLink": "Solicitar novo link",
-      "submit": "Repor Palavra-passe",
-      "submitButton": "Repor Palavra-passe",
+      "submit": "Redefinir Senha",
+      "submitButton": "Redefinir Senha",
       "subtitle": "Torne-a forte e única.",
       "success": {
         "goToSignIn": "Ir para Início de Sessão",
-        "instruction": "Pode agora iniciar sessão com a nova palavra-passe.",
-        "message": "A sua palavra-passe foi reposta com sucesso.",
-        "title": "Palavra-passe atualizada"
+        "instruction": "Você pode entrar com a nova senha agora.",
+        "message": "Sua senha foi reposta com sucesso.",
+        "title": "Senha atualizada"
       },
-      "successInstruction": "Pode agora iniciar sessão com a nova palavra-passe.",
-      "successMessage": "A sua palavra-passe foi reposta com sucesso.",
-      "successSubtext": "Pode agora iniciar sessão com a nova palavra-passe.",
-      "successSubtitle": "A sua palavra-passe foi reposta com sucesso.",
-      "successTitle": "Palavra-passe atualizada",
-      "title": "Definir nova palavra-passe"
+      "successMessage": "Sua senha foi reposta com sucesso.",
+      "successSubtext": "Você pode entrar com a nova senha agora.",
+      "successTitle": "Senha atualizada",
+      "title": "Definir nova senha"
     },
     "tagline": {
-      "default": "O seu pulso financeiro — calmo, claro e inteiramente seu.",
+      "default": "Seu pulso financeiro — calmo, claro e inteiramente seu.",
       "forgotPassword": "Sem problemas — vamos ajudá-lo(a) a voltar.",
-      "login": "Bem-vindo(a) de volta. Os seus dados estão onde os deixou.",
-      "register": "Comece a sua jornada rumo à clareza financeira.",
-      "resetPassword": "Quase lá. Escolha uma nova palavra-passe.",
-      "unlock": "Verifique a sua identidade para continuar.",
+      "login": "Bem-vindo(a) de volta. Seus dados estão onde os deixou.",
+      "register": "Comece sua jornada rumo à clareza financeira.",
+      "resetPassword": "Quase lá. Escolha uma nova senha.",
+      "unlock": "Verifique sua identidade para continuar.",
       "emergency2faDisable": "Vamos ajudá-lo(a) a recuperar o acesso à sua conta."
     },
     "taglines": {
       "forgotPassword": "Sem problemas — vamos ajudá-lo(a) a voltar.",
-      "login": "Bem-vindo(a) de volta. Os seus dados estão onde os deixou.",
-      "register": "Comece a sua jornada rumo à clareza financeira.",
-      "resetPassword": "Quase lá. Escolha uma nova palavra-passe.",
-      "unlock": "Verifique a sua identidade para continuar."
+      "login": "Bem-vindo(a) de volta. Seus dados estão onde os deixou.",
+      "register": "Comece sua jornada rumo à clareza financeira.",
+      "resetPassword": "Quase lá. Escolha uma nova senha.",
+      "unlock": "Verifique sua identidade para continuar."
     },
     "twoFactor": {
-      "enterCodeLabel": "Introduza o código de 6 dígitos da sua aplicação autenticadora.",
-      "enterRecoveryLabel": "Introduza um dos seus códigos de recuperação.",
       "errorInvalidCode": "Código inválido. Tente novamente.",
-      "invalidCode": "Código inválido. Tente novamente.",
       "placeholder": "000000",
-      "recoveryCodeTitle": "Código de recuperação",
       "recoveryPlaceholder": "XXXX-XXXX",
-      "recoverySubtitle": "Introduza um dos seus códigos de recuperação.",
+      "recoverySubtitle": "Digite um dos seus códigos de recuperação.",
       "recoveryTitle": "Código de recuperação",
-      "subtitle": "Introduza o código de 6 dígitos da sua aplicação autenticadora.",
-      "title": "Introduza o código de verificação",
+      "subtitle": "Digite o código de 6 dígitos do seu aplicativo autenticador.",
+      "title": "Digite o código de verificação",
       "useAuthenticator": "Usar código do autenticador",
       "useRecoveryCode": "Ou usar um código de recuperação",
       "verifyButton": "Verificar",
       "waitSeconds": "Aguarde {{seconds}}s",
-      "accountLocked": "A sua conta foi temporariamente bloqueada devido a demasiadas tentativas falhadas. Verifique o seu email para instruções de desbloqueio.",
-      "tooManyAttempts": "Demasiadas tentativas falhadas. Aguarde {{seconds}} segundos antes de tentar novamente."
+      "accountLocked": "Sua conta foi temporariamente bloqueada devido a muitas tentativas malsucedidas. Verifique seu email para instruções de desbloqueio.",
+      "tooManyAttempts": "Muitas tentativas malsucedidas. Aguarde {{seconds}} segundos antes de tentar novamente."
     },
     "unlock": {
       "errorMessage": "Este link expirou ou é inválido.",
@@ -364,45 +356,44 @@
         "message": "Este link expirou ou é inválido.",
         "title": "Link de desbloqueio inválido"
       },
-      "invalidSubtitle": "Este link expirou ou é inválido.",
-      "invalidTitle": "Link de desbloqueio inválido",
-      "loading": "A desbloquear a sua conta...",
-      "loadingText": "A desbloquear a sua conta...",
+      "loading": "Desbloqueando sua conta...",
       "success": {
         "goToSignIn": "Ir para Início de Sessão",
-        "message": "A sua conta foi desbloqueada. Pode agora iniciar sessão.",
+        "message": "Sua conta foi desbloqueada. Você pode entrar agora.",
         "title": "Conta desbloqueada"
       },
-      "successMessage": "A sua conta foi desbloqueada. Pode agora iniciar sessão.",
-      "successSubtitle": "A sua conta foi desbloqueada. Pode agora iniciar sessão.",
+      "successMessage": "Sua conta foi desbloqueada. Você pode entrar agora.",
       "successTitle": "Conta desbloqueada"
     },
     "emergency2fa": {
       "title": "Desativar 2FA de Emergência",
-      "subtitle": "Introduza o seu endereço de email e enviaremos um link seguro para desativar a autenticação de dois fatores.",
-      "infoMessage": "Use esta opção apenas se perdeu o acesso à sua aplicação de autenticação e não consegue iniciar sessão.",
+      "subtitle": "Digite seu endereço de email e enviaremos um link seguro para desativar a autenticação de dois fatores.",
+      "infoMessage": "Use esta opção apenas se perdeu o acesso ao seu aplicativo de autenticação e não consegue entrar.",
       "emailLabel": "Endereço de email",
       "emailPlaceholder": "voce@exemplo.com",
       "submitButton": "Enviar Link de Desativação",
       "rememberPassword": "Recuperou o acesso?",
-      "signIn": "Iniciar sessão",
-      "sentTitle": "Verifique o seu email",
-      "sentMessage": "Se a sua conta tiver o 2FA ativado, receberá um link para o desativar em breve. Verifique a pasta de spam se não encontrar o email.",
-      "backToSignIn": "Voltar ao início de sessão",
+      "signIn": "Entrar",
+      "sentTitle": "Verifique seu email",
+      "sentMessage": "Se sua conta tiver o 2FA ativado, receberá um link para o desativar em breve. Verifique a pasta de spam se não encontrar o email.",
+      "backToSignIn": "Voltar ao login",
       "confirmTitle": "Desativar Autenticação de Dois Fatores",
-      "confirmWarning": "Está prestes a desativar a autenticação de dois fatores. Isto tornará a sua conta menos segura.",
-      "confirmDescription": "Clique no botão abaixo para confirmar. Pode reativar o 2FA a qualquer momento nas definições da sua conta.",
+      "confirmWarning": "Está prestes a desativar a autenticação de dois fatores. Isto tornará sua conta menos segura.",
+      "confirmDescription": "Clique no botão abaixo para confirmar. Você pode reativar o 2FA a qualquer momento nas configurações da sua conta.",
       "confirmButton": "Confirmar — Desativar 2FA",
       "confirmError": "Este link expirou ou é inválido. Por favor, solicite um novo.",
       "disabledTitle": "2FA Desativado",
-      "disabledMessage": "A autenticação de dois fatores foi desativada. Pode agora iniciar sessão apenas com a sua palavra-passe.",
-      "goToSignIn": "Ir para o início de sessão"
+      "disabledMessage": "A autenticação de dois fatores foi desativada. Você pode entrar apenas com sua senha agora.",
+      "goToSignIn": "Ir para o login"
+    },
+    "session": {
+      "refreshFailed": "Não foi possível restaurar sua sessão. Por favor, faça login novamente."
     }
   },
   "categories": {
     "actions": {
       "archive": "Arquivar",
-      "delete": "Eliminar",
+      "delete": "Excluir",
       "unarchive": "Desarquivar"
     },
     "addCategory": "+ Adicionar Categoria",
@@ -424,7 +415,7 @@
       "transactions": "Transações"
     },
     "empty": {
-      "message": "Crie a sua primeira categoria para começar a categorizar transações e definir a sua estrutura de orçamento.",
+      "message": "Crie sua primeira categoria para começar a categorizar transações e definir sua estrutura de orçamento.",
       "title": "Sem categorias ainda"
     },
     "form": {
@@ -459,13 +450,13 @@
       "totalSpent": "Total Gasto",
       "unbudgeted": "Sem Orçamento"
     },
-    "subtitle": "A sua estrutura de orçamento",
+    "subtitle": "Sua estrutura de orçamento",
     "title": "Categorias",
     "toast": {
       "archiveError": "Falha ao arquivar categoria",
       "archived": "Categoria arquivada",
-      "deleteError": "Falha ao eliminar categoria",
-      "deleted": "Categoria eliminada",
+      "deleteError": "Falha ao excluir categoria",
+      "deleted": "Categoria excluída",
       "unarchiveError": "Falha ao desarquivar categoria",
       "unarchived": "Categoria desarquivada"
     },
@@ -483,18 +474,18 @@
     "budget": "Orçamento",
     "categoriesCount": "Categorias",
     "created": "Categoria criada",
-    "deleteFailed": "Falha ao eliminar categoria",
-    "deleted": "Categoria eliminada",
-    "detailLoadError": "Algo correu mal ao carregar esta categoria.",
-    "emptyDescription": "Crie a sua primeira categoria para começar a categorizar transações.",
+    "deleteFailed": "Falha ao excluir categoria",
+    "deleted": "Categoria excluída",
+    "detailLoadError": "Algo deu errado ao carregar esta categoria.",
+    "emptyDescription": "Crie sua primeira categoria para começar a categorizar transações.",
     "emptyTitle": "Sem categorias ainda",
     "expenseBudget": "Orçamento de Despesas",
     "incomeTarget": "Objetivo de Receitas",
-    "loadError": "Algo correu mal ao carregar as suas categorias.",
+    "loadError": "Algo deu errado ao carregar suas categorias.",
     "notFound": "Categoria não encontrada.",
     "recentTransactions": "Transações Recentes",
     "remaining": "Restante",
-    "saveFailed": "Falha ao guardar categoria",
+    "saveFailed": "Falha ao salvar categoria",
     "spendingTrend": "Tendência de Gastos — Últimos {{count}} Períodos",
     "spent": "Gasto",
     "totalSpent": "Total Gasto",
@@ -510,8 +501,8 @@
       "inlineTitle": "Primeira Assinatura",
       "createHint": "Após criar esta categoria, você pode adicionar assinaturas diretamente nas configurações da categoria.",
       "actionsFor": "Ações para {{name}}",
-      "deleteConfirmTitle": "Eliminar Assinatura",
-      "deleteConfirmDesc": "Tem a certeza que deseja eliminar \"{{name}}\"? Esta ação não pode ser desfeita."
+      "deleteConfirmTitle": "Excluir Assinatura",
+      "deleteConfirmDesc": "Tem certeza que deseja excluir \"{{name}}\"? Esta ação não pode ser desfeita."
     }
   },
   "common": {
@@ -525,7 +516,7 @@
     "comingSoon": "Esta página está em breve disponível",
     "create": "Criar",
     "daysLeft": "{{count}}d restantes",
-    "delete": "Eliminar",
+    "delete": "Excluir",
     "deleteConfirmTitle": "Confirmar Exclusão",
     "deleteConfirmMessage": "Tem certeza de que deseja excluir \"{{name}}\"? Esta ação não pode ser desfeita.",
     "done": "Concluir",
@@ -533,7 +524,7 @@
     "ended": "terminado",
     "inDays": "Em {{count}} dias",
     "individualAccountCard": "Cartão de conta individual",
-    "logOut": "Terminar sessão",
+    "logOut": "Sair",
     "more": "Mais",
     "noMatch": "Nenhum(a) {{entity}} encontrado(a)",
     "noPeriodSelected": "Nenhum período selecionado.",
@@ -541,17 +532,17 @@
     "notFound": "{{entity}} não encontrado(a).",
     "piggyPulse": "PiggyPulse",
     "retry": "Tentar novamente",
-    "save": "Guardar",
+    "save": "Salvar",
     "search": "Pesquisar",
-    "settings": "Definições",
-    "somethingWentWrong": "Algo correu mal ao carregar {{entity}}.",
+    "settings": "Configurações",
+    "somethingWentWrong": "Algo deu errado ao carregar {{entity}}.",
     "switchToDark": "Mudar para modo escuro",
     "switchToLight": "Mudar para modo claro",
     "thisPeriod": "este período",
     "today": "Hoje",
     "tomorrow": "Amanhã",
     "txns": "{{count}} trans.",
-    "userMenu": "Menu do utilizador",
+    "userMenu": "Menu do usuário",
     "archive": "Arquivar",
     "budgeted": "orçamentado",
     "cancelled": "Cancelado",
@@ -567,15 +558,17 @@
     "outgoing": "Despesa",
     "paused": "Pausado",
     "previous": "Anterior:",
-    "reset": "Repor",
-    "saveChanges": "Guardar",
+    "reset": "Redefinir",
+    "saveChanges": "Salvar",
     "skipForNow": "Avançar por agora",
     "transfer": "Transferência",
     "txnsThisPeriod": "{{count}} trans. este período",
     "unarchive": "Desarquivar",
     "viewDetails": "Ver detalhes",
     "noPeriodStateDescription": "Selecione ou crie um período para visualizar esta página. Períodos definem a janela de tempo para suas transações e metas.",
-    "goToPeriods": "Ir para Períodos"
+    "goToPeriods": "Ir para Períodos",
+    "close": "Fechar",
+    "error": "Erro"
   },
   "dashboard": {
     "account": {
@@ -587,7 +580,7 @@
       "balanceAfterTopUp": "Saldo após carregamento",
       "creditUsed": "Crédito usado: {{pct}}% do limite",
       "currentBalance": "saldo atual",
-      "error": "Algo correu mal ao carregar esta conta.",
+      "error": "Algo deu errado ao carregar esta conta.",
       "inDays": "Em {{count}} dias",
       "inDaysParens": "(em {{count}} dias)",
       "inflows": "Entradas",
@@ -606,13 +599,17 @@
       "tomorrow": "Amanhã",
       "transactions": "Transações"
     },
-    "accountCard": "Cartão de conta individual",
+    "accountCard": {
+      "archived": "Esta conta foi arquivada.",
+      "error": "Algo deu errado ao carregar esta conta.",
+      "noTransactions": "Sem transações neste período ainda."
+    },
     "addWidget": "Adicionar widget",
     "addWidgetButton": "+ Adicionar widget",
     "cancel": "Cancelar",
     "cashFlow": {
       "empty": "Sem entradas ou saídas registadas neste período.",
-      "error": "Algo correu mal ao carregar o fluxo de caixa.",
+      "error": "Algo deu errado ao carregar o fluxo de caixa.",
       "in": "Entrada",
       "inflowsAria": "Entradas: {{pct}}% do máximo do período",
       "inflowsPct": "Entradas: {{pct}}% do máximo do período",
@@ -628,7 +625,7 @@
       "budgetUsed": "Orçamento utilizado: {{pct}}%",
       "daysLeft": "{{count}} dias restantes",
       "empty": "Nenhum período configurado ainda.",
-      "error": "Algo correu mal ao carregar os dados do período.",
+      "error": "Algo deu errado ao carregar os dados do período.",
       "expectedIncome": "{{amount}} receita prevista",
       "noBudget": "sem orçamento definido",
       "noBudgetSet": "sem orçamento definido",
@@ -659,7 +656,7 @@
       "count_one": "{{count}} categoria",
       "count_other": "{{count}} categorias",
       "empty": "Sem categorias fixas configuradas ainda.",
-      "error": "Algo correu mal ao carregar as categorias fixas.",
+      "error": "Algo deu errado ao carregar as categorias fixas.",
       "ofPaid": "de {{amount}} pago",
       "overallAria": "Total de despesas fixas pagas: {{pct}}%",
       "overallPaid": "Total de despesas fixas pagas: {{pct}}%",
@@ -679,17 +676,17 @@
       "accounts": "{{count}} contas",
       "accountsCount": "{{count}} contas",
       "debt": "Dívida",
-      "empty": "Nenhuma conta configurada ainda. Adicione uma conta para ver a sua posição líquida.",
-      "error": "Algo correu mal ao carregar a posição líquida.",
+      "empty": "Nenhuma conta configurada ainda. Adicione uma conta para ver sua posição líquida.",
+      "error": "Algo deu errado ao carregar a posição líquida.",
       "liquid": "Líquido",
-      "noAccounts": "Nenhuma conta configurada ainda. Adicione uma conta para ver a sua posição líquida.",
+      "noAccounts": "Nenhuma conta configurada ainda. Adicione uma conta para ver sua posição líquida.",
       "protected": "Protegido",
       "title": "Posição Líquida"
     },
-    "noPeriodSelected": "Nenhum período selecionado. Selecione um período para ver o seu painel.",
+    "noPeriodSelected": "Nenhum período selecionado. Selecione um período para ver seu painel.",
     "recentTransactions": {
       "empty": "Sem transações neste período ainda.",
-      "error": "Algo correu mal ao carregar as transações.",
+      "error": "Algo deu errado ao carregar as transações.",
       "thisPeriod": "Este período",
       "title": "Transações Recentes",
       "viewAll": "Ver todas as transações"
@@ -699,7 +696,7 @@
       "chartAria": "Gráfico de gastos nos últimos {{count}} períodos",
       "chartLabel": "Gráfico de gastos nos últimos {{count}} períodos",
       "empty": "São necessários pelo menos 2 períodos encerrados.",
-      "error": "Algo correu mal ao carregar a tendência de gastos.",
+      "error": "Algo deu errado ao carregar a tendência de gastos.",
       "lastPeriods": "Últimos {{count}} períodos",
       "periodAverage": "Média por período",
       "title": "Tendência de Gastos"
@@ -709,7 +706,7 @@
       "activeCount": "{{count}} ativas",
       "charged": "COBRADO",
       "empty": "Sem assinaturas previstas neste período.",
-      "error": "Algo correu mal ao carregar as assinaturas.",
+      "error": "Algo deu errado ao carregar as assinaturas.",
       "inDays": "EM {{count}} DIAS",
       "inMonths": "EM {{count}} MESES",
       "inOneDay": "EM 1 DIA",
@@ -722,11 +719,11 @@
       "title": "Assinaturas",
       "today": "HOJE"
     },
-    "subtitle": "O seu pulso financeiro, num relance",
+    "subtitle": "Seu pulso financeiro, num relance",
     "title": "Painel",
     "topVendors": {
       "empty": "Sem transações com fornecedores neste período.",
-      "error": "Algo correu mal ao carregar os fornecedores.",
+      "error": "Algo deu errado ao carregar os fornecedores.",
       "rank": "Posição {{rank}}",
       "rankAria": "Posição {{rank}}",
       "title": "Principais Fornecedores",
@@ -742,7 +739,7 @@
       "count_one": "{{count}} categoria",
       "count_other": "{{count}} categorias",
       "empty": "Sem categorias variáveis com orçamento ainda.",
-      "error": "Algo correu mal ao carregar as categorias.",
+      "error": "Algo deu errado ao carregar as categorias.",
       "ofBudgeted": "de {{amount}} orçamentado",
       "overallAria": "Total do orçamento variável utilizado: {{pct}}%",
       "overallUsed": "Total do orçamento variável utilizado: {{pct}}%",
@@ -757,68 +754,68 @@
   "onboarding": {
     "accounts": {
       "addAccount": "+ Adicionar conta",
-      "balanceHint": "O seu saldo real neste momento",
+      "balanceHint": "Seu saldo real neste momento",
       "balancePlaceholder": "Saldo atual",
       "continue": "Continuar",
-      "description": "Onde está o seu dinheiro? As contas representam as suas contas reais e não estão ligadas ao seu banco.",
+      "description": "Onde está seu dinheiro? As contas representam suas contas reais e não estão ligadas ao seu banco.",
       "error": "Falha ao criar conta \"{{name}}\"",
       "namePlaceholder": "Nome da conta",
       "optional": "Adicione quantas quiser — ou avance e adicione mais tarde.",
       "skip": "Avançar por agora",
-      "title": "Adicione as suas contas",
+      "title": "Adicione suas contas",
       "types": {
         "Checking": "Conta Corrente",
         "Savings": "Poupança",
         "Wallet": "Carteira"
       },
       "accountNamePlaceholder": "Nome da conta",
-      "balanceDesc": "O seu saldo real neste momento",
+      "balanceDesc": "Seu saldo real neste momento",
       "createFailed": "Falha ao criar conta \"{{name}}\"",
       "currentBalance": "Saldo atual",
-      "description1": "Onde está o seu dinheiro? As contas representam as suas contas reais.",
+      "description1": "Onde está seu dinheiro? As contas representam suas contas reais.",
       "description2": "Adicione quantas quiser — ou avance e adicione mais tarde."
     },
     "categories": {
-      "colorNote": "Cores atribuídas automaticamente por direção + comportamento. Pode personalizar categorias a qualquer momento.",
+      "colorNote": "Cores atribuídas automaticamente por direção + comportamento. Você pode personalizar categorias a qualquer momento.",
       "continue": "Continuar",
-      "description": "As categorias ajudam-no a organizar as suas transações e definir objetivos.",
+      "description": "As categorias ajudam-no a organizar suas transações e definir objetivos.",
       "error": "Falha ao aplicar modelo",
       "skip": "Avançar por agora",
       "templateHint": "Escolha um modelo inicial — pode adicionar, remover ou alterar categorias a qualquer momento.",
       "title": "Configure categorias",
       "applyFailed": "Falha ao aplicar modelo",
       "colorHint": "Cores atribuídas automaticamente.",
-      "description1": "As categorias ajudam a organizar as suas transações.",
+      "description1": "As categorias ajudam a organizar suas transações.",
       "description2": "Escolha um modelo inicial."
     },
     "currency": {
       "continue": "Continuar",
-      "description": "Todas as suas contas e transações usarão esta moeda.",
+      "description": "Todas suas contas e transações usarão esta moeda.",
       "multiCurrencyNote": "Atualmente, o PiggyPulse não suporta múltiplas moedas. Esta funcionalidade estará disponível em breve.",
       "required": "Este é o único passo obrigatório.",
       "searchPlaceholder": "Pesquisar moedas...",
-      "title": "Escolha a sua moeda",
+      "title": "Escolha sua moeda",
       "requiredStep": "Este é o único passo obrigatório.",
-      "saveFailed": "Falha ao guardar moeda"
+      "saveFailed": "Falha ao salvar moeda"
     },
     "errors": {
       "complete": "Falha ao concluir a configuração",
-      "saveCurrency": "Falha ao guardar moeda",
+      "saveCurrency": "Falha ao salvar moeda",
       "setupPeriods": "Falha ao configurar períodos"
     },
     "periods": {
       "autoAssignment": "As transações são atribuídas aos períodos com base na data — sem necessidade de atribuição manual.",
-      "changeLater": "Pode alterar estas definições mais tarde em Períodos → Calendário.",
+      "changeLater": "Você pode alterar estas configurações mais tarde em Períodos → Calendário.",
       "continue": "Continuar",
       "defaultLabel": "Vamos configurar com o padrão:",
-      "description": "Os períodos são janelas de tempo que organizam as suas transações. Pense neles como capítulos da sua história financeira — cada um tem uma data de início e uma data de fim.",
+      "description": "Os períodos são janelas de tempo que organizam suas transações. Pense neles como capítulos da sua história financeira — cada um tem uma data de início e uma data de fim.",
       "monthlyStart": "Períodos mensais, começando no dia 1",
       "threeAhead": "3 períodos preparados com antecedência",
       "title": "Como o PiggyPulse organiza o tempo",
-      "changeHint": "Pode alterar mais tarde em Períodos → Calendário.",
+      "changeHint": "Você pode alterar mais tarde em Períodos → Calendário.",
       "defaultAhead": "3 períodos preparados com antecedência",
       "defaultMonthly": "Períodos mensais, começando no dia 1",
-      "description1": "Os períodos organizam as suas transações.",
+      "description1": "Os períodos organizam suas transações.",
       "description2": "As transações são atribuídas automaticamente.",
       "setupFailed": "Falha ao configurar períodos"
     },
@@ -837,21 +834,21 @@
       "goToDashboard": "Ir para o Painel",
       "monthlyStart": "Mensal, começando no dia 1",
       "periods": "Períodos",
-      "subtitle": "O seu painel está pronto. Eis o que configurámos:",
+      "subtitle": "Seu painel está pronto. Eis o que configurámos:",
       "threeAhead": "3 períodos preparados com antecedência",
       "title": "Está tudo pronto!"
     },
     "welcome": {
       "getStarted": "Vamos começar",
       "justClarity": "Apenas clareza",
-      "justClarityDesc": "veja os seus dados, compreenda os seus padrões",
+      "justClarityDesc": "veja seus dados, compreenda seus padrões",
       "noJudgment": "Sem julgamentos",
       "noJudgmentDesc": "não rotulamos gastos como bons ou maus",
-      "quote": "O PiggyPulse mostra-lhe a realidade através dos dados. Não celebramos nem criticamos — você decide o que os seus números significam.",
-      "subtitle": "O seu pulso financeiro — calmo, claro e inteiramente seu.",
+      "quote": "O PiggyPulse te mostra a realidade através dos dados. Não celebramos nem criticamos — você decide o que seus números significam.",
+      "subtitle": "Seu pulso financeiro — calmo, claro e inteiramente seu.",
       "title": "Bem-vindo ao PiggyPulse",
-      "yourRules": "As suas regras",
-      "yourRulesDesc": "você decide o que os seus números significam"
+      "yourRules": "Suas regras",
+      "yourRulesDesc": "você decide o que seus números significam"
     },
     "appName": "PiggyPulse",
     "complete": {
@@ -861,7 +858,7 @@
       "goToDashboard": "Ir para o Painel",
       "periods": "Períodos",
       "periodsDefault": "Mensal, começando no dia 1",
-      "subtitle": "O seu painel está pronto.",
+      "subtitle": "Seu painel está pronto.",
       "title": "Está tudo pronto!"
     }
   },
@@ -888,12 +885,12 @@
       "actions": "Ações do período",
       "auto": "Auto",
       "budget": "Orçamento",
-      "confirmDelete": "Eliminar \"{{name}}\"?",
+      "confirmDelete": "Excluir \"{{name}}\"?",
       "spend": "Gasto",
       "txns": "Trans."
     },
     "empty": {
-      "message": "Crie o seu primeiro período de orçamento para começar a acompanhar gastos, ou ative a geração automática para criar períodos automaticamente.",
+      "message": "Crie seu primeiro período de orçamento para começar a acompanhar gastos, ou ative a geração automática para criar períodos automaticamente.",
       "title": "Sem períodos ainda"
     },
     "form": {
@@ -954,14 +951,14 @@
       "preview": "Pré-visualização",
       "recurrenceMethod": "Método de Recorrência",
       "saturdayPolicy": "Se início cair ao sábado",
-      "saveRules": "Guardar Regras",
+      "saveRules": "Salvar Regras",
       "startDayOfMonth": "Dia de Início do Mês",
       "startDayOfMonthDesc": "Dia do mês em que o período começa (1-31)",
       "sundayPolicy": "Se início cair ao domingo",
       "title": "Gerar Períodos Automaticamente",
       "toast": {
         "enabled": "Geração automática ativada",
-        "error": "Falha ao guardar configuração do calendário",
+        "error": "Falha ao salvar configuração do calendário",
         "updated": "Calendário atualizado"
       },
       "variableDescriptions": {
@@ -991,31 +988,31 @@
       "periodsToPrep": "Períodos a Preparar com Antecedência",
       "periodsToPrepDesc": "Número de períodos futuros a pré-gerar",
       "saturdayLabel": "Se início cair ao sábado",
-      "scheduleFailed": "Falha ao guardar configuração",
+      "scheduleFailed": "Falha ao salvar configuração",
       "scheduleSaved": "Calendário atualizado",
       "sundayLabel": "Se início cair ao domingo",
       "keepAsIs": "Manter como está",
       "moveToMonday": "Mover para segunda-feira",
       "moveToFriday": "Mover para sexta-feira"
     },
-    "subtitle": "Gerir os seus períodos de orçamento",
+    "subtitle": "Gerenciar seus períodos de orçamento",
     "title": "Períodos",
     "toast": {
-      "deleteError": "Falha ao eliminar período",
-      "deleted": "Período eliminado"
+      "deleteError": "Falha ao excluir período",
+      "deleted": "Período excluído"
     },
     "budget": "Orçamento",
     "createFirstPeriod": "+ Criar Primeiro Período",
     "created": "Período criado",
     "days": "{{count}} dias",
-    "deleteConfirm": "Eliminar \"{{name}}\"?",
-    "deleteFailed": "Falha ao eliminar período",
-    "deleted": "Período eliminado",
-    "emptyDescription": "Crie o seu primeiro período de orçamento.",
+    "deleteConfirm": "Excluir \"{{name}}\"?",
+    "deleteFailed": "Falha ao excluir período",
+    "deleted": "Período excluído",
+    "emptyDescription": "Crie seu primeiro período de orçamento.",
     "emptyTitle": "Sem períodos ainda",
     "newPeriod": "+ Novo Período",
     "periodActions": "Ações do período",
-    "saveFailed": "Falha ao guardar período",
+    "saveFailed": "Falha ao salvar período",
     "spend": "Gasto",
     "txns": "Trans.",
     "updated": "Período atualizado",
@@ -1069,29 +1066,29 @@
       "profile": "Perfil",
       "security": "Segurança"
     },
-    "title": "Definições",
+    "title": "Configurações",
     "toast": {
       "colorSchemeError": "Falha ao atualizar esquema de cores",
       "dashboardError": "Falha ao atualizar layout do painel",
       "preferencesError": "Falha ao atualizar preferências",
-      "profileError": "Falha ao guardar perfil",
-      "profileSaved": "Perfil guardado",
+      "profileError": "Falha ao salvar perfil",
+      "profileSaved": "Perfil salvo",
       "themeError": "Falha ao atualizar tema"
     },
     "twoFactor": {
-      "cantScan": "Não consegue digitalizar? Introduza este código manualmente:",
-      "codesNotGenerated": "Os códigos de recuperação não puderam ser gerados. Pode regenerá-los nas definições.",
+      "cantScan": "Não consegue escanear? Digite este código manualmente:",
+      "codesNotGenerated": "Os códigos de recuperação não puderam ser gerados. Você pode regenerá-los nas configurações.",
       "copied": "Copiado",
       "copy": "Copiar",
       "copyAll": "Copiar Todos",
-      "download": "Transferir",
-      "enterCode": "Introduza o código de 6 dígitos da sua aplicação autenticadora para confirmar.",
+      "download": "Baixar",
+      "enterCode": "Digite o código de 6 dígitos do seu aplicativo autenticador para confirmar.",
       "next": "Seguinte",
-      "preparing": "A preparar configuração 2FA...",
-      "recoveryTitle": "Guarde os seus códigos de recuperação",
-      "saveRecoveryCodes": "Guarde estes códigos de recuperação num local seguro. São a sua reserva se perder o acesso à aplicação autenticadora.",
-      "savedCodes": "Guardei os meus códigos de recuperação",
-      "scanQR": "Digitalize este código QR com a sua aplicação autenticadora (Google Authenticator, Authy, Microsoft Authenticator, etc.)",
+      "preparing": "Preparando configuração 2FA...",
+      "recoveryTitle": "Salve seus códigos de recuperação",
+      "saveRecoveryCodes": "Salve estes códigos de recuperação num local seguro. São sua reserva se perder o acesso ao aplicativo autenticador.",
+      "savedCodes": "Salvei meus códigos de recuperação",
+      "scanQR": "Escaneie este código QR com seu aplicativo autenticador (Google Authenticator, Authy, Microsoft Authenticator, etc.)",
       "setupTitle": "Configurar autenticação de dois fatores",
       "verifyEnable": "Verificar e Ativar 2FA"
     },
@@ -1155,88 +1152,88 @@
       "compactModeDesc": "Utilizar disposição condensada para listas com muitos itens (categorias, transações)"
     },
     "danger": {
-      "deleteAccount": "Eliminar Conta",
-      "deleteAccountDesc": "Eliminar permanentemente a sua conta e dados",
+      "deleteAccount": "Excluir Conta",
+      "deleteAccountDesc": "Excluir permanentemente sua conta e dados",
       "deleteAccountWarning": "Esta ação não pode ser desfeita.",
-      "deleteConfirmDesc": "Isto irá eliminar permanentemente a sua conta e todos os dados.",
-      "deleteConfirmTitle": "Tem a certeza?",
-      "deleteFailed": "Falha ao eliminar conta",
-      "deleteMyAccount": "Eliminar a Minha Conta",
-      "deleteSuccess": "Conta eliminada",
+      "deleteConfirmDesc": "Isto irá excluir permanentemente sua conta e todos os dados.",
+      "deleteConfirmTitle": "Tem certeza?",
+      "deleteFailed": "Falha ao excluir conta",
+      "deleteMyAccount": "Excluir a Minha Conta",
+      "deleteSuccess": "Conta excluída",
       "description": "Ações irreversíveis",
-      "passwordLabel": "Introduza a sua palavra-passe para confirmar",
-      "permanentlyDelete": "Eliminar Permanentemente",
+      "passwordLabel": "Digite sua senha para confirmar",
+      "permanentlyDelete": "Excluir Permanentemente",
       "title": "Zona de Perigo"
     },
     "dashboard": {
       "accountCardsFailed": "Falha ao atualizar cartões de conta",
       "description": "Personalizar widgets do painel",
       "layoutFailed": "Falha ao atualizar layout do painel",
-      "resetFailed": "Falha ao repor painel",
+      "resetFailed": "Falha ao redefinir painel",
       "resetSuccess": "Painel reposto",
       "title": "Painel",
-      "defaultWidgets": "Widgets predefinidos",
-      "defaultWidgetsHint": "Estes widgets aparecem ao abrir o painel pela primeira vez. Pode sempre personalizar a partir do próprio painel.",
+      "defaultWidgets": "Widgets padrão",
+      "defaultWidgetsHint": "Estes widgets aparecem ao abrir o painel pela primeira vez. Você pode sempre personalizar a partir do próprio painel.",
       "accountCards": "Cartões de Conta",
       "accountCardsHint": "Escolha quais contas aparecem como cartões individuais no seu painel.",
       "allAccountsShown": "Todas as contas ativas estão atualmente visíveis.",
-      "resetLayout": "Repor disposição do painel",
-      "resetLayoutDesc": "Restaurar posições e seleção predefinidas dos widgets",
+      "resetLayout": "Redefinir disposição do painel",
+      "resetLayoutDesc": "Restaurar posições e seleção padrão dos widgets",
       "accountTypeChecking": "Conta Corrente",
       "accountTypeSavings": "Poupança",
       "accountTypeCreditCard": "Cartão de Crédito"
     },
     "data": {
-      "description": "Importar e exportar os seus dados",
+      "description": "Importar e exportar seus dados",
       "export": "Exportar",
       "exportAll": "Exportar Todos os Dados",
-      "exportAllDesc": "Transferir todos os dados como JSON",
+      "exportAllDesc": "Baixar todos os dados como JSON",
       "exportAllFailed": "Falha ao exportar dados",
       "exportFailed": "Falha ao exportar dados",
       "exportTransactions": "Exportar Transações",
-      "exportTransactionsDesc": "Transferir transações como CSV",
+      "exportTransactionsDesc": "Baixar transações como CSV",
       "import": "Importar",
       "importData": "Importar Dados",
       "importDataDesc": "Restaurar de uma cópia JSON",
       "importFailed": "Falha ao importar dados",
-      "importInvalidJson": "Ficheiro JSON inválido",
+      "importInvalidJson": "Arquivo JSON inválido",
       "importSuccess": "Dados importados com sucesso",
       "title": "Dados"
     },
     "profile": {
-      "description": "As suas informações pessoais",
-      "saveFailed": "Falha ao guardar perfil",
-      "saved": "Perfil guardado",
+      "description": "Suas informações pessoais",
+      "saveFailed": "Falha ao salvar perfil",
+      "saved": "Perfil salvo",
       "title": "Perfil",
       "avatarLabel": "Avatar",
-      "avatarHint": "Avatares temáticos — escolha a sua personalidade. Ilustrações personalizadas em breve.",
+      "avatarHint": "Avatares temáticos — escolha sua personalidade. Ilustrações personalizadas em breve.",
       "displayName": "Nome de exibição",
       "email": "E-mail",
       "emailHint": "Alterar o e-mail requer verificação",
       "currency": "Moeda",
       "currencyHint": "Definido durante o registo. Alterar a moeda afeta todos os valores apresentados.",
-      "userFallback": "Utilizador",
+      "userFallback": "Usuário",
       "currencyEur": "EUR — Euro",
       "currencyUsd": "USD — Dólar Americano",
       "currencyGbp": "GBP — Libra Esterlina",
       "currencyBrl": "BRL — Real Brasileiro"
     },
     "security": {
-      "changePassword": "Alterar Palavra-passe",
-      "confirmNewPassword": "Confirmar Nova Palavra-passe",
-      "currentPassword": "Palavra-passe Atual",
-      "description": "Palavra-passe e autenticação de dois fatores",
+      "changePassword": "Alterar Senha",
+      "confirmNewPassword": "Confirmar Nova Senha",
+      "currentPassword": "Senha Atual",
+      "description": "Senha e autenticação de dois fatores",
       "disable2fa": "Desativar 2FA",
-      "disable2faDesc": "Introduza o código de 6 dígitos do seu app autenticador para desativar o 2FA",
+      "disable2faDesc": "Digite o código de 6 dígitos do seu app autenticador para desativar o 2FA",
       "disable2faFailed": "Falha ao desativar 2FA",
       "disable2faTitle": "Desativar Autenticação de Dois Fatores",
       "enable2fa": "Ativar 2FA",
-      "newPassword": "Nova Palavra-passe",
-      "password": "Palavra-passe",
-      "passwordChanged": "Palavra-passe alterada",
-      "passwordDesc": "Alterar a palavra-passe da conta",
-      "passwordFailed": "Falha ao alterar palavra-passe",
-      "passwordMismatch": "As palavras-passe não coincidem",
+      "newPassword": "Nova Senha",
+      "password": "Senha",
+      "passwordChanged": "Senha alterada",
+      "passwordDesc": "Alterar a senha da conta",
+      "passwordFailed": "Falha ao alterar senha",
+      "passwordMismatch": "As senhas não coincidem",
       "reconfigure": "Reconfigurar",
       "reconfigureHint": "Configurar novo dispositivo autenticador",
       "title": "Segurança",
@@ -1245,22 +1242,22 @@
       "twoFactorDisabledSuccess": "2FA desativada",
       "twoFactorEnabled": "2FA está ativada"
     },
-    "subtitle": "Gerir a sua conta e preferências",
+    "subtitle": "Gerenciar sua conta e preferências",
     "twoFactorSetup": {
-      "cantScan": "Não consegue digitalizar? Introduza este código manualmente:",
+      "cantScan": "Não consegue escanear? Digite este código manualmente:",
       "codesFailedFallback": "Os códigos não puderam ser gerados.",
-      "codesTitle": "Guarde os seus códigos de recuperação",
+      "codesTitle": "Salve seus códigos de recuperação",
       "copied": "Copiado",
       "copy": "Copiar",
       "copyAll": "Copiar Todos",
-      "download": "Transferir",
+      "download": "Baixar",
       "enabled": "2FA ativada",
-      "enterCode": "Introduza o código de 6 dígitos para confirmar.",
+      "enterCode": "Digite o código de 6 dígitos para confirmar.",
       "invalidCode": "Código inválido",
-      "loading": "A preparar configuração 2FA...",
-      "saveCodesAlert": "Guarde estes códigos num local seguro.",
-      "savedCodes": "Guardei os meus códigos de recuperação",
-      "scanQr": "Digitalize este código QR com a sua aplicação autenticadora",
+      "loading": "Preparando configuração 2FA...",
+      "saveCodesAlert": "Salve estes códigos num local seguro.",
+      "savedCodes": "Salvei meus códigos de recuperação",
+      "scanQr": "Escaneie este código QR com seu aplicativo autenticador",
       "setupFailed": "Falha ao configurar 2FA",
       "setupTitle": "Configurar autenticação de dois fatores",
       "verifyAndEnable": "Verificar e Ativar 2FA"
@@ -1291,7 +1288,7 @@
       "activeSince": "Ativa Desde",
       "allTime": "Todo o tempo",
       "amount": "Valor",
-      "autoDetected": "Detetada automaticamente",
+      "autoDetected": "Detectada automaticamente",
       "backLink": "← Assinaturas",
       "billingDay": "Dia de cobrança",
       "billingHistory": "Histórico de Cobranças",
@@ -1300,8 +1297,8 @@
       "nextCharge": "Próxima cobrança",
       "ofEach": "de cada",
       "postCancellation": {
-        "count_one": "{{count}} cobrança detetada desde o cancelamento.",
-        "count_other": "{{count}} cobranças detetadas desde o cancelamento.",
+        "count_one": "{{count}} cobrança detectada desde o cancelamento.",
+        "count_other": "{{count}} cobranças detectadas desde o cancelamento.",
         "review": "Reveja o histórico de cobranças abaixo.",
         "title": "Cobrança inesperada após cancelamento"
       },
@@ -1326,7 +1323,7 @@
       "nextCharge": "Próxima Cobrança",
       "yearlyTotal": "Total Anual"
     },
-    "subtitle": "Acompanhe as suas cobranças recorrentes",
+    "subtitle": "Acompanhe suas cobranças recorrentes",
     "title": "Assinaturas",
     "upcomingCharges": "Cobranças Futuras",
     "activeCount": "{{count}} ativas",
@@ -1334,7 +1331,7 @@
     "addFirstSubscription": "+ Adicione a Sua Primeira Assinatura",
     "allTime": "Todo o tempo",
     "amount": "Valor",
-    "autoDetected": "Detetada automaticamente",
+    "autoDetected": "Detectada automaticamente",
     "billingDay": "Dia de cobrança",
     "billingHistory": "Histórico de Cobranças",
     "breadcrumb": "← Assinaturas",
@@ -1352,11 +1349,11 @@
       "warning": "Isto apenas marca como cancelada no PiggyPulse."
     },
     "cancelledCount": "Canceladas ({{count}})",
-    "deleteFailed": "Falha ao eliminar assinatura",
-    "deleted": "Assinatura eliminada",
+    "deleteFailed": "Falha ao excluir assinatura",
+    "deleted": "Assinatura excluída",
     "emptyDescription": "Crie uma categoria com comportamento 'Assinatura'.",
     "emptyTitle": "Sem assinaturas ainda",
-    "loadError": "Algo correu mal ao carregar as assinaturas.",
+    "loadError": "Algo deu errado ao carregar as assinaturas.",
     "monthlyCost": "Custo Mensal",
     "monthlyCount": "{{count}} ativas",
     "nextCharge": "Próxima Cobrança",
@@ -1366,7 +1363,7 @@
     "status": "Estado",
     "thisYear": "Este Ano",
     "unexpectedCharge": "Cobrança inesperada após cancelamento",
-    "unexpectedChargeDesc": "{{count}} cobranças detetadas desde o cancelamento.",
+    "unexpectedChargeDesc": "{{count}} cobranças detectadas desde o cancelamento.",
     "yearlyTotal": "Total Anual",
     "form": {
       "editTitle": "Editar Assinatura",
@@ -1448,7 +1445,7 @@
     "excluded": "{{name}} excluído dos objetivos",
     "expenseBudget": "Orçamento de Despesas",
     "incomeTarget": "Objetivo de Receitas",
-    "loadError": "Algo correu mal ao carregar os seus objetivos.",
+    "loadError": "Algo deu errado ao carregar seus objetivos.",
     "period": "Período",
     "progress": "Progresso",
     "target": "Objetivo",
@@ -1457,9 +1454,9 @@
   "transactions": {
     "addFirst": "+ Adicione a Sua Primeira Transação",
     "addTransaction": "+ Adicionar Transação",
-    "confirmDelete": "Eliminar esta transação?",
+    "confirmDelete": "Excluir esta transação?",
     "empty": {
-      "message": "Adicione a sua primeira transação para começar a acompanhar os seus gastos e receitas.",
+      "message": "Adicione sua primeira transação para começar a acompanhar seus gastos e receitas.",
       "noMatch": "Nenhuma transação corresponde aos seus filtros. Tente ajustar a pesquisa ou os filtros.",
       "title": "Sem transações ainda"
     },
@@ -1493,7 +1490,7 @@
       },
       "transferHint": "será subtraído da origem e adicionado ao destino",
       "transferNote": "Categoria e fornecedor não se aplicam a transferências",
-      "transferToggle": "Ative para mover dinheiro entre as suas contas",
+      "transferToggle": "Ative para mover dinheiro entre suas contas",
       "vendor": "Fornecedor (opcional)",
       "addTitle": "Adicionar Transação",
       "addTransactionButton": "Adicionar Transação",
@@ -1536,27 +1533,27 @@
     },
     "title": "Transações",
     "toast": {
-      "deleteError": "Falha ao eliminar transação",
-      "deleted": "Transação eliminada"
+      "deleteError": "Falha ao excluir transação",
+      "deleted": "Transação excluída"
     },
     "addFirstTransaction": "+ Adicione a Sua Primeira Transação",
     "created": "Transação adicionada",
     "dateGroupCount": "{{count}} transações",
-    "deleteConfirm": "Eliminar esta transação?",
-    "deleteFailed": "Falha ao eliminar transação",
-    "deleted": "Transação eliminada",
+    "deleteConfirm": "Excluir esta transação?",
+    "deleteFailed": "Falha ao excluir transação",
+    "deleted": "Transação excluída",
     "directionAll": "Todas",
     "directionIn": "Entrada",
     "directionOut": "Saída",
     "directionTransfer": "Transferência",
-    "emptyDescription": "Adicione a sua primeira transação.",
+    "emptyDescription": "Adicione sua primeira transação.",
     "emptyFilterDescription": "Nenhuma transação corresponde aos filtros.",
     "emptyTitle": "Sem transações ainda",
     "inflows": "Entradas",
-    "loadError": "Algo correu mal ao carregar as transações.",
+    "loadError": "Algo deu errado ao carregar as transações.",
     "net": "Líquido",
     "outflows": "Saídas",
-    "saveFailed": "Falha ao guardar transação",
+    "saveFailed": "Falha ao salvar transação",
     "subtitle": "{{count}} transações",
     "transactionsCount": "transações",
     "transferAdded": "Transferência adicionada",
@@ -1584,7 +1581,7 @@
   "vendors": {
     "actions": {
       "archive": "Arquivar",
-      "delete": "Eliminar",
+      "delete": "Excluir",
       "merge": "Fundir",
       "unarchive": "Desarquivar"
     },
@@ -1601,7 +1598,7 @@
       "transactions": "Transações"
     },
     "empty": {
-      "message": "Os fornecedores ajudam-no a acompanhar para onde vai o seu dinheiro. Adicione o primeiro para começar a categorizar gastos.",
+      "message": "Os fornecedores ajudam-no a acompanhar para onde vai seu dinheiro. Adicione o primeiro para começar a categorizar gastos.",
       "title": "Sem fornecedores ainda"
     },
     "form": {
@@ -1621,18 +1618,18 @@
       "vendorNamePlaceholder": "ex. Continente"
     },
     "merge": {
-      "description": "Todas as transações de \"{{source}}\" serão transferidas para o fornecedor destino. O fornecedor de origem será eliminado.",
+      "description": "Todas as transações de \"{{source}}\" serão transferidas para o fornecedor destino. O fornecedor de origem será excluído.",
       "mergeInto": "Fundir com",
       "selectTarget": "Selecionar fornecedor destino...",
       "source": "Origem:",
-      "submit": "Fundir e Eliminar Origem",
+      "submit": "Fundir e Excluir Origem",
       "title": "Fundir Fornecedor",
       "toast": {
         "error": "Falha ao fundir fornecedor",
         "success": "\"{{source}}\" fundido com o fornecedor destino"
       },
       "failed": "Falha ao fundir fornecedor",
-      "mergeAndDelete": "Fundir e Eliminar Origem",
+      "mergeAndDelete": "Fundir e Excluir Origem",
       "success": "Fornecedor fundido com sucesso"
     },
     "searchPlaceholder": "Pesquisar fornecedores...",
@@ -1641,13 +1638,13 @@
       "avgPerVendor": "Média / Fornecedor",
       "totalSpent": "Total Gasto"
     },
-    "subtitle": "Para onde vai o seu dinheiro",
+    "subtitle": "Para onde vai seu dinheiro",
     "title": "Fornecedores",
     "toast": {
       "archiveError": "Falha ao arquivar fornecedor",
       "archived": "Fornecedor arquivado",
-      "deleteError": "Não é possível eliminar — arquive ou funda",
-      "deleted": "Fornecedor eliminado",
+      "deleteError": "Não é possível excluir — arquive ou funda",
+      "deleted": "Fornecedor excluído",
       "unarchiveError": "Falha ao desarquivar fornecedor",
       "unarchived": "Fornecedor desarquivado"
     },
@@ -1661,17 +1658,17 @@
     "avgPerVendor": "Média / Fornecedor",
     "breadcrumb": "← Fornecedores",
     "created": "Fornecedor criado",
-    "deleteFailed": "Não é possível eliminar — arquive ou funda",
-    "deleteFailedShort": "Não é possível eliminar fornecedor",
-    "deleted": "Fornecedor eliminado",
-    "detailLoadError": "Algo correu mal ao carregar este fornecedor.",
-    "emptyDescription": "Os fornecedores ajudam a acompanhar para onde vai o seu dinheiro.",
+    "deleteFailed": "Não é possível excluir — arquive ou funda",
+    "deleteFailedShort": "Não é possível excluir fornecedor",
+    "deleted": "Fornecedor excluído",
+    "detailLoadError": "Algo deu errado ao carregar este fornecedor.",
+    "emptyDescription": "Os fornecedores ajudam a acompanhar para onde vai seu dinheiro.",
     "emptyTitle": "Sem fornecedores ainda",
-    "loadError": "Algo correu mal ao carregar os fornecedores.",
+    "loadError": "Algo deu errado ao carregar os fornecedores.",
     "noMatch": "Nenhum fornecedor corresponde à pesquisa",
     "notFound": "Fornecedor não encontrado.",
     "recentTransactions": "Transações Recentes — {{count}} mostradas",
-    "saveFailed": "Falha ao guardar fornecedor",
+    "saveFailed": "Falha ao salvar fornecedor",
     "spendingTrend": "Gastos neste fornecedor — Últimos {{count}} Períodos",
     "spent": "Gasto",
     "topCategories": "Principais Categorias Neste Fornecedor",
@@ -1716,14 +1713,14 @@
     "accounts": "Contas",
     "subscriptions": "Assinaturas",
     "vendors": "Fornecedores",
-    "settings": "Definições"
+    "settings": "Configurações"
   },
   "hints": {
     "dashboard": "O painel mostra um resumo das suas finanças para o período selecionado. Use o botão Personalizar para escolher quais widgets exibir e reordená-los.",
-    "transactions": "Transações são o centro do seu orçamento. Cada uma está vinculada a uma categoria e conta, permitindo acompanhar para onde vai o seu dinheiro em cada período.",
+    "transactions": "Transações são o centro do seu orçamento. Cada uma está vinculada a uma categoria e conta, permitindo acompanhar para onde vai seu dinheiro em cada período.",
     "vendors": "Fornecedores representam os locais onde você gasta dinheiro. Vincular transações a fornecedores ajuda a ver padrões de gastos ao longo do tempo.",
     "subscriptions": "Assinaturas rastreiam cobranças recorrentes como streaming, assinaturas e contas. Adicioná-las aqui ajuda a ver custos futuros.",
-    "periods": "Períodos são janelas de tempo para o seu orçamento — geralmente mensais. Todas as transações e metas são vinculadas ao período ativo.",
+    "periods": "Períodos são janelas de tempo para seu orçamento — geralmente mensais. Todas as transações e metas são vinculadas ao período ativo.",
     "accounts": "Contas representam onde seu dinheiro está — corrente, poupança, cartões de crédito ou carteiras. Os saldos são atualizados conforme você adiciona transações."
   },
   "gettingStarted": {
@@ -1745,6 +1742,71 @@
       "addTransaction": {
         "title": "Adicionar sua primeira transação",
         "description": "Registre uma transação para começar a acompanhar seus gastos"
+      }
+    }
+  },
+  "states": {
+    "contract": {
+      "emptyTitle": "Sem {{items}} ainda.",
+      "items": {
+        "data": "itens"
+      }
+    },
+    "empty": {
+      "filter": {
+        "removeTag": "Remover filtro {{tag}}"
+      },
+      "search": {
+        "noResults": "Não encontramos resultados para"
+      },
+      "tips": {
+        "title": "Dicas Rápidas"
+      }
+    },
+    "locked": {
+      "message": {
+        "periodRequired": "Um período de orçamento é necessário antes de exibir este conteúdo."
+      },
+      "status": {
+        "notConfigured": "Não configurado"
+      }
+    },
+    "error": {
+      "403": {
+        "title": "Acesso Negado",
+        "message": "Você não tem permissão para acessar este recurso. Se você acredita que isso é um erro, entre em contato com o administrador."
+      },
+      "404": {
+        "title": "Página Não Encontrada",
+        "message": "A página que você está procurando não existe ou foi movida. Vamos colocá-lo de volta no caminho."
+      },
+      "500": {
+        "title": "Algo Deu Errado",
+        "message": "Estamos enfrentando dificuldades técnicas. Nossa equipe foi notificada e está trabalhando em uma correção. Por favor, tente novamente mais tarde."
+      },
+      "503": {
+        "title": "Serviço Indisponível",
+        "message": "O serviço está temporariamente indisponível. Por favor, tente novamente em alguns minutos."
+      },
+      "retry": "Tentar Novamente",
+      "loadFailed": {
+        "message": "Não foi possível carregar seus dados. Isso pode ser um problema temporário com nossos servidores."
+      },
+      "generic": {
+        "title": "Algo Deu Errado",
+        "message": "Ocorreu um erro inesperado. Por favor, tente novamente."
+      },
+      "details": {
+        "title": "Detalhes do Erro",
+        "code": "Código do Erro",
+        "requestId": "ID da Requisição",
+        "timestamp": "Data e Hora"
+      },
+      "actions": {
+        "refresh": "Atualizar Página",
+        "goHome": "Ir para o Dashboard",
+        "goBack": "Voltar",
+        "requestAccess": "Solicitar Acesso"
       }
     }
   }

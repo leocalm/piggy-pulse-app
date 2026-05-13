@@ -73,7 +73,7 @@ export function EmptyState({
   filterTags,
   'data-testid': testId,
 }: EmptyStateProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('v2');
 
   const containerClass = [
     classes.emptyState,

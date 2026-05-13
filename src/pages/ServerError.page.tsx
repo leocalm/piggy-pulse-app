@@ -8,7 +8,7 @@ import { ErrorState } from '@/components/Utils';
  */
 export function ServerErrorPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation('v2');
 
   const handleRefresh = () => {
     window.location.reload();

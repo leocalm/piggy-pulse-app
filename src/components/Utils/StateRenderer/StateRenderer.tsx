@@ -68,7 +68,7 @@ export function StateRenderer({
   children,
   'data-testid': testId,
 }: StateRendererProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('v2');
   const state = resolveState({ isLocked, hasError, isLoading, isEmpty });
 
   if (state === 'active') {

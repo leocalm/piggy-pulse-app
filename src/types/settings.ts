@@ -1,6 +1,6 @@
 export type Theme = 'light' | 'dark' | 'auto';
 
-export type Language = 'en' | 'pt';
+export type Language = 'en' | 'pt' | 'pt-pt' | 'es-es' | 'nl-nl' | 'de-de' | 'fr-fr';
 
 export type DateFormat = 'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY-MM-DD';
 
@@ -12,7 +12,12 @@ export type WeekendAdjustment = 'keep' | 'friday' | 'monday';
 
 export const LANGUAGE_DISPLAY_NAMES: Record<Language, string> = {
   en: 'English',
-  pt: 'Portuguese',
+  pt: 'Português (Brasil)',
+  'pt-pt': 'Português (Portugal)',
+  'es-es': 'Español',
+  'nl-nl': 'Nederlands',
+  'de-de': 'Deutsch',
+  'fr-fr': 'Français',
 };
 
 // Legacy settings (kept for language support)
