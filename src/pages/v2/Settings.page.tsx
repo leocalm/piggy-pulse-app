@@ -551,7 +551,8 @@ export function SettingsV2Page() {
                     onChange={(val) => val && handlePreferenceChange({ language: val })}
                     data={[
                       { value: 'en', label: 'English' },
-                      { value: 'pt', label: 'Portugu\u00eas' },
+                      { value: 'pt', label: 'Portugu\u00eas (Brasil)' },
+                      { value: 'pt-pt', label: 'Portugu\u00eas (Portugal)' },
                     ]}
                     styles={{
                       input: {

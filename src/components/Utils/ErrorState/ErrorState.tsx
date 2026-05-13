@@ -81,7 +81,7 @@ export function ErrorState({
   onRetry,
   'data-testid': testId,
 }: ErrorStateProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('v2');
 
   const getIcon = (): string | ReactNode => {
     if (icon) {

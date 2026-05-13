@@ -8,7 +8,7 @@ import { ErrorState } from '@/components/Utils';
  */
 export function AccessDeniedPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation('v2');
 
   return (
     <ErrorState

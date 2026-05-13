@@ -2,8 +2,8 @@ import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import en from './src/locales/en.json';
-import pt from './src/locales/pt.json';
+import en from './src/locales/v2/en.json';
+import pt from './src/locales/v2/pt.json';
 
 const { getComputedStyle } = window;
 window.getComputedStyle = (elt) => getComputedStyle(elt);
@@ -35,9 +35,11 @@ window.ResizeObserver = ResizeObserver;
 i18n.use(initReactI18next).init({
   lng: 'en',
   fallbackLng: 'en',
+  ns: ['v2'],
+  defaultNS: 'v2',
   resources: {
-    en: { translation: en },
-    pt: { translation: pt },
+    en: { v2: en },
+    pt: { v2: pt },
   },
   interpolation: {
     escapeValue: false,

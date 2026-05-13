@@ -397,6 +397,9 @@
       "disabledTitle": "2FA Desativado",
       "disabledMessage": "A autenticação de dois fatores foi desativada. Pode agora iniciar sessão apenas com a sua palavra-passe.",
       "goToSignIn": "Ir para o início de sessão"
+    },
+    "session": {
+      "refreshFailed": "Não foi possível restaurar sua sessão. Por favor, faça login novamente."
     }
   },
   "categories": {
@@ -575,7 +578,9 @@
     "unarchive": "Desarquivar",
     "viewDetails": "Ver detalhes",
     "noPeriodStateDescription": "Selecione ou crie um período para visualizar esta página. Períodos definem a janela de tempo para suas transações e metas.",
-    "goToPeriods": "Ir para Períodos"
+    "goToPeriods": "Ir para Períodos",
+    "close": "Fechar",
+    "error": "Erro"
   },
   "dashboard": {
     "account": {
@@ -1745,6 +1750,71 @@
       "addTransaction": {
         "title": "Adicionar sua primeira transação",
         "description": "Registre uma transação para começar a acompanhar seus gastos"
+      }
+    }
+  },
+  "states": {
+    "contract": {
+      "emptyTitle": "Sem {{items}} ainda.",
+      "items": {
+        "data": "itens"
+      }
+    },
+    "empty": {
+      "filter": {
+        "removeTag": "Remover filtro {{tag}}"
+      },
+      "search": {
+        "noResults": "Não encontramos resultados para"
+      },
+      "tips": {
+        "title": "Dicas Rápidas"
+      }
+    },
+    "locked": {
+      "message": {
+        "periodRequired": "Um período de orçamento é necessário antes de exibir este conteúdo."
+      },
+      "status": {
+        "notConfigured": "Não configurado"
+      }
+    },
+    "error": {
+      "403": {
+        "title": "Acesso Negado",
+        "message": "Você não tem permissão para acessar este recurso. Se você acredita que isso é um erro, entre em contato com o administrador."
+      },
+      "404": {
+        "title": "Página Não Encontrada",
+        "message": "A página que você está procurando não existe ou foi movida. Vamos colocá-lo de volta no caminho."
+      },
+      "500": {
+        "title": "Algo Deu Errado",
+        "message": "Estamos enfrentando dificuldades técnicas. Nossa equipe foi notificada e está trabalhando em uma correção. Por favor, tente novamente mais tarde."
+      },
+      "503": {
+        "title": "Serviço Indisponível",
+        "message": "O serviço está temporariamente indisponível. Por favor, tente novamente em alguns minutos."
+      },
+      "retry": "Tentar Novamente",
+      "loadFailed": {
+        "message": "Não foi possível carregar seus dados. Isso pode ser um problema temporário com nossos servidores."
+      },
+      "generic": {
+        "title": "Algo Deu Errado",
+        "message": "Ocorreu um erro inesperado. Por favor, tente novamente."
+      },
+      "details": {
+        "title": "Detalhes do Erro",
+        "code": "Código do Erro",
+        "requestId": "ID da Requisição",
+        "timestamp": "Data e Hora"
+      },
+      "actions": {
+        "refresh": "Atualizar Página",
+        "goHome": "Ir para o Dashboard",
+        "goBack": "Voltar",
+        "requestAccess": "Solicitar Acesso"
       }
     }
   }
