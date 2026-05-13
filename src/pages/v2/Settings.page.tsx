@@ -554,6 +554,7 @@ export function SettingsV2Page() {
                       { value: 'pt', label: 'Portugu\u00eas (Brasil)' },
                       { value: 'pt-pt', label: 'Portugu\u00eas (Portugal)' },
                       { value: 'fr-fr', label: 'Fran\u00e7ais' },
+                      { value: 'es-es', label: 'Espa\u00f1ol' },
                     ]}
                     styles={{
                       input: {
