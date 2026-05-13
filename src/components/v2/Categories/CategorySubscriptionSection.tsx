@@ -170,6 +170,7 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
           return (
             <Group
               key={sub.id}
+              data-testid={`category-sub-row-${sub.id}`}
               justify="space-between"
               align="center"
               px="sm"
@@ -219,6 +220,7 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
                   <Menu.Target>
                     {/* Issue 6: translated aria-label */}
                     <ActionIcon
+                      data-testid={`category-sub-row-${sub.id}-menu`}
                       variant="subtle"
                       color="gray"
                       size="sm"
@@ -232,14 +234,21 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
                     </ActionIcon>
                   </Menu.Target>
                   <Menu.Dropdown>
-                    <Menu.Item onClick={() => handleEdit(sub)}>{t('common.edit')}</Menu.Item>
+                    <Menu.Item data-testid="category-sub-menu-edit" onClick={() => handleEdit(sub)}>
+                      {t('common.edit')}
+                    </Menu.Item>
                     {!isCancelled && (
-                      <Menu.Item color="orange" onClick={() => handleCancel(sub)}>
+                      <Menu.Item
+                        data-testid="category-sub-menu-cancel"
+                        color="orange"
+                        onClick={() => handleCancel(sub)}
+                      >
                         {t('common.cancel')}
                       </Menu.Item>
                     )}
                     {/* Issue 2 & 3: open confirm dialog, disable while pending */}
                     <Menu.Item
+                      data-testid="category-sub-menu-delete"
                       color="red"
                       disabled={deleteMutation.isPending}
                       onClick={() => handleDeleteRequest(sub)}
@@ -255,7 +264,13 @@ export function CategorySubscriptionSection({ categoryId }: CategorySubscription
       )}
 
       {/* Add Subscription button */}
-      <Button variant="light" size="xs" onClick={openForm} style={{ alignSelf: 'flex-start' }}>
+      <Button
+        data-testid="category-sub-add-button"
+        variant="light"
+        size="xs"
+        onClick={openForm}
+        style={{ alignSelf: 'flex-start' }}
+      >
         {t('subscriptions.addSubscription')}
       </Button>
 

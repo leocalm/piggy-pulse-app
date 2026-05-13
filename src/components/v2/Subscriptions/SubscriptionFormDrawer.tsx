@@ -105,6 +105,7 @@ export function SubscriptionFormDrawer({
 
   return (
     <Drawer
+      data-testid="subscription-form-drawer"
       opened={opened}
       onClose={onClose}
       title={isEdit ? t('subscriptions.form.editTitle') : t('subscriptions.form.createTitle')}
@@ -117,6 +118,7 @@ export function SubscriptionFormDrawer({
     >
       <Stack gap="md">
         <TextInput
+          data-testid="subscription-form-name"
           label={t('subscriptions.form.name')}
           placeholder={t('subscriptions.form.namePlaceholder')}
           value={name}
@@ -140,6 +142,7 @@ export function SubscriptionFormDrawer({
         />
 
         <Select
+          data-testid="subscription-form-vendor"
           label={t('subscriptions.form.vendor')}
           data={vendorOptions}
           value={vendorId}
@@ -154,6 +157,7 @@ export function SubscriptionFormDrawer({
 
         <Group grow>
           <NumberInput
+            data-testid="subscription-form-amount"
             label={t('subscriptions.form.amount')}
             value={billingAmount}
             onChange={setBillingAmount}
@@ -163,6 +167,7 @@ export function SubscriptionFormDrawer({
             required
           />
           <Select
+            data-testid="subscription-form-cycle"
             label={t('subscriptions.form.cycle')}
             data={cycleOptions}
             value={billingCycle}
@@ -172,6 +177,7 @@ export function SubscriptionFormDrawer({
         </Group>
 
         <NumberInput
+          data-testid="subscription-form-billing-day"
           label={t('subscriptions.form.billingDay')}
           description={t('subscriptions.form.billingDayDesc')}
           value={billingDay}
@@ -182,6 +188,7 @@ export function SubscriptionFormDrawer({
         />
 
         <TextInput
+          data-testid="subscription-form-next-charge"
           label={t('subscriptions.form.nextCharge')}
           type="date"
           value={nextChargeDate}
@@ -193,7 +200,12 @@ export function SubscriptionFormDrawer({
           <Button variant="subtle" onClick={onClose} disabled={isSubmitting}>
             {t('common.cancel')}
           </Button>
-          <Button onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
+          <Button
+            data-testid="subscription-form-submit"
+            onClick={handleSubmit}
+            loading={isSubmitting}
+            disabled={!isValid}
+          >
             {isEdit ? t('common.saveChanges') : t('subscriptions.form.createButton')}
           </Button>
         </Group>
