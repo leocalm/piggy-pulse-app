@@ -209,7 +209,12 @@ export function CategoriesV2Page() {
                 <Text fz="xs" c="dimmed" tt="uppercase" fw={600}>
                   {t('categories.expenseBudget')}
                 </Text>
-                <Text fz="md" fw={600} ff="var(--mantine-font-family-monospace)">
+                <Text
+                  data-testid="categories-stat-expense-budget"
+                  fz="md"
+                  fw={600}
+                  ff="var(--mantine-font-family-monospace)"
+                >
                   {summary.totalBudgeted != null ? (
                     <CurrencyValue cents={summary.totalBudgeted} />
                   ) : (
@@ -221,7 +226,12 @@ export function CategoriesV2Page() {
                 <Text fz="xs" c="dimmed" tt="uppercase" fw={600}>
                   {t('categories.incomeTarget')}
                 </Text>
-                <Text fz="md" fw={600} ff="var(--mantine-font-family-monospace)">
+                <Text
+                  data-testid="categories-stat-income-target"
+                  fz="md"
+                  fw={600}
+                  ff="var(--mantine-font-family-monospace)"
+                >
                   {summary.totalBudgetedIncoming != null ? (
                     <CurrencyValue cents={summary.totalBudgetedIncoming} />
                   ) : (
@@ -233,7 +243,12 @@ export function CategoriesV2Page() {
                 <Text fz="xs" c="dimmed" tt="uppercase" fw={600}>
                   {t('categories.totalSpent')}
                 </Text>
-                <Text fz="md" fw={600} ff="var(--mantine-font-family-monospace)">
+                <Text
+                  data-testid="categories-stat-total-spent"
+                  fz="md"
+                  fw={600}
+                  ff="var(--mantine-font-family-monospace)"
+                >
                   <CurrencyValue cents={summary.totalSpent} />
                 </Text>
               </div>
@@ -241,7 +256,12 @@ export function CategoriesV2Page() {
                 <Text fz="xs" c="dimmed" tt="uppercase" fw={600}>
                   {t('categories.categoriesCount')}
                 </Text>
-                <Text fz="md" fw={600} ff="var(--mantine-font-family-monospace)">
+                <Text
+                  data-testid="categories-stat-count"
+                  fz="md"
+                  fw={600}
+                  ff="var(--mantine-font-family-monospace)"
+                >
                   {incomeCategories.length + expenseCategories.length}
                 </Text>
               </div>
@@ -249,7 +269,12 @@ export function CategoriesV2Page() {
                 <Text fz="xs" c="dimmed" tt="uppercase" fw={600}>
                   {t('categories.unbudgeted')}
                 </Text>
-                <Text fz="md" fw={600} ff="var(--mantine-font-family-monospace)">
+                <Text
+                  data-testid="categories-stat-unbudgeted"
+                  fz="md"
+                  fw={600}
+                  ff="var(--mantine-font-family-monospace)"
+                >
                   {
                     categories.filter(
                       (c) => c.status === 'active' && (c.budgeted == null || c.budgeted === 0)

@@ -113,6 +113,7 @@ export function CategoryRow({
         <Menu position="bottom-end" withinPortal>
           <Menu.Target>
             <ActionIcon
+              data-testid={`category-row-${category.id}-menu`}
               variant="subtle"
               color="gray"
               size="sm"
@@ -125,16 +126,27 @@ export function CategoryRow({
           </Menu.Target>
           <Menu.Dropdown>
             {!isArchived && (
-              <Menu.Item onClick={() => onEdit(category.id)}>{t('common.edit')}</Menu.Item>
+              <Menu.Item data-testid="category-menu-edit" onClick={() => onEdit(category.id)}>
+                {t('common.edit')}
+              </Menu.Item>
             )}
             {isArchived ? (
-              <Menu.Item onClick={() => onUnarchive(category.id)}>
+              <Menu.Item
+                data-testid="category-menu-unarchive"
+                onClick={() => onUnarchive(category.id)}
+              >
                 {t('common.unarchive')}
               </Menu.Item>
             ) : (
-              <Menu.Item onClick={() => onArchive(category.id)}>{t('common.archive')}</Menu.Item>
+              <Menu.Item data-testid="category-menu-archive" onClick={() => onArchive(category.id)}>
+                {t('common.archive')}
+              </Menu.Item>
             )}
-            <Menu.Item color="red" onClick={() => setDeleteConfirmOpen(true)}>
+            <Menu.Item
+              data-testid="category-menu-delete"
+              color="red"
+              onClick={() => setDeleteConfirmOpen(true)}
+            >
               {t('common.delete')}
             </Menu.Item>
           </Menu.Dropdown>

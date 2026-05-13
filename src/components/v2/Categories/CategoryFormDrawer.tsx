@@ -272,6 +272,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
               {(['income', 'expense'] as const).map((catType) => (
                 <UnstyledButton
                   key={catType}
+                  data-testid={`category-type-${catType}`}
                   className={
                     type === catType ? classes.selectorButtonActive : classes.selectorButton
                   }
@@ -298,6 +299,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
                 const btn = (
                   <UnstyledButton
                     key={b}
+                    data-testid={`category-behavior-${b}`}
                     className={
                       behavior === b ? classes.selectorButtonActive : classes.selectorButton
                     }
@@ -342,7 +344,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
           <Text fz="xs" fw={600} tt="uppercase" c="dimmed" mb={4}>
             {t('categories.form.icon')}
           </Text>
-          <div className={classes.iconGrid}>
+          <div className={classes.iconGrid} data-testid="category-icon-grid">
             {CATEGORY_ICONS.map((i) => (
               <UnstyledButton
                 key={i}
@@ -357,6 +359,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
 
         {/* Description */}
         <Textarea
+          data-testid="category-description-input"
           label={t('categories.form.description')}
           placeholder={t('categories.form.descriptionPlaceholder')}
           value={description}
@@ -397,6 +400,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
           <>
             <Divider label={t('categories.subscriptionSection.inlineTitle')} />
             <TextInput
+              data-testid="subscription-inline-name"
               label={t('subscriptions.form.name')}
               placeholder={t('subscriptions.form.namePlaceholder')}
               value={subName}
@@ -404,6 +408,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
               required
             />
             <Select
+              data-testid="subscription-inline-vendor"
               label={t('subscriptions.form.vendor')}
               data={(vendors ?? []).map((v) => ({ value: v.id, label: v.name }))}
               value={subVendorId}
@@ -416,6 +421,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
             </Text>
             <Group grow>
               <NumberInput
+                data-testid="subscription-inline-amount"
                 label={t('subscriptions.form.amount')}
                 value={subBillingAmount}
                 onChange={setSubBillingAmount}
@@ -425,6 +431,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
                 required
               />
               <Select
+                data-testid="subscription-inline-cycle"
                 label={t('subscriptions.form.cycle')}
                 data={[
                   { value: 'monthly', label: t('subscriptions.form.cycles.monthly') },
@@ -437,6 +444,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
               />
             </Group>
             <NumberInput
+              data-testid="subscription-inline-billing-day"
               label={t('subscriptions.form.billingDay')}
               description={t('subscriptions.form.billingDayDesc')}
               value={subBillingDay}
@@ -446,6 +454,7 @@ export function CategoryFormDrawer({ opened, onClose, editCategory }: CategoryFo
               required
             />
             <TextInput
+              data-testid="subscription-inline-next-charge"
               label={t('subscriptions.form.nextCharge')}
               type="date"
               value={subNextChargeDate}
