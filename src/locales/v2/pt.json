@@ -297,8 +297,6 @@
       },
       "invalidLinkMessage": "Este link expirou ou é inválido.",
       "invalidLinkTitle": "Link de recuperação inválido",
-      "invalidSubtitle": "Este link expirou ou é inválido.",
-      "invalidTitle": "Link de recuperação inválido",
       "newPassword": "Nova palavra-passe",
       "newPasswordLabel": "Nova palavra-passe",
       "passwordsDoNotMatch": "As palavras-passe não coincidem",
@@ -313,10 +311,8 @@
         "message": "A sua palavra-passe foi reposta com sucesso.",
         "title": "Palavra-passe atualizada"
       },
-      "successInstruction": "Pode agora iniciar sessão com a nova palavra-passe.",
       "successMessage": "A sua palavra-passe foi reposta com sucesso.",
       "successSubtext": "Pode agora iniciar sessão com a nova palavra-passe.",
-      "successSubtitle": "A sua palavra-passe foi reposta com sucesso.",
       "successTitle": "Palavra-passe atualizada",
       "title": "Definir nova palavra-passe"
     },
@@ -337,12 +333,8 @@
       "unlock": "Verifique a sua identidade para continuar."
     },
     "twoFactor": {
-      "enterCodeLabel": "Introduza o código de 6 dígitos da sua aplicação autenticadora.",
-      "enterRecoveryLabel": "Introduza um dos seus códigos de recuperação.",
       "errorInvalidCode": "Código inválido. Tente novamente.",
-      "invalidCode": "Código inválido. Tente novamente.",
       "placeholder": "000000",
-      "recoveryCodeTitle": "Código de recuperação",
       "recoveryPlaceholder": "XXXX-XXXX",
       "recoverySubtitle": "Introduza um dos seus códigos de recuperação.",
       "recoveryTitle": "Código de recuperação",
@@ -364,17 +356,13 @@
         "message": "Este link expirou ou é inválido.",
         "title": "Link de desbloqueio inválido"
       },
-      "invalidSubtitle": "Este link expirou ou é inválido.",
-      "invalidTitle": "Link de desbloqueio inválido",
       "loading": "A desbloquear a sua conta...",
-      "loadingText": "A desbloquear a sua conta...",
       "success": {
         "goToSignIn": "Ir para Início de Sessão",
         "message": "A sua conta foi desbloqueada. Pode agora iniciar sessão.",
         "title": "Conta desbloqueada"
       },
       "successMessage": "A sua conta foi desbloqueada. Pode agora iniciar sessão.",
-      "successSubtitle": "A sua conta foi desbloqueada. Pode agora iniciar sessão.",
       "successTitle": "Conta desbloqueada"
     },
     "emergency2fa": {
@@ -611,7 +599,11 @@
       "tomorrow": "Amanhã",
       "transactions": "Transações"
     },
-    "accountCard": "Cartão de conta individual",
+    "accountCard": {
+      "archived": "Esta conta foi arquivada.",
+      "error": "Algo correu mal ao carregar esta conta.",
+      "noTransactions": "Sem transações neste período ainda."
+    },
     "addWidget": "Adicionar widget",
     "addWidgetButton": "+ Adicionar widget",
     "cancel": "Cancelar",
