@@ -48,7 +48,7 @@
     "@mantine/charts": "^9.1.0",
     "@mantine/core": "^9.0.2",
     "@mantine/dates": "^9.2.1",
-    "@mantine/form": "^9.1.1",
+    "@mantine/form": "^9.2.1",
     "@mantine/hooks": "^9.1.1",
     "@mantine/notifications": "^9.1.1",
     "@sentry/react": "^10.53.1",
