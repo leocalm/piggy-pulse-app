@@ -2836,7 +2836,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/browser@npm:4.1.6":
+"@vitest/browser@npm:4.1.6, @vitest/browser@npm:^4.1.6":
   version: 4.1.6
   resolution: "@vitest/browser@npm:4.1.6"
   dependencies:
@@ -2851,24 +2851,6 @@ __metadata:
   peerDependencies:
     vitest: 4.1.6
   checksum: 10c0/f9e8dd7e48add4d11856517bfdbb6b0f9fa291d5b22bb21a5a74194f5b37e32e3597c653e59b630ac2c58f0edd70a440a17b12c1d03e867a5a26fd57ab9a3d67
-  languageName: node
-  linkType: hard
-
-"@vitest/browser@npm:^4.1.5":
-  version: 4.1.5
-  resolution: "@vitest/browser@npm:4.1.5"
-  dependencies:
-    "@blazediff/core": "npm:1.9.1"
-    "@vitest/mocker": "npm:4.1.5"
-    "@vitest/utils": "npm:4.1.5"
-    magic-string: "npm:^0.30.21"
-    pngjs: "npm:^7.0.0"
-    sirv: "npm:^3.0.2"
-    tinyrainbow: "npm:^3.1.0"
-    ws: "npm:^8.19.0"
-  peerDependencies:
-    vitest: 4.1.5
-  checksum: 10c0/ea95d100853dd7a1ea9f1b036edfe441688bf5873742341ebf169ab2e32041ab6e21e5f2df918c3c4b9f110265457cdce0c0afa83407617e460a83979ae48e44
   languageName: node
   linkType: hard
 
@@ -7065,7 +7047,7 @@ __metadata:
     "@types/react-is": "npm:^19"
     "@vitejs/plugin-basic-ssl": "npm:^2.3.0"
     "@vitejs/plugin-react": "npm:^6.0.2"
-    "@vitest/browser": "npm:^4.1.5"
+    "@vitest/browser": "npm:^4.1.6"
     "@vitest/browser-playwright": "npm:^4.1.6"
     "@vitest/coverage-v8": "npm:4.1.5"
     dayjs: "npm:^1.11.20"
