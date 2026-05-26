@@ -363,7 +363,12 @@
         "title": "Account unlocked"
       },
       "successMessage": "Your account has been unlocked. You can now sign in.",
-      "successTitle": "Account unlocked"
+      "successTitle": "Account unlocked",
+      "logoutButton": "Log out",
+      "confirmLogoutTitle": "Log out?",
+      "confirmLogoutMessage": "This will clear your session and return you to the sign-in page. Any unsynchronized data on this device will be lost.",
+      "cancelLogout": "Cancel",
+      "confirmLogout": "Log out"
     },
     "emergency2fa": {
       "title": "Emergency 2FA Disable",
