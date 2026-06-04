@@ -46,7 +46,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@mantine/charts": "^9.1.0",
-    "@mantine/core": "^9.2.1",
+    "@mantine/core": "^9.2.2",
     "@mantine/dates": "^9.2.1",
     "@mantine/form": "^9.2.1",
     "@mantine/hooks": "^9.2.1",
