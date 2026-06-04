@@ -51,7 +51,7 @@
     "@mantine/form": "^9.2.1",
     "@mantine/hooks": "^9.2.1",
     "@mantine/notifications": "^9.2.2",
-    "@sentry/react": "^10.53.1",
+    "@sentry/react": "^10.56.0",
     "@tabler/icons-react": "^3.44.0",
     "@tanstack/react-query": "^5.100.14",
     "@vitest/browser-playwright": "^4.1.6",
