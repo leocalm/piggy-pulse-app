@@ -89,7 +89,7 @@
     "@types/react-is": "^19",
     "@vitejs/plugin-basic-ssl": "^2.3.0",
     "@vitejs/plugin-react": "^6.0.2",
-    "@vitest/browser": "^4.1.6",
+    "@vitest/browser": "^4.1.7",
     "@vitest/browser-playwright": "^4.1.6",
     "@vitest/coverage-v8": "4.1.5",
     "eslint": "^10.3.0",
