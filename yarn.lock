@@ -1110,12 +1110,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/hooks@npm:^9.2.1":
-  version: 9.2.1
-  resolution: "@mantine/hooks@npm:9.2.1"
+"@mantine/hooks@npm:^9.3.0":
+  version: 9.3.0
+  resolution: "@mantine/hooks@npm:9.3.0"
   peerDependencies:
     react: ^19.2.0
-  checksum: 10c0/39d94b17769a9688f5bce7d88b8b8c267a159d24fc5c5ae9b518382f338db5536d19b85d3895f18d868b34d7160defb1688274af0420161aa6352d29c7ec954d
+  checksum: 10c0/ed95a2551b34719d43d7b195cf05248498f20add736a2e4ec582b677e5a9efb53b562010df79dc9af7db087e76e9ac42192443c9d03f76963b5dba7dfc2e0a63
   languageName: node
   linkType: hard
 
@@ -7112,7 +7112,7 @@ __metadata:
     "@mantine/core": "npm:^9.2.2"
     "@mantine/dates": "npm:^9.2.1"
     "@mantine/form": "npm:^9.2.1"
-    "@mantine/hooks": "npm:^9.2.1"
+    "@mantine/hooks": "npm:^9.3.0"
     "@mantine/notifications": "npm:^9.2.2"
     "@sentry/react": "npm:^10.53.1"
     "@sentry/vite-plugin": "npm:^5.3.0"
