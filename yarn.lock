@@ -1915,9 +1915,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-vitest@npm:10.4.1":
-  version: 10.4.1
-  resolution: "@storybook/addon-vitest@npm:10.4.1"
+"@storybook/addon-vitest@npm:10.4.2":
+  version: 10.4.2
+  resolution: "@storybook/addon-vitest@npm:10.4.2"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
     "@storybook/icons": "npm:^2.0.2"
@@ -1925,7 +1925,7 @@ __metadata:
     "@vitest/browser": ^3.0.0 || ^4.0.0
     "@vitest/browser-playwright": ^4.0.0
     "@vitest/runner": ^3.0.0 || ^4.0.0
-    storybook: ^10.4.1
+    storybook: ^10.4.2
     vitest: ^3.0.0 || ^4.0.0
   peerDependenciesMeta:
     "@vitest/browser":
@@ -1936,7 +1936,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/91f5b490da41ae432ed6b676c39580483066c283888686adfce553832342107e3bda123f1bf2c481e1103f9fbb53303264d190737df9cd24d3f761d0b2ffda8c
+  checksum: 10c0/d4107866fca14af4b085daa1b94f54dfc230674f2b4573644f832c10a61edf236ec064534c16810aa2c109d360daa5691a6730f563558ecf757cf2825f597c54
   languageName: node
   linkType: hard
 
@@ -6569,7 +6569,7 @@ __metadata:
     "@sentry/react": "npm:^10.55.0"
     "@sentry/vite-plugin": "npm:^5.3.0"
     "@storybook/addon-themes": "npm:10.4.2"
-    "@storybook/addon-vitest": "npm:10.4.1"
+    "@storybook/addon-vitest": "npm:10.4.2"
     "@storybook/react": "npm:10.4.2"
     "@storybook/react-vite": "npm:10.3.5"
     "@tabler/icons-react": "npm:^3.44.0"
