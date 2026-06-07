@@ -1904,14 +1904,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-themes@npm:10.4.1":
-  version: 10.4.1
-  resolution: "@storybook/addon-themes@npm:10.4.1"
+"@storybook/addon-themes@npm:10.4.2":
+  version: 10.4.2
+  resolution: "@storybook/addon-themes@npm:10.4.2"
   dependencies:
     ts-dedent: "npm:^2.0.0"
   peerDependencies:
-    storybook: ^10.4.1
-  checksum: 10c0/b5df1b11b1170c8207b9a0896db11a210d08ff004d47f054909348d3356965c3e801dc825c20e66d967488b85f4007259bc78da05e2fe1975802dd8e3792b9d4
+    storybook: ^10.4.2
+  checksum: 10c0/dab53600e0778d35d4eaf81c9b35f2c1332cb374e289b08e475dea266694cfc8239fe91a8f5d43a2007d513913ccc9b0899bc8b7504ea363e7266bfd6c1624ee
   languageName: node
   linkType: hard
 
@@ -6546,7 +6546,7 @@ __metadata:
     "@mantine/notifications": "npm:^9.2.2"
     "@sentry/react": "npm:^10.55.0"
     "@sentry/vite-plugin": "npm:^5.3.0"
-    "@storybook/addon-themes": "npm:10.4.1"
+    "@storybook/addon-themes": "npm:10.4.2"
     "@storybook/addon-vitest": "npm:10.4.1"
     "@storybook/react": "npm:10.3.6"
     "@storybook/react-vite": "npm:10.3.5"
