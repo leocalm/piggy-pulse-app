@@ -1033,18 +1033,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/dates@npm:^9.2.1":
-  version: 9.3.0
-  resolution: "@mantine/dates@npm:9.3.0"
+"@mantine/dates@npm:^9.3.1":
+  version: 9.3.1
+  resolution: "@mantine/dates@npm:9.3.1"
   dependencies:
     clsx: "npm:^2.1.1"
   peerDependencies:
-    "@mantine/core": 9.3.0
-    "@mantine/hooks": 9.3.0
+    "@mantine/core": 9.3.1
+    "@mantine/hooks": 9.3.1
     dayjs: ">=1.0.0"
     react: ^19.2.0
     react-dom: ^19.2.0
-  checksum: 10c0/ecba40c1711d0dbd6a0d0faac1af7c5a81308ffc8dd22b81d2bd6f1cb9c0e15b11bce9634e2d1a8c5f36225d43264c519fe32a4738828b44341d278f74f449ae
+  checksum: 10c0/d03f8b42e344839db38662826e4ec107e9c2daee90a136db6327992f9daad9628a5c759f4d27a726077730df35bdc5424b19bc963cd2a37dfc8cd201dafcefa1
   languageName: node
   linkType: hard
 
@@ -6531,7 +6531,7 @@ __metadata:
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.0"
     "@mantine/charts": "npm:^9.1.0"
     "@mantine/core": "npm:^9.2.2"
-    "@mantine/dates": "npm:^9.2.1"
+    "@mantine/dates": "npm:^9.3.1"
     "@mantine/form": "npm:^9.2.1"
     "@mantine/hooks": "npm:^9.3.0"
     "@mantine/notifications": "npm:^9.2.2"
