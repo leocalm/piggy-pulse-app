@@ -1048,16 +1048,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/form@npm:^9.2.1":
-  version: 9.3.0
-  resolution: "@mantine/form@npm:9.3.0"
+"@mantine/form@npm:^9.3.1":
+  version: 9.3.1
+  resolution: "@mantine/form@npm:9.3.1"
   dependencies:
     "@standard-schema/spec": "npm:^1.1.0"
     fast-deep-equal: "npm:^3.1.3"
     klona: "npm:^2.0.6"
   peerDependencies:
     react: ^19.2.0
-  checksum: 10c0/9d67b7f46542cc585526bbf9c8fa965eb048a091e1d148ff46af0232a032aa8890e18b86cb5331d259d326d8c0765308a166d0aab91405336e6b0c8e20e4a11e
+  checksum: 10c0/b706ce05672e812af16e93e49b692c19c63e44209311e99faff01a909c060569389ad42df04d66d7baff87ef738764d4c521efe71937c638016d937f6752a9e3
   languageName: node
   linkType: hard
 
@@ -6532,7 +6532,7 @@ __metadata:
     "@mantine/charts": "npm:^9.1.0"
     "@mantine/core": "npm:^9.2.2"
     "@mantine/dates": "npm:^9.2.1"
-    "@mantine/form": "npm:^9.2.1"
+    "@mantine/form": "npm:^9.3.1"
     "@mantine/hooks": "npm:^9.3.0"
     "@mantine/notifications": "npm:^9.2.2"
     "@sentry/react": "npm:^10.55.0"
