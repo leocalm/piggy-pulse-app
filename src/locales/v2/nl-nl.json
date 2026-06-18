@@ -363,7 +363,12 @@
         "title": "Account ontgrendeld"
       },
       "successMessage": "Je account is ontgrendeld. Je kunt nu inloggen.",
-      "successTitle": "Account ontgrendeld"
+      "successTitle": "Account ontgrendeld",
+      "logoutButton": "Uitloggen",
+      "confirmLogoutTitle": "Uitloggen?",
+      "confirmLogoutMessage": "Dit verwijdert uw sessie en brengt u terug naar de inlogpagina. Niet-gesynchroniseerde gegevens op dit apparaat gaan verloren.",
+      "cancelLogout": "Annuleren",
+      "confirmLogout": "Uitloggen"
     },
     "emergency2fa": {
       "title": "Noodontgrendeling van 2FA",

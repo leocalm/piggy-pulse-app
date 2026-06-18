@@ -363,7 +363,12 @@
         "title": "Cuenta desbloqueada"
       },
       "successMessage": "Tu cuenta se ha desbloqueado. Ya puedes iniciar sesión.",
-      "successTitle": "Cuenta desbloqueada"
+      "successTitle": "Cuenta desbloqueada",
+      "logoutButton": "Cerrar sesión",
+      "confirmLogoutTitle": "¿Cerrar sesión?",
+      "confirmLogoutMessage": "Esto borrará tu sesión y te devolverá a la página de inicio de sesión. Los datos no sincronizados en este dispositivo se perderán.",
+      "cancelLogout": "Cancelar",
+      "confirmLogout": "Cerrar sesión"
     },
     "emergency2fa": {
       "title": "Desactivar 2FA en emergencia",
