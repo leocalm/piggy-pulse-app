@@ -1070,27 +1070,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/notifications@npm:^9.3.1":
-  version: 9.3.1
-  resolution: "@mantine/notifications@npm:9.3.1"
+"@mantine/notifications@npm:^9.4.0":
+  version: 9.4.0
+  resolution: "@mantine/notifications@npm:9.4.0"
   dependencies:
-    "@mantine/store": "npm:9.3.1"
+    "@mantine/store": "npm:9.4.0"
     react-transition-group: "npm:4.4.5"
   peerDependencies:
-    "@mantine/core": 9.3.1
-    "@mantine/hooks": 9.3.1
+    "@mantine/core": 9.4.0
+    "@mantine/hooks": 9.4.0
     react: ^19.2.0
     react-dom: ^19.2.0
-  checksum: 10c0/3c333a50c12a24d0e45a93fbdd3c0957caae1f0b4a3f054c4eeb8698a14243ba40f9c12ceaac2666df1f91fc0d19521f19e465a7b06b51271ea03a3b3b9729de
+  checksum: 10c0/b1c48edaf7c0e1493e83bee1dcfe5fc43a281c578bdb817f9243755f483d4f7eaa3aa4b5f1adfde5e31d38aa1a20943972eba03b2132d10d1a0a7e0c087da2bd
   languageName: node
   linkType: hard
 
-"@mantine/store@npm:9.3.1":
-  version: 9.3.1
-  resolution: "@mantine/store@npm:9.3.1"
+"@mantine/store@npm:9.4.0":
+  version: 9.4.0
+  resolution: "@mantine/store@npm:9.4.0"
   peerDependencies:
     react: ^19.2.0
-  checksum: 10c0/a3f33c67181824123f371b8afe0034a213ca31649ea8f9405f22eacbaa70ca2d5f4fd4456453377b7d45f161c7a4901b7cbff744d689487c9e42c0191169ef7b
+  checksum: 10c0/3c6e60d014cb88bf31838df4296be49ce2490872320e4ed83fd7ab90fc3dc1e7c00abfc1649c7f23900f11fd01918cafe3cc7c3bb4cf5abc442348c9af028e52
   languageName: node
   linkType: hard
 
@@ -6649,7 +6649,7 @@ __metadata:
     "@mantine/dates": "npm:^9.3.2"
     "@mantine/form": "npm:^9.4.0"
     "@mantine/hooks": "npm:^9.3.1"
-    "@mantine/notifications": "npm:^9.3.1"
+    "@mantine/notifications": "npm:^9.4.0"
     "@sentry/react": "npm:^10.59.0"
     "@sentry/vite-plugin": "npm:^5.3.0"
     "@storybook/addon-themes": "npm:10.4.6"
