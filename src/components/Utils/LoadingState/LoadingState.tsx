@@ -4,13 +4,7 @@ import { PulseLoader } from '@/components/PulseLoader';
 import classes from './LoadingState.module.css';
 
 export type LoadingStateVariant =
-  | 'spinner'
-  | 'dots'
-  | 'bars'
-  | 'progress'
-  | 'inline'
-  | 'overlay'
-  | 'fullscreen';
+  'spinner' | 'dots' | 'bars' | 'progress' | 'inline' | 'overlay' | 'fullscreen';
 export type LoadingStateSize = 'sm' | 'md' | 'lg';
 
 export interface LoadingStateProps {
