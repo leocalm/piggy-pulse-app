@@ -106,7 +106,7 @@
     "postcss": "^8.5.16",
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
-    "prettier": "^3.9.4",
+    "prettier": "^3.9.5",
     "prop-types": "^15.8.1",
     "storybook": "10.4.6",
     "stylelint": "^17.14.0",
