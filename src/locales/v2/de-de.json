@@ -363,7 +363,12 @@
         "title": "Konto entsperrt"
       },
       "successMessage": "Dein Konto wurde entsperrt. Du kannst dich jetzt anmelden.",
-      "successTitle": "Konto entsperrt"
+      "successTitle": "Konto entsperrt",
+      "logoutButton": "Abmelden",
+      "confirmLogoutTitle": "Abmelden?",
+      "confirmLogoutMessage": "Dies löscht Ihre Sitzung und bringt Sie zurück zur Anmeldeseite. Nicht synchronisierte Daten auf diesem Gerät gehen verloren.",
+      "cancelLogout": "Abbrechen",
+      "confirmLogout": "Abmelden"
     },
     "emergency2fa": {
       "title": "Notfall-Deaktivierung der 2FA",

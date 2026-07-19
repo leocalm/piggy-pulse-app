@@ -363,7 +363,12 @@
         "title": "Compte déverrouillé"
       },
       "successMessage": "Votre compte a été déverrouillé. Vous pouvez maintenant vous connecter.",
-      "successTitle": "Compte déverrouillé"
+      "successTitle": "Compte déverrouillé",
+      "logoutButton": "Se déconnecter",
+      "confirmLogoutTitle": "Se déconnecter ?",
+      "confirmLogoutMessage": "Cela effacera votre session et vous ramènera à la page de connexion. Toutes les données non synchronisées sur cet appareil seront perdues.",
+      "cancelLogout": "Annuler",
+      "confirmLogout": "Se déconnecter"
     },
     "emergency2fa": {
       "title": "Désactivation 2FA d'urgence",
