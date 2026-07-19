@@ -103,7 +103,7 @@
     "openapi-typescript": "^7.13.0",
     "pg": "^8.22.0",
     "playwright": "^1.61.1",
-    "postcss": "^8.5.16",
+    "postcss": "^8.5.19",
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.9.5",
