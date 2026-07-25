@@ -109,7 +109,7 @@
     "prettier": "^3.9.5",
     "prop-types": "^15.8.1",
     "storybook": "10.4.6",
-    "stylelint": "^17.14.0",
+    "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.63.0",
