@@ -1,6 +1,17 @@
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Center, Loader, Paper, PasswordInput, Stack, Text } from '@mantine/core';
+import {
+  Alert,
+  Button,
+  Center,
+  Group,
+  Loader,
+  Modal,
+  Paper,
+  PasswordInput,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { useAuth } from '@/context/AuthContext';
 import { useEncryption } from '@/context/EncryptionContext';
 
@@ -10,11 +21,12 @@ import { useEncryption } from '@/context/EncryptionContext';
 // DEK, and push it back to the server.
 export function SessionUnlockGate({ children }: { children: ReactNode }) {
   const { t } = useTranslation('v2');
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { isUnlocked, isReady, unlockWithPassword } = useEncryption();
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   if (!isReady) {
     return (
@@ -94,9 +106,48 @@ export function SessionUnlockGate({ children }: { children: ReactNode }) {
             >
               {t('auth.unlock.submitButton', 'Unlock')}
             </Button>
+
+            <Group justify="center" mt="sm">
+              <Button
+                variant="subtle"
+                c="dimmed"
+                size="xs"
+                onClick={() => setShowLogoutConfirm(true)}
+              >
+                {t('auth.unlock.logoutButton', 'Log out')}
+              </Button>
+            </Group>
           </Stack>
         </form>
       </Paper>
+
+      <Modal
+        opened={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        title={t('auth.unlock.confirmLogoutTitle', 'Log out?')}
+        centered
+      >
+        <Text fz="sm" c="dimmed" mb="lg">
+          {t(
+            'auth.unlock.confirmLogoutMessage',
+            'This will clear your session and return you to the sign-in page. Any unsynchronized data on this device will be lost.'
+          )}
+        </Text>
+        <Group justify="flex-end">
+          <Button variant="default" onClick={() => setShowLogoutConfirm(false)}>
+            {t('auth.unlock.cancelLogout', 'Cancel')}
+          </Button>
+          <Button
+            color="red"
+            onClick={() => {
+              setShowLogoutConfirm(false);
+              logout();
+            }}
+          >
+            {t('auth.unlock.confirmLogout', 'Log out')}
+          </Button>
+        </Group>
+      </Modal>
     </Center>
   );
 }

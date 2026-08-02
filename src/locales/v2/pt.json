@@ -363,7 +363,12 @@
         "title": "Conta desbloqueada"
       },
       "successMessage": "Sua conta foi desbloqueada. Você pode entrar agora.",
-      "successTitle": "Conta desbloqueada"
+      "successTitle": "Conta desbloqueada",
+      "logoutButton": "Sair",
+      "confirmLogoutTitle": "Sair?",
+      "confirmLogoutMessage": "Isso limpará sua sessão e retornará à página de login. Quaisquer dados não sincronizados neste dispositivo serão perdidos.",
+      "cancelLogout": "Cancelar",
+      "confirmLogout": "Sair"
     },
     "emergency2fa": {
       "title": "Desativar 2FA de Emergência",
