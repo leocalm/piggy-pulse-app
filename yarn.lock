@@ -1045,18 +1045,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/dates@npm:^9.4.2":
-  version: 9.4.2
-  resolution: "@mantine/dates@npm:9.4.2"
+"@mantine/dates@npm:^9.5.1":
+  version: 9.5.1
+  resolution: "@mantine/dates@npm:9.5.1"
   dependencies:
     clsx: "npm:^2.1.1"
   peerDependencies:
-    "@mantine/core": 9.4.2
-    "@mantine/hooks": 9.4.2
+    "@mantine/core": 9.5.1
+    "@mantine/hooks": 9.5.1
     dayjs: ">=1.0.0"
     react: ^19.2.0
     react-dom: ^19.2.0
-  checksum: 10c0/328784e80e803ba37f03ce09be6ba24740ff00e523f14f048893e230af9b2f045a2f17ab87fc2566995de55f6f2a0e994e3f6943219f2f225b8981425e7c62e3
+  checksum: 10c0/f6806578b22667a727460b1e98957201a4c8d9efc7833dd724ba8518a003091217a73c1f790a727c8fe2d719727fb2f92359aa27345b2789f2ff6713a8e4fc86
   languageName: node
   linkType: hard
 
@@ -1073,12 +1073,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/hooks@npm:^9.4.1":
-  version: 9.4.1
-  resolution: "@mantine/hooks@npm:9.4.1"
+"@mantine/hooks@npm:^9.5.1":
+  version: 9.5.1
+  resolution: "@mantine/hooks@npm:9.5.1"
   peerDependencies:
     react: ^19.2.0
-  checksum: 10c0/6b07258de2bed3aa62090e95f57095dbafcbdb293105ef4b46431dfb41c1cc56b5daaa279b440ffa9716d18cc3eeaaff8a73bedd52064f07d558ac831c92a1fc
+  checksum: 10c0/c1d068397054d67ae1b262876dea000947fc6510c0b3f235747b5b1ce2918d61ce8deef26f58f2734f1e8b7be88b0312e652009d04516e25e99a4b730375b9e3
   languageName: node
   linkType: hard
 
@@ -2178,7 +2178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^6.9.1":
+"@testing-library/jest-dom@npm:6.9.1, @testing-library/jest-dom@npm:^6.9.1":
   version: 6.9.1
   resolution: "@testing-library/jest-dom@npm:6.9.1"
   dependencies:
@@ -2421,12 +2421,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^19.2.1":
-  version: 19.2.3
-  resolution: "@types/react-dom@npm:19.2.3"
+"@types/react-dom@npm:^19.2.4":
+  version: 19.2.4
+  resolution: "@types/react-dom@npm:19.2.4"
   peerDependencies:
     "@types/react": ^19.2.0
-  checksum: 10c0/b486ebe0f4e2fb35e2e108df1d8fc0927ca5d6002d5771e8a739de11239fe62d0e207c50886185253c99eb9dedfeeb956ea7429e5ba17f6693c7acb4c02f8cd1
+  checksum: 10c0/b7d854ce17bb51a3a067168268a90f0123d10dc490f63f1ff5409f07ac715febeb8f5b7b473404a9d437106571e0312fc2937a945634d590abfc9aa46a14b01b
   languageName: node
   linkType: hard
 
@@ -2631,9 +2631,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "@vitejs/plugin-react@npm:6.0.3"
+"@vitejs/plugin-react@npm:^6.0.5":
+  version: 6.0.5
+  resolution: "@vitejs/plugin-react@npm:6.0.5"
   dependencies:
     "@rolldown/pluginutils": "npm:^1.0.1"
   peerDependencies:
@@ -2645,7 +2645,7 @@ __metadata:
       optional: true
     babel-plugin-react-compiler:
       optional: true
-  checksum: 10c0/592a93178c0eec420759d529a2c964a7103860808f549f72993b96a38c287c929a0d371cacbd932c37ee2118b830348db752cc01a31d688c71d19d74567251fa
+  checksum: 10c0/fb02246fe3652d7fb746190bdd098b9e29918dfcf8c67b9c0c37300ce789e82331b2ba761530ac6ac9a61390b774d44f401787bd1c87a6c866d1e74a745cc1a0
   languageName: node
   linkType: hard
 
@@ -4519,25 +4519,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.43.0":
-  version: 12.43.0
-  resolution: "framer-motion@npm:12.43.0"
+"framer-motion@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "framer-motion@npm:13.0.0"
   dependencies:
-    motion-dom: "npm:^12.43.0"
-    motion-utils: "npm:^12.39.0"
+    motion-dom: "npm:^13.0.0"
+    motion-utils: "npm:^13.0.0"
     tslib: "npm:^2.4.0"
   peerDependencies:
-    "@emotion/is-prop-valid": "*"
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
-    "@emotion/is-prop-valid":
-      optional: true
     react:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/cce3c1daf8f53da4d9299e6bdd2a1e9f08a30e13d84ce1e468cf25285f9ec2a900c812e0aa3dce79e7453a2a3cf328a717451beef9bf0a6175a3d3794116e36a
+  checksum: 10c0/96647614a9dd1b89f3243d766772b3641ee5b84c49b59f0578090c1e66985203eb9d635c4933b5923477206f7f89e33de7359bb0d3d7b3334788fe8c64445759
   languageName: node
   linkType: hard
 
@@ -5945,19 +5942,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"motion-dom@npm:^12.43.0":
-  version: 12.43.0
-  resolution: "motion-dom@npm:12.43.0"
+"motion-dom@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "motion-dom@npm:13.0.0"
   dependencies:
-    motion-utils: "npm:^12.39.0"
-  checksum: 10c0/ef7d3f6eaa6cfeb1a939847a8b2581d119f2efc054948921ece0e2b1091f0969c15ca7707b87a46dddac7f156a714878f168e7b9f6ea189eeb7d5d9fbbb99d26
+    motion-utils: "npm:^13.0.0"
+  checksum: 10c0/3029e249515976f1eea67b26c88cfc6037e3ed3a821400e9e10a211dafad7b70f1d0e9243878dcc3011249e8fd84bc0c587a667fe750c74ad41418a85365f61e
   languageName: node
   linkType: hard
 
-"motion-utils@npm:^12.39.0":
-  version: 12.39.0
-  resolution: "motion-utils@npm:12.39.0"
-  checksum: 10c0/6d7a2a2cc0797b72410a666a9cc1c201c8e39bf9669670464e433fe1e72af5f0217154c869867b34fbadf3664cf222c0d022bbc4eed7927f201ae971918e7440
+"motion-utils@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "motion-utils@npm:13.0.0"
+  checksum: 10c0/4b279ce85f71926d668ff5966feb898b174541d16952a61c7150982388553266602ecd2a76e057530076ff8f38d06672e585639ddc73c41dd1a67d04aaa3662d
   languageName: node
   linkType: hard
 
@@ -6638,9 +6635,9 @@ __metadata:
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.0"
     "@mantine/charts": "npm:^9.4.1"
     "@mantine/core": "npm:^9.5.0"
-    "@mantine/dates": "npm:^9.4.2"
+    "@mantine/dates": "npm:^9.5.1"
     "@mantine/form": "npm:^9.4.2"
-    "@mantine/hooks": "npm:^9.4.1"
+    "@mantine/hooks": "npm:^9.5.1"
     "@mantine/notifications": "npm:^9.5.0"
     "@sentry/react": "npm:^10.69.0"
     "@sentry/vite-plugin": "npm:^5.4.0"
@@ -6657,10 +6654,10 @@ __metadata:
     "@types/node": "npm:^26.1.1"
     "@types/pg": "npm:^8.20.0"
     "@types/react": "npm:^19.2.17"
-    "@types/react-dom": "npm:^19.2.1"
+    "@types/react-dom": "npm:^19.2.4"
     "@types/react-is": "npm:^19"
     "@vitejs/plugin-basic-ssl": "npm:^2.3.0"
-    "@vitejs/plugin-react": "npm:^6.0.3"
+    "@vitejs/plugin-react": "npm:^6.0.5"
     "@vitest/browser": "npm:^4.1.10"
     "@vitest/browser-playwright": "npm:^4.1.10"
     "@vitest/coverage-v8": "npm:4.1.9"
@@ -6670,7 +6667,7 @@ __metadata:
     eslint-config-mantine: "npm:^4.0.3"
     eslint-plugin-jsx-a11y: "npm:^6.10.2"
     eslint-plugin-react: "npm:^7.37.5"
-    framer-motion: "npm:^12.43.0"
+    framer-motion: "npm:^13.0.0"
     hash-wasm: "npm:^4.12.0"
     i18next: "npm:^26.3.4"
     identity-obj-proxy: "npm:^3.0.0"
@@ -6681,7 +6678,7 @@ __metadata:
     openapi-typescript: "npm:^7.13.0"
     pg: "npm:^8.22.0"
     playwright: "npm:^1.61.1"
-    postcss: "npm:^8.5.19"
+    postcss: "npm:^8.5.25"
     postcss-preset-mantine: "npm:^1.18.0"
     postcss-simple-vars: "npm:^7.0.1"
     prettier: "npm:^3.9.5"
@@ -6690,10 +6687,10 @@ __metadata:
     react: "npm:19.2.8"
     react-dom: "npm:^19.2.8"
     react-i18next: "npm:^17.0.11"
-    react-is: "npm:^19.2.6"
+    react-is: "npm:^19.2.8"
     react-router-dom: "npm:^7.18.2"
     recharts: "npm:^3.10.1"
-    storybook: "npm:10.5.5"
+    storybook: "npm:10.5.6"
     stylelint: "npm:^17.14.1"
     stylelint-config-standard-scss: "npm:^17.0.0"
     typescript: "npm:^6.0.3"
@@ -6888,14 +6885,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.5.19":
-  version: 8.5.19
-  resolution: "postcss@npm:8.5.19"
+"postcss@npm:^8.5.25":
+  version: 8.5.25
+  resolution: "postcss@npm:8.5.25"
   dependencies:
-    nanoid: "npm:^3.3.12"
+    nanoid: "npm:^3.3.16"
     picocolors: "npm:^1.1.1"
     source-map-js: "npm:^1.2.1"
-  checksum: 10c0/302af9e4dfa8cce4f43af1798576b3a77ab7b23abac5522328c6c7a830d49b31281cba9d6071e478e6970a05ef82346d1570b8fbffae912f26a4f1a1a07f0a44
+  checksum: 10c0/0a12c1e74b456c57122e81f684e02fd98ff4d57526f794d10c996df1147158808f5ae373ac82b988c8de6cbbaa82dbd7b13803b14f5dd3cf7cc6a42ccad5c9f2
   languageName: node
   linkType: hard
 
@@ -7094,10 +7091,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^19.2.6":
-  version: 19.2.7
-  resolution: "react-is@npm:19.2.7"
-  checksum: 10c0/419fe54d5bd7fdf5414a5bb7bd9a1e0e36f9fae28ffb4cb73290fbe342bde15d8584a90d1db62547f6aa03018dce517b178a041abb522136cd4b4b51b4e94c83
+"react-is@npm:^19.2.8":
+  version: 19.2.8
+  resolution: "react-is@npm:19.2.8"
+  checksum: 10c0/ed5322c84efe035c8fc814b1614ff5ca7fb8c2872a7c045197daf99f9b1bd68f32a2c79ffcbcfcff2fc5d93924ff9f9447400898f5b1534e6302bb0736a257f0
   languageName: node
   linkType: hard
 
@@ -7777,14 +7774,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:10.5.5":
-  version: 10.5.5
-  resolution: "storybook@npm:10.5.5"
+"storybook@npm:10.5.6":
+  version: 10.5.6
+  resolution: "storybook@npm:10.5.6"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
     "@storybook/icons": "npm:^2.0.2"
     "@testing-library/dom": "npm:^10.4.1"
-    "@testing-library/jest-dom": "npm:^6.9.1"
+    "@testing-library/jest-dom": "npm:6.9.1"
     "@testing-library/user-event": "npm:^14.6.1"
     "@vitest/expect": "npm:3.2.4"
     "@vitest/spy": "npm:3.2.4"
@@ -7811,7 +7808,7 @@ __metadata:
       optional: true
   bin:
     storybook: ./dist/bin/dispatcher.js
-  checksum: 10c0/f9a373c4a81b85595a76a1d8ea8cbfd428a280c97d39dd4fc987be3d3367a2d460e195b3aa5243ed74cba42860e1d26c2129129b1318fa166a81dadd6cac387d
+  checksum: 10c0/e5fe04b5fc53760ba6bb57d29211ca56425eb7c2383a2a3dd4a364f8bc28d3896fe7db28424402cc967a1960fc429d3612e4c928ebebf17a59eb9f0cd07c383b
   languageName: node
   linkType: hard
 
