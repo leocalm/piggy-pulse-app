@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import { initialize, mswLoader } from 'msw-storybook-addon';
+import { mswLoader } from 'msw-storybook-addon/csf3';
 import { MemoryRouter } from 'react-router-dom';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { handlers } from '../src/mocks/handlers';
@@ -15,17 +15,6 @@ import { theme } from '../src/theme';
 
 import '../src/i18n';
 import '../src/global.css';
-
-// Initialize MSW
-initialize(
-  {
-    onUnhandledRequest: 'warn',
-    serviceWorker: {
-      url: '/mockServiceWorker.js',
-    },
-  },
-  handlers
-);
 
 dayjs.extend(customParseFormat);
 
@@ -73,7 +62,7 @@ const preview: Preview = {
       );
     },
   ],
-  loaders: [mswLoader],
+  loaders: [mswLoader()],
 };
 
 export default preview;
