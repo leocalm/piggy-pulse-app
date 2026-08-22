@@ -1028,9 +1028,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/core@npm:^9.5.0":
-  version: 9.5.0
-  resolution: "@mantine/core@npm:9.5.0"
+"@mantine/core@npm:^9.5.1":
+  version: 9.5.1
+  resolution: "@mantine/core@npm:9.5.1"
   dependencies:
     "@floating-ui/react": "npm:^0.27.19"
     clsx: "npm:^2.1.1"
@@ -1038,10 +1038,10 @@ __metadata:
     react-remove-scroll: "npm:^2.7.2"
     type-fest: "npm:^5.8.0"
   peerDependencies:
-    "@mantine/hooks": 9.5.0
+    "@mantine/hooks": 9.5.1
     react: ^19.2.0
     react-dom: ^19.2.0
-  checksum: 10c0/7eb456fffcfa96ce6daa129a8e08c893150dd9e33e985ebc7ca101e6ffcb762b5e57478d57a6a8f2183aa3b64377156ae551bd3d22ee15eac5b38d33e57b32f7
+  checksum: 10c0/e5901f62c079f32d8175e703be20efadfe8492756c43bb98cdaa49efcc5b45ed28fe52ceeb02637050abd514fca65a459027b88f39c03bfaabb10f830bc8af53
   languageName: node
   linkType: hard
 
@@ -6825,7 +6825,7 @@ __metadata:
     "@eslint/js": "npm:^10.0.1"
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.0"
     "@mantine/charts": "npm:^9.4.1"
-    "@mantine/core": "npm:^9.5.0"
+    "@mantine/core": "npm:^9.5.1"
     "@mantine/dates": "npm:^9.5.1"
     "@mantine/form": "npm:^9.5.1"
     "@mantine/hooks": "npm:^9.5.1"
