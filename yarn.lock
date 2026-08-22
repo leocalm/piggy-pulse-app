@@ -1015,16 +1015,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/charts@npm:^9.4.1":
-  version: 9.4.1
-  resolution: "@mantine/charts@npm:9.4.1"
+"@mantine/charts@npm:^9.5.1":
+  version: 9.5.1
+  resolution: "@mantine/charts@npm:9.5.1"
   peerDependencies:
-    "@mantine/core": 9.4.1
-    "@mantine/hooks": 9.4.1
+    "@mantine/core": 9.5.1
+    "@mantine/hooks": 9.5.1
     react: ^19.2.0
     react-dom: ^19.2.0
     recharts: ">=3.2.1"
-  checksum: 10c0/b37298f5c98ef168e4c44b3594a651e555e60f7e3aefa160616e7a93203a3ba8494bd7da491295d264e30b287a0d1609a81fdd0f28e4c18f2a4bbccd553fd7ce
+  checksum: 10c0/012d1b2f34d49da91e7225d09a57f71a60bcf22e20574db1fa96d1e79018b636a27d719fe45afd63ee03780ad75f5fcf754f6615cfa3d6c79d7770186e5e0740
   languageName: node
   linkType: hard
 
@@ -6824,7 +6824,7 @@ __metadata:
     "@dnd-kit/utilities": "npm:^3.2.2"
     "@eslint/js": "npm:^10.0.1"
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.7.0"
-    "@mantine/charts": "npm:^9.4.1"
+    "@mantine/charts": "npm:^9.5.1"
     "@mantine/core": "npm:^9.5.0"
     "@mantine/dates": "npm:^9.5.1"
     "@mantine/form": "npm:^9.5.1"
